@@ -1,0 +1,251 @@
+.userSelf{
+    /*background-color: forestgreen;*/
+    text-align: center;
+}
+.userSelf .setImg{
+    position: absolute;
+    top:.5rem;
+    right:1.2rem;
+}
+.userSelf .setImg img{
+    width:1rem;
+    height:1rem;
+}
+.userSelf .allHart{
+    position: absolute;
+    top:3rem;
+    right:1rem;
+    padding:.2rem;
+    border:1px solid #eee;
+}
+.userSelf .allHart img{
+    width:1rem;
+    height:1rem;
+}
+.userSelf .setUserImg{
+    padding:1rem;
+    border-bottom: 1px solid #eee;
+}
+.userSelf .setUserImg img{
+    width:3rem;
+    height:3rem;
+    border:1px solid #eee;
+    padding:0.5rem;
+    border-radius: 50%;
+}
+.userLogin{
+    padding:0 3rem;
+    text-align: center;
+    /*background-color: forestgreen;*/
+}
+.userLogin .formUser p{
+    margin:1rem 0rem;
+    /*background-color: royalblue;*/
+}
+.userLogin .formUser p label{
+   font-size: .65rem;
+}
+.userLogin .formUser input{
+    width:80%;
+    font-size: .65rem;
+    margin-left:.5rem;
+    border-bottom: 1px solid #eee;
+}
+.userLogin .formUser p>span{
+    /*border-bottom: 1px solid #eee;*/
+    cursor: pointer;
+}
+.userLogin .setAcout{
+    width:85%;
+    text-align: center;
+    background-color: forestgreen;
+    height:1.8rem;
+    line-height:1.8rem;
+    border-radius: 8px;
+    color:#fff;
+    font-size: .65rem;
+}
+/*账户设置*/
+.selfMeg{
+    font-size:0.65rem;
+}
+.selfAll{
+    text-align: center;
+    margin-top:.5rem;
+}
+.selfAll p{
+    margin:.6rem 0;
+    line-height:.6rem;
+}
+.selfAll input{
+    width:65%;
+    height:1rem;
+    font-size: .6rem;
+    line-height:1rem;
+    padding:0 .3rem;
+    border-radius: 5px;
+    border:1px solid #eee;
+}
+.selfAll label{
+    font-size:.6rem;
+}
+.selfAll .selfSure button{
+    width:42%;
+    height:1.2rem;
+    color:#fff;
+    font-size:.65rem;
+    border-radius: 8px;
+    background-color: #13b5b1;
+}
+.selfAll .selfSure .cancel{
+    background: #ff8030;
+}
+/*行程列表*/
+
+.return{
+    height:1.925rem;
+    line-height:1.925rem;
+    width:100%;
+    color:#fff;
+    font-size:.85rem;
+    text-align: center;
+    background-color: #13b5b1;
+    position: fixed;
+    left:0;
+    top:0;
+    z-index: 100;
+}
+
+.return .returnBtn{
+    background:url(../img/icon01.png) no-repeat;
+    background-size: .625rem 1.075rem;
+    width: .625rem;
+    height: 1.075rem;
+    position: absolute;
+    left:.5rem;
+    top:.4rem;
+    display: inline-block;
+}
+.travelListAll{
+    margin-top:2.3rem;
+    height:2rem;
+    line-height:2rem;
+}
+.travelListAll .listTotal{
+    border-right:1px solid #eee;
+    display: inline-block;
+    margin:0 .3rem;
+    width:65%;
+    font-size:.7rem;
+    margin-right:.01rem;
+}
+.travelListAll i{
+    font-size:.65rem;
+}
+.travelListDetail .travelListDetailList{
+
+}
+.travelListDetail .travelListDetailList>li{
+    position:relative;
+    background-color: #eee;
+  border-bottom: 2px solid #ddd;
+
+}
+.travelListDetail .travelListDetailList .carMegs{
+    display: inline-block;
+    margin-left: .6rem;
+    margin-top:.6rem;
+}
+.travelListDetail .travelListDetailList .carMegs p{
+    font-size:.65rem;
+    height:1rem;
+    line-height:1rem;
+}
+.travelListDetail .travelListDetailList .carMegs p i{
+    font-size:.65rem;
+    color:#ff8030;
+    line-height:1rem;
+    margin-right:.5rem;
+}
+.travelListDetail .travelListDetailList>li img{
+    width:2rem;
+    height:2rem;
+    border-radius: 50%;
+    border:1px solid #ddd;
+    /*padding:0.2rem;*/
+    position: relative;
+    left:.3rem;
+    top:-0.8rem;
+
+}
+.travelListDetail .travelListDetailList>li .carMegDetail{
+    position: absolute;
+    right:.3rem;
+    top:1.6rem;
+    width:3rem;
+    height:1.25rem;
+    background-color: #13b5b1;
+    color:#fff;
+    border-radius: 8px;
+}
+/*行车详情*/
+.driveDetail{
+    margin-top:1.925rem;
+
+    background-color: greenyellow;
+}
+.driveDetail>div{
+    width:32%;
+
+}
+.driveDetail .aboutCarDetail{
+    margin-left:.4rem;
+}
+
+.driveDetail  p,.driveDetail  span,.driveDetail  i{
+    font-size:.65rem;
+    height:1rem;
+    line-height:1rem;
+}
+.driveDetail  i{
+    color:red;
+}
+.driveDetail .aboutDriverDetail{
+    font-size:.75rem;
+}
+.driveDetail .carPhoto img{
+    width:5rem;
+    height:2rem;
+}
+.driveDetail>div{
+    display: inline-block;
+}
+.contactAll{
+    /*background: rebeccapurple;*/
+}
+.contactAll>button{
+    width:24%;
+
+    font-size:.5rem;
+    height:1rem;
+    color:#fff;
+    margin-top: .2rem;
+    background: #ff8030;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
