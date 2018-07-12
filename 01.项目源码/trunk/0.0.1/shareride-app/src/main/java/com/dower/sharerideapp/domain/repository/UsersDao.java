@@ -2,6 +2,7 @@ package com.dower.sharerideapp.domain.repository;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @param
@@ -12,4 +13,5 @@ import java.util.List;
 public interface UsersDao {
     public List<HashMap<String,Object>> queryUserList();
     public List<HashMap<String,Object>> queryUser();
+    public HashMap<String,Object> queryUserinfoByOpenid(Map<String,Object> param);
 }

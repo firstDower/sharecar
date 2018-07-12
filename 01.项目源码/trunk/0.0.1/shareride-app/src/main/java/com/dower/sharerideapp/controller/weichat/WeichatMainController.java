@@ -1,11 +1,15 @@
 package com.dower.sharerideapp.controller.weichat;
 
 import com.alibaba.fastjson.JSONObject;
+import com.dower.sharerideapp.service.UsersService;
 import com.dower.sharerideapp.utils.HttpRequestUtil;
+import com.dower.sharerideapp.utils.Result;
 import com.dower.sharerideapp.utils.weichat.SignUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -15,6 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -24,9 +29,12 @@ import java.util.Map;
  * @Date: Created in 17:02   2018/7/10
  */
 @Controller
-@RequestMapping("/weChatSend")
 public class WeichatMainController {
     private static final Logger LOGGER = LogManager.getLogger(WeichatMainController.class);
+
+    @Autowired
+    UsersService usersService;
+
     /*****
      * 确认请求来自微信服务器
      *
@@ -38,7 +46,7 @@ public class WeichatMainController {
      * @return
      */
     @ResponseBody
-    @RequestMapping(value = "/valid", method = RequestMethod.GET)
+    @RequestMapping(value = "/weChatSend/valid", method = RequestMethod.GET)
     public String doGetMethod(HttpServletRequest request, HttpServletResponse response){
         String signature = request.getParameter("signature");
         String timestamp = request.getParameter("timestamp");
@@ -53,25 +61,38 @@ public class WeichatMainController {
     }
 
     @RequestMapping("/rediractHomeUrl")
-    public ModelAndView rediractHomeUrl(String code, String state, HttpServletRequest request, HttpServletResponse response)   {
+    public String rediractHomeUrl(ModelMap modelMap, String code, String state, HttpServletRequest request, HttpServletResponse response)   {
         // 将请求、响应的编码均设置为UTF-8（防止中文乱码）
         response.setCharacterEncoding("utf-8");
+        String url = "index";
         try {
+
             // 调用核心业务类接收消息、处理消息
             LOGGER.info("code:"+code+";state:"+state);
-            String openid = getOpenId(code);
-            LOGGER.info("openid=========="+openid);
+            String openId = getOpenId(code);
+            LOGGER.info("openId=========="+openId);
 
-            ModelAndView mv = new ModelAndView();
-            //封装要显示到视图的数据
-            mv.addObject("openid",openid);
-            //视图名
-            mv.setViewName("fileList");
-            response.sendRedirect("http://demo.doweryouxia.com/demo.app.vc/fileList.html?openid="+openid);
-        } catch (IOException e) {
+            //数据库查询用户信息
+            Map<String,Object> param = new HashMap<>();
+            param.put("openId",openId);
+            HashMap<String,Object> result = usersService.queryUserinfoByOpenid(param);
+            if(result!=null){
+                String userState = String.valueOf(result.get("NUM_STATE"));
+                if("1".equals(userState)){
+                    url = "index";
+                }else {
+                    url = "register";
+                }
+            }else {
+                url = "register";
+            }
+
+
+            modelMap.addAttribute("openid",openId);
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        return null;
+        return url;
     }
 
     /**

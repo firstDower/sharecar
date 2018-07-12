@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -48,5 +49,13 @@ public class UsersService {
             e.printStackTrace();
         }
         return result;
+    }
+
+    /**
+     * 根据openid获取用户信息
+     * @return
+     */
+    public HashMap<String,Object> queryUserinfoByOpenid(Map<String,Object> param){
+        return insurDao.queryUserinfoByOpenid(param);
     }
 }
