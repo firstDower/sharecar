@@ -75,20 +75,27 @@ public class WeichatMainController {
             //数据库查询用户信息
             Map<String,Object> param = new HashMap<>();
             param.put("openId",openId);
-            HashMap<String,Object> result = usersService.queryUserinfoByOpenid(param);
-            if(result!=null){
-                String userState = String.valueOf(result.get("NUM_STATE"));
-                if("1".equals(userState)){
-                    url = "index";
+
+            JSONObject jsonObjectState = JSONObject.parseObject(state);
+            String redictNo = jsonObjectState.getString("redictNo");
+            if("001".equals(redictNo)){
+                HashMap<String,Object> result = usersService.queryUserinfoByOpenid(param);
+                if(result!=null){
+                    String userState = String.valueOf(result.get("NUM_STATE"));
+                    if("1".equals(userState)){
+                        url = "index";
+                    }else {
+                        url = "register";
+                    }
                 }else {
                     url = "register";
                 }
-            }else {
-                url = "register";
+                modelMap.addAttribute("openid",openId);
+            }else if("002".equals(redictNo)){
+                url = "testPay";
+                modelMap.addAttribute("openid",openId);
             }
 
-
-            modelMap.addAttribute("openid",openId);
         } catch (Exception e) {
             e.printStackTrace();
         }

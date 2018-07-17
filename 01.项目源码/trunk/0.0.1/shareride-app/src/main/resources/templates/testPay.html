@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.springframework.org/schema/jdbc">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="js/jquery-1.11.1.min.js"></script>
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+</head>
+<body>
+<h2>测试微信支付</h2>
+<div><button id="payButton">支付</button></div>
+<script th:inline="javascript">
+    var openid = [[${openid}]];
+    sessionStorage["openid"] = openid;
+    
+    $("#payButton").click(function () {
+        $.ajax({
+            type : "POST",
+            url : "http://demo.doweryouxia.com/shareride-app/wxpay",
+            dataType : "json",
+            data : {openid:openid},
+            success : function(data) {
+                //alert(JSON.stringify(data));
+                onBridgeReady(data);
+            }
+        });
+    });
+
+
+
+    function onBridgeReady(data){
+        WeixinJSBridge.invoke(
+            'getBrandWCPayRequest', {
+                "appId":data.appId,     //公众号名称，由商户传入
+                "timeStamp":data.timeStamp,         //时间戳，自1970年以来的秒数
+                "nonceStr":data.nonceStr, //随机串
+                "package":data.package,
+                "signType":data.signType,         //微信签名方式：
+                "paySign":data.paySign //微信签名
+            },
+            function(res){
+                if(res.err_msg == "get_brand_wcpay_request:ok" ){
+                    alert("谢谢！");
+                }
+            });
+    }
+    if (typeof WeixinJSBridge == "undefined"){
+        if( document.addEventListener ){
+            document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
+        }else if (document.attachEvent){
+            document.attachEvent('WeixinJSBridgeReady', onBridgeReady);
+            document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
+        }
+    }else{
+        onBridgeReady();
+    }
+    
+</script>
+</body>
+</html>

@@ -18,6 +18,11 @@ public class WebController {
         return "index";
     }
 
+    @RequestMapping("/testPay")
+    public String testPay() {
+        return "testPay";
+    }
+
     @RequestMapping("/orderList")
     public String index1() {
         return "order/orderList";
