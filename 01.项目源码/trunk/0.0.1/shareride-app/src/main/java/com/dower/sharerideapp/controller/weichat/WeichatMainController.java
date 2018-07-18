@@ -95,7 +95,7 @@ public class WeichatMainController {
                 url = "testPay";
                 modelMap.addAttribute("openid",openId);
             }
-
+            LOGGER.info("url:"+url);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -115,9 +115,8 @@ public class WeichatMainController {
         params.put("code", code);
         String result = HttpRequestUtil.request("https://api.weixin.qq.com/sns/oauth2/access_token", params,false);
         JSONObject jsonObject = JSONObject.parseObject(result);
-
+        LOGGER.info("获取openid，jsonObject="+jsonObject);
         String openid = jsonObject.get("openid").toString();
-
         return openid;
     }
 }

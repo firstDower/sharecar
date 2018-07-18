@@ -5,10 +5,19 @@
     <title>Title</title>
     <script src="js/jquery-1.11.1.min.js"></script>
     <script src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+    <style>
+        .h2{ font-size: 15px;height: inherit;text-align: center;}
+        .black{height: 600px;}
+        .body{background-color: bisque; width: 100%;height: 100%}
+        .payButton{ background-color: blueviolet;width: 50%;text-align: center;height: 150px;font-size: 60px}
+        .backButton{ background-color: red;width: 50%;text-align: center;height: 150px;font-size: 60px}
+    </style>
 </head>
 <body>
-<h2>测试微信支付</h2>
-<div><button id="payButton">支付</button></div>
+<h2 class="h2" >测试微信支付</h2>
+<div class="black"></div>
+<div class="body"><button class="payButton" id="payButton">支付</button><button class="backButton" id="back">返回</button></div>
+
 <script th:inline="javascript">
     var openid = [[${openid}]];
     sessionStorage["openid"] = openid;
@@ -21,7 +30,7 @@
             data : {openid:openid},
             success : function(data) {
                 //alert(JSON.stringify(data));
-                onBridgeReady(data);
+                pay(data);
             }
         });
     });
@@ -44,16 +53,21 @@
                 }
             });
     }
-    if (typeof WeixinJSBridge == "undefined"){
-        if( document.addEventListener ){
-            document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
-        }else if (document.attachEvent){
-            document.attachEvent('WeixinJSBridgeReady', onBridgeReady);
-            document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
+    function pay(data){
+
+        if (typeof WeixinJSBridge == "undefined"){
+            if( document.addEventListener ){
+                document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
+            }else if (document.attachEvent){
+                document.attachEvent('WeixinJSBridgeReady', onBridgeReady);
+                document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
+            }
+        }else{
+            onBridgeReady(data);
         }
-    }else{
-        onBridgeReady();
+
     }
+
     
 </script>
 </body>

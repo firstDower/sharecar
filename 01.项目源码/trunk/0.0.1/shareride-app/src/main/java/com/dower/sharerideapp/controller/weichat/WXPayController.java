@@ -88,7 +88,7 @@ public class WXPayController {
             data.put("body", "wangweiwangwei");
             data.put("out_trade_no", WXPayUtil.generateNonceStr());
             data.put("fee_type", "CNY");
-            data.put("total_fee", "1");
+            data.put("total_fee", "20");
             data.put("spbill_create_ip", "59.110.243.138");
             data.put("notify_url", "http://demo.doweryouxia.com/shareride-app/notify");
             data.put("trade_type", "JSAPI");  // 此处指定为公众号支付
