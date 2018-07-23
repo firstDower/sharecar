@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.springframework.org/schema/jdbc">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta charset="UTF-8">
+    <title>个人中心</title>
+    <link rel="stylesheet" href="css/commor.css">
+    <link rel="stylesheet" href="css/myCss.css">
+    <script src="js/jquery-1.11.1.min.js"></script>
+    <script src="js/person/myInfo.js"></script>
+</head>
+<body>
+<div class="User">
+    <a href="javascript:;" class="userSet"></a>
+    <p class="userImage">
+        <img src="img/user.png" alt="">
+    </p>
+    <div class="userHeart">
+        <span>500</span>
+        <i></i>
+    </div>
+</div>
+<div class="userLogin">
+    <form action="" class="loginForm">
+        <div class="myLogin myLoginName">
+            <label for="userName">姓名</label>
+            <input type="text" value="张三" id="userName">
+        </div>
+        <div class="myLogin">
+            <label for="userPhone">手机</label>
+            <input type="text" value="15555551649" id="userPhone">
+        </div>
+        <div class="myLogin logTrip">
+            <p>
+                <a href="javascript:;">发起行程</a><b class="logTripGo"></b>
+            </p>
+            <p>
+                <a href="javascript:;">我的行程</a><b class="logTripGo"></b>
+            </p>
+        </div>
+        <div class="myLogin">
+            <button class="logBtn">成为车主</button>
+        </div>
+
+    </form>
+</div>
+<script>
+    var userInfo = [[${userInfo}]];
+    console.log(userInfo)
+</script>
+</body>
+</html>

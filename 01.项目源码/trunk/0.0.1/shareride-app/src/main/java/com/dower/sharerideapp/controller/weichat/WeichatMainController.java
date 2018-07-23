@@ -1,6 +1,7 @@
 package com.dower.sharerideapp.controller.weichat;
 
 import com.alibaba.fastjson.JSONObject;
+import com.dower.sharerideapp.core.serverdb.model.NntUsers;
 import com.dower.sharerideapp.service.UsersService;
 import com.dower.sharerideapp.utils.HttpRequestUtil;
 import com.dower.sharerideapp.utils.Result;
@@ -75,22 +76,16 @@ public class WeichatMainController {
             //数据库查询用户信息
             Map<String,Object> param = new HashMap<>();
             param.put("openId",openId);
+            NntUsers nntUsers = new NntUsers();
+            nntUsers.setVcOpenid(openId);
+            NntUsers userInfo = usersService.selectUsersBuOpenid(nntUsers);
+            Integer numState = userInfo.getNumState();
 
             JSONObject jsonObjectState = JSONObject.parseObject(state);
             String redictNo = jsonObjectState.getString("redictNo");
             if("001".equals(redictNo)){
-                HashMap<String,Object> result = usersService.queryUserinfoByOpenid(param);
-                if(result!=null){
-                    String userState = String.valueOf(result.get("NUM_STATE"));
-                    if("1".equals(userState)){
-                        url = "index";
-                    }else {
-                        url = "register";
-                    }
-                }else {
-                    url = "register";
-                }
-                modelMap.addAttribute("openid",openId);
+                url = "person/myInfo";
+                modelMap.addAttribute("userInfo",JSONObject.toJSONString(userInfo));
             }else if("002".equals(redictNo)){
                 url = "testPay";
                 modelMap.addAttribute("openid",openId);

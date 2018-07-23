@@ -1,9 +1,11 @@
 package com.dower.sharerideapp.service;
 
 
-import com.dower.sharerideapp.controller.ReposiController;
-import com.dower.sharerideapp.domain.repository.UsersDao;
+import com.dower.sharerideapp.core.repository.UsersDao;
 
+import com.dower.sharerideapp.core.serverdb.dao.NntUsersMapper;
+import com.dower.sharerideapp.core.serverdb.model.NntUsers;
+import com.dower.sharerideapp.core.serverdb.model.NntUsersExample;
 import com.dower.sharerideapp.utils.Result;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -25,6 +27,22 @@ public class UsersService {
     private static final Logger LOGGER = LogManager.getLogger(UsersService.class);
     @Autowired
     private UsersDao insurDao;
+    @Autowired
+    private NntUsersMapper nntUsersMapper;
+
+    public NntUsers selectUsersBuOpenid(NntUsers nntUsers){
+        NntUsersExample example = new NntUsersExample();
+        NntUsersExample.Criteria criteria = example.createCriteria();
+        criteria.andVcOpenidEqualTo(nntUsers.getVcOpenid());
+        List<NntUsers> Users = nntUsersMapper.selectByExample(example);
+        LOGGER.info("查询结果返回="+Users);
+        if(Users.size()==0){
+            int i = nntUsersMapper.insertSelective(nntUsers);
+            Users = nntUsersMapper.selectByExample(example);
+        }
+        return Users.get(0);
+    }
+
     public Result getInsureInfo(){
         Result result = new Result();
         try {
@@ -56,6 +74,8 @@ public class UsersService {
      * @return
      */
     public HashMap<String,Object> queryUserinfoByOpenid(Map<String,Object> param){
-        return insurDao.queryUserinfoByOpenid(param);
+        HashMap<String, Object> userInfo = insurDao.queryUserinfoByOpenid(param);
+
+        return userInfo;
     }
 }

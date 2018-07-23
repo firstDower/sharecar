@@ -10,7 +10,7 @@ ul,li,ol{list-style:none outside none;}
 h1,h2,h3,h4,h5,h6{font-weight:500;}
 img{ border:0 none; vertical-align:middle;}
 input,select{vertical-align:middle;}
-a{text-decoration:none;}
+a{text-decoration:none;color:#000;}
 table { border-collapse:collapse; }
 address, caption, cite, code, dfn, th, var, optgroup{font-style: inherit;font-weight: inherit;}
 em,i{font-style: normal;font-weight: normal;}
@@ -33,11 +33,17 @@ q:before, q:after{content:'';content:none;}
 .clearfix:after{clear:both;}
 /* For IE 6/7 (trigger hasLayout) */
 .clearfix{zoom:1;}
-.bgc{background:#f1f1f1;}
-
+button{
+    cursor: pointer;
+    border-radius: 5px;
+}
 .fr{
     float:right;
 }
 .fl{
     float:left;
+}
+input{
+    /*border-radius: 6px;*/
+    padding-left:1%;
 }

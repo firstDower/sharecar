@@ -1,0 +1,411 @@
+.UserRegister{
+    /*background: fuchsia;*/
+    padding:0 1rem;
+    margin: 1rem 0;
+
+}
+.UserRegister .regForm .register{
+    height: 1.2rem;
+    line-height:1.2rem;
+    font-size:.75rem;
+    text-align: center;
+}
+.UserRegister .regForm .myReg{
+    margin:.5rem 0;
+}
+.UserRegister .regForm .myReg label{
+    width:29%;
+    display: inline-block;
+    height:1.7rem;
+    line-height:1.7rem;
+    font-size: .75rem;
+    text-align: right;
+
+}
+.UserRegister .regForm .myReg input{
+    border:1px solid #999;
+    width:68%;
+    height:1.7rem;
+    line-height:1.7rem;
+    font-size: .75rem;
+    color:#333;
+}
+.UserRegister .regForm .myReg .regBtn{
+    background: #13b5b1;
+    height:2rem;
+    line-height:2rem;
+    width:100%;
+    font-size: .75rem;
+    color:#fff;
+}
+.UserRegister .regForm .myReg>span{
+    font-size: .75rem;
+
+}
+.UserRegister .regForm .myReg>span>a{
+    color:red;
+    font-size: .75rem;
+}
+/*登录页面*/
+.User{
+    background: #fff;
+    position: relative;
+
+}
+.User .userSet{
+    background: green;
+    display: inline-block;
+    width:1rem;
+    height:1rem;
+    position:absolute;
+    right:.7rem;
+    top:.5rem;
+    background: url("../img/setting.png") no-repeat;
+    background-size: 1rem 1rem;
+    color:#13b5b1;
+}
+.User .userImage{
+    background: #fff;
+    text-align: center;
+    padding:1rem 0;
+    border-bottom: 1px solid #eee;
+}
+.User .userImage img{
+    width:3rem;
+    height:3rem;
+    background: white;
+    border-radius:50% ;
+}
+
+
+.User .userHeart{
+    position:absolute;
+    right:.5rem;
+    bottom:.5rem;
+    padding:.2rem;
+    border:1px solid #eee;
+}
+.User  .userHeart span{
+    font-size:.5rem;
+    color:#333;
+    margin-bottom: .1rem;
+}
+.User  .userHeart i{
+    display: block;
+    width:1rem;
+    height:1rem;
+    /*background: peachpuff;*/
+    background: url("../img/zan.png") no-repeat;
+    background-size: 1rem 1rem;
+}
+
+.userLogin{
+
+    padding:0.5rem 10%;
+    padding-bottom: 0;
+}
+.userLogin .myLoginName{
+    margin-top:.5rem;
+}
+.userLogin .loginForm .myLogin{
+    margin-bottom:1rem;
+}
+.userLogin .loginForm .myLogin label{
+    font-size: .75rem;
+    height:1.7rem;
+    line-height:1.7rem;
+    width:12%;
+    display: inline-block;
+}
+.userLogin .loginForm .myLogin  input{
+    font-size: .75rem;
+    height:1.7rem;
+    width:87%;
+    float:right;
+    text-align: center;
+    border-bottom:1px solid #999;
+    color:#333;
+    line-height:1.7rem;
+}
+.userLogin .loginForm .myLogin .logBtn{
+    width:100%;
+    background: #13b5b1;
+    height:2rem;
+    line-height:2rem;
+    color:#fff;
+    font-size:.75rem;
+
+}
+.userLogin .loginForm  .logTrip{
+    text-align: center;
+}
+.userLogin .loginForm  .logTrip a{
+    font-size:.75rem;
+    height:1.7rem;
+    display: inline-block;
+    line-height:1.7rem;
+    padding:0 0.3rem;
+    border-bottom: 1px solid #eee;
+}
+.userLogin .loginForm  .logTrip .logTripGo {
+    display: inline-block;
+    width: .65rem;
+    height: .6rem;
+    background: url("../img/arrow.png") no-repeat;
+    background-size: .65rem .65rem;
+}
+/*我的行程*/
+.headerRet {
+    width:100%;
+    height:1.925rem;
+    line-height:1.925rem;
+    text-align: center;
+    padding-left:2%;
+    padding-right:2%;
+    position:fixed;
+    top:0;
+    color:#fff;
+    left:0;
+    font-size:.85rem;
+    background-color: #13b5b1;
+}
+.headerRet .BackBtn{
+    display: inline-block;
+    background: url("../img/leftArrow.png") no-repeat;
+    background-size: .625rem 1.075rem;
+    width:.625rem;
+    height:1.075rem;
+    float:left;
+    margin-top:.5rem;
+}
+.myTrip{
+    margin-top:1.925rem;
+    /*padding:0 2%;*/
+}
+.myTrip .myTripList{
+    background: #ffffff;
+
+}
+.myTrip .myTripList>li{
+    float:left;
+    width:33.11%;
+    height:1.7rem;
+    line-height:1.7rem;
+    text-align: center;
+    border-right:1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    border-top:1px solid #ddd;
+}
+.myTrip .myTripList>li.myTripListLast{
+    border-right:0;
+}
+.myTrip .myTripList>li>a{
+    display: inline-block;
+
+    width:100%;
+    height:100%;
+    font-size:.75rem;
+}
+.myTrip .myTripListTab{
+    padding:0 2%;
+}
+.myTrip .myTripListTab>li{
+    border-bottom: 1px solid #ddd;
+    background: #fff;
+    padding:.3rem 0;
+    vertical-align: middle;
+}
+.myTrip .myTripListTab>li .myTripListTabLi{
+    float:left;
+    width:30%;
+}
+.myTrip .myTripListTab>li .myTripListTabLi span{
+    font-size:.65rem;
+    height:1rem;
+    color:#333;
+    line-height:1rem;
+
+}
+.myTrip .myTripListTab li .myTripCarImg{
+
+    width:20%;
+    text-align: left;
+    margin-top:.4rem;
+}
+.myTrip .myTripListTab li .myTripCarImg img{
+    height:2rem;
+    width:2rem;
+}
+.myTrip .myTripListTab li .myTripMon{
+    width:20%;
+}
+.myTrip .myTripListTab li .myTripMon>span{
+    margin:.3rem;
+    display: inline-block;
+}
+.myTrip .myTripListTab li .myTripMon .myTripEdit,.myTrip .myTripListTab li .myTripMon .myTripDetailBtn{
+    width:100%;
+    height:1rem;
+    line-height:1rem;
+    color:#fff;
+    font-size:.55rem;
+    background: #13b5b1;
+}
+.myTrip .myTripListTab li .myTripMon .myTripDetailBtn{
+    background: #ff5a5a;
+}
+/*发起行程*/
+.goTripAll{
+    margin-top:1.925rem;
+    padding:2%;
+
+}
+.goTripAll p .tripAllSingle{
+    width:26%;
+    display: inline-block;
+    color:#333;
+    font-size:.75rem;
+    height:1.7rem;
+    line-height:1.7rem;
+    float:left;
+}
+.goTripAll p{
+    width:100%;
+    margin:.5rem 0;
+}
+.goTripAll .goTripCourse{
+    line-height:1.7rem;
+    text-align: center;
+    font-size: .75rem;
+}
+.goTripAll .goTripCourse .goTripCouCome,.goTripAll .goTripCourse .goTripCouGo{
+    width:40%;
+    float: left;
+    border:1px solid #999;
+    height:1.7rem;
+    line-height:1.7rem;
+    font-size: .75rem;
+    color:#333;
+}
+.goTripAll .goTripCourse .goTripCouGo{
+    float:right;
+
+
+}
+
+
+.goTripAll p .tripAllPle{
+    width:72%;
+    border:1px solid #999;
+    height:1.7rem;
+    font-size:.75rem;
+    line-height:1.7rem;
+    color:#333;
+
+}
+.goTripAll p .carAndP{
+    font-size: .75rem;
+    margin-right:.5rem;
+}
+.goTripAll p .radioCar{
+    width:.6rem;
+    height:.6rem;
+    position:relative;
+    top:-0.1rem;
+    margin-right:.2rem;
+
+}
+.goTripAll p .goTripAllBtn{
+    display: block;
+    width:100%;
+    height:2rem;
+    line-height:2rem;
+    font-size: .75rem;
+    background: #13b5b1;
+    border-radius: 5px;
+    text-align: center;
+    color:#fff;
+}
+.goTripAll p.goTripEdition{
+    margin:1rem 0rem;
+}
+.goTripAll .goTripEdition .downEdition{
+    width:2rem;
+    height:2rem;
+    margin-right:.5rem;
+}
+/*编辑行程*/
+.ediTrip p.ediTripSOD .ediSure,.ediTrip p.ediTripSOD .editDet{
+    width:50%;
+    height:2rem;
+    line-height:2rem;
+    background: #13b5b1;
+    color:#fff;
+    font-size:.75rem;
+}
+.ediTrip p.ediTripSOD .editDet{
+    background: #ff8030;
+}
+/*设置个人信息*/
+.setPerInfo{
+    margin-top:1.925rem;
+    padding:2%;
+    padding-bottom: 0;
+}
+.setPerInfo p{
+    margin:.5rem 0;
+}
+.setPerInfo p .setPerInfoLi,.setPerInfo p .setPerInfoK{
+    width:21%;
+    height:1.7rem;
+    display: inline-block;
+    line-height:1.7rem;
+    font-size:.75rem;
+
+
+}
+.setPerInfo p .setPerInfoK{
+    width:77%;
+    padding-left:1%;
+    float: right;
+    border:1px solid #999;
+}
+.setPerInfo p .setPerInfoSureBtn{
+    width:100%;
+    height:2rem;
+    line-height:2rem;
+    font-size: .75rem;
+    color:#fff;
+    background: #13b5b1;
+}
+/*批量结算*/
+.settlement{
+    margin-top:1.925rem;
+}
+.settlement .settlementList{
+    /*background: #ff5a5a;*/
+    width:100%;
+}
+.settlement .settlementList tr{
+    height:1.7rem;
+    line-height:1.7rem;
+}
+.settlement .settlementList td{
+    border-right:1px solid #999;
+    border-bottom: 1px solid #999;
+    text-align: center;
+    color:#333;
+    font-size:.75rem;
+}
+.settlement .settlementList td a{
+    color:#fff;
+    display: inline-block;
+    width:3rem;
+    background: #13b5b1;
+    height:1.2rem;
+    line-height:1.2rem;
+    border-radius: 5px;
+}
+.settlement .settlementList td .settlementListBtn{
+    background: #ff8030;
+}
