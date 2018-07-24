@@ -363,6 +363,356 @@ public class NntUserinfoExample {
             addCriterion("VC_IDCARD_NUMBER not between", value1, value2, "vcIdcardNumber");
             return (Criteria) this;
         }
+
+        public Criteria andVcDriverLicenseNoIsNull() {
+            addCriterion("VC_DRIVER_LICENSE_NO is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcDriverLicenseNoIsNotNull() {
+            addCriterion("VC_DRIVER_LICENSE_NO is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcDriverLicenseNoEqualTo(String value) {
+            addCriterion("VC_DRIVER_LICENSE_NO =", value, "vcDriverLicenseNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcDriverLicenseNoNotEqualTo(String value) {
+            addCriterion("VC_DRIVER_LICENSE_NO <>", value, "vcDriverLicenseNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcDriverLicenseNoGreaterThan(String value) {
+            addCriterion("VC_DRIVER_LICENSE_NO >", value, "vcDriverLicenseNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcDriverLicenseNoGreaterThanOrEqualTo(String value) {
+            addCriterion("VC_DRIVER_LICENSE_NO >=", value, "vcDriverLicenseNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcDriverLicenseNoLessThan(String value) {
+            addCriterion("VC_DRIVER_LICENSE_NO <", value, "vcDriverLicenseNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcDriverLicenseNoLessThanOrEqualTo(String value) {
+            addCriterion("VC_DRIVER_LICENSE_NO <=", value, "vcDriverLicenseNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcDriverLicenseNoLike(String value) {
+            addCriterion("VC_DRIVER_LICENSE_NO like", value, "vcDriverLicenseNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcDriverLicenseNoNotLike(String value) {
+            addCriterion("VC_DRIVER_LICENSE_NO not like", value, "vcDriverLicenseNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcDriverLicenseNoIn(List<String> values) {
+            addCriterion("VC_DRIVER_LICENSE_NO in", values, "vcDriverLicenseNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcDriverLicenseNoNotIn(List<String> values) {
+            addCriterion("VC_DRIVER_LICENSE_NO not in", values, "vcDriverLicenseNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcDriverLicenseNoBetween(String value1, String value2) {
+            addCriterion("VC_DRIVER_LICENSE_NO between", value1, value2, "vcDriverLicenseNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcDriverLicenseNoNotBetween(String value1, String value2) {
+            addCriterion("VC_DRIVER_LICENSE_NO not between", value1, value2, "vcDriverLicenseNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcIdcardPicturePathAIsNull() {
+            addCriterion("VC_IDCARD_PICTURE_PATH_A is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcIdcardPicturePathAIsNotNull() {
+            addCriterion("VC_IDCARD_PICTURE_PATH_A is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcIdcardPicturePathAEqualTo(String value) {
+            addCriterion("VC_IDCARD_PICTURE_PATH_A =", value, "vcIdcardPicturePathA");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcIdcardPicturePathANotEqualTo(String value) {
+            addCriterion("VC_IDCARD_PICTURE_PATH_A <>", value, "vcIdcardPicturePathA");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcIdcardPicturePathAGreaterThan(String value) {
+            addCriterion("VC_IDCARD_PICTURE_PATH_A >", value, "vcIdcardPicturePathA");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcIdcardPicturePathAGreaterThanOrEqualTo(String value) {
+            addCriterion("VC_IDCARD_PICTURE_PATH_A >=", value, "vcIdcardPicturePathA");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcIdcardPicturePathALessThan(String value) {
+            addCriterion("VC_IDCARD_PICTURE_PATH_A <", value, "vcIdcardPicturePathA");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcIdcardPicturePathALessThanOrEqualTo(String value) {
+            addCriterion("VC_IDCARD_PICTURE_PATH_A <=", value, "vcIdcardPicturePathA");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcIdcardPicturePathALike(String value) {
+            addCriterion("VC_IDCARD_PICTURE_PATH_A like", value, "vcIdcardPicturePathA");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcIdcardPicturePathANotLike(String value) {
+            addCriterion("VC_IDCARD_PICTURE_PATH_A not like", value, "vcIdcardPicturePathA");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcIdcardPicturePathAIn(List<String> values) {
+            addCriterion("VC_IDCARD_PICTURE_PATH_A in", values, "vcIdcardPicturePathA");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcIdcardPicturePathANotIn(List<String> values) {
+            addCriterion("VC_IDCARD_PICTURE_PATH_A not in", values, "vcIdcardPicturePathA");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcIdcardPicturePathABetween(String value1, String value2) {
+            addCriterion("VC_IDCARD_PICTURE_PATH_A between", value1, value2, "vcIdcardPicturePathA");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcIdcardPicturePathANotBetween(String value1, String value2) {
+            addCriterion("VC_IDCARD_PICTURE_PATH_A not between", value1, value2, "vcIdcardPicturePathA");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcIdcardPicturePathBIsNull() {
+            addCriterion("VC_IDCARD_PICTURE_PATH_B is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcIdcardPicturePathBIsNotNull() {
+            addCriterion("VC_IDCARD_PICTURE_PATH_B is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcIdcardPicturePathBEqualTo(String value) {
+            addCriterion("VC_IDCARD_PICTURE_PATH_B =", value, "vcIdcardPicturePathB");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcIdcardPicturePathBNotEqualTo(String value) {
+            addCriterion("VC_IDCARD_PICTURE_PATH_B <>", value, "vcIdcardPicturePathB");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcIdcardPicturePathBGreaterThan(String value) {
+            addCriterion("VC_IDCARD_PICTURE_PATH_B >", value, "vcIdcardPicturePathB");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcIdcardPicturePathBGreaterThanOrEqualTo(String value) {
+            addCriterion("VC_IDCARD_PICTURE_PATH_B >=", value, "vcIdcardPicturePathB");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcIdcardPicturePathBLessThan(String value) {
+            addCriterion("VC_IDCARD_PICTURE_PATH_B <", value, "vcIdcardPicturePathB");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcIdcardPicturePathBLessThanOrEqualTo(String value) {
+            addCriterion("VC_IDCARD_PICTURE_PATH_B <=", value, "vcIdcardPicturePathB");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcIdcardPicturePathBLike(String value) {
+            addCriterion("VC_IDCARD_PICTURE_PATH_B like", value, "vcIdcardPicturePathB");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcIdcardPicturePathBNotLike(String value) {
+            addCriterion("VC_IDCARD_PICTURE_PATH_B not like", value, "vcIdcardPicturePathB");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcIdcardPicturePathBIn(List<String> values) {
+            addCriterion("VC_IDCARD_PICTURE_PATH_B in", values, "vcIdcardPicturePathB");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcIdcardPicturePathBNotIn(List<String> values) {
+            addCriterion("VC_IDCARD_PICTURE_PATH_B not in", values, "vcIdcardPicturePathB");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcIdcardPicturePathBBetween(String value1, String value2) {
+            addCriterion("VC_IDCARD_PICTURE_PATH_B between", value1, value2, "vcIdcardPicturePathB");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcIdcardPicturePathBNotBetween(String value1, String value2) {
+            addCriterion("VC_IDCARD_PICTURE_PATH_B not between", value1, value2, "vcIdcardPicturePathB");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcDriverLicensePathAIsNull() {
+            addCriterion("VC_DRIVER_LICENSE_PATH_A is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcDriverLicensePathAIsNotNull() {
+            addCriterion("VC_DRIVER_LICENSE_PATH_A is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcDriverLicensePathAEqualTo(String value) {
+            addCriterion("VC_DRIVER_LICENSE_PATH_A =", value, "vcDriverLicensePathA");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcDriverLicensePathANotEqualTo(String value) {
+            addCriterion("VC_DRIVER_LICENSE_PATH_A <>", value, "vcDriverLicensePathA");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcDriverLicensePathAGreaterThan(String value) {
+            addCriterion("VC_DRIVER_LICENSE_PATH_A >", value, "vcDriverLicensePathA");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcDriverLicensePathAGreaterThanOrEqualTo(String value) {
+            addCriterion("VC_DRIVER_LICENSE_PATH_A >=", value, "vcDriverLicensePathA");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcDriverLicensePathALessThan(String value) {
+            addCriterion("VC_DRIVER_LICENSE_PATH_A <", value, "vcDriverLicensePathA");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcDriverLicensePathALessThanOrEqualTo(String value) {
+            addCriterion("VC_DRIVER_LICENSE_PATH_A <=", value, "vcDriverLicensePathA");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcDriverLicensePathALike(String value) {
+            addCriterion("VC_DRIVER_LICENSE_PATH_A like", value, "vcDriverLicensePathA");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcDriverLicensePathANotLike(String value) {
+            addCriterion("VC_DRIVER_LICENSE_PATH_A not like", value, "vcDriverLicensePathA");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcDriverLicensePathAIn(List<String> values) {
+            addCriterion("VC_DRIVER_LICENSE_PATH_A in", values, "vcDriverLicensePathA");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcDriverLicensePathANotIn(List<String> values) {
+            addCriterion("VC_DRIVER_LICENSE_PATH_A not in", values, "vcDriverLicensePathA");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcDriverLicensePathABetween(String value1, String value2) {
+            addCriterion("VC_DRIVER_LICENSE_PATH_A between", value1, value2, "vcDriverLicensePathA");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcDriverLicensePathANotBetween(String value1, String value2) {
+            addCriterion("VC_DRIVER_LICENSE_PATH_A not between", value1, value2, "vcDriverLicensePathA");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcDriverLicensePathBIsNull() {
+            addCriterion("VC_DRIVER_LICENSE_PATH_B is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcDriverLicensePathBIsNotNull() {
+            addCriterion("VC_DRIVER_LICENSE_PATH_B is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcDriverLicensePathBEqualTo(String value) {
+            addCriterion("VC_DRIVER_LICENSE_PATH_B =", value, "vcDriverLicensePathB");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcDriverLicensePathBNotEqualTo(String value) {
+            addCriterion("VC_DRIVER_LICENSE_PATH_B <>", value, "vcDriverLicensePathB");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcDriverLicensePathBGreaterThan(String value) {
+            addCriterion("VC_DRIVER_LICENSE_PATH_B >", value, "vcDriverLicensePathB");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcDriverLicensePathBGreaterThanOrEqualTo(String value) {
+            addCriterion("VC_DRIVER_LICENSE_PATH_B >=", value, "vcDriverLicensePathB");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcDriverLicensePathBLessThan(String value) {
+            addCriterion("VC_DRIVER_LICENSE_PATH_B <", value, "vcDriverLicensePathB");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcDriverLicensePathBLessThanOrEqualTo(String value) {
+            addCriterion("VC_DRIVER_LICENSE_PATH_B <=", value, "vcDriverLicensePathB");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcDriverLicensePathBLike(String value) {
+            addCriterion("VC_DRIVER_LICENSE_PATH_B like", value, "vcDriverLicensePathB");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcDriverLicensePathBNotLike(String value) {
+            addCriterion("VC_DRIVER_LICENSE_PATH_B not like", value, "vcDriverLicensePathB");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcDriverLicensePathBIn(List<String> values) {
+            addCriterion("VC_DRIVER_LICENSE_PATH_B in", values, "vcDriverLicensePathB");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcDriverLicensePathBNotIn(List<String> values) {
+            addCriterion("VC_DRIVER_LICENSE_PATH_B not in", values, "vcDriverLicensePathB");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcDriverLicensePathBBetween(String value1, String value2) {
+            addCriterion("VC_DRIVER_LICENSE_PATH_B between", value1, value2, "vcDriverLicensePathB");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcDriverLicensePathBNotBetween(String value1, String value2) {
+            addCriterion("VC_DRIVER_LICENSE_PATH_B not between", value1, value2, "vcDriverLicensePathB");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

@@ -12,6 +12,7 @@
         .payButton{ background-color: blueviolet;width: 50%;text-align: center;height: 150px;font-size: 60px}
         .backButton{ background-color: red;width: 50%;text-align: center;height: 150px;font-size: 60px}
     </style>
+    <script src="js/util.js"></script>
 </head>
 <body>
 <h2 class="h2" >测试微信支付</h2>
@@ -19,15 +20,21 @@
 <div class="body"><button class="payButton" id="payButton">支付</button><button class="backButton" id="back">返回</button></div>
 
 <script th:inline="javascript">
-    var openid = [[${openid}]];
-    sessionStorage["openid"] = openid;
-    
+    var openId = getQueryString("openId");
+    if(!openId){
+        openId = sessionStorage["openId"];
+        if(!openId){
+            openId = "o_1At0Te0Bq3R0VDOkGV6qrOay60";
+        }
+    }
+    sessionStorage["openId"] = openId;
+
     $("#payButton").click(function () {
         $.ajax({
             type : "POST",
-            url : "http://demo.doweryouxia.com/shareride-app/wxpay",
+            url : getUrl("wxpay"),
             dataType : "json",
-            data : {openid:openid},
+            data : {openid:openId},
             success : function(data) {
                 //alert(JSON.stringify(data));
                 pay(data);

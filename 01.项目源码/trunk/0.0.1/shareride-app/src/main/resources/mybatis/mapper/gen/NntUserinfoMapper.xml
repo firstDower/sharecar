@@ -6,13 +6,11 @@
     <result column="NUM_USER_ID" jdbcType="INTEGER" property="numUserId" />
     <result column="VC_BACK_CARD_NUMBER" jdbcType="VARCHAR" property="vcBackCardNumber" />
     <result column="VC_IDCARD_NUMBER" jdbcType="VARCHAR" property="vcIdcardNumber" />
-  </resultMap>
-  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.dower.sharerideapp.core.serverdb.model.NntUserinfoWithBLOBs">
-    <result column="VC_DRIVER_LICENSE_NO" jdbcType="VARBINARY" property="vcDriverLicenseNo" />
-    <result column="VC_IDCARD_PICTURE_PATH_A" jdbcType="VARBINARY" property="vcIdcardPicturePathA" />
-    <result column="VC_IDCARD_PICTURE_PATH_B" jdbcType="VARBINARY" property="vcIdcardPicturePathB" />
-    <result column="VC_DRIVER_LICENSE_PATH_A" jdbcType="VARBINARY" property="vcDriverLicensePathA" />
-    <result column="VC_DRIVER_LICENSE_PATH_B" jdbcType="VARBINARY" property="vcDriverLicensePathB" />
+    <result column="VC_DRIVER_LICENSE_NO" jdbcType="VARCHAR" property="vcDriverLicenseNo" />
+    <result column="VC_IDCARD_PICTURE_PATH_A" jdbcType="VARCHAR" property="vcIdcardPicturePathA" />
+    <result column="VC_IDCARD_PICTURE_PATH_B" jdbcType="VARCHAR" property="vcIdcardPicturePathB" />
+    <result column="VC_DRIVER_LICENSE_PATH_A" jdbcType="VARCHAR" property="vcDriverLicensePathA" />
+    <result column="VC_DRIVER_LICENSE_PATH_B" jdbcType="VARCHAR" property="vcDriverLicensePathB" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -73,28 +71,9 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    NUM_ID, NUM_USER_ID, VC_BACK_CARD_NUMBER, VC_IDCARD_NUMBER
+    NUM_ID, NUM_USER_ID, VC_BACK_CARD_NUMBER, VC_IDCARD_NUMBER, VC_DRIVER_LICENSE_NO, 
+    VC_IDCARD_PICTURE_PATH_A, VC_IDCARD_PICTURE_PATH_B, VC_DRIVER_LICENSE_PATH_A, VC_DRIVER_LICENSE_PATH_B
   </sql>
-  <sql id="Blob_Column_List">
-    VC_DRIVER_LICENSE_NO, VC_IDCARD_PICTURE_PATH_A, VC_IDCARD_PICTURE_PATH_B, VC_DRIVER_LICENSE_PATH_A, 
-    VC_DRIVER_LICENSE_PATH_B
-  </sql>
-  <select id="selectByExampleWithBLOBs" parameterType="com.dower.sharerideapp.core.serverdb.model.NntUserinfoExample" resultMap="ResultMapWithBLOBs">
-    select
-    <if test="distinct">
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
-    from nnt_userinfo
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null">
-      order by ${orderByClause}
-    </if>
-  </select>
   <select id="selectByExample" parameterType="com.dower.sharerideapp.core.serverdb.model.NntUserinfoExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
@@ -109,11 +88,9 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
     from nnt_userinfo
     where NUM_ID = #{numId,jdbcType=INTEGER}
   </select>
@@ -127,17 +104,17 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.dower.sharerideapp.core.serverdb.model.NntUserinfoWithBLOBs">
+  <insert id="insert" parameterType="com.dower.sharerideapp.core.serverdb.model.NntUserinfo">
     insert into nnt_userinfo (NUM_ID, NUM_USER_ID, VC_BACK_CARD_NUMBER, 
       VC_IDCARD_NUMBER, VC_DRIVER_LICENSE_NO, VC_IDCARD_PICTURE_PATH_A, 
       VC_IDCARD_PICTURE_PATH_B, VC_DRIVER_LICENSE_PATH_A, 
       VC_DRIVER_LICENSE_PATH_B)
     values (#{numId,jdbcType=INTEGER}, #{numUserId,jdbcType=INTEGER}, #{vcBackCardNumber,jdbcType=VARCHAR}, 
-      #{vcIdcardNumber,jdbcType=VARCHAR}, #{vcDriverLicenseNo,jdbcType=VARBINARY}, #{vcIdcardPicturePathA,jdbcType=VARBINARY}, 
-      #{vcIdcardPicturePathB,jdbcType=VARBINARY}, #{vcDriverLicensePathA,jdbcType=VARBINARY}, 
-      #{vcDriverLicensePathB,jdbcType=VARBINARY})
+      #{vcIdcardNumber,jdbcType=VARCHAR}, #{vcDriverLicenseNo,jdbcType=VARCHAR}, #{vcIdcardPicturePathA,jdbcType=VARCHAR}, 
+      #{vcIdcardPicturePathB,jdbcType=VARCHAR}, #{vcDriverLicensePathA,jdbcType=VARCHAR}, 
+      #{vcDriverLicensePathB,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.dower.sharerideapp.core.serverdb.model.NntUserinfoWithBLOBs">
+  <insert id="insertSelective" parameterType="com.dower.sharerideapp.core.serverdb.model.NntUserinfo">
     insert into nnt_userinfo
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="numId != null">
@@ -182,19 +159,19 @@
         #{vcIdcardNumber,jdbcType=VARCHAR},
       </if>
       <if test="vcDriverLicenseNo != null">
-        #{vcDriverLicenseNo,jdbcType=VARBINARY},
+        #{vcDriverLicenseNo,jdbcType=VARCHAR},
       </if>
       <if test="vcIdcardPicturePathA != null">
-        #{vcIdcardPicturePathA,jdbcType=VARBINARY},
+        #{vcIdcardPicturePathA,jdbcType=VARCHAR},
       </if>
       <if test="vcIdcardPicturePathB != null">
-        #{vcIdcardPicturePathB,jdbcType=VARBINARY},
+        #{vcIdcardPicturePathB,jdbcType=VARCHAR},
       </if>
       <if test="vcDriverLicensePathA != null">
-        #{vcDriverLicensePathA,jdbcType=VARBINARY},
+        #{vcDriverLicensePathA,jdbcType=VARCHAR},
       </if>
       <if test="vcDriverLicensePathB != null">
-        #{vcDriverLicensePathB,jdbcType=VARBINARY},
+        #{vcDriverLicensePathB,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -220,36 +197,21 @@
         VC_IDCARD_NUMBER = #{record.vcIdcardNumber,jdbcType=VARCHAR},
       </if>
       <if test="record.vcDriverLicenseNo != null">
-        VC_DRIVER_LICENSE_NO = #{record.vcDriverLicenseNo,jdbcType=VARBINARY},
+        VC_DRIVER_LICENSE_NO = #{record.vcDriverLicenseNo,jdbcType=VARCHAR},
       </if>
       <if test="record.vcIdcardPicturePathA != null">
-        VC_IDCARD_PICTURE_PATH_A = #{record.vcIdcardPicturePathA,jdbcType=VARBINARY},
+        VC_IDCARD_PICTURE_PATH_A = #{record.vcIdcardPicturePathA,jdbcType=VARCHAR},
       </if>
       <if test="record.vcIdcardPicturePathB != null">
-        VC_IDCARD_PICTURE_PATH_B = #{record.vcIdcardPicturePathB,jdbcType=VARBINARY},
+        VC_IDCARD_PICTURE_PATH_B = #{record.vcIdcardPicturePathB,jdbcType=VARCHAR},
       </if>
       <if test="record.vcDriverLicensePathA != null">
-        VC_DRIVER_LICENSE_PATH_A = #{record.vcDriverLicensePathA,jdbcType=VARBINARY},
+        VC_DRIVER_LICENSE_PATH_A = #{record.vcDriverLicensePathA,jdbcType=VARCHAR},
       </if>
       <if test="record.vcDriverLicensePathB != null">
-        VC_DRIVER_LICENSE_PATH_B = #{record.vcDriverLicensePathB,jdbcType=VARBINARY},
+        VC_DRIVER_LICENSE_PATH_B = #{record.vcDriverLicensePathB,jdbcType=VARCHAR},
       </if>
     </set>
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByExampleWithBLOBs" parameterType="map">
-    update nnt_userinfo
-    set NUM_ID = #{record.numId,jdbcType=INTEGER},
-      NUM_USER_ID = #{record.numUserId,jdbcType=INTEGER},
-      VC_BACK_CARD_NUMBER = #{record.vcBackCardNumber,jdbcType=VARCHAR},
-      VC_IDCARD_NUMBER = #{record.vcIdcardNumber,jdbcType=VARCHAR},
-      VC_DRIVER_LICENSE_NO = #{record.vcDriverLicenseNo,jdbcType=VARBINARY},
-      VC_IDCARD_PICTURE_PATH_A = #{record.vcIdcardPicturePathA,jdbcType=VARBINARY},
-      VC_IDCARD_PICTURE_PATH_B = #{record.vcIdcardPicturePathB,jdbcType=VARBINARY},
-      VC_DRIVER_LICENSE_PATH_A = #{record.vcDriverLicensePathA,jdbcType=VARBINARY},
-      VC_DRIVER_LICENSE_PATH_B = #{record.vcDriverLicensePathB,jdbcType=VARBINARY}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -259,12 +221,17 @@
     set NUM_ID = #{record.numId,jdbcType=INTEGER},
       NUM_USER_ID = #{record.numUserId,jdbcType=INTEGER},
       VC_BACK_CARD_NUMBER = #{record.vcBackCardNumber,jdbcType=VARCHAR},
-      VC_IDCARD_NUMBER = #{record.vcIdcardNumber,jdbcType=VARCHAR}
+      VC_IDCARD_NUMBER = #{record.vcIdcardNumber,jdbcType=VARCHAR},
+      VC_DRIVER_LICENSE_NO = #{record.vcDriverLicenseNo,jdbcType=VARCHAR},
+      VC_IDCARD_PICTURE_PATH_A = #{record.vcIdcardPicturePathA,jdbcType=VARCHAR},
+      VC_IDCARD_PICTURE_PATH_B = #{record.vcIdcardPicturePathB,jdbcType=VARCHAR},
+      VC_DRIVER_LICENSE_PATH_A = #{record.vcDriverLicensePathA,jdbcType=VARCHAR},
+      VC_DRIVER_LICENSE_PATH_B = #{record.vcDriverLicensePathB,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.dower.sharerideapp.core.serverdb.model.NntUserinfoWithBLOBs">
+  <update id="updateByPrimaryKeySelective" parameterType="com.dower.sharerideapp.core.serverdb.model.NntUserinfo">
     update nnt_userinfo
     <set>
       <if test="numUserId != null">
@@ -277,40 +244,33 @@
         VC_IDCARD_NUMBER = #{vcIdcardNumber,jdbcType=VARCHAR},
       </if>
       <if test="vcDriverLicenseNo != null">
-        VC_DRIVER_LICENSE_NO = #{vcDriverLicenseNo,jdbcType=VARBINARY},
+        VC_DRIVER_LICENSE_NO = #{vcDriverLicenseNo,jdbcType=VARCHAR},
       </if>
       <if test="vcIdcardPicturePathA != null">
-        VC_IDCARD_PICTURE_PATH_A = #{vcIdcardPicturePathA,jdbcType=VARBINARY},
+        VC_IDCARD_PICTURE_PATH_A = #{vcIdcardPicturePathA,jdbcType=VARCHAR},
       </if>
       <if test="vcIdcardPicturePathB != null">
-        VC_IDCARD_PICTURE_PATH_B = #{vcIdcardPicturePathB,jdbcType=VARBINARY},
+        VC_IDCARD_PICTURE_PATH_B = #{vcIdcardPicturePathB,jdbcType=VARCHAR},
       </if>
       <if test="vcDriverLicensePathA != null">
-        VC_DRIVER_LICENSE_PATH_A = #{vcDriverLicensePathA,jdbcType=VARBINARY},
+        VC_DRIVER_LICENSE_PATH_A = #{vcDriverLicensePathA,jdbcType=VARCHAR},
       </if>
       <if test="vcDriverLicensePathB != null">
-        VC_DRIVER_LICENSE_PATH_B = #{vcDriverLicensePathB,jdbcType=VARBINARY},
+        VC_DRIVER_LICENSE_PATH_B = #{vcDriverLicensePathB,jdbcType=VARCHAR},
       </if>
     </set>
-    where NUM_ID = #{numId,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.dower.sharerideapp.core.serverdb.model.NntUserinfoWithBLOBs">
-    update nnt_userinfo
-    set NUM_USER_ID = #{numUserId,jdbcType=INTEGER},
-      VC_BACK_CARD_NUMBER = #{vcBackCardNumber,jdbcType=VARCHAR},
-      VC_IDCARD_NUMBER = #{vcIdcardNumber,jdbcType=VARCHAR},
-      VC_DRIVER_LICENSE_NO = #{vcDriverLicenseNo,jdbcType=VARBINARY},
-      VC_IDCARD_PICTURE_PATH_A = #{vcIdcardPicturePathA,jdbcType=VARBINARY},
-      VC_IDCARD_PICTURE_PATH_B = #{vcIdcardPicturePathB,jdbcType=VARBINARY},
-      VC_DRIVER_LICENSE_PATH_A = #{vcDriverLicensePathA,jdbcType=VARBINARY},
-      VC_DRIVER_LICENSE_PATH_B = #{vcDriverLicensePathB,jdbcType=VARBINARY}
     where NUM_ID = #{numId,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.dower.sharerideapp.core.serverdb.model.NntUserinfo">
     update nnt_userinfo
     set NUM_USER_ID = #{numUserId,jdbcType=INTEGER},
       VC_BACK_CARD_NUMBER = #{vcBackCardNumber,jdbcType=VARCHAR},
-      VC_IDCARD_NUMBER = #{vcIdcardNumber,jdbcType=VARCHAR}
+      VC_IDCARD_NUMBER = #{vcIdcardNumber,jdbcType=VARCHAR},
+      VC_DRIVER_LICENSE_NO = #{vcDriverLicenseNo,jdbcType=VARCHAR},
+      VC_IDCARD_PICTURE_PATH_A = #{vcIdcardPicturePathA,jdbcType=VARCHAR},
+      VC_IDCARD_PICTURE_PATH_B = #{vcIdcardPicturePathB,jdbcType=VARCHAR},
+      VC_DRIVER_LICENSE_PATH_A = #{vcDriverLicensePathA,jdbcType=VARCHAR},
+      VC_DRIVER_LICENSE_PATH_B = #{vcDriverLicensePathB,jdbcType=VARCHAR}
     where NUM_ID = #{numId,jdbcType=INTEGER}
   </update>
 </mapper>

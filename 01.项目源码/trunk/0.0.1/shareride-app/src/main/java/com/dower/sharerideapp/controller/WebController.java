@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
  * @param
@@ -26,20 +27,28 @@ public class WebController {
         return "testPay";
     }
 
-    @RequestMapping("/orderList")
-    public String index1() {
-        return "order/orderList";
+    /**
+     *注册成车主页面
+     * */
+    @RequestMapping("/goForCarOwner")
+    public String goForCarOwner() {
+        return "person/forCarOwner";
     }
-    @RequestMapping("/goMyTrip")
-    public String goMyTrip(ModelMap modelMap) {
-        NntUsers users = new NntUsers();
-        users.setVcOpenid("123123");
-        users.setNumState(1);
-        users.setNumLevel(1);
-        String s = JSON.toJSONString(users);
-        modelMap.addAttribute("users",s);
-
-        return "person/myTrip";
+    @RequestMapping("/goSetPersonInfo")
+    public String goSetPersonInfo() {
+        return "person/setPerInfo";
+    }
+    @RequestMapping("/goMyInfo")
+    public String goMyInfo() {
+        return "person/myInfo";
+    }
+@RequestMapping("/goCarSearch")
+    public String goCarSearch() {
+        return "mainPro/carSearch";
+    }
+@RequestMapping("/goTestPay")
+    public String goTestPay() {
+        return "testPay";
     }
 
 }

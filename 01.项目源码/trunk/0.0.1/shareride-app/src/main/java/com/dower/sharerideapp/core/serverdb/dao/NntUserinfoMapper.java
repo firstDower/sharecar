@@ -2,7 +2,6 @@ package com.dower.sharerideapp.core.serverdb.dao;
 
 import com.dower.sharerideapp.core.serverdb.model.NntUserinfo;
 import com.dower.sharerideapp.core.serverdb.model.NntUserinfoExample;
-import com.dower.sharerideapp.core.serverdb.model.NntUserinfoWithBLOBs;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
@@ -13,25 +12,19 @@ public interface NntUserinfoMapper {
 
     int deleteByPrimaryKey(Integer numId);
 
-    int insert(NntUserinfoWithBLOBs record);
+    int insert(NntUserinfo record);
 
-    int insertSelective(NntUserinfoWithBLOBs record);
-
-    List<NntUserinfoWithBLOBs> selectByExampleWithBLOBs(NntUserinfoExample example);
+    int insertSelective(NntUserinfo record);
 
     List<NntUserinfo> selectByExample(NntUserinfoExample example);
 
-    NntUserinfoWithBLOBs selectByPrimaryKey(Integer numId);
+    NntUserinfo selectByPrimaryKey(Integer numId);
 
-    int updateByExampleSelective(@Param("record") NntUserinfoWithBLOBs record, @Param("example") NntUserinfoExample example);
-
-    int updateByExampleWithBLOBs(@Param("record") NntUserinfoWithBLOBs record, @Param("example") NntUserinfoExample example);
+    int updateByExampleSelective(@Param("record") NntUserinfo record, @Param("example") NntUserinfoExample example);
 
     int updateByExample(@Param("record") NntUserinfo record, @Param("example") NntUserinfoExample example);
 
-    int updateByPrimaryKeySelective(NntUserinfoWithBLOBs record);
-
-    int updateByPrimaryKeyWithBLOBs(NntUserinfoWithBLOBs record);
+    int updateByPrimaryKeySelective(NntUserinfo record);
 
     int updateByPrimaryKey(NntUserinfo record);
 }
