@@ -12,7 +12,7 @@ public class NntJourney {
 
     private Integer numSpendTime;
 
-    private Integer numSeat;
+    private Integer numMaxPassengers;
 
     private Integer numRouteState;
 
@@ -22,11 +22,15 @@ public class NntJourney {
 
     private Integer numMannedType;
 
-    private String vcStartArea;
+    private Integer numStartTravelCityId;
 
-    private String vcEndArea;
+    private Integer numEndTravelCityId;
 
     private Date datCreatDate;
+
+    private Integer numUserId;
+
+    private BigDecimal numUnitPrice;
 
     public Integer getNumRouteId() {
         return numRouteId;
@@ -60,12 +64,12 @@ public class NntJourney {
         this.numSpendTime = numSpendTime;
     }
 
-    public Integer getNumSeat() {
-        return numSeat;
+    public Integer getNumMaxPassengers() {
+        return numMaxPassengers;
     }
 
-    public void setNumSeat(Integer numSeat) {
-        this.numSeat = numSeat;
+    public void setNumMaxPassengers(Integer numMaxPassengers) {
+        this.numMaxPassengers = numMaxPassengers;
     }
 
     public Integer getNumRouteState() {
@@ -100,20 +104,20 @@ public class NntJourney {
         this.numMannedType = numMannedType;
     }
 
-    public String getVcStartArea() {
-        return vcStartArea;
+    public Integer getNumStartTravelCityId() {
+        return numStartTravelCityId;
     }
 
-    public void setVcStartArea(String vcStartArea) {
-        this.vcStartArea = vcStartArea == null ? null : vcStartArea.trim();
+    public void setNumStartTravelCityId(Integer numStartTravelCityId) {
+        this.numStartTravelCityId = numStartTravelCityId;
     }
 
-    public String getVcEndArea() {
-        return vcEndArea;
+    public Integer getNumEndTravelCityId() {
+        return numEndTravelCityId;
     }
 
-    public void setVcEndArea(String vcEndArea) {
-        this.vcEndArea = vcEndArea == null ? null : vcEndArea.trim();
+    public void setNumEndTravelCityId(Integer numEndTravelCityId) {
+        this.numEndTravelCityId = numEndTravelCityId;
     }
 
     public Date getDatCreatDate() {
@@ -122,5 +126,21 @@ public class NntJourney {
 
     public void setDatCreatDate(Date datCreatDate) {
         this.datCreatDate = datCreatDate;
+    }
+
+    public Integer getNumUserId() {
+        return numUserId;
+    }
+
+    public void setNumUserId(Integer numUserId) {
+        this.numUserId = numUserId;
+    }
+
+    public BigDecimal getNumUnitPrice() {
+        return numUnitPrice;
+    }
+
+    public void setNumUnitPrice(BigDecimal numUnitPrice) {
+        this.numUnitPrice = numUnitPrice;
     }
 }

@@ -17,11 +17,16 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Controller
 
 public class WebController {
+
     @RequestMapping("/index")
     public String index() {
         return "person/myInfo";
     }
 
+    /**
+     * 测试支付
+     * @return
+     */
     @RequestMapping("/testPay")
     public String testPay() {
         return "testPay";
@@ -34,21 +39,46 @@ public class WebController {
     public String goForCarOwner() {
         return "person/forCarOwner";
     }
+    /**
+     * 修改个人信息页
+     */
+
     @RequestMapping("/goSetPersonInfo")
     public String goSetPersonInfo() {
         return "person/setPerInfo";
     }
+    /**
+     * 个人中心页
+     */
+
     @RequestMapping("/goMyInfo")
     public String goMyInfo() {
         return "person/myInfo";
     }
-@RequestMapping("/goCarSearch")
+    /**
+     * 行程查询页
+     */
+
+    @RequestMapping("/goCarSearch")
     public String goCarSearch() {
         return "mainPro/carSearch";
     }
-@RequestMapping("/goTestPay")
+    /**
+     * 测试支付页面
+     */
+
+    @RequestMapping("/goTestPay")
     public String goTestPay() {
         return "testPay";
+    }
+
+    /**
+     * 车主发起行程页
+     * @return
+     */
+    @RequestMapping("/goGoTrip")
+    public String goGoTrip() {
+        return "person/goTrip";
     }
 
 }

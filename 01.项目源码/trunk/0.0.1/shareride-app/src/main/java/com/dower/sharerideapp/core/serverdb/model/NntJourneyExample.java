@@ -356,63 +356,63 @@ public class NntJourneyExample {
             return (Criteria) this;
         }
 
-        public Criteria andNumSeatIsNull() {
-            addCriterion("NUM_SEAT is null");
+        public Criteria andNumMaxPassengersIsNull() {
+            addCriterion("NUM_MAX_PASSENGERS is null");
             return (Criteria) this;
         }
 
-        public Criteria andNumSeatIsNotNull() {
-            addCriterion("NUM_SEAT is not null");
+        public Criteria andNumMaxPassengersIsNotNull() {
+            addCriterion("NUM_MAX_PASSENGERS is not null");
             return (Criteria) this;
         }
 
-        public Criteria andNumSeatEqualTo(Integer value) {
-            addCriterion("NUM_SEAT =", value, "numSeat");
+        public Criteria andNumMaxPassengersEqualTo(Integer value) {
+            addCriterion("NUM_MAX_PASSENGERS =", value, "numMaxPassengers");
             return (Criteria) this;
         }
 
-        public Criteria andNumSeatNotEqualTo(Integer value) {
-            addCriterion("NUM_SEAT <>", value, "numSeat");
+        public Criteria andNumMaxPassengersNotEqualTo(Integer value) {
+            addCriterion("NUM_MAX_PASSENGERS <>", value, "numMaxPassengers");
             return (Criteria) this;
         }
 
-        public Criteria andNumSeatGreaterThan(Integer value) {
-            addCriterion("NUM_SEAT >", value, "numSeat");
+        public Criteria andNumMaxPassengersGreaterThan(Integer value) {
+            addCriterion("NUM_MAX_PASSENGERS >", value, "numMaxPassengers");
             return (Criteria) this;
         }
 
-        public Criteria andNumSeatGreaterThanOrEqualTo(Integer value) {
-            addCriterion("NUM_SEAT >=", value, "numSeat");
+        public Criteria andNumMaxPassengersGreaterThanOrEqualTo(Integer value) {
+            addCriterion("NUM_MAX_PASSENGERS >=", value, "numMaxPassengers");
             return (Criteria) this;
         }
 
-        public Criteria andNumSeatLessThan(Integer value) {
-            addCriterion("NUM_SEAT <", value, "numSeat");
+        public Criteria andNumMaxPassengersLessThan(Integer value) {
+            addCriterion("NUM_MAX_PASSENGERS <", value, "numMaxPassengers");
             return (Criteria) this;
         }
 
-        public Criteria andNumSeatLessThanOrEqualTo(Integer value) {
-            addCriterion("NUM_SEAT <=", value, "numSeat");
+        public Criteria andNumMaxPassengersLessThanOrEqualTo(Integer value) {
+            addCriterion("NUM_MAX_PASSENGERS <=", value, "numMaxPassengers");
             return (Criteria) this;
         }
 
-        public Criteria andNumSeatIn(List<Integer> values) {
-            addCriterion("NUM_SEAT in", values, "numSeat");
+        public Criteria andNumMaxPassengersIn(List<Integer> values) {
+            addCriterion("NUM_MAX_PASSENGERS in", values, "numMaxPassengers");
             return (Criteria) this;
         }
 
-        public Criteria andNumSeatNotIn(List<Integer> values) {
-            addCriterion("NUM_SEAT not in", values, "numSeat");
+        public Criteria andNumMaxPassengersNotIn(List<Integer> values) {
+            addCriterion("NUM_MAX_PASSENGERS not in", values, "numMaxPassengers");
             return (Criteria) this;
         }
 
-        public Criteria andNumSeatBetween(Integer value1, Integer value2) {
-            addCriterion("NUM_SEAT between", value1, value2, "numSeat");
+        public Criteria andNumMaxPassengersBetween(Integer value1, Integer value2) {
+            addCriterion("NUM_MAX_PASSENGERS between", value1, value2, "numMaxPassengers");
             return (Criteria) this;
         }
 
-        public Criteria andNumSeatNotBetween(Integer value1, Integer value2) {
-            addCriterion("NUM_SEAT not between", value1, value2, "numSeat");
+        public Criteria andNumMaxPassengersNotBetween(Integer value1, Integer value2) {
+            addCriterion("NUM_MAX_PASSENGERS not between", value1, value2, "numMaxPassengers");
             return (Criteria) this;
         }
 
@@ -656,143 +656,123 @@ public class NntJourneyExample {
             return (Criteria) this;
         }
 
-        public Criteria andVcStartAreaIsNull() {
-            addCriterion("VC_START_AREA is null");
+        public Criteria andNumStartTravelCityIdIsNull() {
+            addCriterion("NUM_START_TRAVEL_CITY_ID is null");
             return (Criteria) this;
         }
 
-        public Criteria andVcStartAreaIsNotNull() {
-            addCriterion("VC_START_AREA is not null");
+        public Criteria andNumStartTravelCityIdIsNotNull() {
+            addCriterion("NUM_START_TRAVEL_CITY_ID is not null");
             return (Criteria) this;
         }
 
-        public Criteria andVcStartAreaEqualTo(String value) {
-            addCriterion("VC_START_AREA =", value, "vcStartArea");
+        public Criteria andNumStartTravelCityIdEqualTo(Integer value) {
+            addCriterion("NUM_START_TRAVEL_CITY_ID =", value, "numStartTravelCityId");
             return (Criteria) this;
         }
 
-        public Criteria andVcStartAreaNotEqualTo(String value) {
-            addCriterion("VC_START_AREA <>", value, "vcStartArea");
+        public Criteria andNumStartTravelCityIdNotEqualTo(Integer value) {
+            addCriterion("NUM_START_TRAVEL_CITY_ID <>", value, "numStartTravelCityId");
             return (Criteria) this;
         }
 
-        public Criteria andVcStartAreaGreaterThan(String value) {
-            addCriterion("VC_START_AREA >", value, "vcStartArea");
+        public Criteria andNumStartTravelCityIdGreaterThan(Integer value) {
+            addCriterion("NUM_START_TRAVEL_CITY_ID >", value, "numStartTravelCityId");
             return (Criteria) this;
         }
 
-        public Criteria andVcStartAreaGreaterThanOrEqualTo(String value) {
-            addCriterion("VC_START_AREA >=", value, "vcStartArea");
+        public Criteria andNumStartTravelCityIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("NUM_START_TRAVEL_CITY_ID >=", value, "numStartTravelCityId");
             return (Criteria) this;
         }
 
-        public Criteria andVcStartAreaLessThan(String value) {
-            addCriterion("VC_START_AREA <", value, "vcStartArea");
+        public Criteria andNumStartTravelCityIdLessThan(Integer value) {
+            addCriterion("NUM_START_TRAVEL_CITY_ID <", value, "numStartTravelCityId");
             return (Criteria) this;
         }
 
-        public Criteria andVcStartAreaLessThanOrEqualTo(String value) {
-            addCriterion("VC_START_AREA <=", value, "vcStartArea");
+        public Criteria andNumStartTravelCityIdLessThanOrEqualTo(Integer value) {
+            addCriterion("NUM_START_TRAVEL_CITY_ID <=", value, "numStartTravelCityId");
             return (Criteria) this;
         }
 
-        public Criteria andVcStartAreaLike(String value) {
-            addCriterion("VC_START_AREA like", value, "vcStartArea");
+        public Criteria andNumStartTravelCityIdIn(List<Integer> values) {
+            addCriterion("NUM_START_TRAVEL_CITY_ID in", values, "numStartTravelCityId");
             return (Criteria) this;
         }
 
-        public Criteria andVcStartAreaNotLike(String value) {
-            addCriterion("VC_START_AREA not like", value, "vcStartArea");
+        public Criteria andNumStartTravelCityIdNotIn(List<Integer> values) {
+            addCriterion("NUM_START_TRAVEL_CITY_ID not in", values, "numStartTravelCityId");
             return (Criteria) this;
         }
 
-        public Criteria andVcStartAreaIn(List<String> values) {
-            addCriterion("VC_START_AREA in", values, "vcStartArea");
+        public Criteria andNumStartTravelCityIdBetween(Integer value1, Integer value2) {
+            addCriterion("NUM_START_TRAVEL_CITY_ID between", value1, value2, "numStartTravelCityId");
             return (Criteria) this;
         }
 
-        public Criteria andVcStartAreaNotIn(List<String> values) {
-            addCriterion("VC_START_AREA not in", values, "vcStartArea");
+        public Criteria andNumStartTravelCityIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("NUM_START_TRAVEL_CITY_ID not between", value1, value2, "numStartTravelCityId");
             return (Criteria) this;
         }
 
-        public Criteria andVcStartAreaBetween(String value1, String value2) {
-            addCriterion("VC_START_AREA between", value1, value2, "vcStartArea");
+        public Criteria andNumEndTravelCityIdIsNull() {
+            addCriterion("NUM_END_TRAVEL_CITY_ID is null");
             return (Criteria) this;
         }
 
-        public Criteria andVcStartAreaNotBetween(String value1, String value2) {
-            addCriterion("VC_START_AREA not between", value1, value2, "vcStartArea");
+        public Criteria andNumEndTravelCityIdIsNotNull() {
+            addCriterion("NUM_END_TRAVEL_CITY_ID is not null");
             return (Criteria) this;
         }
 
-        public Criteria andVcEndAreaIsNull() {
-            addCriterion("VC_END_AREA is null");
+        public Criteria andNumEndTravelCityIdEqualTo(Integer value) {
+            addCriterion("NUM_END_TRAVEL_CITY_ID =", value, "numEndTravelCityId");
             return (Criteria) this;
         }
 
-        public Criteria andVcEndAreaIsNotNull() {
-            addCriterion("VC_END_AREA is not null");
+        public Criteria andNumEndTravelCityIdNotEqualTo(Integer value) {
+            addCriterion("NUM_END_TRAVEL_CITY_ID <>", value, "numEndTravelCityId");
             return (Criteria) this;
         }
 
-        public Criteria andVcEndAreaEqualTo(String value) {
-            addCriterion("VC_END_AREA =", value, "vcEndArea");
+        public Criteria andNumEndTravelCityIdGreaterThan(Integer value) {
+            addCriterion("NUM_END_TRAVEL_CITY_ID >", value, "numEndTravelCityId");
             return (Criteria) this;
         }
 
-        public Criteria andVcEndAreaNotEqualTo(String value) {
-            addCriterion("VC_END_AREA <>", value, "vcEndArea");
+        public Criteria andNumEndTravelCityIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("NUM_END_TRAVEL_CITY_ID >=", value, "numEndTravelCityId");
             return (Criteria) this;
         }
 
-        public Criteria andVcEndAreaGreaterThan(String value) {
-            addCriterion("VC_END_AREA >", value, "vcEndArea");
+        public Criteria andNumEndTravelCityIdLessThan(Integer value) {
+            addCriterion("NUM_END_TRAVEL_CITY_ID <", value, "numEndTravelCityId");
             return (Criteria) this;
         }
 
-        public Criteria andVcEndAreaGreaterThanOrEqualTo(String value) {
-            addCriterion("VC_END_AREA >=", value, "vcEndArea");
+        public Criteria andNumEndTravelCityIdLessThanOrEqualTo(Integer value) {
+            addCriterion("NUM_END_TRAVEL_CITY_ID <=", value, "numEndTravelCityId");
             return (Criteria) this;
         }
 
-        public Criteria andVcEndAreaLessThan(String value) {
-            addCriterion("VC_END_AREA <", value, "vcEndArea");
+        public Criteria andNumEndTravelCityIdIn(List<Integer> values) {
+            addCriterion("NUM_END_TRAVEL_CITY_ID in", values, "numEndTravelCityId");
             return (Criteria) this;
         }
 
-        public Criteria andVcEndAreaLessThanOrEqualTo(String value) {
-            addCriterion("VC_END_AREA <=", value, "vcEndArea");
+        public Criteria andNumEndTravelCityIdNotIn(List<Integer> values) {
+            addCriterion("NUM_END_TRAVEL_CITY_ID not in", values, "numEndTravelCityId");
             return (Criteria) this;
         }
 
-        public Criteria andVcEndAreaLike(String value) {
-            addCriterion("VC_END_AREA like", value, "vcEndArea");
+        public Criteria andNumEndTravelCityIdBetween(Integer value1, Integer value2) {
+            addCriterion("NUM_END_TRAVEL_CITY_ID between", value1, value2, "numEndTravelCityId");
             return (Criteria) this;
         }
 
-        public Criteria andVcEndAreaNotLike(String value) {
-            addCriterion("VC_END_AREA not like", value, "vcEndArea");
-            return (Criteria) this;
-        }
-
-        public Criteria andVcEndAreaIn(List<String> values) {
-            addCriterion("VC_END_AREA in", values, "vcEndArea");
-            return (Criteria) this;
-        }
-
-        public Criteria andVcEndAreaNotIn(List<String> values) {
-            addCriterion("VC_END_AREA not in", values, "vcEndArea");
-            return (Criteria) this;
-        }
-
-        public Criteria andVcEndAreaBetween(String value1, String value2) {
-            addCriterion("VC_END_AREA between", value1, value2, "vcEndArea");
-            return (Criteria) this;
-        }
-
-        public Criteria andVcEndAreaNotBetween(String value1, String value2) {
-            addCriterion("VC_END_AREA not between", value1, value2, "vcEndArea");
+        public Criteria andNumEndTravelCityIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("NUM_END_TRAVEL_CITY_ID not between", value1, value2, "numEndTravelCityId");
             return (Criteria) this;
         }
 
@@ -853,6 +833,126 @@ public class NntJourneyExample {
 
         public Criteria andDatCreatDateNotBetween(Date value1, Date value2) {
             addCriterion("DAT_CREAT_DATE not between", value1, value2, "datCreatDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumUserIdIsNull() {
+            addCriterion("NUM_USER_ID is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumUserIdIsNotNull() {
+            addCriterion("NUM_USER_ID is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumUserIdEqualTo(Integer value) {
+            addCriterion("NUM_USER_ID =", value, "numUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumUserIdNotEqualTo(Integer value) {
+            addCriterion("NUM_USER_ID <>", value, "numUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumUserIdGreaterThan(Integer value) {
+            addCriterion("NUM_USER_ID >", value, "numUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumUserIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("NUM_USER_ID >=", value, "numUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumUserIdLessThan(Integer value) {
+            addCriterion("NUM_USER_ID <", value, "numUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumUserIdLessThanOrEqualTo(Integer value) {
+            addCriterion("NUM_USER_ID <=", value, "numUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumUserIdIn(List<Integer> values) {
+            addCriterion("NUM_USER_ID in", values, "numUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumUserIdNotIn(List<Integer> values) {
+            addCriterion("NUM_USER_ID not in", values, "numUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumUserIdBetween(Integer value1, Integer value2) {
+            addCriterion("NUM_USER_ID between", value1, value2, "numUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumUserIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("NUM_USER_ID not between", value1, value2, "numUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumUnitPriceIsNull() {
+            addCriterion("NUM_UNIT_PRICE is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumUnitPriceIsNotNull() {
+            addCriterion("NUM_UNIT_PRICE is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumUnitPriceEqualTo(BigDecimal value) {
+            addCriterion("NUM_UNIT_PRICE =", value, "numUnitPrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumUnitPriceNotEqualTo(BigDecimal value) {
+            addCriterion("NUM_UNIT_PRICE <>", value, "numUnitPrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumUnitPriceGreaterThan(BigDecimal value) {
+            addCriterion("NUM_UNIT_PRICE >", value, "numUnitPrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumUnitPriceGreaterThanOrEqualTo(BigDecimal value) {
+            addCriterion("NUM_UNIT_PRICE >=", value, "numUnitPrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumUnitPriceLessThan(BigDecimal value) {
+            addCriterion("NUM_UNIT_PRICE <", value, "numUnitPrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumUnitPriceLessThanOrEqualTo(BigDecimal value) {
+            addCriterion("NUM_UNIT_PRICE <=", value, "numUnitPrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumUnitPriceIn(List<BigDecimal> values) {
+            addCriterion("NUM_UNIT_PRICE in", values, "numUnitPrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumUnitPriceNotIn(List<BigDecimal> values) {
+            addCriterion("NUM_UNIT_PRICE not in", values, "numUnitPrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumUnitPriceBetween(BigDecimal value1, BigDecimal value2) {
+            addCriterion("NUM_UNIT_PRICE between", value1, value2, "numUnitPrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumUnitPriceNotBetween(BigDecimal value1, BigDecimal value2) {
+            addCriterion("NUM_UNIT_PRICE not between", value1, value2, "numUnitPrice");
             return (Criteria) this;
         }
     }

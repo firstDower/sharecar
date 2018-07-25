@@ -1,6 +1,9 @@
 package com.dower.sharerideapp.controller;
 
+import com.dower.sharerideapp.core.serverdb.model.NntTravelCity;
 import com.dower.sharerideapp.core.serverdb.model.NntUsers;
+import com.dower.sharerideapp.service.CommService;
+import com.dower.sharerideapp.service.TripService;
 import com.dower.sharerideapp.service.UsersService;
 import com.dower.sharerideapp.utils.Result;
 import org.apache.logging.log4j.LogManager;
@@ -12,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -26,6 +30,26 @@ public class ReposiController {
     private static final Logger LOGGER = LogManager.getLogger(ReposiController.class);
     @Autowired
     UsersService usersService;
+    @Autowired
+    CommService commService;
+    @Autowired
+    TripService tripService;
+
+
+    /**
+     * 创建行程
+     * @param params
+     * @return
+     */
+    @RequestMapping("/creatTrip")
+    public Result creatTrip(String params){
+        return tripService.creatTrip(params);
+    }
+
+    @RequestMapping("/getTravelCityList")
+    public List<NntTravelCity> getTravelCityList(){
+        return commService.getTravelCity();
+    }
 
     /**
      * 编辑用户扩展信息

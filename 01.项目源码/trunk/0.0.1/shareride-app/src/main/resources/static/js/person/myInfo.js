@@ -3,7 +3,13 @@ $(function () {
     getUsersInfo();
     $("#forCarOwner").click(forCarOwner);
     $("#setPerInfo").click(setPerInfo);
+    $("#goTrip").click(goTrip);
 });
+
+function goTrip() {
+    location.href = getUrl("goGoTrip");
+}
+
 function getUsersInfo() {
     var openId = getQueryString("openId");
     if(!openId){

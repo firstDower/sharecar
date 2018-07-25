@@ -63,12 +63,13 @@
         </table>
         <table schema="nnt_db" tableName="nnt_userinfo">
         </table>
-        <table schema="nnt_db" tableName="nnt_journey">
-        </table>
+
         <table schema="nnt_db" tableName="nnt_user_journey">
         </table>-->
-        <table schema="nnt_db" tableName="nnt_userinfo">
+        <table schema="nnt_db" tableName="nnt_journey">
         </table>
+        <!--<table schema="nnt_db" tableName="nnt_travel_city">
+        </table>-->
         <!--<table schema="blog" tableName="tag"-->
         <!--domainObjectName="Tag" enableCountByExample="false"-->
         <!--enableDeleteByExample="false" enableSelectByExample="false"-->

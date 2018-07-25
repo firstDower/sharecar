@@ -499,6 +499,15 @@ function DX(n) {
     return str.replace(/零(千|百|拾|角)/g, "零").replace(/(零)+/g, "零").replace(/零(万|亿|元)/g, "$1").replace(/(亿)万|壹(拾)/g, "$1$2").replace(/^元零?|零分/g, "").replace(/元$/g, "元整");
 }
 
+function checkMoney(v) {
+    var a = /^[0-9]*(\.[0-9]{1,2})?$/;
+    if (!a.test(v)) {
+        return false;
+    }
+    else {
+        return true;
+    }
+}
 
 /**
  *

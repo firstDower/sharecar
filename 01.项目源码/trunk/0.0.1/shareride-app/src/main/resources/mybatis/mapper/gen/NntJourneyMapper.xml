@@ -6,14 +6,16 @@
     <result column="VC_ROUTE_NO" jdbcType="VARCHAR" property="vcRouteNo" />
     <result column="DAT_DEPART_DATE" jdbcType="TIMESTAMP" property="datDepartDate" />
     <result column="NUM_SPEND_TIME" jdbcType="INTEGER" property="numSpendTime" />
-    <result column="NUM_SEAT" jdbcType="INTEGER" property="numSeat" />
+    <result column="NUM_MAX_PASSENGERS" jdbcType="INTEGER" property="numMaxPassengers" />
     <result column="NUM_ROUTE_STATE" jdbcType="INTEGER" property="numRouteState" />
     <result column="NUM_ROUTE_FULFEE" jdbcType="DECIMAL" property="numRouteFulfee" />
     <result column="NUM_ROUTE_NETFEE" jdbcType="DECIMAL" property="numRouteNetfee" />
     <result column="NUM_MANNED_TYPE" jdbcType="INTEGER" property="numMannedType" />
-    <result column="VC_START_AREA" jdbcType="VARCHAR" property="vcStartArea" />
-    <result column="VC_END_AREA" jdbcType="VARCHAR" property="vcEndArea" />
+    <result column="NUM_START_TRAVEL_CITY_ID" jdbcType="INTEGER" property="numStartTravelCityId" />
+    <result column="NUM_END_TRAVEL_CITY_ID" jdbcType="INTEGER" property="numEndTravelCityId" />
     <result column="DAT_CREAT_DATE" jdbcType="TIMESTAMP" property="datCreatDate" />
+    <result column="NUM_USER_ID" jdbcType="INTEGER" property="numUserId" />
+    <result column="NUM_UNIT_PRICE" jdbcType="DECIMAL" property="numUnitPrice" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -74,9 +76,9 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    NUM_ROUTE_ID, VC_ROUTE_NO, DAT_DEPART_DATE, NUM_SPEND_TIME, NUM_SEAT, NUM_ROUTE_STATE, 
-    NUM_ROUTE_FULFEE, NUM_ROUTE_NETFEE, NUM_MANNED_TYPE, VC_START_AREA, VC_END_AREA, 
-    DAT_CREAT_DATE
+    NUM_ROUTE_ID, VC_ROUTE_NO, DAT_DEPART_DATE, NUM_SPEND_TIME, NUM_MAX_PASSENGERS, NUM_ROUTE_STATE, 
+    NUM_ROUTE_FULFEE, NUM_ROUTE_NETFEE, NUM_MANNED_TYPE, NUM_START_TRAVEL_CITY_ID, NUM_END_TRAVEL_CITY_ID, 
+    DAT_CREAT_DATE, NUM_USER_ID, NUM_UNIT_PRICE
   </sql>
   <select id="selectByExample" parameterType="com.dower.sharerideapp.core.serverdb.model.NntJourneyExample" resultMap="BaseResultMap">
     select
@@ -110,14 +112,16 @@
   </delete>
   <insert id="insert" parameterType="com.dower.sharerideapp.core.serverdb.model.NntJourney">
     insert into nnt_journey (NUM_ROUTE_ID, VC_ROUTE_NO, DAT_DEPART_DATE, 
-      NUM_SPEND_TIME, NUM_SEAT, NUM_ROUTE_STATE, 
+      NUM_SPEND_TIME, NUM_MAX_PASSENGERS, NUM_ROUTE_STATE, 
       NUM_ROUTE_FULFEE, NUM_ROUTE_NETFEE, NUM_MANNED_TYPE, 
-      VC_START_AREA, VC_END_AREA, DAT_CREAT_DATE
+      NUM_START_TRAVEL_CITY_ID, NUM_END_TRAVEL_CITY_ID, 
+      DAT_CREAT_DATE, NUM_USER_ID, NUM_UNIT_PRICE
       )
     values (#{numRouteId,jdbcType=INTEGER}, #{vcRouteNo,jdbcType=VARCHAR}, #{datDepartDate,jdbcType=TIMESTAMP}, 
-      #{numSpendTime,jdbcType=INTEGER}, #{numSeat,jdbcType=INTEGER}, #{numRouteState,jdbcType=INTEGER}, 
+      #{numSpendTime,jdbcType=INTEGER}, #{numMaxPassengers,jdbcType=INTEGER}, #{numRouteState,jdbcType=INTEGER}, 
       #{numRouteFulfee,jdbcType=DECIMAL}, #{numRouteNetfee,jdbcType=DECIMAL}, #{numMannedType,jdbcType=INTEGER}, 
-      #{vcStartArea,jdbcType=VARCHAR}, #{vcEndArea,jdbcType=VARCHAR}, #{datCreatDate,jdbcType=TIMESTAMP}
+      #{numStartTravelCityId,jdbcType=INTEGER}, #{numEndTravelCityId,jdbcType=INTEGER}, 
+      #{datCreatDate,jdbcType=TIMESTAMP}, #{numUserId,jdbcType=INTEGER}, #{numUnitPrice,jdbcType=DECIMAL}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.dower.sharerideapp.core.serverdb.model.NntJourney">
@@ -135,8 +139,8 @@
       <if test="numSpendTime != null">
         NUM_SPEND_TIME,
       </if>
-      <if test="numSeat != null">
-        NUM_SEAT,
+      <if test="numMaxPassengers != null">
+        NUM_MAX_PASSENGERS,
       </if>
       <if test="numRouteState != null">
         NUM_ROUTE_STATE,
@@ -150,14 +154,20 @@
       <if test="numMannedType != null">
         NUM_MANNED_TYPE,
       </if>
-      <if test="vcStartArea != null">
-        VC_START_AREA,
+      <if test="numStartTravelCityId != null">
+        NUM_START_TRAVEL_CITY_ID,
       </if>
-      <if test="vcEndArea != null">
-        VC_END_AREA,
+      <if test="numEndTravelCityId != null">
+        NUM_END_TRAVEL_CITY_ID,
       </if>
       <if test="datCreatDate != null">
         DAT_CREAT_DATE,
+      </if>
+      <if test="numUserId != null">
+        NUM_USER_ID,
+      </if>
+      <if test="numUnitPrice != null">
+        NUM_UNIT_PRICE,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -173,8 +183,8 @@
       <if test="numSpendTime != null">
         #{numSpendTime,jdbcType=INTEGER},
       </if>
-      <if test="numSeat != null">
-        #{numSeat,jdbcType=INTEGER},
+      <if test="numMaxPassengers != null">
+        #{numMaxPassengers,jdbcType=INTEGER},
       </if>
       <if test="numRouteState != null">
         #{numRouteState,jdbcType=INTEGER},
@@ -188,14 +198,20 @@
       <if test="numMannedType != null">
         #{numMannedType,jdbcType=INTEGER},
       </if>
-      <if test="vcStartArea != null">
-        #{vcStartArea,jdbcType=VARCHAR},
+      <if test="numStartTravelCityId != null">
+        #{numStartTravelCityId,jdbcType=INTEGER},
       </if>
-      <if test="vcEndArea != null">
-        #{vcEndArea,jdbcType=VARCHAR},
+      <if test="numEndTravelCityId != null">
+        #{numEndTravelCityId,jdbcType=INTEGER},
       </if>
       <if test="datCreatDate != null">
         #{datCreatDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="numUserId != null">
+        #{numUserId,jdbcType=INTEGER},
+      </if>
+      <if test="numUnitPrice != null">
+        #{numUnitPrice,jdbcType=DECIMAL},
       </if>
     </trim>
   </insert>
@@ -220,8 +236,8 @@
       <if test="record.numSpendTime != null">
         NUM_SPEND_TIME = #{record.numSpendTime,jdbcType=INTEGER},
       </if>
-      <if test="record.numSeat != null">
-        NUM_SEAT = #{record.numSeat,jdbcType=INTEGER},
+      <if test="record.numMaxPassengers != null">
+        NUM_MAX_PASSENGERS = #{record.numMaxPassengers,jdbcType=INTEGER},
       </if>
       <if test="record.numRouteState != null">
         NUM_ROUTE_STATE = #{record.numRouteState,jdbcType=INTEGER},
@@ -235,14 +251,20 @@
       <if test="record.numMannedType != null">
         NUM_MANNED_TYPE = #{record.numMannedType,jdbcType=INTEGER},
       </if>
-      <if test="record.vcStartArea != null">
-        VC_START_AREA = #{record.vcStartArea,jdbcType=VARCHAR},
+      <if test="record.numStartTravelCityId != null">
+        NUM_START_TRAVEL_CITY_ID = #{record.numStartTravelCityId,jdbcType=INTEGER},
       </if>
-      <if test="record.vcEndArea != null">
-        VC_END_AREA = #{record.vcEndArea,jdbcType=VARCHAR},
+      <if test="record.numEndTravelCityId != null">
+        NUM_END_TRAVEL_CITY_ID = #{record.numEndTravelCityId,jdbcType=INTEGER},
       </if>
       <if test="record.datCreatDate != null">
         DAT_CREAT_DATE = #{record.datCreatDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.numUserId != null">
+        NUM_USER_ID = #{record.numUserId,jdbcType=INTEGER},
+      </if>
+      <if test="record.numUnitPrice != null">
+        NUM_UNIT_PRICE = #{record.numUnitPrice,jdbcType=DECIMAL},
       </if>
     </set>
     <if test="_parameter != null">
@@ -255,14 +277,16 @@
       VC_ROUTE_NO = #{record.vcRouteNo,jdbcType=VARCHAR},
       DAT_DEPART_DATE = #{record.datDepartDate,jdbcType=TIMESTAMP},
       NUM_SPEND_TIME = #{record.numSpendTime,jdbcType=INTEGER},
-      NUM_SEAT = #{record.numSeat,jdbcType=INTEGER},
+      NUM_MAX_PASSENGERS = #{record.numMaxPassengers,jdbcType=INTEGER},
       NUM_ROUTE_STATE = #{record.numRouteState,jdbcType=INTEGER},
       NUM_ROUTE_FULFEE = #{record.numRouteFulfee,jdbcType=DECIMAL},
       NUM_ROUTE_NETFEE = #{record.numRouteNetfee,jdbcType=DECIMAL},
       NUM_MANNED_TYPE = #{record.numMannedType,jdbcType=INTEGER},
-      VC_START_AREA = #{record.vcStartArea,jdbcType=VARCHAR},
-      VC_END_AREA = #{record.vcEndArea,jdbcType=VARCHAR},
-      DAT_CREAT_DATE = #{record.datCreatDate,jdbcType=TIMESTAMP}
+      NUM_START_TRAVEL_CITY_ID = #{record.numStartTravelCityId,jdbcType=INTEGER},
+      NUM_END_TRAVEL_CITY_ID = #{record.numEndTravelCityId,jdbcType=INTEGER},
+      DAT_CREAT_DATE = #{record.datCreatDate,jdbcType=TIMESTAMP},
+      NUM_USER_ID = #{record.numUserId,jdbcType=INTEGER},
+      NUM_UNIT_PRICE = #{record.numUnitPrice,jdbcType=DECIMAL}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -279,8 +303,8 @@
       <if test="numSpendTime != null">
         NUM_SPEND_TIME = #{numSpendTime,jdbcType=INTEGER},
       </if>
-      <if test="numSeat != null">
-        NUM_SEAT = #{numSeat,jdbcType=INTEGER},
+      <if test="numMaxPassengers != null">
+        NUM_MAX_PASSENGERS = #{numMaxPassengers,jdbcType=INTEGER},
       </if>
       <if test="numRouteState != null">
         NUM_ROUTE_STATE = #{numRouteState,jdbcType=INTEGER},
@@ -294,14 +318,20 @@
       <if test="numMannedType != null">
         NUM_MANNED_TYPE = #{numMannedType,jdbcType=INTEGER},
       </if>
-      <if test="vcStartArea != null">
-        VC_START_AREA = #{vcStartArea,jdbcType=VARCHAR},
+      <if test="numStartTravelCityId != null">
+        NUM_START_TRAVEL_CITY_ID = #{numStartTravelCityId,jdbcType=INTEGER},
       </if>
-      <if test="vcEndArea != null">
-        VC_END_AREA = #{vcEndArea,jdbcType=VARCHAR},
+      <if test="numEndTravelCityId != null">
+        NUM_END_TRAVEL_CITY_ID = #{numEndTravelCityId,jdbcType=INTEGER},
       </if>
       <if test="datCreatDate != null">
         DAT_CREAT_DATE = #{datCreatDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="numUserId != null">
+        NUM_USER_ID = #{numUserId,jdbcType=INTEGER},
+      </if>
+      <if test="numUnitPrice != null">
+        NUM_UNIT_PRICE = #{numUnitPrice,jdbcType=DECIMAL},
       </if>
     </set>
     where NUM_ROUTE_ID = #{numRouteId,jdbcType=INTEGER}
@@ -311,14 +341,16 @@
     set VC_ROUTE_NO = #{vcRouteNo,jdbcType=VARCHAR},
       DAT_DEPART_DATE = #{datDepartDate,jdbcType=TIMESTAMP},
       NUM_SPEND_TIME = #{numSpendTime,jdbcType=INTEGER},
-      NUM_SEAT = #{numSeat,jdbcType=INTEGER},
+      NUM_MAX_PASSENGERS = #{numMaxPassengers,jdbcType=INTEGER},
       NUM_ROUTE_STATE = #{numRouteState,jdbcType=INTEGER},
       NUM_ROUTE_FULFEE = #{numRouteFulfee,jdbcType=DECIMAL},
       NUM_ROUTE_NETFEE = #{numRouteNetfee,jdbcType=DECIMAL},
       NUM_MANNED_TYPE = #{numMannedType,jdbcType=INTEGER},
-      VC_START_AREA = #{vcStartArea,jdbcType=VARCHAR},
-      VC_END_AREA = #{vcEndArea,jdbcType=VARCHAR},
-      DAT_CREAT_DATE = #{datCreatDate,jdbcType=TIMESTAMP}
+      NUM_START_TRAVEL_CITY_ID = #{numStartTravelCityId,jdbcType=INTEGER},
+      NUM_END_TRAVEL_CITY_ID = #{numEndTravelCityId,jdbcType=INTEGER},
+      DAT_CREAT_DATE = #{datCreatDate,jdbcType=TIMESTAMP},
+      NUM_USER_ID = #{numUserId,jdbcType=INTEGER},
+      NUM_UNIT_PRICE = #{numUnitPrice,jdbcType=DECIMAL}
     where NUM_ROUTE_ID = #{numRouteId,jdbcType=INTEGER}
   </update>
 </mapper>
