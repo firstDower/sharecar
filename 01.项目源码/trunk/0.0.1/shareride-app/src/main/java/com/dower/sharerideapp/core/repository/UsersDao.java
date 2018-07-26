@@ -1,4 +1,4 @@
-package com.dower.sharerideapp.domain.repository;
+package com.dower.sharerideapp.core.repository;
 
 import java.util.HashMap;
 import java.util.List;

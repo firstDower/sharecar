@@ -1,6 +1,7 @@
 package com.dower.sharerideapp.controller.weichat;
 
 import com.alibaba.fastjson.JSONObject;
+import com.dower.sharerideapp.core.serverdb.model.NntUsers;
 import com.dower.sharerideapp.service.UsersService;
 import com.dower.sharerideapp.utils.HttpRequestUtil;
 import com.dower.sharerideapp.utils.Result;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -61,7 +63,7 @@ public class WeichatMainController {
     }
 
     @RequestMapping("/rediractHomeUrl")
-    public String rediractHomeUrl(ModelMap modelMap, String code, String state, HttpServletRequest request, HttpServletResponse response)   {
+    public String rediractHomeUrl(RedirectAttributes redirectAttributes, String code, String state, HttpServletRequest request, HttpServletResponse response)   {
         // 将请求、响应的编码均设置为UTF-8（防止中文乱码）
         response.setCharacterEncoding("utf-8");
         String url = "index";
@@ -72,29 +74,22 @@ public class WeichatMainController {
             String openId = getOpenId(code);
             LOGGER.info("openId=========="+openId);
 
-            //数据库查询用户信息
-            Map<String,Object> param = new HashMap<>();
-            param.put("openId",openId);
+
+            /*NntUsers nntUsers = new NntUsers();
+            nntUsers.setVcOpenid(openId);
+            NntUsers userInfo = usersService.selectUsersBuOpenid(nntUsers);
+            Integer numState = userInfo.getNumState();*/
 
             JSONObject jsonObjectState = JSONObject.parseObject(state);
             String redictNo = jsonObjectState.getString("redictNo");
             if("001".equals(redictNo)){
-                HashMap<String,Object> result = usersService.queryUserinfoByOpenid(param);
-                if(result!=null){
-                    String userState = String.valueOf(result.get("NUM_STATE"));
-                    if("1".equals(userState)){
-                        url = "index";
-                    }else {
-                        url = "register";
-                    }
-                }else {
-                    url = "register";
-                }
-                modelMap.addAttribute("openid",openId);
+                url = "redirect:goCarSearch";
             }else if("002".equals(redictNo)){
-                url = "testPay";
-                modelMap.addAttribute("openid",openId);
+                url = "redirect:goTestPay";
+            }else if("003".equals(redictNo)){
+                url = "redirect:goMyInfo";
             }
+            redirectAttributes.addAttribute("openId",openId);
             LOGGER.info("url:"+url);
         } catch (Exception e) {
             e.printStackTrace();
@@ -108,15 +103,21 @@ public class WeichatMainController {
      * @return
      */
     public String getOpenId(String code){
-        Map<String, String> params = new HashMap();
-        params.put("secret", "e60292f15095ba4ed1992aa8f3647989");
-        params.put("appid", "wxee4726bdcff75c74");
-        params.put("grant_type", "authorization_code");
-        params.put("code", code);
-        String result = HttpRequestUtil.request("https://api.weixin.qq.com/sns/oauth2/access_token", params,false);
-        JSONObject jsonObject = JSONObject.parseObject(result);
-        LOGGER.info("获取openid，jsonObject="+jsonObject);
-        String openid = jsonObject.get("openid").toString();
+        String openid = "";
+        try{
+            Map<String, String> params = new HashMap();
+            params.put("secret", "e60292f15095ba4ed1992aa8f3647989");
+            params.put("appid", "wxee4726bdcff75c74");
+            params.put("grant_type", "authorization_code");
+            params.put("code", code);
+            String result = HttpRequestUtil.request("https://api.weixin.qq.com/sns/oauth2/access_token", params,false);
+            JSONObject jsonObject = JSONObject.parseObject(result);
+            LOGGER.info("获取openid，jsonObject="+jsonObject);
+            openid = jsonObject.get("openid").toString();
+        }catch (Exception e){
+            LOGGER.error("获取openid异常！");
+        }
+
         return openid;
     }
 }

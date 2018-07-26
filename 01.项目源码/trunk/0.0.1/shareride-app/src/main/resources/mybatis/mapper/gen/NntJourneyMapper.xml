@@ -1,0 +1,356 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dower.sharerideapp.core.serverdb.dao.NntJourneyMapper">
+  <resultMap id="BaseResultMap" type="com.dower.sharerideapp.core.serverdb.model.NntJourney">
+    <id column="NUM_ROUTE_ID" jdbcType="INTEGER" property="numRouteId" />
+    <result column="VC_ROUTE_NO" jdbcType="VARCHAR" property="vcRouteNo" />
+    <result column="DAT_DEPART_DATE" jdbcType="TIMESTAMP" property="datDepartDate" />
+    <result column="NUM_SPEND_TIME" jdbcType="INTEGER" property="numSpendTime" />
+    <result column="NUM_MAX_PASSENGERS" jdbcType="INTEGER" property="numMaxPassengers" />
+    <result column="NUM_ROUTE_STATE" jdbcType="INTEGER" property="numRouteState" />
+    <result column="NUM_ROUTE_FULFEE" jdbcType="DECIMAL" property="numRouteFulfee" />
+    <result column="NUM_ROUTE_NETFEE" jdbcType="DECIMAL" property="numRouteNetfee" />
+    <result column="NUM_MANNED_TYPE" jdbcType="INTEGER" property="numMannedType" />
+    <result column="NUM_START_TRAVEL_CITY_ID" jdbcType="INTEGER" property="numStartTravelCityId" />
+    <result column="NUM_END_TRAVEL_CITY_ID" jdbcType="INTEGER" property="numEndTravelCityId" />
+    <result column="DAT_CREAT_DATE" jdbcType="TIMESTAMP" property="datCreatDate" />
+    <result column="NUM_USER_ID" jdbcType="INTEGER" property="numUserId" />
+    <result column="NUM_UNIT_PRICE" jdbcType="DECIMAL" property="numUnitPrice" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    NUM_ROUTE_ID, VC_ROUTE_NO, DAT_DEPART_DATE, NUM_SPEND_TIME, NUM_MAX_PASSENGERS, NUM_ROUTE_STATE, 
+    NUM_ROUTE_FULFEE, NUM_ROUTE_NETFEE, NUM_MANNED_TYPE, NUM_START_TRAVEL_CITY_ID, NUM_END_TRAVEL_CITY_ID, 
+    DAT_CREAT_DATE, NUM_USER_ID, NUM_UNIT_PRICE
+  </sql>
+  <select id="selectByExample" parameterType="com.dower.sharerideapp.core.serverdb.model.NntJourneyExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from nnt_journey
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from nnt_journey
+    where NUM_ROUTE_ID = #{numRouteId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from nnt_journey
+    where NUM_ROUTE_ID = #{numRouteId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.dower.sharerideapp.core.serverdb.model.NntJourneyExample">
+    delete from nnt_journey
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.dower.sharerideapp.core.serverdb.model.NntJourney">
+    insert into nnt_journey (NUM_ROUTE_ID, VC_ROUTE_NO, DAT_DEPART_DATE, 
+      NUM_SPEND_TIME, NUM_MAX_PASSENGERS, NUM_ROUTE_STATE, 
+      NUM_ROUTE_FULFEE, NUM_ROUTE_NETFEE, NUM_MANNED_TYPE, 
+      NUM_START_TRAVEL_CITY_ID, NUM_END_TRAVEL_CITY_ID, 
+      DAT_CREAT_DATE, NUM_USER_ID, NUM_UNIT_PRICE
+      )
+    values (#{numRouteId,jdbcType=INTEGER}, #{vcRouteNo,jdbcType=VARCHAR}, #{datDepartDate,jdbcType=TIMESTAMP}, 
+      #{numSpendTime,jdbcType=INTEGER}, #{numMaxPassengers,jdbcType=INTEGER}, #{numRouteState,jdbcType=INTEGER}, 
+      #{numRouteFulfee,jdbcType=DECIMAL}, #{numRouteNetfee,jdbcType=DECIMAL}, #{numMannedType,jdbcType=INTEGER}, 
+      #{numStartTravelCityId,jdbcType=INTEGER}, #{numEndTravelCityId,jdbcType=INTEGER}, 
+      #{datCreatDate,jdbcType=TIMESTAMP}, #{numUserId,jdbcType=INTEGER}, #{numUnitPrice,jdbcType=DECIMAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.dower.sharerideapp.core.serverdb.model.NntJourney">
+    insert into nnt_journey
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="numRouteId != null">
+        NUM_ROUTE_ID,
+      </if>
+      <if test="vcRouteNo != null">
+        VC_ROUTE_NO,
+      </if>
+      <if test="datDepartDate != null">
+        DAT_DEPART_DATE,
+      </if>
+      <if test="numSpendTime != null">
+        NUM_SPEND_TIME,
+      </if>
+      <if test="numMaxPassengers != null">
+        NUM_MAX_PASSENGERS,
+      </if>
+      <if test="numRouteState != null">
+        NUM_ROUTE_STATE,
+      </if>
+      <if test="numRouteFulfee != null">
+        NUM_ROUTE_FULFEE,
+      </if>
+      <if test="numRouteNetfee != null">
+        NUM_ROUTE_NETFEE,
+      </if>
+      <if test="numMannedType != null">
+        NUM_MANNED_TYPE,
+      </if>
+      <if test="numStartTravelCityId != null">
+        NUM_START_TRAVEL_CITY_ID,
+      </if>
+      <if test="numEndTravelCityId != null">
+        NUM_END_TRAVEL_CITY_ID,
+      </if>
+      <if test="datCreatDate != null">
+        DAT_CREAT_DATE,
+      </if>
+      <if test="numUserId != null">
+        NUM_USER_ID,
+      </if>
+      <if test="numUnitPrice != null">
+        NUM_UNIT_PRICE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="numRouteId != null">
+        #{numRouteId,jdbcType=INTEGER},
+      </if>
+      <if test="vcRouteNo != null">
+        #{vcRouteNo,jdbcType=VARCHAR},
+      </if>
+      <if test="datDepartDate != null">
+        #{datDepartDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="numSpendTime != null">
+        #{numSpendTime,jdbcType=INTEGER},
+      </if>
+      <if test="numMaxPassengers != null">
+        #{numMaxPassengers,jdbcType=INTEGER},
+      </if>
+      <if test="numRouteState != null">
+        #{numRouteState,jdbcType=INTEGER},
+      </if>
+      <if test="numRouteFulfee != null">
+        #{numRouteFulfee,jdbcType=DECIMAL},
+      </if>
+      <if test="numRouteNetfee != null">
+        #{numRouteNetfee,jdbcType=DECIMAL},
+      </if>
+      <if test="numMannedType != null">
+        #{numMannedType,jdbcType=INTEGER},
+      </if>
+      <if test="numStartTravelCityId != null">
+        #{numStartTravelCityId,jdbcType=INTEGER},
+      </if>
+      <if test="numEndTravelCityId != null">
+        #{numEndTravelCityId,jdbcType=INTEGER},
+      </if>
+      <if test="datCreatDate != null">
+        #{datCreatDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="numUserId != null">
+        #{numUserId,jdbcType=INTEGER},
+      </if>
+      <if test="numUnitPrice != null">
+        #{numUnitPrice,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.dower.sharerideapp.core.serverdb.model.NntJourneyExample" resultType="java.lang.Long">
+    select count(*) from nnt_journey
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update nnt_journey
+    <set>
+      <if test="record.numRouteId != null">
+        NUM_ROUTE_ID = #{record.numRouteId,jdbcType=INTEGER},
+      </if>
+      <if test="record.vcRouteNo != null">
+        VC_ROUTE_NO = #{record.vcRouteNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.datDepartDate != null">
+        DAT_DEPART_DATE = #{record.datDepartDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.numSpendTime != null">
+        NUM_SPEND_TIME = #{record.numSpendTime,jdbcType=INTEGER},
+      </if>
+      <if test="record.numMaxPassengers != null">
+        NUM_MAX_PASSENGERS = #{record.numMaxPassengers,jdbcType=INTEGER},
+      </if>
+      <if test="record.numRouteState != null">
+        NUM_ROUTE_STATE = #{record.numRouteState,jdbcType=INTEGER},
+      </if>
+      <if test="record.numRouteFulfee != null">
+        NUM_ROUTE_FULFEE = #{record.numRouteFulfee,jdbcType=DECIMAL},
+      </if>
+      <if test="record.numRouteNetfee != null">
+        NUM_ROUTE_NETFEE = #{record.numRouteNetfee,jdbcType=DECIMAL},
+      </if>
+      <if test="record.numMannedType != null">
+        NUM_MANNED_TYPE = #{record.numMannedType,jdbcType=INTEGER},
+      </if>
+      <if test="record.numStartTravelCityId != null">
+        NUM_START_TRAVEL_CITY_ID = #{record.numStartTravelCityId,jdbcType=INTEGER},
+      </if>
+      <if test="record.numEndTravelCityId != null">
+        NUM_END_TRAVEL_CITY_ID = #{record.numEndTravelCityId,jdbcType=INTEGER},
+      </if>
+      <if test="record.datCreatDate != null">
+        DAT_CREAT_DATE = #{record.datCreatDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.numUserId != null">
+        NUM_USER_ID = #{record.numUserId,jdbcType=INTEGER},
+      </if>
+      <if test="record.numUnitPrice != null">
+        NUM_UNIT_PRICE = #{record.numUnitPrice,jdbcType=DECIMAL},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update nnt_journey
+    set NUM_ROUTE_ID = #{record.numRouteId,jdbcType=INTEGER},
+      VC_ROUTE_NO = #{record.vcRouteNo,jdbcType=VARCHAR},
+      DAT_DEPART_DATE = #{record.datDepartDate,jdbcType=TIMESTAMP},
+      NUM_SPEND_TIME = #{record.numSpendTime,jdbcType=INTEGER},
+      NUM_MAX_PASSENGERS = #{record.numMaxPassengers,jdbcType=INTEGER},
+      NUM_ROUTE_STATE = #{record.numRouteState,jdbcType=INTEGER},
+      NUM_ROUTE_FULFEE = #{record.numRouteFulfee,jdbcType=DECIMAL},
+      NUM_ROUTE_NETFEE = #{record.numRouteNetfee,jdbcType=DECIMAL},
+      NUM_MANNED_TYPE = #{record.numMannedType,jdbcType=INTEGER},
+      NUM_START_TRAVEL_CITY_ID = #{record.numStartTravelCityId,jdbcType=INTEGER},
+      NUM_END_TRAVEL_CITY_ID = #{record.numEndTravelCityId,jdbcType=INTEGER},
+      DAT_CREAT_DATE = #{record.datCreatDate,jdbcType=TIMESTAMP},
+      NUM_USER_ID = #{record.numUserId,jdbcType=INTEGER},
+      NUM_UNIT_PRICE = #{record.numUnitPrice,jdbcType=DECIMAL}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dower.sharerideapp.core.serverdb.model.NntJourney">
+    update nnt_journey
+    <set>
+      <if test="vcRouteNo != null">
+        VC_ROUTE_NO = #{vcRouteNo,jdbcType=VARCHAR},
+      </if>
+      <if test="datDepartDate != null">
+        DAT_DEPART_DATE = #{datDepartDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="numSpendTime != null">
+        NUM_SPEND_TIME = #{numSpendTime,jdbcType=INTEGER},
+      </if>
+      <if test="numMaxPassengers != null">
+        NUM_MAX_PASSENGERS = #{numMaxPassengers,jdbcType=INTEGER},
+      </if>
+      <if test="numRouteState != null">
+        NUM_ROUTE_STATE = #{numRouteState,jdbcType=INTEGER},
+      </if>
+      <if test="numRouteFulfee != null">
+        NUM_ROUTE_FULFEE = #{numRouteFulfee,jdbcType=DECIMAL},
+      </if>
+      <if test="numRouteNetfee != null">
+        NUM_ROUTE_NETFEE = #{numRouteNetfee,jdbcType=DECIMAL},
+      </if>
+      <if test="numMannedType != null">
+        NUM_MANNED_TYPE = #{numMannedType,jdbcType=INTEGER},
+      </if>
+      <if test="numStartTravelCityId != null">
+        NUM_START_TRAVEL_CITY_ID = #{numStartTravelCityId,jdbcType=INTEGER},
+      </if>
+      <if test="numEndTravelCityId != null">
+        NUM_END_TRAVEL_CITY_ID = #{numEndTravelCityId,jdbcType=INTEGER},
+      </if>
+      <if test="datCreatDate != null">
+        DAT_CREAT_DATE = #{datCreatDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="numUserId != null">
+        NUM_USER_ID = #{numUserId,jdbcType=INTEGER},
+      </if>
+      <if test="numUnitPrice != null">
+        NUM_UNIT_PRICE = #{numUnitPrice,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where NUM_ROUTE_ID = #{numRouteId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dower.sharerideapp.core.serverdb.model.NntJourney">
+    update nnt_journey
+    set VC_ROUTE_NO = #{vcRouteNo,jdbcType=VARCHAR},
+      DAT_DEPART_DATE = #{datDepartDate,jdbcType=TIMESTAMP},
+      NUM_SPEND_TIME = #{numSpendTime,jdbcType=INTEGER},
+      NUM_MAX_PASSENGERS = #{numMaxPassengers,jdbcType=INTEGER},
+      NUM_ROUTE_STATE = #{numRouteState,jdbcType=INTEGER},
+      NUM_ROUTE_FULFEE = #{numRouteFulfee,jdbcType=DECIMAL},
+      NUM_ROUTE_NETFEE = #{numRouteNetfee,jdbcType=DECIMAL},
+      NUM_MANNED_TYPE = #{numMannedType,jdbcType=INTEGER},
+      NUM_START_TRAVEL_CITY_ID = #{numStartTravelCityId,jdbcType=INTEGER},
+      NUM_END_TRAVEL_CITY_ID = #{numEndTravelCityId,jdbcType=INTEGER},
+      DAT_CREAT_DATE = #{datCreatDate,jdbcType=TIMESTAMP},
+      NUM_USER_ID = #{numUserId,jdbcType=INTEGER},
+      NUM_UNIT_PRICE = #{numUnitPrice,jdbcType=DECIMAL}
+    where NUM_ROUTE_ID = #{numRouteId,jdbcType=INTEGER}
+  </update>
+</mapper>
