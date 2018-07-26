@@ -25,6 +25,7 @@ function creatTrip() {
         data:{params:JSON.stringify(params)},
         success:function(data){
             console.log(JSON.stringify(data));
+            alert(data.msg);
         },
         error:function(){
             closeMsg();
