@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.dower.sharerideapp.core.repository.UsersDao">
-    <select id="queryUserList" parameterType="java.util.Map" resultType="java.util.Map">
+<mapper namespace="com.dower.sharerideapp.core.repository.JourneyExtDao">
+    <select id="getMyJobs" parameterType="java.util.Map" resultType="java.util.Map">
 		  SELECT t1.*, t2.appointment_sum, t3.pay_sum
 			from (SELECT nj.NUM_ROUTE_ID,
 						 nj.VC_ROUTE_NO,
@@ -9,13 +9,15 @@
 						 nj.NUM_MANNED_TYPE,
 						 nj.NUM_MAX_PASSENGERS,
 						 nj.NUM_UNIT_PRICE,
-						 nj.NUM_ROUTE_STATE
+						 nj.NUM_ROUTE_STATE,
+						 ntc.VC_CITY_NAME start_city_name,
+						 ntc2.VC_CITY_NAME end_city_name
 					from nnt_journey nj
 					LEFT JOIN nnt_travel_city ntc on nj.NUM_START_TRAVEL_CITY_ID =
 													 ntc.NUM_TRAVEL_CITY_ID
 					LEFT JOIN nnt_travel_city ntc2 on nj.NUM_END_TRAVEL_CITY_ID =
 													  ntc.NUM_TRAVEL_CITY_ID
-				   where nj.NUM_USER_ID = '1') t1
+				   where nj.NUM_USER_ID = #{numUserId}) t1
 			LEFT JOIN (select nj1.NUM_ROUTE_ID,
 							  count(nuj.NUM_ROUTE_ID) appointment_sum
 						 from nnt_journey nj1
@@ -23,7 +25,7 @@
 														   nuj.NUM_ROUTE_ID
 													   and nuj.NUM_STATE = 1
 													   and nuj.NUM_PAY_STATE = 1
-						where nj1.NUM_USER_ID = '1'
+						where nj1.NUM_USER_ID = #{numUserId}
 						GROUP BY nj1.NUM_ROUTE_ID) t2 on t1.NUM_ROUTE_ID =
 														 t2.NUM_ROUTE_ID
 			LEFT JOIN (select nj1.NUM_ROUTE_ID, count(nuj.NUM_ROUTE_ID) pay_sum
@@ -32,7 +34,7 @@
 														   nuj.NUM_ROUTE_ID
 													   and nuj.NUM_STATE = 1
 													   and nuj.NUM_PAY_STATE = 2
-						where nj1.NUM_USER_ID = '1'
+						where nj1.NUM_USER_ID = #{numUserId}
 						GROUP BY nj1.NUM_ROUTE_ID) t3 on t1.NUM_ROUTE_ID =
 														 t3.NUM_ROUTE_ID
 	</select>
