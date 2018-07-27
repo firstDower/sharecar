@@ -81,4 +81,22 @@ public class WebController {
         return "person/goTrip";
     }
 
+    /**
+     * 我的任务列表
+     * @return
+     */
+    @RequestMapping("/goMyJobs")
+    public String goMyJobs() {
+        return "person/myJobs";
+    }
+
+    /**
+     * 我的坐车记录
+     * @return
+     */
+    @RequestMapping("/goMyTripRecord")
+    public String goMyTripRecord() {
+        return "person/goMyTripRecord";
+    }
+
 }

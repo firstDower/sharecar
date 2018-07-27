@@ -7,16 +7,18 @@
     <title>我的行程</title>
     <link rel="stylesheet" href="css/commor.css">
     <link rel="stylesheet" href="css/myCss.css">
+    <script src="js/person/myJobs.js"></script>
+    <script src="js/jquery-1.11.1.min.js"></script>
 </head>
 <body>
 <header class="headerRet">
-    <b class="BackBtn"></b>我的行程111
+    <b class="BackBtn"></b>我的行程
 </header>
 <div class="myTrip">
     <ul class="myTripList clear">
-        <li><a href="javascript:;">已预约</a></li>
-        <li><a href="javascript:;">待评价</a></li>
-        <li class="myTripListLast"><a href="javasciprt:;">我的行程</a></li>
+        <li><a href="javascript:;">所有行程</a></li>
+        <li><a href="javascript:;">未完成</a></li>
+        <li class="myTripListLast"><a href="javasciprt:;">已完成</a></li>
     </ul>
     <ul class="myTripListTab">
         <li class="clear">
@@ -56,7 +58,7 @@
             <div class="myTripListTabLi myTripMon">
                 <span>60元/人</span>
                 <br>
-                <button class="myTripEdit">编辑</button>
+                <button class="myTripDetailBtn">详情</button>
             </div>
         </li>
         <li class="clear">
@@ -181,9 +183,6 @@
         </li>
     </ul>
 </div>
-<script>
-    var users = [[${users.numLevel}]];
-    console.log(users)
-</script>
 </body>
 </html>
+

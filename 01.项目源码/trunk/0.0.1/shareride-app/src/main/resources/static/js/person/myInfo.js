@@ -4,7 +4,17 @@ $(function () {
     $("#forCarOwner").click(forCarOwner);
     $("#setPerInfo").click(setPerInfo);
     $("#goTrip").click(goTrip);
+    $("#goMyJobs").click(goMyJobs);
+    $("#goMyTripRecord").click(goMyTripRecord);
 });
+
+function goMyTripRecord() {
+    location.href = getUrl("goMyTripRecord");
+}
+
+function goMyJobs() {
+    location.href = getUrl("goMyJobs");
+}
 
 function goTrip() {
     location.href = getUrl("goGoTrip");
