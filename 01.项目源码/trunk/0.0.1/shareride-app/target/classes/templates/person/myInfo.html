@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.springframework.org/schema/jdbc">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta charset="UTF-8">
+    <title>个人中心</title>
+    <link rel="stylesheet" href="css/commor.css">
+    <link rel="stylesheet" href="css/myCss.css">
+    <script src="js/jquery-1.11.1.min.js"></script>
+    <script src="js/person/myInfo.js"></script>
+    <script src="js/util.js"></script>
+</head>
+<body>
+<div class="User">
+    <a href="javascript:;" class="userSet"></a>
+    <p class="userImage">
+        <img src="img/user.png" alt="">
+    </p>
+    <div class="userHeart">
+        <span>500</span>
+        <i></i>
+    </div>
+</div>
+<div class="userLogin">
+    <div class="loginForm">
+        <div class="myLogin logTrip">
+            <p class="personInfo">
+                <a href="javascript:;" id="setPerInfo">编辑个人信息</a><b class="logTripGo"></b>
+            </p>
+            <p class="myTrip">
+                <a href="javascript:;" id="goMyTripRecord">我的行程</a><b class="logTripGo"></b>
+            </p>
+            <p class="goTrip" id="goTrip">
+                <a href="javascript:;">发起行程</a><b class="logTripGo"></b>
+            </p>
+            <p class="tripList" id="goMyJobs">
+                <a href="javascript:;">任务列表</a><b class="logTripGo"></b>
+            </p>
+            <p class="shareFri">
+                <a href="javascript:;">邀请伙伴</a><b class="logTripGo"></b>
+            </p>
+        </div>
+        <div class="myLogin">
+            <button class="logBtn" id="forCarOwner">成为车主</button>
+        </div>
+    </div>
+</div>
+</body>
+</html>
