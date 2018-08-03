@@ -1,4 +1,4 @@
-package com.dower.sharerideapp;
+package com.dower.sharerideadmin;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
