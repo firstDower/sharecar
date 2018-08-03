@@ -1,4 +1,4 @@
-package com.dower.sharerideapp;
+package com.dower.sharerideadmin;
 
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;

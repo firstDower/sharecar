@@ -7,7 +7,7 @@
 
     <properties resource="application-dev.properties" />
 
-    <classPathEntry location="G:\maven\repository\mysql\mysql-connector-java\5.1.30\mysql-connector-java-5.1.30.jar" />
+    <classPathEntry location="/Users/wangwei/.m2/repository/mysql/mysql-connector-java/5.1.46/mysql-connector-java-5.1.46.jar" />
 
     <context id="Tables" targetRuntime="MyBatis3">
 
@@ -36,7 +36,7 @@
         </javaTypeResolver>
 
         <!-- 生成实体类地址 -->
-        <javaModelGenerator targetPackage="com.dower.sharerideapp.core.serverdb.model" targetProject="src/main/java">
+        <javaModelGenerator targetPackage="com.dower.sharerideadmin.core.serverdb.model" targetProject="src/main/java">
             <!-- 从数据库返回的值被清理前后的空格 -->
             <property name="trimStrings" value="true" />
             <!-- enableSubPackages:是否让schema作为包的后缀 -->
@@ -50,7 +50,7 @@
         </sqlMapGenerator>
 
         <!-- 生成mapper xml对应Client-->
-        <javaClientGenerator targetPackage="com.dower.sharerideapp.core.serverdb.dao" targetProject="src/main/java" type="XMLMAPPER">
+        <javaClientGenerator targetPackage="com.dower.sharerideadmin.core.serverdb.dao" targetProject="src/main/java" type="XMLMAPPER">
             <!-- enableSubPackages:是否让schema作为包的后缀 -->
             <property name="enableSubPackages" value="false" />
         </javaClientGenerator>
@@ -66,8 +66,11 @@
 
         <table schema="nnt_db" tableName="nnt_user_journey">
         </table>-->
-        <table schema="nnt_db" tableName="nnt_journey">
-        </table>
+        <table schema="nnt_db" tableName="nna_users"></table>
+        <table schema="nnt_db" tableName="nna_user_role"></table>
+        <table schema="nnt_db" tableName="nna_roles"></table>
+        <table schema="nnt_db" tableName="nna_role_right"></table>
+        <table schema="nnt_db" tableName="nna_rights"></table>
         <!--<table schema="nnt_db" tableName="nnt_travel_city">
         </table>-->
         <!--<table schema="blog" tableName="tag"-->

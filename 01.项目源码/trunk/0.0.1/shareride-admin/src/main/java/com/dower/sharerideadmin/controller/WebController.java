@@ -1,4 +1,4 @@
-package com.dower.sharerideapp.controller;
+package com.dower.sharerideadmin.controller;
 
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;

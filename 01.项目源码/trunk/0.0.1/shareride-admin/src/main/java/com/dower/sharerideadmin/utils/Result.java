@@ -1,4 +1,4 @@
-package com.dower.sharerideapp.utils;
+package com.dower.sharerideadmin.utils;
 
 /**
  * 返回数据

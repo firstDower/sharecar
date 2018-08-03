@@ -1,6 +1,4 @@
-package com.dower.sharerideapp.utils;
-
-import java.util.UUID;
+package com.dower.sharerideadmin.utils;
 
 /**
  * @param
