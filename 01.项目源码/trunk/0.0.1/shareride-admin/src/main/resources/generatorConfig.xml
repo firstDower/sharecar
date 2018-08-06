@@ -7,7 +7,7 @@
 
     <properties resource="application-dev.properties" />
 
-    <classPathEntry location="G:\maven\repository\mysql\mysql-connector-java\5.1.30\mysql-connector-java-5.1.30.jar" />
+    <classPathEntry location="/Users/wangwei/.m2/repository/mysql/mysql-connector-java/5.1.46/mysql-connector-java-5.1.46.jar" />
 
     <context id="Tables" targetRuntime="MyBatis3">
 
