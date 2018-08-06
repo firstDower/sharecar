@@ -7,7 +7,9 @@ package com.dower.sharerideadmin.utils;
  */
 public class Result {
 	
-	public Result(){}
+	public Result(){
+		this.success = false;
+	}
 	
 	public Result(boolean success, String msg) {
 		super();
