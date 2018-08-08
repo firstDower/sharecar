@@ -7,7 +7,8 @@
 
     <properties resource="application-dev.properties" />
 
-    <classPathEntry location="/Users/wangwei/.m2/repository/mysql/mysql-connector-java/5.1.46/mysql-connector-java-5.1.46.jar" />
+    <classPathEntry location="G:\maven\repository\mysql\mysql-connector-java\5.1.30\mysql-connector-java-5.1.30.jar" />
+    <!--<classPathEntry location="/Users/wangwei/.m2/repository/mysql/mysql-connector-java/5.1.46/mysql-connector-java-5.1.46.jar" />-->
 
     <context id="Tables" targetRuntime="MyBatis3">
 
@@ -66,11 +67,9 @@
 
         <table schema="nnt_db" tableName="nnt_user_journey">
         </table>-->
-        <table schema="nnt_db" tableName="nna_users"></table>
-        <table schema="nnt_db" tableName="nna_user_role"></table>
-        <table schema="nnt_db" tableName="nna_roles"></table>
-        <table schema="nnt_db" tableName="nna_role_right"></table>
-        <table schema="nnt_db" tableName="nna_rights"></table>
+        <table schema="nnt_db" tableName="nna_order"></table>
+        <table schema="nnt_db" tableName="nna_accounting"></table>
+
         <!--<table schema="nnt_db" tableName="nnt_travel_city">
         </table>-->
         <!--<table schema="blog" tableName="tag"-->
