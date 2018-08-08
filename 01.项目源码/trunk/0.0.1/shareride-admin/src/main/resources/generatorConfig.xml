@@ -67,7 +67,7 @@
 
         <table schema="nnt_db" tableName="nnt_user_journey">
         </table>-->
-        <table schema="nnt_db" tableName="nna_order"></table>
+        <!--<table schema="nnt_db" tableName="nna_order"></table>-->
         <table schema="nnt_db" tableName="nna_accounting"></table>
 
         <!--<table schema="nnt_db" tableName="nnt_travel_city">

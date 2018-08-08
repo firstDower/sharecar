@@ -615,6 +615,66 @@ public class NnaAccountingExample {
             addCriterion("VC_IMGE_URL not between", value1, value2, "vcImgeUrl");
             return (Criteria) this;
         }
+
+        public Criteria andNumTypeIsNull() {
+            addCriterion("NUM_TYPE is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumTypeIsNotNull() {
+            addCriterion("NUM_TYPE is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumTypeEqualTo(Integer value) {
+            addCriterion("NUM_TYPE =", value, "numType");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumTypeNotEqualTo(Integer value) {
+            addCriterion("NUM_TYPE <>", value, "numType");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumTypeGreaterThan(Integer value) {
+            addCriterion("NUM_TYPE >", value, "numType");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumTypeGreaterThanOrEqualTo(Integer value) {
+            addCriterion("NUM_TYPE >=", value, "numType");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumTypeLessThan(Integer value) {
+            addCriterion("NUM_TYPE <", value, "numType");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumTypeLessThanOrEqualTo(Integer value) {
+            addCriterion("NUM_TYPE <=", value, "numType");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumTypeIn(List<Integer> values) {
+            addCriterion("NUM_TYPE in", values, "numType");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumTypeNotIn(List<Integer> values) {
+            addCriterion("NUM_TYPE not in", values, "numType");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumTypeBetween(Integer value1, Integer value2) {
+            addCriterion("NUM_TYPE between", value1, value2, "numType");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumTypeNotBetween(Integer value1, Integer value2) {
+            addCriterion("NUM_TYPE not between", value1, value2, "numType");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

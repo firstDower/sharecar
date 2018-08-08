@@ -20,6 +20,8 @@ public class NnaAccounting {
 
     private String vcImgeUrl;
 
+    private Integer numType;
+
     public Integer getNumAccountingId() {
         return numAccountingId;
     }
@@ -82,5 +84,13 @@ public class NnaAccounting {
 
     public void setVcImgeUrl(String vcImgeUrl) {
         this.vcImgeUrl = vcImgeUrl == null ? null : vcImgeUrl.trim();
+    }
+
+    public Integer getNumType() {
+        return numType;
+    }
+
+    public void setNumType(Integer numType) {
+        this.numType = numType;
     }
 }

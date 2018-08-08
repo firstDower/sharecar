@@ -1,9 +1,9 @@
 function getUrl(url){
 
-    //return "http://localhost:8102/"+url;
+    return "http://localhost:8080/"+url;
     //return "http://192.168.99.143:8080/yingda.app.web/"+url;
     //return "http://testcarins.huanlebaoxian.cn/yingda.app.web/"+url;
-    return "http://dhtest.tiancaibaoxian.com/"+url;
+    //return "http://dhtest.tiancaibaoxian.com/"+url;
 }
 
 function getPayUrl(obj) {
