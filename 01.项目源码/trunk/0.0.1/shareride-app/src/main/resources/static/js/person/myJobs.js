@@ -1,6 +1,12 @@
 $(function () {
     getMyJobs();
 });
+
+function editionTrip(obj) {
+    sessionStorage["numRoutId"] = obj;
+    location.href = getUrl("goEditionTrip");
+}
+
 function getMyJobs() {
     var userInfo = JSON.parse(sessionStorage["userInfo"]);
     var numUserId = userInfo.numUserId;
@@ -32,7 +38,7 @@ function getMyJobs() {
                     '<div class="myTripListTabLi myTripMon">'+
                     '<span>'+v.NUM_UNIT_PRICE+'元/人</span>'+
                     '<br>'+
-                    '<button class="myTripEdit">编辑</button>'+
+                    '<button class="myTripEdit" onclick="editionTrip('+v.NUM_ROUTE_ID+')">编辑</button>'+
                     '</div>'+
                     '</li>';
             });

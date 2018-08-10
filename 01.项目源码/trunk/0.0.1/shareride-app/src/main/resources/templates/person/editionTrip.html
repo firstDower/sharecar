@@ -7,6 +7,11 @@
     <title>编辑行程</title>
     <link rel="stylesheet" href="css/commor.css">
     <link rel="stylesheet" href="css/myCss.css">
+    <script src="js/jquery-1.11.1.min.js"></script>
+    <script src="js/person/editionTrip.js"></script>
+    <link rel="stylesheet" href="css/mobiscroll.custom-2.6.2.min.css">
+    <script src="js/mobiscroll.custom-2.6.2.min.js"></script>
+    <script src="js/util.js"></script>
 </head>
 <body>
 <header class="headerRet">
@@ -14,27 +19,27 @@
 </header>
 <div class="goTripAll ediTrip">
     <p class="goTripCourse clear">
-        <span class="goTripCouCome">襄垣</span>到<span class="goTripCouGo">太原</span>
+        <input type="text" id="resPlace_dummy" placeholder="选择出发地" class="goTripCouCome" readonly="">
+        <select id="resPlace" class="demos" data-role="none" style="display: none;">
+        </select>
+        到
+        <input class="goTripCouGo" id="tarPlace_dummy"  placeholder="选择目的地"/>
+        <select id="tarPlace" class="demos" data-role="none" style="display: none;">
+        </select>
     </p>
     <p class="">
-        <span class="tripAllSingle">发车时间:</span><input type="text" placeholder="2018/8/7 9:00" class="tripAllPle">
-    </p>
-    <p class="">
-        <span class="tripAllSingle">途径时长约:</span><input type="text" placeholder="2.5h" class="tripAllPle">
+        <span class="tripAllSingle">发车时间:</span><input type="text" placeholder="选择发车时间" id="startTime" disabled
+                                                       class="tripAllPle">
     </p>
     <p>
-        <span class="tripAllSingle">最大乘客数:</span><input type="text" placeholder="6人" class="tripAllPle">
+        <span class="tripAllSingle">最大乘客数:</span><input type="text" id="passengers" placeholder="输入最多乘客数" class="tripAllPle">
     </p>
     <p>
-        <span class="tripAllSingle">费用 元/人:</span><input type="text" placeholder="60" class="tripAllPle">
+        <span class="tripAllSingle">费用 元/人:</span><input type="text" id="unitPrice" placeholder="输入单价" class="tripAllPle">
     </p>
-    <p >
-        <input type="radio" id="carToP" name="car" class="radioCar"> <label for="carToP" class="carAndP">车找人</label>
-        <input type="radio" id="pToCar" name="car" class="radioCar"><label for="pToCar" class="carAndP">人找车</label>
-    </p>
-    <p class="goTripEdition">
-        <img src="img/android.png" alt="" class="downEdition">
-        <img src="img/IOS.png" alt="" class="downEdition">
+    <p>
+        <input type="radio" id="carToP" name="numMannedType" checked class="radioCar" value="1"> <label for="carToP" class="carAndP">车找人</label>
+        <input type="radio" id="pToCar" name="numMannedType" class="radioCar" value="2"><label for="pToCar" class="carAndP">人找车</label>
     </p>
     <p class="ediTripSOD">
         <button class="ediSure">确认</button><button class="editDet">删除</button>

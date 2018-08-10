@@ -1,13 +1,12 @@
 package com.dower.sharerideapp.controller.weichat;
 
 import com.dower.sharerideapp.domain.config.weixin.MyConfig;
-import com.dower.sharerideapp.utils.Result;
 import com.github.wxpay.sdk.WXPay;
 import com.github.wxpay.sdk.WXPayConstants;
 import com.github.wxpay.sdk.WXPayUtil;
-import org.apache.commons.lang.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 

@@ -55,13 +55,20 @@ public class WebController {
     public String goMyInfo() {
         return "person/myInfo";
     }
+
     /**
      * 行程查询页
      */
-
     @RequestMapping("/goCarSearch")
     public String goCarSearch() {
         return "mainPro/carSearch";
+    }
+    /**
+     * 车主编辑行程页面
+     */
+    @RequestMapping("/goEditionTrip")
+    public String goEditionTrip() {
+        return "person/editionTrip";
     }
     /**
      * 测试支付页面
