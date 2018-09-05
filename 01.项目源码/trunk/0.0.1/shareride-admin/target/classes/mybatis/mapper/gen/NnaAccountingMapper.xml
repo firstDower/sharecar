@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dower.sharerideadmin.core.serverdb.dao.NnaAccountingMapper">
+  <resultMap id="BaseResultMap" type="com.dower.sharerideadmin.core.serverdb.model.NnaAccounting">
+    <id column="NUM_ACCOUNTING_ID" jdbcType="INTEGER" property="numAccountingId" />
+    <result column="VC_ACCOUNTING_NAME" jdbcType="VARCHAR" property="vcAccountingName" />
+    <result column="VC_ACCOUNTING_DESC" jdbcType="VARCHAR" property="vcAccountingDesc" />
+    <result column="NUM_AMOUNT" jdbcType="DECIMAL" property="numAmount" />
+    <result column="DAT_CREAT_DATE" jdbcType="TIMESTAMP" property="datCreatDate" />
+    <result column="DAT_MAKE_DATE" jdbcType="TIMESTAMP" property="datMakeDate" />
+    <result column="NUM_STATUS" jdbcType="INTEGER" property="numStatus" />
+    <result column="VC_IMGE_URL" jdbcType="VARCHAR" property="vcImgeUrl" />
+    <result column="NUM_TYPE" jdbcType="INTEGER" property="numType" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    NUM_ACCOUNTING_ID, VC_ACCOUNTING_NAME, VC_ACCOUNTING_DESC, NUM_AMOUNT, DAT_CREAT_DATE, 
+    DAT_MAKE_DATE, NUM_STATUS, VC_IMGE_URL, NUM_TYPE
+  </sql>
+  <select id="selectByExample" parameterType="com.dower.sharerideadmin.core.serverdb.model.NnaAccountingExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from nna_accounting
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from nna_accounting
+    where NUM_ACCOUNTING_ID = #{numAccountingId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from nna_accounting
+    where NUM_ACCOUNTING_ID = #{numAccountingId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.dower.sharerideadmin.core.serverdb.model.NnaAccountingExample">
+    delete from nna_accounting
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.dower.sharerideadmin.core.serverdb.model.NnaAccounting">
+    insert into nna_accounting (NUM_ACCOUNTING_ID, VC_ACCOUNTING_NAME, 
+      VC_ACCOUNTING_DESC, NUM_AMOUNT, DAT_CREAT_DATE, 
+      DAT_MAKE_DATE, NUM_STATUS, VC_IMGE_URL, 
+      NUM_TYPE)
+    values (#{numAccountingId,jdbcType=INTEGER}, #{vcAccountingName,jdbcType=VARCHAR}, 
+      #{vcAccountingDesc,jdbcType=VARCHAR}, #{numAmount,jdbcType=DECIMAL}, #{datCreatDate,jdbcType=TIMESTAMP}, 
+      #{datMakeDate,jdbcType=TIMESTAMP}, #{numStatus,jdbcType=INTEGER}, #{vcImgeUrl,jdbcType=VARCHAR}, 
+      #{numType,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dower.sharerideadmin.core.serverdb.model.NnaAccounting">
+    insert into nna_accounting
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="numAccountingId != null">
+        NUM_ACCOUNTING_ID,
+      </if>
+      <if test="vcAccountingName != null">
+        VC_ACCOUNTING_NAME,
+      </if>
+      <if test="vcAccountingDesc != null">
+        VC_ACCOUNTING_DESC,
+      </if>
+      <if test="numAmount != null">
+        NUM_AMOUNT,
+      </if>
+      <if test="datCreatDate != null">
+        DAT_CREAT_DATE,
+      </if>
+      <if test="datMakeDate != null">
+        DAT_MAKE_DATE,
+      </if>
+      <if test="numStatus != null">
+        NUM_STATUS,
+      </if>
+      <if test="vcImgeUrl != null">
+        VC_IMGE_URL,
+      </if>
+      <if test="numType != null">
+        NUM_TYPE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="numAccountingId != null">
+        #{numAccountingId,jdbcType=INTEGER},
+      </if>
+      <if test="vcAccountingName != null">
+        #{vcAccountingName,jdbcType=VARCHAR},
+      </if>
+      <if test="vcAccountingDesc != null">
+        #{vcAccountingDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="numAmount != null">
+        #{numAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="datCreatDate != null">
+        #{datCreatDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="datMakeDate != null">
+        #{datMakeDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="numStatus != null">
+        #{numStatus,jdbcType=INTEGER},
+      </if>
+      <if test="vcImgeUrl != null">
+        #{vcImgeUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="numType != null">
+        #{numType,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.dower.sharerideadmin.core.serverdb.model.NnaAccountingExample" resultType="java.lang.Long">
+    select count(*) from nna_accounting
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update nna_accounting
+    <set>
+      <if test="record.numAccountingId != null">
+        NUM_ACCOUNTING_ID = #{record.numAccountingId,jdbcType=INTEGER},
+      </if>
+      <if test="record.vcAccountingName != null">
+        VC_ACCOUNTING_NAME = #{record.vcAccountingName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.vcAccountingDesc != null">
+        VC_ACCOUNTING_DESC = #{record.vcAccountingDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.numAmount != null">
+        NUM_AMOUNT = #{record.numAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.datCreatDate != null">
+        DAT_CREAT_DATE = #{record.datCreatDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.datMakeDate != null">
+        DAT_MAKE_DATE = #{record.datMakeDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.numStatus != null">
+        NUM_STATUS = #{record.numStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.vcImgeUrl != null">
+        VC_IMGE_URL = #{record.vcImgeUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.numType != null">
+        NUM_TYPE = #{record.numType,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update nna_accounting
+    set NUM_ACCOUNTING_ID = #{record.numAccountingId,jdbcType=INTEGER},
+      VC_ACCOUNTING_NAME = #{record.vcAccountingName,jdbcType=VARCHAR},
+      VC_ACCOUNTING_DESC = #{record.vcAccountingDesc,jdbcType=VARCHAR},
+      NUM_AMOUNT = #{record.numAmount,jdbcType=DECIMAL},
+      DAT_CREAT_DATE = #{record.datCreatDate,jdbcType=TIMESTAMP},
+      DAT_MAKE_DATE = #{record.datMakeDate,jdbcType=TIMESTAMP},
+      NUM_STATUS = #{record.numStatus,jdbcType=INTEGER},
+      VC_IMGE_URL = #{record.vcImgeUrl,jdbcType=VARCHAR},
+      NUM_TYPE = #{record.numType,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dower.sharerideadmin.core.serverdb.model.NnaAccounting">
+    update nna_accounting
+    <set>
+      <if test="vcAccountingName != null">
+        VC_ACCOUNTING_NAME = #{vcAccountingName,jdbcType=VARCHAR},
+      </if>
+      <if test="vcAccountingDesc != null">
+        VC_ACCOUNTING_DESC = #{vcAccountingDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="numAmount != null">
+        NUM_AMOUNT = #{numAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="datCreatDate != null">
+        DAT_CREAT_DATE = #{datCreatDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="datMakeDate != null">
+        DAT_MAKE_DATE = #{datMakeDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="numStatus != null">
+        NUM_STATUS = #{numStatus,jdbcType=INTEGER},
+      </if>
+      <if test="vcImgeUrl != null">
+        VC_IMGE_URL = #{vcImgeUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="numType != null">
+        NUM_TYPE = #{numType,jdbcType=INTEGER},
+      </if>
+    </set>
+    where NUM_ACCOUNTING_ID = #{numAccountingId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dower.sharerideadmin.core.serverdb.model.NnaAccounting">
+    update nna_accounting
+    set VC_ACCOUNTING_NAME = #{vcAccountingName,jdbcType=VARCHAR},
+      VC_ACCOUNTING_DESC = #{vcAccountingDesc,jdbcType=VARCHAR},
+      NUM_AMOUNT = #{numAmount,jdbcType=DECIMAL},
+      DAT_CREAT_DATE = #{datCreatDate,jdbcType=TIMESTAMP},
+      DAT_MAKE_DATE = #{datMakeDate,jdbcType=TIMESTAMP},
+      NUM_STATUS = #{numStatus,jdbcType=INTEGER},
+      VC_IMGE_URL = #{vcImgeUrl,jdbcType=VARCHAR},
+      NUM_TYPE = #{numType,jdbcType=INTEGER}
+    where NUM_ACCOUNTING_ID = #{numAccountingId,jdbcType=INTEGER}
+  </update>
+</mapper>
