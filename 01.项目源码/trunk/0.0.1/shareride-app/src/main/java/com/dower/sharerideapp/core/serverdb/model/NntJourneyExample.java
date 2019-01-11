@@ -955,6 +955,66 @@ public class NntJourneyExample {
             addCriterion("NUM_UNIT_PRICE not between", value1, value2, "numUnitPrice");
             return (Criteria) this;
         }
+
+        public Criteria andDatUpdataDateIsNull() {
+            addCriterion("DAT_UPDATA_DATE is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDatUpdataDateIsNotNull() {
+            addCriterion("DAT_UPDATA_DATE is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDatUpdataDateEqualTo(Date value) {
+            addCriterion("DAT_UPDATA_DATE =", value, "datUpdataDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andDatUpdataDateNotEqualTo(Date value) {
+            addCriterion("DAT_UPDATA_DATE <>", value, "datUpdataDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andDatUpdataDateGreaterThan(Date value) {
+            addCriterion("DAT_UPDATA_DATE >", value, "datUpdataDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andDatUpdataDateGreaterThanOrEqualTo(Date value) {
+            addCriterion("DAT_UPDATA_DATE >=", value, "datUpdataDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andDatUpdataDateLessThan(Date value) {
+            addCriterion("DAT_UPDATA_DATE <", value, "datUpdataDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andDatUpdataDateLessThanOrEqualTo(Date value) {
+            addCriterion("DAT_UPDATA_DATE <=", value, "datUpdataDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andDatUpdataDateIn(List<Date> values) {
+            addCriterion("DAT_UPDATA_DATE in", values, "datUpdataDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andDatUpdataDateNotIn(List<Date> values) {
+            addCriterion("DAT_UPDATA_DATE not in", values, "datUpdataDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andDatUpdataDateBetween(Date value1, Date value2) {
+            addCriterion("DAT_UPDATA_DATE between", value1, value2, "datUpdataDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andDatUpdataDateNotBetween(Date value1, Date value2) {
+            addCriterion("DAT_UPDATA_DATE not between", value1, value2, "datUpdataDate");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

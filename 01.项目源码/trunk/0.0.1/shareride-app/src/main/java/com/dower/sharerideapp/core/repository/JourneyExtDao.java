@@ -13,4 +13,5 @@ import java.util.Map;
 
 public interface JourneyExtDao {
     public List<HashMap<String,Object>> getMyJobs(Map<String,String> paramMap);
+    public HashMap<String,Object> getRouteDetailById(Map<String,String> paramMap);
 }

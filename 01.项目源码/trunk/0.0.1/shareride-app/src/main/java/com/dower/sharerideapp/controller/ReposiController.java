@@ -46,6 +46,30 @@ public class ReposiController {
         return tripService.creatTrip(params);
     }
 
+    /**
+     * 修改行程状态
+     * @param params
+     * @return
+     */
+    @RequestMapping("/updateRouteStatus")
+    public Result updateRouteStatus(String params){
+        return tripService.updateRouteStatus(params);
+    }
+
+    /**
+     * 修改行程
+     * @param params
+     * @return
+     */
+    @RequestMapping("/updateTrip")
+    public Result updateTrip(String params){
+        return tripService.updateTrip(params);
+    }
+
+    /**
+     * 获取城市列表
+     * @return
+     */
     @RequestMapping("/getTravelCityList")
     public List<NntTravelCity> getTravelCityList(){
         return commService.getTravelCity();

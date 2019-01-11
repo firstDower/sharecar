@@ -16,7 +16,7 @@
 					LEFT JOIN nnt_travel_city ntc on nj.NUM_START_TRAVEL_CITY_ID =
 													 ntc.NUM_TRAVEL_CITY_ID
 					LEFT JOIN nnt_travel_city ntc2 on nj.NUM_END_TRAVEL_CITY_ID =
-													  ntc.NUM_TRAVEL_CITY_ID
+													  ntc2.NUM_TRAVEL_CITY_ID
 				   where nj.NUM_USER_ID = #{numUserId}) t1
 			LEFT JOIN (select nj1.NUM_ROUTE_ID,
 							  count(nuj.NUM_ROUTE_ID) appointment_sum
@@ -39,4 +39,42 @@
 														 t3.NUM_ROUTE_ID
 	</select>
 
+    <select id="getRouteDetailById" parameterType="java.util.Map" resultType="java.util.Map">
+		  SELECT t1.*, t2.appointment_sum, t3.pay_sum
+			from (SELECT nj.NUM_ROUTE_ID,
+						 nj.VC_ROUTE_NO,
+						 nj.DAT_DEPART_DATE,
+						 DATE_FORMAT(nj.DAT_DEPART_DATE,'%Y-%m-%d %H:%i') START_TIME,
+						 nj.NUM_MANNED_TYPE,
+						 nj.NUM_MAX_PASSENGERS,
+						 nj.NUM_UNIT_PRICE,
+						 nj.NUM_ROUTE_STATE,
+						ntc.NUM_TRAVEL_CITY_ID start_city_id,
+						 ntc.VC_CITY_NAME start_city_name,
+						ntc2.NUM_TRAVEL_CITY_ID end_city_id,
+						 ntc2.VC_CITY_NAME end_city_name
+					from nnt_journey nj
+					LEFT JOIN nnt_travel_city ntc on nj.NUM_START_TRAVEL_CITY_ID =
+													 ntc.NUM_TRAVEL_CITY_ID
+					LEFT JOIN nnt_travel_city ntc2 on nj.NUM_END_TRAVEL_CITY_ID =
+													  ntc2.NUM_TRAVEL_CITY_ID
+				   where nj.NUM_ROUTE_ID = #{numRouteId}) t1
+			LEFT JOIN (select nj1.NUM_ROUTE_ID,
+							  count(nuj.NUM_ROUTE_ID) appointment_sum
+						 from nnt_journey nj1
+						 left JOIN nnt_user_journey nuj on nj1.NUM_ROUTE_ID =
+														   nuj.NUM_ROUTE_ID
+													   and nuj.NUM_STATE = 1
+													   and nuj.NUM_PAY_STATE = 1
+						GROUP BY nj1.NUM_ROUTE_ID) t2 on t1.NUM_ROUTE_ID =
+														 t2.NUM_ROUTE_ID
+			LEFT JOIN (select nj1.NUM_ROUTE_ID, count(nuj.NUM_ROUTE_ID) pay_sum
+						 from nnt_journey nj1
+						 left JOIN nnt_user_journey nuj on nj1.NUM_ROUTE_ID =
+														   nuj.NUM_ROUTE_ID
+													   and nuj.NUM_STATE = 1
+													   and nuj.NUM_PAY_STATE = 2
+						GROUP BY nj1.NUM_ROUTE_ID) t3 on t1.NUM_ROUTE_ID =
+														 t3.NUM_ROUTE_ID
+	</select>
 </mapper>

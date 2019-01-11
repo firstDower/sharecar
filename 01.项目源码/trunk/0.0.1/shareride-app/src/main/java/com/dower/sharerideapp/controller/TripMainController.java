@@ -19,8 +19,24 @@ import java.util.List;
 public class TripMainController {
     @Autowired
     JourneyExtService journeyExtService;
+
+    /**
+     * 获取我的行程列表
+     * @param params
+     * @return
+     */
     @RequestMapping("/getMyJobs")
     public List<HashMap<String, Object>> getMyJobs(String params){
         return journeyExtService.getMyJobs(params);
+    }
+
+    /**
+     * 根据行程id获取行程详情
+     * @param params
+     * @return
+     */
+    @RequestMapping("/getRouteDetailById")
+    public HashMap<String, Object> getRouteDetailById(String params){
+        return journeyExtService.getRouteDetailById(params);
     }
 }

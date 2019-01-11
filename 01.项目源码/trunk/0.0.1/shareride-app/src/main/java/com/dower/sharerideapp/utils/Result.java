@@ -51,5 +51,17 @@ public class Result {
 	public void setResultInfo(Object resultInfo) {
 		this.resultInfo = resultInfo;
 	}
-	
+
+	public static void main(String args[]){
+		int a = -33;
+		printInfo(a);
+		printInfo(a>>1);
+		int b = a + (a>>1);
+		printInfo(b);
+	}
+
+    private static void printInfo(int num){
+		 System.out.println(num);
+		 System.out.println(Integer.toBinaryString(num));
+	}
 }

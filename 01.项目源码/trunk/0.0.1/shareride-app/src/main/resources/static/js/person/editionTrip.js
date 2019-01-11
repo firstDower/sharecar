@@ -1,33 +1,43 @@
 $(function () {
-    alert(sessionStorage["numRoutId"]);
+    //alert(sessionStorage["numRoutId"]);
     getTravelCityList();
-    $('#creatTrip').click(creatTrip);
+    $('#updateTrip').click(updateTrip);
+    $("#updateStatus").click(updateRouteStatus);
 });
-
-
-//获取行程详情
-function getTripDetail() {
-    var userInfo = JSON.parse(sessionStorage["userInfo"]);
-    var numUserId = userInfo.numUserId;
+//修改行程状态
+function updateRouteStatus() {
+    var state = $(this).attr("state");
+    if(state=='1'){
+        state = '2';
+    }else if(state=='2'){
+        state = '1';
+    }else{
+        return
+    }
     var params = {};
-    params.numUserId = numUserId;
+    params.numRouteId = sessionStorage["numRoutId"];
+    params.routeState = state;
     $.ajax({
         type:"post",
-        url:getUrl("journey/getMyJobs"),
+        url:getUrl("reposi/updateRouteStatus"),
         dataType:"json",
         data:{params:JSON.stringify(params)},
         success:function(data){
             console.log(JSON.stringify(data));
+            alert(data.msg);
+            location.reload();
         },
         error:function(){
             closeMsg();
         }
     });
 }
-function creatTrip() {
+//修改行程
+function updateTrip() {
     var params = {};
     var userInfo = JSON.parse(sessionStorage['userInfo']);
     params.numUserId = userInfo.numUserId;
+    params.numRouteId = sessionStorage["numRoutId"];
     params.resPlace = $('#resPlace').val();
     params.tarPlace = $('#tarPlace').val();
     params.startTime = $('#startTime').val();
@@ -40,12 +50,13 @@ function creatTrip() {
     }
     $.ajax({
         type:"post",
-        url:getUrl("reposi/creatTrip"),
+        url:getUrl("reposi/updateTrip"),
         dataType:"json",
         data:{params:JSON.stringify(params)},
         success:function(data){
             console.log(JSON.stringify(data));
             alert(data.msg);
+            location.reload();
         },
         error:function(){
             closeMsg();
@@ -54,7 +65,51 @@ function creatTrip() {
 
 
 }
+//获取行程详情
+function getRouteDetailById() {
+    var params = {};
+    params.numRouteId = sessionStorage["numRoutId"];
+    $.ajax({
+        type:"post",
+        url:getUrl("journey/getRouteDetailById"),
+        dataType:"json",
+        data:{params:JSON.stringify(params)},
+        success:function(data){
+            console.log(JSON.stringify(data));
+            showPage(data)
+        },
+        error:function(){
+            closeMsg();
+        }
+    });
+}
 
+function showPage(obj){
+    //出发地
+    $("#resPlace_dummy").val(obj.start_city_name);
+    //目的地
+    $("#tarPlace_dummy").val(obj.end_city_name);
+    //出发点id
+    $("#resPlace").val(obj.start_city_id);
+    //目的地id
+    $("#tarPlace").val(obj.end_city_id);
+    //出发时间
+    $('#startTime').val(obj.START_TIME);
+    //最大载客数
+    $('#passengers').val(obj.NUM_MAX_PASSENGERS);
+    //单价
+    $('#unitPrice').val(obj.NUM_UNIT_PRICE);
+    //接人方式
+    $("input[name='numMannedType'][value="+obj.NUM_MANNED_TYPE+"]").attr("checked",true);
+    //发布状态
+    var state = obj.NUM_ROUTE_STATE;
+    if(state=='1'){
+        $("#updateStatus").html("发布行程");
+    }else if(state=='2'){
+        $("#updateStatus").html("取消发布");
+    }
+    $("#updateStatus").attr("state",state);
+}
 function validParams(params) {
     if(!params.resPlace){
         alert("请选择出发城市！");
@@ -147,6 +202,10 @@ function initPage() {
     $("#resPlace").val('').scroller('destroy').scroller($.extend(opt['select'], opt.default));
     $("#tarPlace").val('').scroller('destroy').scroller($.extend(opt['select'], opt.default));
     initcss();
+
+    //初始化页面数据
+    getRouteDetailById();
+
 }
 function initcss() {
     $('#resPlace_dummy,#tarPlace_dummy').css({

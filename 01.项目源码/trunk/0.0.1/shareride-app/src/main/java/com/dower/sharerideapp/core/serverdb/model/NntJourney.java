@@ -32,6 +32,8 @@ public class NntJourney {
 
     private BigDecimal numUnitPrice;
 
+    private Date datUpdataDate;
+
     public Integer getNumRouteId() {
         return numRouteId;
     }
@@ -142,5 +144,13 @@ public class NntJourney {
 
     public void setNumUnitPrice(BigDecimal numUnitPrice) {
         this.numUnitPrice = numUnitPrice;
+    }
+
+    public Date getDatUpdataDate() {
+        return datUpdataDate;
+    }
+
+    public void setDatUpdataDate(Date datUpdataDate) {
+        this.datUpdataDate = datUpdataDate;
     }
 }

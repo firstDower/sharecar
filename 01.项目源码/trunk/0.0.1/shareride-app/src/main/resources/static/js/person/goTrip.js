@@ -1,5 +1,5 @@
 $(function () {
-
+    //初始化城市选择
     getTravelCityList();
     $('#creatTrip').click(creatTrip);
 });
