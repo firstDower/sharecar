@@ -1,6 +1,7 @@
 package com.dower.sharerideapp.service;
 
 import com.alibaba.fastjson.JSONObject;
+import com.dower.sharerideapp.core.bean.req.NntJourneyReq;
 import com.dower.sharerideapp.core.repository.JourneyExtDao;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -22,6 +23,16 @@ public class JourneyExtService {
     private static final Logger LOGGER = LogManager.getLogger(JourneyExtService.class);
     @Autowired
     private JourneyExtDao journeyExtDao;
+
+    /**
+     * 行程搜索
+     * @param params
+     * @return
+     */
+    public List<HashMap<String, Object>> routeSearch(NntJourneyReq nntJourneyReq){
+        List<HashMap<String, Object>> myJobs = journeyExtDao.routeSearch(nntJourneyReq);
+        return myJobs;
+    }
 
     /**
      * 根据userid获取我的行程列表

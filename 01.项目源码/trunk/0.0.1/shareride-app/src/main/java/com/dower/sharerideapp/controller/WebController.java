@@ -106,5 +106,23 @@ public class WebController {
         return "person/goMyTripRecord";
     }
 
+    /**
+     * 行程搜索结果
+     * @return
+     */
+    @RequestMapping("/goTripSearchResult")
+    public String goTripSearchResult() {
+        return "mainPro/tripSearchResult";
+    }
+
+    /**
+     * 搜索行程列表
+     * @return
+     */
+    @RequestMapping("/goTripList")
+    public String goTripList() {
+        return "mainPro/tripList";
+    }
+
 }
 

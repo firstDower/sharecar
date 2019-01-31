@@ -1,5 +1,6 @@
 package com.dower.sharerideapp.controller;
 
+import com.dower.sharerideapp.core.bean.req.NntJourneyReq;
 import com.dower.sharerideapp.service.JourneyExtService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +21,10 @@ public class TripMainController {
     @Autowired
     JourneyExtService journeyExtService;
 
+    @RequestMapping("/routeSearch")
+    public List<HashMap<String, Object>> routeSearch(NntJourneyReq nntJourneyReq){
+        return journeyExtService.routeSearch(nntJourneyReq);
+    }
     /**
      * 获取我的行程列表
      * @param params

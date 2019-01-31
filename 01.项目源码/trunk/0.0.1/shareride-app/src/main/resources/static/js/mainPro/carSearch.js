@@ -2,8 +2,48 @@ $(function () {
     //初始化城市选择
     getTravelCityList();
     getUsersInfo();
+    $('#carSearchBtn').click(routeSearch);
 });
 
+function routeSearch() {
+    var paramJson = {};
+    var numStartTravelCityId = $('#resPlace').val();
+    if(!numStartTravelCityId){
+        alert("请选择出发城市!");
+        return false;
+    }
+    paramJson.numStartTravelCityId = numStartTravelCityId;
+    var numEndTravelCityId = $('#tarPlace').val();
+    if(!numEndTravelCityId){
+        alert("请选择目的城市!");
+        return false;
+    }
+    paramJson.numEndTravelCityId = numEndTravelCityId;
+    var datDepartDate = $('#yuYueTime').val();
+    if(!datDepartDate){
+        alert("请选择行程日期!")
+        return false;
+    }
+    paramJson.datDepartDate = datDepartDate;
+
+    $.ajax({
+        type:"post",
+        url:getUrl("journey/routeSearch"),
+        dataType:"json",
+        data:paramJson,
+        success:function(data){
+            sessionStorage['routeSearchParam'] = JSON.stringify(paramJson);
+            console.log(JSON.stringify(data));
+            sessionStorage['tripSearchResult'] = JSON.stringify(data);
+            location.href = getUrl("goTripSearchResult");
+        },
+        error:function(){
+            closeMsg();
+        }
+    });
+}
+
+//获取城市列表
 function getTravelCityList() {
     $.ajax({
         type:"post",
@@ -72,6 +112,22 @@ function initPage() {
     $("#resPlace").val('').scroller('destroy').scroller($.extend(opt['select'], opt.default));
     $("#tarPlace").val('').scroller('destroy').scroller($.extend(opt['select'], opt.default));
     initcss();
+
+    //初始化数据
+
+    var routeSearchParam = sessionStorage['routeSearchParam'];
+    if(routeSearchParam){
+        routeSearchParam = stringToJson(routeSearchParam);
+        var numStartTravelCityId = routeSearchParam.numStartTravelCityId;
+        var numEndTravelCityId = routeSearchParam.numEndTravelCityId;
+        var datDepartDate = routeSearchParam.datDepartDate;
+        $('#resPlace').val(numStartTravelCityId);
+        $('#tarPlace').val(numEndTravelCityId);
+        $('#yuYueTime').val(datDepartDate);
+        $('#resPlace_dummy').val($("#resPlace").find("option:selected").text());
+        $('#tarPlace_dummy').val($("#tarPlace").find("option:selected").text());
+    }
+
 }
 function initcss() {
     $('#resPlace_dummy,#tarPlace_dummy').css({

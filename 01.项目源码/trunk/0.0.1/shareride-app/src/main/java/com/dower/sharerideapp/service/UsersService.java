@@ -5,17 +5,17 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.dower.sharerideapp.core.repository.UsersDao;
 
+import com.dower.sharerideapp.core.serverdb.dao.NntCarOwnerInfoMapper;
+import com.dower.sharerideapp.core.serverdb.dao.NntCarinfoMapper;
 import com.dower.sharerideapp.core.serverdb.dao.NntUserinfoMapper;
 import com.dower.sharerideapp.core.serverdb.dao.NntUsersMapper;
-import com.dower.sharerideapp.core.serverdb.model.NntUserinfo;
-import com.dower.sharerideapp.core.serverdb.model.NntUserinfoExample;
-import com.dower.sharerideapp.core.serverdb.model.NntUsers;
-import com.dower.sharerideapp.core.serverdb.model.NntUsersExample;
+import com.dower.sharerideapp.core.serverdb.model.*;
 import com.dower.sharerideapp.utils.Result;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 import java.util.List;
@@ -36,6 +36,11 @@ public class UsersService {
     private NntUsersMapper nntUsersMapper;
     @Autowired
     private NntUserinfoMapper nntUserinfoMapper;
+    @Autowired
+    private NntCarinfoMapper nntCarinfoMapper;
+    @Autowired
+    private NntCarOwnerInfoMapper nntCarOwnerInfoMapper;
+
     public NntUsers selectUsersBuOpenid(NntUsers nntUsers){
         NntUsersExample example = new NntUsersExample();
         NntUsersExample.Criteria criteria = example.createCriteria();
@@ -104,6 +109,7 @@ public class UsersService {
         return result;
     }
 
+    @Transactional
     public Result editPersionExtraInfo(String params) {
         Result result = new Result(false,"用户扩展信息跟新失败");
         try {
@@ -113,30 +119,83 @@ public class UsersService {
             users.setNumState(jsonparams.getInteger("numState"));
             int i = nntUsersMapper.updateByPrimaryKeySelective(users);
 
-            NntUserinfoExample example = new NntUserinfoExample();
-            NntUserinfoExample.Criteria criteria = example.createCriteria();
-            criteria.andNumUserIdEqualTo(jsonparams.getInteger("numUserId"));
-            List<NntUserinfo> nntUserinfos = nntUserinfoMapper.selectByExample(example);
-            if(nntUserinfos.size()==0){
-                NntUserinfo nntUserinfo = new NntUserinfo();
-                nntUserinfo.setNumUserId(jsonparams.getInteger("numUserId"));
-                nntUserinfo.setVcBackCardNumber(jsonparams.getString("vcBackCardNumber"));
-                nntUserinfo.setVcIdcardNumber(jsonparams.getString("vcIdcardNumber"));
-                int i1 = nntUserinfoMapper.insertSelective(nntUserinfo);
-            }else {
-                NntUserinfo nntUserinfo = nntUserinfos.get(0);
-                nntUserinfo.setNumUserId(jsonparams.getInteger("numUserId"));
-                nntUserinfo.setVcBackCardNumber(jsonparams.getString("vcBackCardNumber"));
-                nntUserinfo.setVcIdcardNumber(jsonparams.getString("vcIdcardNumber"));
-                nntUserinfoMapper.updateByPrimaryKeySelective(nntUserinfo);
-            }
+            //车辆信息
+            NntCarinfo nntCarinfo = new NntCarinfo();
+            nntCarinfo.setNumUserId(jsonparams.getInteger("numUserId"));
+            nntCarinfo.setVcCarNo(jsonparams.getString("vcCarNo"));
+            nntCarinfo.setVcBrand(jsonparams.getString("vcBrand"));
+            nntCarinfo.setVcCarColor(jsonparams.getString("vcCarColor"));
+
+            Integer updCarInfoResult = updateCarInfo(nntCarinfo);
+            //车主信息
+            NntCarOwnerInfo nntCarOwnerInfo = new NntCarOwnerInfo();
+            nntCarOwnerInfo.setNumUserId(jsonparams.getInteger("numUserId"));
+            nntCarOwnerInfo.setVcRealName(jsonparams.getString("vcRealName"));
+            nntCarOwnerInfo.setVcIdentityNo(jsonparams.getString("vcIdentityNo"));
+            Integer updCarOwnerInfoResult = updateCarOwnerInfo(nntCarOwnerInfo);
+
 
             LOGGER.info("跟新用户扩展信息结果："+i);
             result.setSuccess(true);
             result.setMsg("用户扩展信息跟新成功！");
         }catch (Exception e){
+            e.printStackTrace();
             LOGGER.error("跟新用户扩展信息异常");
         }
         return result;
     }
+
+    /**
+     * 插入更新车辆信息
+     * @return
+     */
+    public Integer updateCarInfo(NntCarinfo nntCarinfo){
+        Integer result = 0;
+        try {
+            NntCarinfoExample example = new NntCarinfoExample();
+            NntCarinfoExample.Criteria criteria = example.createCriteria();
+            criteria.andNumUserIdEqualTo(nntCarinfo.getNumUserId());
+            List<NntCarinfo> nntCarinfos = nntCarinfoMapper.selectByExample(example);
+
+            if(nntCarinfos.size()==0){
+                result = nntCarinfoMapper.insertSelective(nntCarinfo);
+            }else {
+                result = nntCarinfoMapper.updateByPrimaryKeySelective(nntCarinfo);
+            }
+            LOGGER.info("插入更新车辆信息结果result="+result);
+        }catch (Exception e){
+            e.printStackTrace();
+            LOGGER.error("插入更新车辆信息异常");
+        }
+
+        return result;
+    }
+
+    /**
+     * 插入更新车主信息
+     * @return
+     */
+    public Integer updateCarOwnerInfo(NntCarOwnerInfo nntCarOwnerInfo){
+        Integer result = 0;
+        try {
+            NntCarOwnerInfoExample example = new NntCarOwnerInfoExample();
+            NntCarOwnerInfoExample.Criteria criteria = example.createCriteria();
+            criteria.andNumUserIdEqualTo(nntCarOwnerInfo.getNumUserId());
+            List<NntCarOwnerInfo> nntCarOwnerInfos = nntCarOwnerInfoMapper.selectByExample(example);
+
+            if(nntCarOwnerInfos.size()==0){
+                result = nntCarOwnerInfoMapper.insertSelective(nntCarOwnerInfo);
+            }else {
+                result = nntCarOwnerInfoMapper.updateByPrimaryKeySelective(nntCarOwnerInfo);
+            }
+            LOGGER.info("插入更新车主信息结果result="+result);
+        }catch (Exception e){
+            e.printStackTrace();
+            LOGGER.error("插入更新车主信息异常");
+        }
+
+        return result;
+    }
+
+
 }

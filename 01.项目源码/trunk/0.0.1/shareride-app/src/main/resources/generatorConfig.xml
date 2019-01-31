@@ -66,7 +66,12 @@
 
         <table schema="nnt_db" tableName="nnt_user_journey">
         </table>-->
-        <table schema="nnt_db" tableName="nnt_journey">
+        <!--<table schema="nnt_db" tableName="nnt_journey">
+        </table>-->
+
+        <table schema="nnt_db" tableName="nnt_carinfo">
+        </table>
+        <table schema="nnt_db" tableName="nnt_car_owner_info">
         </table>
         <!--<table schema="nnt_db" tableName="nnt_travel_city">
         </table>-->
