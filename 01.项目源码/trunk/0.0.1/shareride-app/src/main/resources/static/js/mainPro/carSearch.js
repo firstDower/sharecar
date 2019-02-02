@@ -164,6 +164,7 @@ function getUsersInfo(openId) {
         dataType:"json",
         data:{params:openId},
         success:function(data){
+            sessionStorage["userInfo"] = JSON.stringify(data);
             console.log(data);
         },
         error:function(){

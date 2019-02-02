@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta charset="UTF-8">
+    <title>行程详情</title>
+    <link rel="stylesheet" href="css/commor.css">
+    <link rel="stylesheet" href="css/myCss.css">
+    <script src="js/jquery-1.11.1.min.js"></script>
+    <script src="js/util.js"></script>
+    <link rel="stylesheet" href="css/mobiscroll.custom-2.6.2.min.css">
+    <script src="js/mobiscroll.custom-2.6.2.min.js"></script>
+    <script src="js/mainPro/tripDetail.js"></script>
+</head>
+<body>
+<header class="headerRet">
+    <b class="BackBtn"></b>行程详情
+</header>
+<div class="detailCarMeg clear">
+    <div class="detCarBrand fl">
+        <span id="VC_CAR_NO"></span>
+        <br>
+        <span ><span id="VC_CAR_COLOR"></span>-<span id="VC_BRAND"></span></span>
+    </div>
+    <div class="detCarLogo fl">
+        <img src="img/car.jpg" alt="">
+    </div>
+    <div class="detCarOwner fr">
+        <span id="VC_REAL_NAME"></span><br>
+        <b class="starRed"></b><span class="OwnerFen">4.8</span><span>321单</span>
+    </div>
+</div>
+<div class="contactOwner">
+    <button>打电话</button><button>加关注</button><button>发微信</button><button class="conService">联系客服</button>
+</div>
+<div class="yuYuetrip clear">
+    <div class="yTripDet fl">
+        <span class="tripCAC"><span id="start_city_name"></span>-<span id="end_city_name"></span></span> <br>
+        <span>发车时间 &nbsp;<span id="START_TIME"></span></span><br>
+        <span>剩余座位数 <span id="remainSeats"></span></span> <br>
+        <span>费用 &nbsp;<span id="NUM_UNIT_PRICE"></span>/人</span>
+    </div>
+    <div class="yTripPer fr">
+        <div class="clear yTripPAR">
+            <div class="fl perSonyY">
+                <span>预约人数</span><br>
+                <i class="jian"></i><span>1</span><i class="add"></i>
+            </div>
+            <div class="fr yTriptu">
+                <img src="img/android.png" alt="">
+            </div>
+        </div>
+        <button>添加出行要求</button>
+        <button class="yTripStartbtn" id="subscribeTrip">预约行程</button>
+    </div>
+</div>
+<div class="yuYueMap">
+
+</div>
+<footer class="footerYuYue">
+    温情提示:预支付可以避免座位被抢
+</footer>
+</body>
+</html>

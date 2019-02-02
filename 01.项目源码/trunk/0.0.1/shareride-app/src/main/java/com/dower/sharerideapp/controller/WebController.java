@@ -124,5 +124,13 @@ public class WebController {
         return "mainPro/tripList";
     }
 
+    /**
+     * 搜索行程结果详情
+     * @return
+     */
+    @RequestMapping("/goTripDetail")
+    public String goTripDetail(){
+        return "mainPro/tripDetail";
+    }
 }
 

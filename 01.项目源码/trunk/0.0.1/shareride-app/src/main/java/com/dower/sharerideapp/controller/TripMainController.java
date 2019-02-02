@@ -1,11 +1,19 @@
 package com.dower.sharerideapp.controller;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.dower.sharerideapp.core.bean.req.NntJourneyReq;
+import com.dower.sharerideapp.core.serverdb.model.NntJourney;
 import com.dower.sharerideapp.service.JourneyExtService;
+import com.dower.sharerideapp.utils.CommUtil;
+import com.dower.sharerideapp.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -20,6 +28,16 @@ import java.util.List;
 public class TripMainController {
     @Autowired
     JourneyExtService journeyExtService;
+
+    /**
+     * 预约行程
+     * @param params
+     * @return
+     */
+    @RequestMapping("/subscribeTrip")
+    public Result subscribeTrip(String params){
+        return journeyExtService.subscribeTrip(params);
+    }
 
     @RequestMapping("/routeSearch")
     public List<HashMap<String, Object>> routeSearch(NntJourneyReq nntJourneyReq){
