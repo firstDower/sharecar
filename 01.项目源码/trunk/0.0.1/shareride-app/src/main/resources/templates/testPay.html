@@ -20,7 +20,7 @@
 <div class="body"><button class="payButton" id="payButton">支付</button><button class="backButton" id="back">返回</button></div>
 
 <script th:inline="javascript">
-    var openId = getQueryString("openId");
+    var openId = sessionStorage["openId"];
     if(!openId){
         openId = sessionStorage["openId"];
         if(!openId){
@@ -42,7 +42,9 @@
         });
     });
 
+    function payFun() {
 
+    }
 
     function onBridgeReady(data){
         WeixinJSBridge.invoke(

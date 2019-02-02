@@ -143,4 +143,56 @@
 						GROUP BY nj1.NUM_ROUTE_ID) t3 on t1.NUM_ROUTE_ID =
 														 t3.NUM_ROUTE_ID
 	</select>
+
+	<select id="getMyTripRecord" parameterType="java.util.Map" resultType="java.util.Map">
+
+		SELECT * from nnt_user_journey nuj LEFT JOIN (
+
+
+SELECT t1.*, t2.appointment_sum, t3.pay_sum
+FROM
+(SELECT nj.NUM_ROUTE_ID,
+						 nj.VC_ROUTE_NO,
+						 DATE_FORMAT(nj.DAT_DEPART_DATE,'%Y-%m-%d %H:%i') START_TIME,
+						 nj.DAT_DEPART_DATE,
+						 nj.NUM_MANNED_TYPE,
+						 nj.NUM_MAX_PASSENGERS,
+						 nj.NUM_UNIT_PRICE,
+						 nj.NUM_ROUTE_STATE,
+						ntc.NUM_TRAVEL_CITY_ID start_city_id,
+						 ntc.VC_CITY_NAME start_city_name,
+						ntc2.NUM_TRAVEL_CITY_ID end_city_id,
+						 ntc2.VC_CITY_NAME end_city_name,
+							nci.VC_CAR_NO,
+							nci.VC_BRAND,
+							nci.VC_CAR_COLOR,
+							ncoi.VC_REAL_NAME
+					from nnt_journey nj
+					LEFT JOIN nnt_travel_city ntc on nj.NUM_START_TRAVEL_CITY_ID =
+													 ntc.NUM_TRAVEL_CITY_ID
+					LEFT JOIN nnt_travel_city ntc2 on nj.NUM_END_TRAVEL_CITY_ID =
+													  ntc2.NUM_TRAVEL_CITY_ID
+					LEFT JOIN nnt_carinfo nci on nj.NUM_USER_ID = nci.NUM_USER_ID
+					LEFT JOIN nnt_car_owner_info ncoi on nj.NUM_USER_ID = ncoi.NUM_USER_ID
+				   where 1=1 and nj.DAT_DEPART_DATE > now() and (nj.NUM_ROUTE_STATE =2 ||nj.NUM_ROUTE_STATE = 3)) AS t1
+LEFT JOIN (select nj1.NUM_ROUTE_ID,
+							  count(nuj.NUM_ROUTE_ID) appointment_sum
+						 from nnt_journey nj1
+						 left JOIN nnt_user_journey nuj on nj1.NUM_ROUTE_ID =
+														   nuj.NUM_ROUTE_ID
+													   and nuj.NUM_STATE = 1
+													   and nuj.NUM_PAY_STATE = 1
+						GROUP BY nj1.NUM_ROUTE_ID) AS t2 ON t1.NUM_ROUTE_ID= t2.NUM_ROUTE_ID
+LEFT JOIN (select nj1.NUM_ROUTE_ID, count(nuj.NUM_ROUTE_ID) pay_sum
+						 from nnt_journey nj1
+						 left JOIN nnt_user_journey nuj on nj1.NUM_ROUTE_ID =
+														   nuj.NUM_ROUTE_ID
+													   and nuj.NUM_STATE = 1
+													   and nuj.NUM_PAY_STATE = 2
+
+						GROUP BY nj1.NUM_ROUTE_ID) AS t3 ON t1.NUM_ROUTE_ID= t3.NUM_ROUTE_ID
+) t_code on nuj.NUM_ROUTE_ID = t_code.NUM_ROUTE_ID where nuj.NUM_USER_ID = #{numUserId}
+
+	</select>
+
 </mapper>

@@ -35,4 +35,11 @@ public interface JourneyExtDao {
      * @return
      */
     public HashMap<String,Object> getRouteDetailById(Map<String,String> paramMap);
+
+    /**
+     * 查询我的坐车记录
+     * @param paramMap
+     * @return
+     */
+    public List<HashMap<String, Object>> getMyTripRecord(Map<String,String> paramMap);
 }

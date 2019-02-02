@@ -103,7 +103,7 @@ public class WebController {
      */
     @RequestMapping("/goMyTripRecord")
     public String goMyTripRecord() {
-        return "person/goMyTripRecord";
+        return "person/myTripRecord";
     }
 
     /**

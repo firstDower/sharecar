@@ -58,6 +58,19 @@ public class JourneyExtService {
     }
 
     /**
+     * 查询我的坐车记录
+     * @param params
+     * @return
+     */
+    public List<HashMap<String, Object>> getMyTripRecord(String params){
+        JSONObject jsonparams = com.alibaba.fastjson.JSON.parseObject(params);
+        Map<String,String> paramMap = new HashMap<String,String>();
+        paramMap.put("numUserId",jsonparams.getString("numUserId"));
+        List<HashMap<String, Object>> getMyTripRecord = journeyExtDao.getMyTripRecord(paramMap);
+        return getMyTripRecord;
+    }
+
+    /**
      * 根据routeId获取行程详情
      * @param params
      * @return

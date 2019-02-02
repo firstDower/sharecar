@@ -54,6 +54,16 @@ public class TripMainController {
     }
 
     /**
+     * 查询我的坐车记录
+     * @param params
+     * @return
+     */
+    @RequestMapping("/getMyTripRecord")
+    public List<HashMap<String, Object>> getMyTripRecord(String params){
+        return journeyExtService.getMyTripRecord(params);
+    }
+
+    /**
      * 根据行程id获取行程详情
      * @param params
      * @return
