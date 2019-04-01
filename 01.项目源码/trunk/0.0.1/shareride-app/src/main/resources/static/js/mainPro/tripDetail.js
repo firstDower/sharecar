@@ -16,6 +16,7 @@ var subscribeTrip = function () {
         dataType:"json",
         data:{params:JSON.stringify(params)},
         success:function(data){
+            alert(data.msg);
             console.log(JSON.stringify(data));
         },
         error:function(){

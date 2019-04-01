@@ -4,11 +4,14 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.dower.sharerideapp.core.bean.req.NntJourneyReq;
 import com.dower.sharerideapp.core.repository.JourneyExtDao;
+import com.dower.sharerideapp.core.serverdb.dao.NntOrderMapper;
 import com.dower.sharerideapp.core.serverdb.dao.NntUserJourneyMapper;
 import com.dower.sharerideapp.core.serverdb.model.NntJourney;
+import com.dower.sharerideapp.core.serverdb.model.NntOrder;
 import com.dower.sharerideapp.core.serverdb.model.NntUserJourney;
 import com.dower.sharerideapp.utils.CommUtil;
 import com.dower.sharerideapp.utils.Result;
+import org.apache.ibatis.annotations.Options;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +37,8 @@ public class JourneyExtService {
     private JourneyExtDao journeyExtDao;
     @Autowired
     private NntUserJourneyMapper nntUserJourneyMapper;
+    @Autowired
+    private NntOrderMapper nntOrderMapper;
     /**
      * 行程搜索
      * @param
@@ -94,7 +99,14 @@ public class JourneyExtService {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
             nntUserJourney.setDatCreatDate(new Date());
             int re = nntUserJourneyMapper.insertSelective(nntUserJourney);
-            LOGGER.info("预约行程结果："+re);
+            //插入订单附表
+            Integer numNntUserJourneyId = nntUserJourney.getNumNntUserJourneyId();
+            NntOrder nntOrder = new NntOrder();
+            nntOrder.setNumNntUserJourneyId(numNntUserJourneyId);
+            nntOrder.setDatCreatDate(new Date());
+            //nntOrder.setVcOrderNo(CommUtil.getOrderNo(jsonparams.getString("numRouteId")));
+            int insertOrder = nntOrderMapper.insertSelective(nntOrder);
+            LOGGER.info("预约行程结果：orderId="+nntOrder.getNumId()+";numRouteId="+jsonparams.getString("numRouteId")+";numNntUserJourneyId="+numNntUserJourneyId);
             result.setSuccess(true);
             result.setMsg("预约行程成功！");
         }catch (Exception e){

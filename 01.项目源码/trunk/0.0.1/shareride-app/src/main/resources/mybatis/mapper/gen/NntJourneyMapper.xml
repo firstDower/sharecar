@@ -112,25 +112,26 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.dower.sharerideapp.core.serverdb.model.NntJourney">
-    insert into nnt_journey (NUM_ROUTE_ID, VC_ROUTE_NO, DAT_DEPART_DATE, 
-      NUM_SPEND_TIME, NUM_MAX_PASSENGERS, NUM_ROUTE_STATE, 
-      NUM_ROUTE_FULFEE, NUM_ROUTE_NETFEE, NUM_MANNED_TYPE, 
-      NUM_START_TRAVEL_CITY_ID, NUM_END_TRAVEL_CITY_ID, 
-      DAT_CREAT_DATE, NUM_USER_ID, NUM_UNIT_PRICE, 
-      DAT_UPDATA_DATE)
-    values (#{numRouteId,jdbcType=INTEGER}, #{vcRouteNo,jdbcType=VARCHAR}, #{datDepartDate,jdbcType=TIMESTAMP}, 
-      #{numSpendTime,jdbcType=INTEGER}, #{numMaxPassengers,jdbcType=INTEGER}, #{numRouteState,jdbcType=INTEGER}, 
-      #{numRouteFulfee,jdbcType=DECIMAL}, #{numRouteNetfee,jdbcType=DECIMAL}, #{numMannedType,jdbcType=INTEGER}, 
-      #{numStartTravelCityId,jdbcType=INTEGER}, #{numEndTravelCityId,jdbcType=INTEGER}, 
-      #{datCreatDate,jdbcType=TIMESTAMP}, #{numUserId,jdbcType=INTEGER}, #{numUnitPrice,jdbcType=DECIMAL}, 
-      #{datUpdataDate,jdbcType=TIMESTAMP})
+    <selectKey keyProperty="numRouteId" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into nnt_journey (VC_ROUTE_NO, DAT_DEPART_DATE, NUM_SPEND_TIME, 
+      NUM_MAX_PASSENGERS, NUM_ROUTE_STATE, NUM_ROUTE_FULFEE, 
+      NUM_ROUTE_NETFEE, NUM_MANNED_TYPE, NUM_START_TRAVEL_CITY_ID, 
+      NUM_END_TRAVEL_CITY_ID, DAT_CREAT_DATE, NUM_USER_ID, 
+      NUM_UNIT_PRICE, DAT_UPDATA_DATE)
+    values (#{vcRouteNo,jdbcType=VARCHAR}, #{datDepartDate,jdbcType=TIMESTAMP}, #{numSpendTime,jdbcType=INTEGER}, 
+      #{numMaxPassengers,jdbcType=INTEGER}, #{numRouteState,jdbcType=INTEGER}, #{numRouteFulfee,jdbcType=DECIMAL}, 
+      #{numRouteNetfee,jdbcType=DECIMAL}, #{numMannedType,jdbcType=INTEGER}, #{numStartTravelCityId,jdbcType=INTEGER}, 
+      #{numEndTravelCityId,jdbcType=INTEGER}, #{datCreatDate,jdbcType=TIMESTAMP}, #{numUserId,jdbcType=INTEGER}, 
+      #{numUnitPrice,jdbcType=DECIMAL}, #{datUpdataDate,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.dower.sharerideapp.core.serverdb.model.NntJourney">
+    <selectKey keyProperty="numRouteId" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
     insert into nnt_journey
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="numRouteId != null">
-        NUM_ROUTE_ID,
-      </if>
       <if test="vcRouteNo != null">
         VC_ROUTE_NO,
       </if>
@@ -175,9 +176,6 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="numRouteId != null">
-        #{numRouteId,jdbcType=INTEGER},
-      </if>
       <if test="vcRouteNo != null">
         #{vcRouteNo,jdbcType=VARCHAR},
       </if>

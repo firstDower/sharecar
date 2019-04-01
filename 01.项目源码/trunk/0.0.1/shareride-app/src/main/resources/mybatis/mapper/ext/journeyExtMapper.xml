@@ -144,6 +144,7 @@
 														 t3.NUM_ROUTE_ID
 	</select>
 
+	<!--获取我的乘车记录-->
 	<select id="getMyTripRecord" parameterType="java.util.Map" resultType="java.util.Map">
 
 		SELECT * from nnt_user_journey nuj LEFT JOIN (
@@ -174,7 +175,7 @@ FROM
 													  ntc2.NUM_TRAVEL_CITY_ID
 					LEFT JOIN nnt_carinfo nci on nj.NUM_USER_ID = nci.NUM_USER_ID
 					LEFT JOIN nnt_car_owner_info ncoi on nj.NUM_USER_ID = ncoi.NUM_USER_ID
-				   where 1=1 and nj.DAT_DEPART_DATE > now() and (nj.NUM_ROUTE_STATE =2 ||nj.NUM_ROUTE_STATE = 3)) AS t1
+				   where 1=1 and (nj.NUM_ROUTE_STATE =2 ||nj.NUM_ROUTE_STATE = 3)) AS t1
 LEFT JOIN (select nj1.NUM_ROUTE_ID,
 							  count(nuj.NUM_ROUTE_ID) appointment_sum
 						 from nnt_journey nj1

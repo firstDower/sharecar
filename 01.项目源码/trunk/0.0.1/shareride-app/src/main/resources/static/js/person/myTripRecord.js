@@ -2,13 +2,13 @@ $(function () {
     getMyTripRecord();
 });
 
-function toPayment(obj) {
+function toPayment(NUM_NNT_USER_JOURNEY_ID) {
     if(confirm("确认支付？")){
         $.ajax({
             type : "POST",
             url : getUrl("wxpay"),
             dataType : "json",
-            data : {openid:openId},
+            data : {openid:openId,userJourneyId:NUM_NNT_USER_JOURNEY_ID},
             success : function(data) {
                 //alert(JSON.stringify(data));
                 pay(data);

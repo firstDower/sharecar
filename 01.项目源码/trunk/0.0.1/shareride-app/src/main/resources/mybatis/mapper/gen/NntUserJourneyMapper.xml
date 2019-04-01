@@ -105,21 +105,22 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.dower.sharerideapp.core.serverdb.model.NntUserJourney">
-    insert into nnt_user_journey (NUM_NNT_USER_JOURNEY_ID, NUM_ROUTE_ID, 
-      NUM_USER_ID, NUM_STATE, VC_SEAT_NO, 
-      NUM_PAY_STATE, DAT_CREAT_DATE, NUM_PAY_TAYE, 
-      NUM_AGREE_STATE)
-    values (#{numNntUserJourneyId,jdbcType=INTEGER}, #{numRouteId,jdbcType=INTEGER}, 
-      #{numUserId,jdbcType=INTEGER}, #{numState,jdbcType=INTEGER}, #{vcSeatNo,jdbcType=VARCHAR}, 
-      #{numPayState,jdbcType=INTEGER}, #{datCreatDate,jdbcType=TIMESTAMP}, #{numPayTaye,jdbcType=INTEGER}, 
-      #{numAgreeState,jdbcType=INTEGER})
+    <selectKey keyProperty="numNntUserJourneyId" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into nnt_user_journey (NUM_ROUTE_ID, NUM_USER_ID, NUM_STATE, 
+      VC_SEAT_NO, NUM_PAY_STATE, DAT_CREAT_DATE, 
+      NUM_PAY_TAYE, NUM_AGREE_STATE)
+    values (#{numRouteId,jdbcType=INTEGER}, #{numUserId,jdbcType=INTEGER}, #{numState,jdbcType=INTEGER}, 
+      #{vcSeatNo,jdbcType=VARCHAR}, #{numPayState,jdbcType=INTEGER}, #{datCreatDate,jdbcType=TIMESTAMP}, 
+      #{numPayTaye,jdbcType=INTEGER}, #{numAgreeState,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.dower.sharerideapp.core.serverdb.model.NntUserJourney">
+    <selectKey keyProperty="numNntUserJourneyId" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
     insert into nnt_user_journey
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="numNntUserJourneyId != null">
-        NUM_NNT_USER_JOURNEY_ID,
-      </if>
       <if test="numRouteId != null">
         NUM_ROUTE_ID,
       </if>
@@ -146,9 +147,6 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="numNntUserJourneyId != null">
-        #{numNntUserJourneyId,jdbcType=INTEGER},
-      </if>
       <if test="numRouteId != null">
         #{numRouteId,jdbcType=INTEGER},
       </if>

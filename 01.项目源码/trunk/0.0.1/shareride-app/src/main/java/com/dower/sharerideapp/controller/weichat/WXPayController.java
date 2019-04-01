@@ -1,11 +1,18 @@
 package com.dower.sharerideapp.controller.weichat;
 
+import com.alibaba.fastjson.JSONObject;
+import com.dower.sharerideapp.core.serverdb.model.NntOrder;
 import com.dower.sharerideapp.domain.config.weixin.MyConfig;
+import com.dower.sharerideapp.domain.config.weixin.WeixinConfig;
+import com.dower.sharerideapp.service.SeatExtService;
+import com.dower.sharerideapp.utils.CommUtil;
+import com.dower.sharerideapp.utils.Result;
 import com.github.wxpay.sdk.WXPay;
 import com.github.wxpay.sdk.WXPayConstants;
 import com.github.wxpay.sdk.WXPayUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,8 +33,10 @@ import java.util.TreeMap;
 @RestController
 public class WXPayController {
     private static final Logger LOGGER = LogManager.getLogger(WXPayController.class);
-
-
+    @Autowired
+    SeatExtService seatService;
+    @Autowired
+    WeixinConfig weixinConfig;
     @RequestMapping("/notify")
     public String notify(HttpServletRequest request, HttpServletResponse response) throws Exception {
         String result;//返回给微信的处理结果
@@ -74,26 +83,38 @@ public class WXPayController {
     }
 
     @RequestMapping("/wxpay")
-    public Map<String, String> wxpay(String openid,HttpServletRequest request, HttpServletResponse response) {
+    public Map<String, String> wxpay(String openid,String userJourneyId,HttpServletRequest request, HttpServletResponse response) {
         Map<String, String> resp = new HashMap<>();
         Map<String, String> resultMap = new HashMap<String, String>();
         try {
+            Map<String,Object> params = new HashMap<>();
+            params.put("userJourneyId",userJourneyId);
+            //根据userJourneyId，查询记录详情。
+            Result result = seatService.getSeatDetailById(params);
+            JSONObject seatDetail = (JSONObject) result.getResultInfo();
+
+            String out_trade_no = seatDetail.getString("VC_ORDER_NO");
+            //判断是否已经生成订单号
+            if (out_trade_no==null){
+                out_trade_no = CommUtil.getOrderNo(seatDetail);
+            }
             LOGGER.info("微信支付模拟测试开始。openid="+openid);
 
             MyConfig config = new MyConfig();
             WXPay wxpay = new WXPay(config);
 
             Map<String, String> data = new HashMap<String, String>();
-            data.put("body", "wangweiwangwei");
-            data.put("out_trade_no", WXPayUtil.generateNonceStr());
-            data.put("fee_type", "CNY");
-            data.put("total_fee", "20");
-            data.put("spbill_create_ip", "59.110.243.138");
-            data.put("notify_url", "http://demo.doweryouxia.com/shareride-app/notify");
-            data.put("trade_type", "JSAPI");  // 此处指定为公众号支付
+            data.put("body", weixinConfig.body);
+            data.put("out_trade_no", out_trade_no);
+            data.put("fee_type", weixinConfig.feeType);
+            data.put("total_fee", String.valueOf(seatDetail.getIntValue("NUM_UNIT_PRICE")*100));
+            data.put("spbill_create_ip", weixinConfig.spbillCreateIp);
+            data.put("notify_url", weixinConfig.notifyrl);
+            data.put("trade_type", weixinConfig.tradeType);  // 此处指定为公众号支付
             data.put("openid", openid);
 
             resp = wxpay.unifiedOrder(data);
+
 
             if(resp.containsKey("return_code")){
                 String return_code = String.valueOf(resp.get("return_code"));
@@ -104,6 +125,12 @@ public class WXPayController {
                     resultMap.put("package", "prepay_id="+resp.get("prepay_id"));
                     resultMap.put("signType", "MD5");
                     resultMap.put("paySign",  WXPayUtil.generateSignature(resultMap, config.getKey(), WXPayConstants.SignType.MD5));
+
+                    NntOrder nntOrder = new NntOrder();
+                    nntOrder.setNumId(seatDetail.getInteger("NUM_ORDER_ID"));
+                    nntOrder.setVcOrderNo(out_trade_no);
+                    nntOrder.setVcOpenid(openid);
+                    Result updataSeatDetailResult = seatService.updataSeatDetail(nntOrder);
                 }
             }else {
                 throw new Exception(String.format(resp.toString()));

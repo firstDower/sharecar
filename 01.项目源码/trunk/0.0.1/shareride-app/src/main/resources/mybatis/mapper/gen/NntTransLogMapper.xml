@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dower.sharerideapp.core.serverdb.dao.NntTransLogMapper">
+  <resultMap id="BaseResultMap" type="com.dower.sharerideapp.core.serverdb.model.NntTransLog">
+    <id column="NUM_TRANS_LOG_ID" jdbcType="INTEGER" property="numTransLogId" />
+    <result column="NUM_ORDER_ID" jdbcType="INTEGER" property="numOrderId" />
+    <result column="DAT_TRANS_TIME" jdbcType="TIMESTAMP" property="datTransTime" />
+    <result column="NUM_TRANS_MONEY_SUM" jdbcType="DECIMAL" property="numTransMoneySum" />
+    <result column="NUM_USER_ID" jdbcType="INTEGER" property="numUserId" />
+    <result column="NUM_STAUTS" jdbcType="INTEGER" property="numStauts" />
+    <result column="DAT_CREATE_TIME" jdbcType="TIMESTAMP" property="datCreateTime" />
+    <result column="NUM_IS_DEL" jdbcType="INTEGER" property="numIsDel" />
+    <result column="DAT_LAST_UPDATA_TIME" jdbcType="TIMESTAMP" property="datLastUpdataTime" />
+    <result column="VC_ORDER_NO" jdbcType="VARCHAR" property="vcOrderNo" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    NUM_TRANS_LOG_ID, NUM_ORDER_ID, DAT_TRANS_TIME, NUM_TRANS_MONEY_SUM, NUM_USER_ID, 
+    NUM_STAUTS, DAT_CREATE_TIME, NUM_IS_DEL, DAT_LAST_UPDATA_TIME, VC_ORDER_NO
+  </sql>
+  <select id="selectByExample" parameterType="com.dower.sharerideapp.core.serverdb.model.NntTransLogExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from nnt_trans_log
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from nnt_trans_log
+    where NUM_TRANS_LOG_ID = #{numTransLogId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from nnt_trans_log
+    where NUM_TRANS_LOG_ID = #{numTransLogId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.dower.sharerideapp.core.serverdb.model.NntTransLogExample">
+    delete from nnt_trans_log
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.dower.sharerideapp.core.serverdb.model.NntTransLog">
+    insert into nnt_trans_log (NUM_TRANS_LOG_ID, NUM_ORDER_ID, DAT_TRANS_TIME, 
+      NUM_TRANS_MONEY_SUM, NUM_USER_ID, NUM_STAUTS, 
+      DAT_CREATE_TIME, NUM_IS_DEL, DAT_LAST_UPDATA_TIME, 
+      VC_ORDER_NO)
+    values (#{numTransLogId,jdbcType=INTEGER}, #{numOrderId,jdbcType=INTEGER}, #{datTransTime,jdbcType=TIMESTAMP}, 
+      #{numTransMoneySum,jdbcType=DECIMAL}, #{numUserId,jdbcType=INTEGER}, #{numStauts,jdbcType=INTEGER}, 
+      #{datCreateTime,jdbcType=TIMESTAMP}, #{numIsDel,jdbcType=INTEGER}, #{datLastUpdataTime,jdbcType=TIMESTAMP}, 
+      #{vcOrderNo,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dower.sharerideapp.core.serverdb.model.NntTransLog">
+    insert into nnt_trans_log
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="numTransLogId != null">
+        NUM_TRANS_LOG_ID,
+      </if>
+      <if test="numOrderId != null">
+        NUM_ORDER_ID,
+      </if>
+      <if test="datTransTime != null">
+        DAT_TRANS_TIME,
+      </if>
+      <if test="numTransMoneySum != null">
+        NUM_TRANS_MONEY_SUM,
+      </if>
+      <if test="numUserId != null">
+        NUM_USER_ID,
+      </if>
+      <if test="numStauts != null">
+        NUM_STAUTS,
+      </if>
+      <if test="datCreateTime != null">
+        DAT_CREATE_TIME,
+      </if>
+      <if test="numIsDel != null">
+        NUM_IS_DEL,
+      </if>
+      <if test="datLastUpdataTime != null">
+        DAT_LAST_UPDATA_TIME,
+      </if>
+      <if test="vcOrderNo != null">
+        VC_ORDER_NO,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="numTransLogId != null">
+        #{numTransLogId,jdbcType=INTEGER},
+      </if>
+      <if test="numOrderId != null">
+        #{numOrderId,jdbcType=INTEGER},
+      </if>
+      <if test="datTransTime != null">
+        #{datTransTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="numTransMoneySum != null">
+        #{numTransMoneySum,jdbcType=DECIMAL},
+      </if>
+      <if test="numUserId != null">
+        #{numUserId,jdbcType=INTEGER},
+      </if>
+      <if test="numStauts != null">
+        #{numStauts,jdbcType=INTEGER},
+      </if>
+      <if test="datCreateTime != null">
+        #{datCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="numIsDel != null">
+        #{numIsDel,jdbcType=INTEGER},
+      </if>
+      <if test="datLastUpdataTime != null">
+        #{datLastUpdataTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="vcOrderNo != null">
+        #{vcOrderNo,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.dower.sharerideapp.core.serverdb.model.NntTransLogExample" resultType="java.lang.Long">
+    select count(*) from nnt_trans_log
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update nnt_trans_log
+    <set>
+      <if test="record.numTransLogId != null">
+        NUM_TRANS_LOG_ID = #{record.numTransLogId,jdbcType=INTEGER},
+      </if>
+      <if test="record.numOrderId != null">
+        NUM_ORDER_ID = #{record.numOrderId,jdbcType=INTEGER},
+      </if>
+      <if test="record.datTransTime != null">
+        DAT_TRANS_TIME = #{record.datTransTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.numTransMoneySum != null">
+        NUM_TRANS_MONEY_SUM = #{record.numTransMoneySum,jdbcType=DECIMAL},
+      </if>
+      <if test="record.numUserId != null">
+        NUM_USER_ID = #{record.numUserId,jdbcType=INTEGER},
+      </if>
+      <if test="record.numStauts != null">
+        NUM_STAUTS = #{record.numStauts,jdbcType=INTEGER},
+      </if>
+      <if test="record.datCreateTime != null">
+        DAT_CREATE_TIME = #{record.datCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.numIsDel != null">
+        NUM_IS_DEL = #{record.numIsDel,jdbcType=INTEGER},
+      </if>
+      <if test="record.datLastUpdataTime != null">
+        DAT_LAST_UPDATA_TIME = #{record.datLastUpdataTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.vcOrderNo != null">
+        VC_ORDER_NO = #{record.vcOrderNo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update nnt_trans_log
+    set NUM_TRANS_LOG_ID = #{record.numTransLogId,jdbcType=INTEGER},
+      NUM_ORDER_ID = #{record.numOrderId,jdbcType=INTEGER},
+      DAT_TRANS_TIME = #{record.datTransTime,jdbcType=TIMESTAMP},
+      NUM_TRANS_MONEY_SUM = #{record.numTransMoneySum,jdbcType=DECIMAL},
+      NUM_USER_ID = #{record.numUserId,jdbcType=INTEGER},
+      NUM_STAUTS = #{record.numStauts,jdbcType=INTEGER},
+      DAT_CREATE_TIME = #{record.datCreateTime,jdbcType=TIMESTAMP},
+      NUM_IS_DEL = #{record.numIsDel,jdbcType=INTEGER},
+      DAT_LAST_UPDATA_TIME = #{record.datLastUpdataTime,jdbcType=TIMESTAMP},
+      VC_ORDER_NO = #{record.vcOrderNo,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dower.sharerideapp.core.serverdb.model.NntTransLog">
+    update nnt_trans_log
+    <set>
+      <if test="numOrderId != null">
+        NUM_ORDER_ID = #{numOrderId,jdbcType=INTEGER},
+      </if>
+      <if test="datTransTime != null">
+        DAT_TRANS_TIME = #{datTransTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="numTransMoneySum != null">
+        NUM_TRANS_MONEY_SUM = #{numTransMoneySum,jdbcType=DECIMAL},
+      </if>
+      <if test="numUserId != null">
+        NUM_USER_ID = #{numUserId,jdbcType=INTEGER},
+      </if>
+      <if test="numStauts != null">
+        NUM_STAUTS = #{numStauts,jdbcType=INTEGER},
+      </if>
+      <if test="datCreateTime != null">
+        DAT_CREATE_TIME = #{datCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="numIsDel != null">
+        NUM_IS_DEL = #{numIsDel,jdbcType=INTEGER},
+      </if>
+      <if test="datLastUpdataTime != null">
+        DAT_LAST_UPDATA_TIME = #{datLastUpdataTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="vcOrderNo != null">
+        VC_ORDER_NO = #{vcOrderNo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where NUM_TRANS_LOG_ID = #{numTransLogId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dower.sharerideapp.core.serverdb.model.NntTransLog">
+    update nnt_trans_log
+    set NUM_ORDER_ID = #{numOrderId,jdbcType=INTEGER},
+      DAT_TRANS_TIME = #{datTransTime,jdbcType=TIMESTAMP},
+      NUM_TRANS_MONEY_SUM = #{numTransMoneySum,jdbcType=DECIMAL},
+      NUM_USER_ID = #{numUserId,jdbcType=INTEGER},
+      NUM_STAUTS = #{numStauts,jdbcType=INTEGER},
+      DAT_CREATE_TIME = #{datCreateTime,jdbcType=TIMESTAMP},
+      NUM_IS_DEL = #{numIsDel,jdbcType=INTEGER},
+      DAT_LAST_UPDATA_TIME = #{datLastUpdataTime,jdbcType=TIMESTAMP},
+      VC_ORDER_NO = #{vcOrderNo,jdbcType=VARCHAR}
+    where NUM_TRANS_LOG_ID = #{numTransLogId,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -63,16 +63,25 @@
         </table>
         <table schema="nnt_db" tableName="nnt_userinfo">
         </table>
-
+-->
         <table schema="nnt_db" tableName="nnt_user_journey">
-        </table>-->
+            <generatedKey column="NUM_NNT_USER_JOURNEY_ID" sqlStatement="MySql" identity="true"/>
+        </table>
         <!--<table schema="nnt_db" tableName="nnt_journey">
+            <generatedKey column="NUM_ROUTE_ID" sqlStatement="MySql" identity="true"/>
         </table>-->
 
-        <table schema="nnt_db" tableName="nnt_carinfo">
+       <!-- <table schema="nnt_db" tableName="nnt_order">
         </table>
-        <table schema="nnt_db" tableName="nnt_car_owner_info">
+        <table schema="nnt_db" tableName="nnt_consume_financial_account">
         </table>
+
+        <table schema="nnt_db" tableName="nnt_serve_financial_account">
+        </table>
+        <table schema="nnt_db" tableName="nnt_trans_log">
+        </table>
+        <table schema="nnt_db" tableName="nnt_platform_financial_account">
+        </table>-->
         <!--<table schema="nnt_db" tableName="nnt_travel_city">
         </table>-->
         <!--<table schema="blog" tableName="tag"-->
