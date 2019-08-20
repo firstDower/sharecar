@@ -18,8 +18,8 @@ public class CommUtil {
     }
 
     public  static void main(String[] args) {
-
-        System.out.println(System.currentTimeMillis());
+        Object o = "10";
+        System.out.println(Integer.parseInt(o.toString()));
     }
 
     /**

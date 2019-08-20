@@ -3,8 +3,14 @@ $(function () {
     $('#subscribeTrip').click(subscribeTrip);
 });
 
+//防止重复提交
+var perventRepeatSub = function () {
+    alert("行程已预约成功，可以去个人中心查看！");
+}
 //预约行程
 var subscribeTrip = function () {
+    $("#subscribeTrip").unbind();
+    $('#subscribeTrip').click(perventRepeatSub);
     var numUserId = stringToJson(sessionStorage['userInfo']).numUserId;
     var numRouteId = sessionStorage['NUM_ROUTE_ID'];
     var params = {};

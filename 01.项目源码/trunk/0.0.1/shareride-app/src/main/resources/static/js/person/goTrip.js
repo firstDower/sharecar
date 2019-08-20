@@ -26,6 +26,7 @@ function creatTrip() {
         success:function(data){
             console.log(JSON.stringify(data));
             alert(data.msg);
+            location.href = getUrl("goMyInfo");
         },
         error:function(){
             closeMsg();

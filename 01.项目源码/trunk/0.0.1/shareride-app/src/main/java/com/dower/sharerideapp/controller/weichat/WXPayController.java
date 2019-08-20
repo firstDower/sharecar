@@ -65,10 +65,18 @@ public class WXPayController {
         WXPay wxpay = new WXPay(config);
         LOGGER.info("微信支付异步回调 reqXml="+notityXml);
         Map<String, String> notifyMap = WXPayUtil.xmlToMap(notityXml);  // 转换成map
-
-        LOGGER.info("微信支付异步回调 notifyMap="+notifyMap);
+        String out_trade_no = notifyMap.get("out_trade_no");
+        //微信支付订单号：transaction_id
+        String transaction_id = notifyMap.get("transaction_id");
+        LOGGER.info("微信支付异步回调:1、微信订单号："+transaction_id+"；2、商户订单号："+out_trade_no+";notifyMap="+notifyMap);
         if (wxpay.isPayResultNotifySignatureValid(notifyMap)) {
             LOGGER.info("微信支付异步回调签名验证成功！");
+            //1、更新订单支付状态
+            Result result1 = seatService.updatePayStatusByOrderId(out_trade_no);
+            //2、生成支付流水
+
+            Result payment = seatService.createPayment(notifyMap);
+
             result = setXml("SUCCESS", "OK");
         } else {
             LOGGER.info("微信支付异步回调签名验证失败！");
@@ -107,7 +115,8 @@ public class WXPayController {
             data.put("body", weixinConfig.body);
             data.put("out_trade_no", out_trade_no);
             data.put("fee_type", weixinConfig.feeType);
-            data.put("total_fee", String.valueOf(seatDetail.getIntValue("NUM_UNIT_PRICE")*100));
+            //data.put("total_fee", String.valueOf(seatDetail.getIntValue("NUM_UNIT_PRICE")*100));
+            data.put("total_fee", "1");
             data.put("spbill_create_ip", weixinConfig.spbillCreateIp);
             data.put("notify_url", weixinConfig.notifyrl);
             data.put("trade_type", weixinConfig.tradeType);  // 此处指定为公众号支付

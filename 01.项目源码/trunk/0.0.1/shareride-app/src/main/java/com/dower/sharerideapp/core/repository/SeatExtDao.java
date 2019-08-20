@@ -12,4 +12,7 @@ import java.util.Map;
 public interface SeatExtDao {
     //获取座位详情
     public Map<String,Object> getTripRecordDetailById(Map<String,Object> params);
+
+    //<!-- 根据商户订单id跟新支付状态 -->
+    public Integer updatePayStateByOrderno(Map<String,Object> params);
 }
