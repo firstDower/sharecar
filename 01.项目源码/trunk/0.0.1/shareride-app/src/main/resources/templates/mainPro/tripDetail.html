@@ -1,17 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" >
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0,minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <meta name="format-detection" content="telephone=no" />
     <meta charset="UTF-8">
     <title>行程详情</title>
-    <link rel="stylesheet" href="css/commor.css">
-    <link rel="stylesheet" href="css/myCss.css">
-    <script src="js/jquery-1.11.1.min.js"></script>
-    <script src="js/util.js"></script>
-    <link rel="stylesheet" href="css/mobiscroll.custom-2.6.2.min.css">
-    <script src="js/mobiscroll.custom-2.6.2.min.js"></script>
-    <script src="js/mainPro/tripDetail.js"></script>
+    <link rel="stylesheet" th:href="@{/css/commor.css}">
+    <link rel="stylesheet" th:href="@{/css/myCss.css}">
+    <script th:src="@{/js/jquery-1.11.1.min.js}"></script>
+    <script th:src="@{/js/util.js}"></script>
+    <link rel="stylesheet" th:href="@{/css/mobiscroll.custom-2.6.2.min.css}">
+    <script th:src="@{/js/mobiscroll.custom-2.6.2.min.js}"></script>
+    <script th:src="@{/js/mainPro/tripDetail.js}"></script>
 </head>
 <body>
 <header class="headerRet">
@@ -48,7 +48,7 @@
                 <i class="jian"></i><span>1</span><i class="add"></i>
             </div>
             <div class="fr yTriptu">
-                <img src="img/android.png" alt="">
+                <img th:src="@{/img/android.png}" alt="">
             </div>
         </div>
         <button>添加出行要求</button>

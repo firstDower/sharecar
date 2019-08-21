@@ -1,18 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" >
 <head>
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0,minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
     <meta name="format-detection" content="telephone=no"/>
     <meta charset="UTF-8">
     <title>发起行程</title>
-    <link rel="stylesheet" href="css/commor.css">
-    <link rel="stylesheet" href="css/myCss.css">
-    <script src="js/jquery-1.11.1.min.js"></script>
-    <script src="js/util.js"></script>
-    <link rel="stylesheet" href="css/mobiscroll.custom-2.6.2.min.css">
-    <script src="js/mobiscroll.custom-2.6.2.min.js"></script>
-    <script src="js/person/goTrip.js"></script>
+    <link rel="stylesheet" th:href="@{/css/commor.css}">
+    <link rel="stylesheet" th:href="@{/css/myCss.css}">
+    <script th:src="@{/js/jquery-1.11.1.min.js}"></script>
+    <script th:src="@{/js/util.js}"></script>
+    <link rel="stylesheet" th:href="@{/css/mobiscroll.custom-2.6.2.min.css}">
+    <script th:src="@{/js/mobiscroll.custom-2.6.2.min.js}"></script>
+    <script th:src="@{/js/person/goTrip.js}"></script>
 </head>
 <body>
 <header class="headerRet">
@@ -43,8 +43,8 @@
         <input type="radio" id="pToCar" name="numMannedType" class="radioCar" value="2"><label for="pToCar" class="carAndP">人找车</label>
     </p>
     <!--<p class="goTripEdition">
-        <img src="img/android.png" alt="" class="downEdition">
-        <img src="img/IOS.png" alt="" class="downEdition">
+        <img th:src="@{/img/android.png" alt="" class="downEdition">
+        <img th:src="@{/img/IOS.png" alt="" class="downEdition">
     </p>-->
     <p>
         <a href="javascript:;" id="creatTrip" class="goTripAllBtn clearfix">创建行程</a>

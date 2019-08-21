@@ -1,9 +1,10 @@
 function getUrl(url){
 
-    return "http://demo.doweryouxia.com/"+url;
+    return url;
     //return "http://192.168.99.143:8080/yingda.app.web/"+url;
     //return "http://testcarins.huanlebaoxian.cn/yingda.app.web/"+url;
     //return "http://dhtest.tiancaibaoxian.com/"+url;
+//"http://demo.doweryouxia.com/"
 }
 
 function getPayUrl(obj) {

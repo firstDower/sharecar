@@ -29,7 +29,7 @@ function getMyTripRecord() {
         dataType:"json",
         data:{params:JSON.stringify(params)},
         success:function(data){
-            console.log(JSON.stringify(data));
+            //console.log(JSON.stringify(data));
             var htmlStr = ""
             $.each(data,function(index,v){
                 htmlStr += '<li class="clear">'+
