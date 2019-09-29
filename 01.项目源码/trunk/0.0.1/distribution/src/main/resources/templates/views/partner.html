@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+      >
+
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1,user-scalable=0,viewport-fit=cover"
+    />
+    <title>我的伙伴</title>
+    <object th:replace="common :: header_static"></object>
+    <link rel="stylesheet" th:href="@{/app/lib/dropload/dropload.css}">
+    <script th:src="@{/app/lib/dropload/dropload.js}"></script>
+<!--    <script type="text/javascript" th:inline="javascript">
+        /*<![CDATA[*/
+        var message = [[${instData}]];
+        alert("tu::"+message);
+        /*]]>*/
+
+        </script>-->
+
+    <style >
+      body { height: 100vh; padding: 0; background-color: #fff }  /*可以自行修改*/
+      .outer{ position: absolute; left: 0; top: 0; width: 100%; height: 100%; display: -webkit-box; display: -webkit-flex; display: -ms-flexbox; display: flex; -ms-flex-direction:column; -webkit-box-orient:vertical; box-orient:vertical; -webkit-flex-direction:column; flex-direction:column }
+      .inner{ color: #3B3B3B; font-size: 14px; margin-top: 0.8rem; -webkit-box-flex: 1; -webkit-flex: 1; -ms-flex: 1; flex: 1; overflow-y: scroll; -webkit-overflow-scrolling: touch }
+      /* 上面两句最好不要轻易修改，防止样式出错（.inner的color、font-size、margin-top可以修改，设置margin-top是因为页面上有一个fixed定位的头部） */
+      h1.title { position: fixed; width: 8rem; height: 0.8rem; line-height: 0.8rem; /*left: 50%; margin-left: -5rem;*/ font-size: 16px; font-weight: bold; border-bottom: 2px solid #efefef;   display: flex; justify-content: space-around;background: #3a9a98; }
+      h1.title a { text-decoration: none; color: #58DAB8 }
+      /* 上面两句就是fixed定位的头部的样式了，如果不需要可以将其删去 */
+      .outer .item { width: 8.3rem; line-height: 1rem; border-bottom: 1px solid #ddd; padding-left: .5rem; padding-right: 1.2rem; margin: 0 auto; background-color: #fff; display: flex; justify-content: space-between }
+      .outer .item:last-child { border: none }
+      .toTop { position: fixed; right: 0; bottom: 1rem; padding: .2rem .34rem .2rem .3rem; font-size: 14px; background-color: #eaeaea; display: none }
+      /* .toTop为回顶部按键的样式，不加可以删去。item就是每一个列表项的容器了，可以在里面加任意内容和设置样式 */
+      h1 span:nth-child(2) {padding-right: 0.76rem;}
+    </style>
+  </head>
+
+  <body scroll="no">
+  <div class="outer">
+    <h1 class="title"><span>昵称</span><span>联系方式</span></h1>
+
+    <div class="partner inner" id="partnerList" >
+
+      <div class="lists" id="partner_list"></div>
+
+<!--<img th:src="${instData}">-->
+
+      <!--<p>
+        <span class="left"  style="width: 50%;display: inline-block;vertical-align: middle;">
+         <img src="../../assets/images/5.png" class="logo" /><i style="margin-left: .1rem;">刘小兰</i>
+        </span>
+        <span class="right">18618216293</span>
+      </p>
+      <p>
+        <span class="left" style="width: 50%;display: inline-block;vertical-align: middle;">
+           <img src="../../assets/images/5.png" class="logo" /><i style="margin-left: .1rem;">王宁宁地对地导弹</i>
+        </span>
+        <span class="right">18618216293</span>
+      </p>
+      <p>
+        <span class="left" style="width: 50%;display: inline-block;vertical-align: middle;">
+          <img src="../../assets/images/5.png" class="logo" /><i style="margin-left: .1rem;">徐志果</i>
+        </span>
+        <span class="right">18618216293</span>
+      </p>-->
+    </div>
+
+
+  </div>
+  <!--回顶部可加可不加-->
+  <div class="toTop">↑ 回顶部</div>
+  </body>
+
+</html>
+<script th:src="@{/js/views/partner.js}"></script>

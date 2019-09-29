@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8"/>
+    <meta
+            name="viewport"
+            content="width=device-width,initial-scale=1,user-scalable=0,viewport-fit=cover"
+    />
+    <title>分享赚积分</title>
+    <object th:replace="common :: header_static"></object>
+    <link rel="stylesheet" th:href="@{/app/css/style.min.css}"/>
+    <style>
+        #mcover {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: none;
+            z-index: 20000;
+        }
+        #mcover img {
+            position: fixed;
+            /*right: 18px;*/
+            /*top: 5px;*/
+            width: 100%;
+            height: 100%;
+            z-index: 999;
+            opacity: 0.5;
+        }
+    </style>
+</head>
+
+<body>
+<div class="page share" id="pread-list">
+    <!--<div class="items clear">
+        <div class="left">
+            <img th:src="@{/assets/images/11.jpg}" alt="" srcset=""/>
+        </div>
+        <div class="center">
+            <h1>悦享保-个人防癌险险</h1>
+            <h2>￥84起</h2>
+            <p class="integral">
+                      <span>可得积分:<i>60</i></span
+                      ><span>已得积分:<i>320</i></span>
+            </p>
+            <p>
+                <span>分享105次</span>
+                <span>查看82次</span>
+                <span>购买22次</span>
+            </p>
+        </div>
+        <div class="right">
+            <span class="shareBtn"></span>
+        </div>
+    </div>-->
+    <div class="shareBox">
+        <div class="btn">
+            <p class="shareImg">分享图片</p>
+            <p class="shareLink">分享链接</p>
+        </div>
+    </div>
+    <div id="mcover" onclick="document.getElementById('mcover').style.display='';" style="display: none;">
+        <img th:src="@{/img/share.png}">
+    </div>
+
+</div>
+<script th:src="@{/assets/js/jquery-1.11.3.min.js}"></script>
+<script th:src="@{/js/views/share-list.js}"></script>
+<script th:src="@{/js/views/share.js}"></script>
+<script th:src="@{/assets/js/flexible.js}"></script>
+<script th:src="@{/js/util.js}"></script>
+<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.4.0.js"></script>
+</body>
+<script></script>
+</html>
