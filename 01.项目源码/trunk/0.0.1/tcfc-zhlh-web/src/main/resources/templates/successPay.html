@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <title>支付成功</title>
+    <script th:src="@{/assets/js/flexible.js}" type="text/javascript"></script>
+    <link rel="stylesheet" th:href="@{/css/style.min.css}"/>
+
+</head>
+
+<body>
+    <div id="Pays" class="page">
+        <div class="pay-details">
+            <img th:src="@{/assets/images/pay-success.png}" alt="">
+            <h2>保费支付成功！</h2>
+            <div class="pay-content">
+                <p class="pay-info"><span class="left">支付状态:</span><span class="right">支付成功</span></p>
+                <p class="pay-info"><span class="left">商品金额:</span><span class="right e-money"><i id="e-money"></i>元</span></p>
+            </div>
+        </div>
+        <p class="reminder">保单承保后，电子保单将发至您的邮箱。</p>
+        <div class='tabar'>
+            <span class='tabar-left goBack'>返回首页</span><span class='tabar-right goOn'>继续购买</span>
+        </div>
+    </div>
+
+
+    <script th:src="@{/assets/js/jquery-1.11.3.min.js}"></script>
+    <script th:src="@{/js/index.min.js}"></script>
+    <script th:src="@{/js/utils.js}"></script>
+    <script type="text/javascript">
+        $(function () {
+            $("#e-money").html(sessionStorage['priceStr']);
+            $(".goBack").click(function () {
+                window.location.href = getUrl("");
+            });
+            $(".goOn").click(function () {
+                window.location.href = getUrl("");
+            });
+
+        });
+
+    </script>
+</body>
+
+</html>

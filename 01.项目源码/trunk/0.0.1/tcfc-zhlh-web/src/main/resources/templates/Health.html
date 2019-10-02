@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <title>健康告知</title>
+    <script th:src="@{/assets/js/flexible.js}" type="text/javascript"></script>
+    <link rel="stylesheet" th:href="@{/css/style.min.css}"/>
+
+
+</head>
+
+<body>
+    <div id="Health" class="page">
+        <div class='content'>
+            <h3>健康告知</h3>
+            <p class="hint">以下告知请您仔细阅读，如选择任一告知事项『是』则本保险将不予承保：</p>
+            <ul>
+                <li>1.您是否曾在投保医疗、意外或人寿保险时被拒绝、延期或附加条件承保？</li>
+                <li>2.目前尚在住院或病假中? </li>
+                <li>3.近两年内有无因患病不能全勤工作或减轻劳动量? </li>
+                <li>4.是否曾经患过某些症状或疾病被医师建议去做进一检查、治疗？</li>
+                <li>5.现在或过去有无患肿瘤、癫痫、脑震荡、精神病、心脏病、高血压、血管硬化、中风、糖尿病、尿毒症、慢性酒精中毒、肝硬化、肾切除三年以上（外伤性切除不在此列）?或肾病性病等生殖泌尿系统疾病，哮喘、肺结核等呼吸系统疾病，胃、肝、胆、肠等消化系统疾病，血液病、爱滋病，心疼、神经系统疾病、甲状腺疾病以及任何神经肌肉骨骼系统方面的异常、失能等病症？
+                </li>
+                <li>6.有无吸毒史? </li>
+                <li>7.在最近6个月内,您是否有任何身体不适症状和体征?如持续发热、疼痛、眩晕、胸痛、咳嗽、咯血、腹痛、便血、紫斑、消瘦(体重短期内下降超过5公斤)。</li>
+                <li>8.有无身体残障状况? </li>
+                <li>9. 您是否有任何以上未提及的身体失能、残障、反复发作的疾病，重大疾病或受到意外伤害？ </li>
+                <li>10.妇女栏：（被保险人为女性时，请说明） A、过去五年内曾否患子宫、乳房、卵巢等生殖系统方面疾病？ B、目前是否怀孕？是否被诊断为高危妊娠？ </li>
+                <li>11.少儿栏:(被保险人为0-15周岁的儿童时,请说明) A、有无先天性、遗传性疾病或畸形？
+                    B、过去曾否患过肺炎、抽搐、腹泻、小儿麻痹、儿童多动症、脊髓灰质炎、麻疹、流行性脑脊髓膜炎、流行性乙型脑炎、白喉、破伤风、百日咳等疾病？ </li>
+                <li>12.有无使用任何违禁药物? </li>
+                <li>13.有无从事危险运动或竞技的嗜好？如：自驾机飞行、热气球飞行、滑雪、滑浪、登山、漂流、蹦极等。 </li>
+                <li>14.有无因工作原因需要经常前往危险地区或国家？(如正在或经常发生自然灾害、病疫、战乱、动乱、种族冲突、政局动荡等) </li>
+                <li>15.有无驾车肇事记录? </li>
+                <li>16.有无身体残障状况? </li>
+            </ul>
+            <h3>职业告知</h3>
+            <p class="hint hts">本保险仅承保以下职业，部分职业不能投保，请选择符合自己的职业。</p>
+
+
+
+            <p class="item sels">
+                <span>行业细分:</span>
+                <select name="" id="professionOne">
+                    <option style="font-size: .4rem" value="0" selected>请选择</option>
+                </select>
+                        <span class='info'></span>
+            </p>
+            <p class="item sels">
+                <span>职业分类:</span>
+                <select name="" id="professionTwo">
+                    <option style="font-size: .4rem" value="0" selected>请选择</option>
+                </select>
+                        <span class='info'></span>
+            </p>
+            <p class="item sels">
+                <span>职业详情:</span>
+                <select name="" id="professionThree">
+                    <option style="font-size: .4rem" value="0" selected>请选择</option>
+                </select>
+                        <span class='info'></span>
+            </p>
+
+
+
+        </div>
+        <div class='tabar'>
+            <span id="cancelBtn" class='tabar-right'>部分是</span><span class='tabar-left' id="assign">确定</span>
+        </div>
+    </div>
+
+
+
+    <script th:src="@{/assets/js/jquery-1.11.3.min.js}"></script>
+    <script th:src="@{/js/index.min.js}"></script>
+    <script th:src="@{/js/utils.js}"></script>
+    <script th:src="@{/js/Health.js}"></script>
+</body>
+
+</html>

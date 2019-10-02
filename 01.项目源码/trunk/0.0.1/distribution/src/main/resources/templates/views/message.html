@@ -1,0 +1,43 @@
+
+    <!DOCTYPE html>
+    <html lang="zh-cmn-Hans" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+          xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+    >
+      <head>
+        <meta charset="UTF-8" />
+        <meta
+          name="viewport"
+          content="width=device-width,initial-scale=1,user-scalable=0,viewport-fit=cover"
+        />
+        <title>我的消息</title>
+        <object th:replace="common :: header_static"></object>
+        <link rel="stylesheet" th:href="@{/app/lib/dropload/dropload.css}">
+        <script th:src="@{/app/lib/dropload/dropload.js}"></script>
+
+
+
+      </head>
+
+      <body scroll="no">
+      <div class="outer">
+        <div id="msgList" >
+        <div class="message" id="msg-list" >
+          <!--<div class="items">
+            <h1>优惠活动 <span>2019-06-30</span></h1>
+            <p>
+              互联网保险购买决策平台-多保鱼保险网是一个保险购买决策平台,提供意外险、健康险、医疗险、人寿险、重疾险。
+            </p>
+          </div>
+          <div class="items">
+            <h1>优惠活动 <span>2019-06-30</span></h1>
+            <p>
+              "寻找中国最美保险营销团队"活动，是深入践行保险行业“守信用、担风险、重服务、合规范”核心价值理念和促进行业文化建设的重要举措。发掘优秀团队优秀事迹，表彰先进典型，弘扬先进事迹，分享成功经验，弘扬行业正气，激励和鼓舞全行业鼓足干劲，坚定信心，爱岗敬业，争先创优，奋发有为，开创中国保险业和中国营销事业发展的新局面。
+            </p>
+          </div>-->
+        </div>
+        </div>
+      </div>
+      </body>
+
+    </html>
+    <script th:src="@{/js/views/message.js}"></script>
