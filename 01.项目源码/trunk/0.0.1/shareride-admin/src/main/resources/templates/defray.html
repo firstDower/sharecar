@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head th:replace="common/htmlHead :: common_header(~{::title})">
+	<title>支付管理</title>
+</head>
+<body id="pagestyle" class="backgrounddd">
+<!--使用公有js-->
+<div th:replace="common/htmlJS::common_js(~{::script})">
+	<script th:src="@{/js/custom/defray.js}"></script>
+</div>
+
+		<div class="bk-con-message message-section" id="iframe_box">
+			<div class="box-module height100b margin0 defray_style">
+				<div class="box-title">支付设置</div>
+				<div class="box-content  padding15 ">
+					<div class="Promp_plate alert-danger mb15">
+						<b>提示：</b>该支付方式启用并不能正常使用，需要开通支付功能才能使用相应的支付方式。<span class="iconfont PrompClose">&#xe627</span>
+					</div>
+					<div class="operation  mb15 relative">
+						<ul class="menulist Article-ope clearfix">
+							<li class="column-name l_f">
+								<a href="javascript:void(0)" title="支付方式" class="btn button_btn bg-deep-blue menuUl_title" name="add_defray.html" data-id="77"><i class="iconfont">&#xe61a</i>&nbsp;添加支付方式</a>
+							</li>
+						</ul>
+					</div>
+					<!--支付方式-->
+					<div class="clearfix defray_list" id="defrayList">
+
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</body>
+
+</html>
+<script>
+	$(function() {
+		$("#pagestyle").Hupage({
+			scrollbar: function(e) {
+				e.niceScroll({
+					cursorcolor: "#dddddd",
+					cursoropacitymax: 1,
+					touchbehavior: false,
+					cursorwidth: "3px",
+					cursorborder: "0",
+					cursorborderradius: "3px",
+				});
+			},
+			expand: function(thisBox, settings) {
+				settings.scrollbar(
+					$(".box-content").css({
+						height: $(window).height() - $('.box-title').outerHeight() - 30
+					})
+				);
+			}
+		});
+			
+	});
+		//编辑数据
+				var defray = function(callback) {
+					$.ajax({
+						url: getUrl("json/defray.json"),
+						type: "GET",
+						dataType: 'json',
+						success: function(ret) {
+							typeof callback == 'function' && callback(ret);
+						},
+					});
+				};
+				defray(function(listArr) {
+					/*var listhtml = $('#defrayList');
+					var html = template('defrayhtml', {
+						list: listArr.data
+					});
+					listhtml.append(html);*/
+				});
+				//打开编辑
+			    function siteDefray(e){
+			    	var url=$(e).attr("data-url");
+			    	window.location.href=url;
+			    };
+</script>
