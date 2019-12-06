@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+  <title>中华联合综合医疗保障计划</title>
+  <script th:src="@{/assets/js/flexible.js}" type="text/javascript"></script>
+  <link rel="stylesheet" th:href="@{/assets/css/Mdate.css}">
+  <link rel="stylesheet" th:href="@{/css/style.min.css}"/>
+    <script th:src="@{/assets/js/jquery-1.11.3.min.js}"></script>
+    <script th:src="@{/assets/js/Mdate.js}"></script>
+    <script th:src="@{/assets/js/iScroll.js}"></script>
+
+    <script th:src="@{/js/index.min.js}"></script>
+    <script th:src="@{/js/utils.js}"></script>
+    <script th:src="@{/js/Synthesis.js}"></script>
+
+
+
+</head>
+
+<body>
+  <div id="Synthesis" class="page">
+    <div class='banner'>
+      <img th:src="@{/assets/images/logo.png}" alt="" srcset="">
+    </div>
+    <div class="banner-info">
+      <p class="top"><span id="five"></span>出生满<span class="markedness">30天-65周岁</span>均可投保</p>
+      <p class="bottom"><span id="five"></span>无等待期</p>
+      <p class="synthesis"><span class="synthesis-left">保险期间:</span><span class="synthesis-right">1年</span></p>
+      <p class="synthesis"><span class="synthesis-left">投保份数:</span><span class="synthesis-right">1份/1人</span></p>
+      <p class="synthesis sels"><span class="synthesis-left">出生日期:</span><input readonly="readonly" class="synthesis-right" type="text"
+          id='dateStart' placeholder="请输入出生日期" value=""></input><span class='info'></span></p>
+      <p class="synthesis s-box"><span class="synthesis-left-social">社保说明:</span><span
+          class="synthesis-right-social"><i>*</i>必须为城镇社保、新农合或军人保障卡参保用户，方可投保。</span></p>
+    </div>
+    <ul class="synthesis-tab">
+      <li class="active">产品特色</li>
+      <li>详细说明</li>
+      <li>服务详情</li>
+    </ul>
+    <ul class="itemBox">
+      <li class="items">
+        <div class="synthesis-content">
+          <h2>中华联合人寿保险 拥军惠军</h2>
+          <h3>专属专享服务 解决军人家庭后顾之忧</h3>
+          <img class="img" th:src="@{/assets/images/Synthesis-one-1.png}" alt="" srcset="">
+          <img th:src="@{/assets/images/Synthesis-one-2.png}" alt="" srcset="">
+          <h4><i class="small"></i><i class="big d"></i> 投保案例<i class="big d"></i><i class="small d"></i></h4>
+          <p class="case">
+            在北京工作的刘先生，35周岁，平时身体健康，拥有社保，单位在2019年3月1日购买了综合医疗保险（门诊保额0.2万元，免赔额：500元，赔付比例80%，住院保额0.8万元,免赔额0元，报销比例100%），
+            在投保2个月后由于疾病到三级社保定点医院就医。 经医院诊断为肺炎，他立即入院治疗。住院治疗费用、住院前后门急诊等各项费用合计3万元（门诊费用：3000元、住院费用：27000元）。</p>
+        </div>
+        <div class="particulars">
+          <h1>费用明细</h1>
+          <p class="hint">(假设以下产生费用均属于保险责任范围以内)</p>
+          <table id="doctor">
+            <tr class="titles">
+              <td>就诊原因</td>
+              <td>费用(元)</td>
+              <td>社保统筹支付金额(元)</td>
+              <td>个人需承担金额(元)</td>
+              <td>免赔额(元)</td>
+              <td>综合医疗赔付金额(元)</td>
+              <td>个人实际承担金额(元)</td>
+            </tr>
+            <tr>
+              <td rowspan="2" class="illness">肺
+                炎</td>
+              <td>住院27000</td>
+              <td>21845</td>
+              <td>5155</td>
+              <td>0</td>
+              <td>5155</td>
+              <td>0</td>
+            </tr>
+            <tr>
+              <td>门诊3000</td>
+              <td>840</td>
+              <td>2160</td>
+              <td>500</td>
+              <td>1328</td>
+              <td>832</td>
+            </tr>
+          </table>
+          <p class="annotation">以上关于保险责任的具体约定，以相关的保险合同为准。</p>
+        </div>
+      </li>
+      <li class="items">
+        <div class="synthesis-content s-t-c">
+          <p class='synthesis-item'>
+            <span class='left'>保障区域:</span><span class="right">中国大陆(不包括港澳台地区)</span>
+          </p>
+          <p class='synthesis-item'>
+            <span class='left medical'>医疗范围:</span><span class="right">经中华人民共和国卫生部门评审确定的二级或以上之社保定点医院 </span>
+          </p>
+          <p class='synthesis-item'>
+            <span class='left'>免赔额度:</span><span class="right">门诊免赔额500元，住院免赔额0元</span>
+          </p>
+        </div>
+        <div class="particulars">
+          <h1 class="product">产品说明</h1>
+          <table>
+            <tr>
+              <th>险种</th>
+              <th class="sex">年龄</th>
+              <th class='duty'>保险责任</th>
+              <th>保费</th>
+            </tr>
+            <tr>
+              <td class="illness">综合医疗门诊</td>
+              <td rowspan="2" class="illness">出生满30天
+                -10周岁</td>
+              <td>门诊保额0.2万元，免赔额：500元，赔付比例80%</td>
+              <td rowspan="2" class="illness">590元</td>
+            </tr>
+            <tr>
+              <td class="illness">综合医疗住院</td>
+              <td>住院保额0.8万元，免赔额：0元，报销比例100%</td>
+            </tr>
+            <tr>
+              <td class="illness">综合医疗门诊</td>
+              <td rowspan="2" class="illness retract">11周岁
+                -20周岁</td>
+              <td>门诊保额0.2万元，免赔额：500元，赔付比例80%</td>
+              <td rowspan="2" class="illness">455元</td>
+            </tr>
+            <tr>
+              <td class="illness">综合医疗住院</td>
+              <td>住院保额0.8万元，免赔额：0元，报销比例100%</td>
+            </tr>
+            <tr>
+              <td class="illness">综合医疗门诊</td>
+              <td rowspan="2" class="illness retract">21周岁
+                -30周岁</td>
+              <td>门诊保额0.2万元，免赔额：500元，赔付比例80%</td>
+              <td rowspan="2" class="illness">410元</td>
+            </tr>
+            <tr>
+              <td class="illness">综合医疗住院</td>
+              <td>住院保额0.8万元，免赔额：0元，报销比例100%</td>
+            </tr>
+            <tr>
+              <td class="illness">综合医疗门诊</td>
+              <td rowspan="2" class="illness retract">31周岁
+                -40周岁</td>
+              <td>门诊保额0.2万元，免赔额：500元，赔付比例80%</td>
+              <td rowspan="2" class="illness">500元</td>
+            </tr>
+            <tr>
+              <td class="illness">综合医疗住院</td>
+              <td>住院保额0.8万元，免赔额：0元，报销比例100%</td>
+            </tr>
+            <tr>
+              <td class="illness">综合医疗门诊</td>
+              <td rowspan="2" class="illness retract">41周岁
+                -50周岁</td>
+              <td>门诊保额0.2万元，免赔额：500元，赔付比例80%</td>
+              <td rowspan="2" class="illness">760元</td>
+            </tr>
+            <tr>
+              <td class="illness">综合医疗住院</td>
+              <td>住院保额0.8万元，免赔额：0元，报销比例100%</td>
+            </tr>
+            <tr>
+              <td class="illness">综合医疗门诊</td>
+              <td rowspan="2" class="illness retract">51周岁
+                -60周岁</td>
+              <td>门诊保额0.2万元，免赔额：500元，赔付比例80%</td>
+              <td rowspan="2" class="illness">950元</td>
+            </tr>
+            <tr>
+              <td class="illness">综合医疗住院</td>
+              <td>住院保额0.8万元，免赔额：0元，报销比例100%</td>
+            </tr>
+            <tr>
+              <td class="illness">综合医疗门诊</td>
+              <td rowspan="2" class="illness retract">61周岁
+                -65周岁</td>
+              <td>门诊保额0.2万元，免赔额：500元，赔付比例80%</td>
+              <td rowspan="2" class="illness">1400元</td>
+            </tr>
+            <tr>
+              <td class="illness">综合医疗住院</td>
+              <td>住院保额0.8万元，免赔额：0元，报销比例100%</td>
+            </tr>
+          </table>
+          <div class="s-types">
+            <p class="one"><span>险种名称：</span><span>中华团体综合医疗保险</span></p>
+            <p class="two">
+              <span>保障范围：</span><span>在保险有效期间内员工在社保定点医院就诊所发生的社保范围内的门诊和住院医疗费用。门诊费用保险人对500元免赔以上的部分按80%的比例进行赔付，住院费用保险人对0元免赔以上的部分按100%的比例进行赔付，每一被保险人的保险金额以1万元为限，其中门诊0.2万元、住院0.8万元。</span>
+            </p>
+          </div>
+          <div class="s-types">
+            <p class="one"><span>参保年龄：</span><span>出生满30天-65周岁</span></p>
+            <p class="two">
+              <span>保额：</span><span>门诊0.2万元、住院0.8万元</span>
+            </p>
+            <p class="two">
+              <span>免赔金额及给付比例：</span><span>门诊免赔额500元，报销比例80% 、住院免赔额0元，报销比例100%</span>
+            </p>
+            <p class="two">
+              <span>保险期间：</span><span>12个月</span>
+            </p>
+            <p class="two">
+              <span>交费周期：</span><span>一次交清</span>
+            </p>
+          </div>
+          <h1 class="product t2">不能投保职业类型</h1>
+          <p>可投保职业等级为1-4类，5、6类及部分特殊职业不能投保，请确认是否属于不可投保职业，详情请查看<a href="javascript:;" id="uninsurableOccupation2">《不可投保职业列表》。</a></p>
+          <h1 class="product t2">特别约定</h1>
+          <p>
+            综合医疗保险，对被保险人实际支出的医疗费用经过投保当地公费医疗或社会医疗保险报销后，剩余符合投保当地社会医疗保险范围内的医疗费用，我司按约定的免赔额和给付比例承担赔偿责任（未经社保结算的将按照50%比例承担赔偿责任）。其中，医疗费用的给付范围以《中华团体综合医疗保险条款》约定为准。
+          </p>
+          <h1 class="product t2">责任免除</h1>
+          <p>
+            因下列情形之一导致被保险人医疗费用支出的，我们不承担给付保险金的责任：
+          </p>
+          <ul>
+            <li>1.投保人对被保险人的故意杀害、故意伤害；</li>
+            <li>2.被保险人故意自伤、故意犯罪、抗拒依法采取的刑事强制措施或自杀，但被保险人自杀时为无民事行为能力人的除外；</li>
+            <li>3.被保险人酒后驾驶，无合法有效驾驶证驾驶，或驾驶无有效行驶证的机动车，主动吸食或注射毒品；</li>
+            <li>4.被保险人从事潜水、跳伞、攀岩、蹦极、驾驶滑翔机或滑翔伞、探险、摔跤、武术比赛、特技表演、赛马、赛车等高风险运动；</li>
+            <li>5.战争、军事冲突、暴乱、武装叛乱或恐怖袭击；</li>
+            <li>6.核爆炸、核辐射或核污染；</li>
+            <li>7.被保险人因怀孕、流产、分娩(含剖腹产)、避孕、人工受孕、绝育手术、治疗不孕不育症及由此导致的并发症、精神疾患、医疗事故导致的意外伤害；</li>
+            <li>8.被保险人的洗牙、牙齿美白、正畸、烤瓷牙、种植牙或镶牙等牙齿保健和修复；</li>
+            <li>9.被保险人的休养、疗养、身体检查、康复治疗、物理治疗、心理治疗，及因脊椎间盘突出症、药物过敏、食物中毒导致的治疗行为；</li>
+            <li>10.被保险人对本合同生效前已存在的疾病（或症状）或其复发所致，但在投保单上告知并经本公司同意承保的，不在此限；</li>
+            <li>11.被保险人患遗传性疾病，先天性畸形、变形或染色体异常、精神和行为障碍；</li>
+            <li>12.被保险人的视力矫正手术、变性手术、以捐献器官为目的的医疗行为，及非因意外伤害导致的整容或矫形手术；</li>
+            <li>13.投保地社会医疗保险规定的完全自费医疗费用和部分自费医疗费用中属于自费部分的医疗费用；</li>
+            <li>14.被保险人在中华人民共和国境外及港澳台地区诊疗。</li>
+          </ul>
+          <p>发生上述情形导致被保险人发生医疗费用的,我们不承担给付保险金的责任，本公司对该被保险人的责任继续有效。</p>
+          <p class="hint">本保险由天彩保险经纪提供服务，保障详情请查看<a href="javascript:;" id="insuranceClauses2">《中华团体综合医疗保险条款》</a>。</p>
+        </div>
+      </li>
+      <li class="items">
+        <div class="particulars">
+          <h1 class="product">常见问题</h1>
+          <div class="s-types t1">
+            <ul>
+              <li class="questions">
+                <p class="titles"><span>Q、</span><span>什么医院的费用可以报销？</span></p>
+                <p><span class="left">A、</span><span class="right">经中华人民共和国卫生部门评审确定的二级或以上之社保定点医院。</span></p>
+              </li>
+              <li class="questions">
+                <p class="titles"><span>Q、</span><span>综合医疗有无等待期？</span></p>
+                <p><span class="left">A、</span><span class="right">无等待期，只要在保险期间内发生的门诊或住院费用按照约定赔付比例均可报销。</span></p>
+              </li>
+              <li class="questions">
+                <p class="titles"><span>Q、</span><span>理赔时效多久？</span></p>
+                <p><span class="left">A、</span><span class="right">10个工作日结案。</span></p>
+              </li>
+              <li class="questions">
+                <p class="titles"><span>Q、</span><span>未到社保定点医院就诊的费用还能报销吗？</span></p>
+                <p><span class="left">A、</span><span class="right"><i>a、<em>就诊医院必须二级或二级以上公立医院。</em></i><i><em
+                        class='left'>b、</em><em class="right">未经社保结算的将按照我司约定的免赔额和给付比例的50%承担赔偿责任。</em></i></span></p>
+              </li>
+            </ul>
+          </div>
+          <h1 class="product">理赔指引</h1>
+          <p class="subheading">线下理赔流程：</p>
+          <div class="claim">
+            <h4>综合医疗保险门诊医疗保险金的申请</h4>
+            <div>
+              <p class='overstriking'>1、保险金申请流程：</p>
+              <p>被保险人支付门急诊医疗费用→投保单位汇总医疗费用单证→收取理赔材料→保险人理赔→理赔金划至个人账户</p>
+            </div>
+            <div>
+              <p class='overstriking'>索赔资料</p>
+              <p>①团体保险理赔申请书(纸质);</p>
+              <p>②保险人指定医院或者认可的医疗机构出具的医疗费用收据原件或者发票原件、门急诊处方(包括电脑打印的费用明细清单);</p>
+              <p>③门诊病历复印件(不能明确病症时提供)和医疗费用明细清单;</p>
+              <p>④对于已将医疗机构收据原件或者发票原件交至医保报销的，需提供医保分割单原件(需盖医保章)与分割单对应的收据或发票复印件;</p>
+              <p>⑤被保险人所能提供的与确认保险事故的性质、原因、伤害程度等有关的其他证明和资料;</p>
+            </div>
+          </div>
+          <div class="claim">
+            <h4>综合医疗保险住院保险金的申请</h4>
+            <div>
+              <p class='overstriking'>1、保险金申请流程：</p>
+              <p>被保险人支付住院医疗费用→投保单位汇总医疗单证→收取理赔材料→保险人理赔→理赔金划至个人账户</p>
+            </div>
+            <div>
+              <p class='overstriking'>索赔资料</p>
+              <p>①团体保险理赔申请书(纸质);</p>
+              <p>②本补充约定指定或者认可的医疗机构出具的住院费用专用收据原件或者发票原件，电脑打印的费用明细清单、结算单，出院小结和诊断证明、住院病历;</p>
+              <p>③对于已将医疗机构收据原件或者发票原件交至医保报销的，需提供医保分割单原件(需盖医保章)与分割单对应的收据或发票复印件;</p>
+              <p>④被保险人所能提供的与确认保险事故的性质、原因、伤害程度等有关的其他证明和资料。</p>
+            </div>
+          </div>
+          <p id="consent" class="Isee">
+            <span class="consents">
+              <i class="radius"></i>
+            </span>
+            <span class="content"> 我已阅读并同意
+              <a href="javascript:;" id="insuranceNotes">《投保须知》</a>、
+              <a href="javascript:;" id="insuranceClauses">《保险条款》</a>、
+              <a href="javascript:;" id="declarationsAuthorizations">《投保人及被保险人声明与授权》</a>及
+              <a href="javascript:;" id="uninsurableOccupation">《不可投保职业》</a>
+            </span>
+          </p>
+      </li>
+    </ul>
+
+    <div class='tabar'>
+      <span id="priceSpan" class='tabar-left pay'>410元保费起<i class="money"></i></span><span id="nextSy" class='tabar-right next-1'>下一步</span>
+    </div>
+
+    <div id="Pop">
+      <div class="popBox">
+        <p class="popti">正在报备中……</p>
+        <hr>
+        <p class='btn'>
+          <button class="yes">确定</button><button class="no">取消</button>
+        </p>
+      </div>
+    </div>
+  </div>
+  <!--<script type="text/javascript">
+
+      var minDate = new Date().setDate((new Date().getDate()-30));
+      minDate = new Date(minDate).format('yyyy-MM-dd');
+      console.log(minDate)
+      var maxDate = new Date().setFullYear((new Date().getFullYear()-65));
+      maxDate = new Date(maxDate).format('yyyy-MM-dd');
+      console.log(maxDate)
+      new Jdate({
+          el: '#dateStart',
+          format: 'YYYY-MM-DD',
+          minDate:"2018-01-01",
+          maxDate:"2099-12-31",
+          confirm: function(date) {
+              var defultStr = '410元保费起'
+              var priceStr = getPriceByAge(date);
+              sessionStorage['priceStr'] = priceStr;
+              var str = "应缴保费"+priceStr
+              console.log(priceStr+'===确定按钮触发&#45;&#45;&#45;&#45;&#45;&#45;'+date);
+              if(priceStr==-1){
+                  $("#priceSpan").html(defultStr);
+              }else {
+                  $("#priceSpan").html(str);
+              }
+          }
+      })
+
+  </script>-->
+  <script type="text/javascript">
+      var minDate = new Date().setDate((new Date().getDate()-30));
+      minDate = new Date(minDate);
+      console.log(minDate)
+      var maxDate = new Date().setFullYear((new Date().getFullYear()-65));
+      maxDate = new Date(maxDate);
+      console.log(maxDate)
+      new Mdate("dateStart", {
+          //"dateStart"为你点击触发Mdate的id，必填项
+          acceptId: "dateStart",
+          //此项为你要显示选择后的日期的input，不填写默认为上一行的"dateShowBtn"
+          beginYear: maxDate.getFullYear(),
+          //此项为Mdate的初始年份，不填写默认为2000
+          beginMonth: maxDate.getMonth()+1,
+          //此项为Mdate的初始月份，不填写默认为1
+          beginDay: maxDate.getDate(),
+          //此项为Mdate的初始日期，不填写默认为1
+          endYear: minDate.getFullYear(),
+          //此项为Mdate的结束年份，不填写默认为当年
+          endMonth: minDate.getMonth()+1,
+          //此项为Mdate的结束月份，不填写默认为当月
+          endDay: minDate.getDate(),
+          //此项为Mdate的结束日期，不填写默认为当天
+          format: "-"
+          //此项为Mdate需要显示的格式，可填写"/"或"-"或".",不填写默认为年月日
+      });
+
+
+      window.showDate = function () {
+          console.log($('#dateStart').val());
+          var datav = $("#dateStart").val();
+          var defultStr = '410元保费起'
+          var priceStr = getPriceByAge(datav);
+          //sessionStorage['priceStr'] = priceStr;
+          var str = "应缴保费"+priceStr
+          //console.log(priceStr+'===确定按钮触发&#45;&#45;&#45;&#45;&#45;&#45;'+date);
+          if(priceStr==-1){
+              $("#priceSpan").html(defultStr);
+          }else {
+              $("#priceSpan").html(str);
+          }
+      }
+  </script>
+</body>
+
+
+</html>

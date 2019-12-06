@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<div th:fragment="common_js(scripts)">
+    <!--<script th:src="@{/app/js/jquery-1.11.3.min.js}"></script>-->
+    <script type="text/javascript" th:src="@{/micromarketing/js/zepto.min.js}"></script>
+    <script type="text/javascript" th:src="@{/micromarketing/js/frozen.js}"></script>
+    <!-- 自适应移动端 -->
+    <script th:src="@{/assets/js/flexible.js}"></script>
+    <!-- 生成二维码 -->
+    <script th:src="@{/assets/js/qrcode.min.js}"></script>
+    <script th:src="@{/js/util.js}"></script>
+    <!--<script th:src="@{/js/li-alert.js}"></script>-->
+    <script type="text/javascript" th:inline="javascript">
+        /*<![CDATA[*/
+        var ctxPath = /*[[@{/}]]*/ '';
+        /*]]>*/
+        if(ctxPath=='/'){
+            ctxPath="http://"+window.location.host+"/";
+        }
+        console.info("---ctxPath::"+ctxPath);
+    </script>
+    <th:block th:replace="${scripts}" />
+</div>
+</html>

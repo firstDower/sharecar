@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0,viewport-fit=cover">
+    <title>信息确认</title>
+    <script th:src="@{/assets/js/flexible.js}" type="text/javascript"></script>
+    <link rel="stylesheet" th:href="@{/css/style.min.css}"/>
+
+
+</head>
+
+<body>
+    <div id="Message" class="page Message">
+        <!-- 投保信息 -->
+        <div class="title">
+            投保信息
+        </div>
+        <div class='Insurance-one'>
+            <p class='item'>
+                <span class='left'>
+                    保险期限:
+                </span>
+                <span class='right'><i id="startDate"></i><i> 0时</i></span>
+            </p>
+            <p class='item'>
+                <span class='left'>
+                    至:
+                </span>
+                <span class='right' ><i id="endDate"></i><i> 0时</i></span>
+            </p>
+            <p class='bulletin'>
+                如遇节假日,承保时间顺延,具体承保时间以通知为准
+            </p>
+            <p class='item'>
+                <span class='left'>
+                    投保单位:
+                </span>
+                <span class='right unit'>北京金色安居咨询服务中心</span>
+            </p>
+        </div>
+        <!-- 被保人信息 -->
+        <div class="title">
+            被保人信息:
+        </div>
+        <div class=''>
+            <p class='item'>
+                <span class='left'>
+                    姓名:
+                </span>
+                <span class='right' id="insureName">张三</span>
+            </p>
+            <p class='item'>
+                <span class='left'>
+                    证件类型:
+                </span>
+                <span class='right overstriking'>居民身份证</span>
+            </p>
+            <p class='item'>
+                <span class='left'>
+                    证件号码:
+                </span>
+                <span class="right" id="insureIDNumber"></span>
+            </p>
+            <p class='item'>
+                <span class='left'>
+                    出生日期:
+                </span>
+                <span class='right' id="insureBrithday"></span>
+            </p>
+            <p class='item'>
+                <span class='left'>
+                    性别:
+                </span>
+                <span class='right' id="insureSex">男</span>
+            </p>
+            <p class='item'>
+                <span class='left'>
+                    手机号码:
+                </span>
+                <span class='right' id="insurePhone">18611675088</span>
+            </p>
+            <p class='item'>
+                <span class='left'>
+                    电子邮箱:
+                </span>
+                <span class='right' id="insureMail">18611675088@139.com</span>
+            </p>
+        </div>
+        <!-- 监护人信息 -->
+        <div class="title underAge">
+            监护人信息:
+        </div>
+        <div class="underAge">
+            <p class='item sels'>
+                <span class='left'>
+                    与被保人关系:
+                </span>
+                <span class="right" id="vc2Rel">母子</span>
+            </p>
+            <p class='item'>
+                <span class='left'>
+                    姓名:
+                </span>
+                <span class='right' id="guardianName">李四</span>
+
+            </p>
+            <p class='item'>
+                <span class='left'>
+                    证件类型:
+                </span>
+                <span class='right'>居民身份证</span>
+            </p>
+            <p class='item'>
+                <span class='left'>
+                    证件号码:
+                </span>
+                <span class='right' id="guardianIDNumber">1101019681103867</span>
+            </p>
+            <p class='item'>
+                <span class='left'>
+                    出生日期:
+                </span>
+                <span class='right' id="guardianBrithday">1968-11-03</span>
+            </p>
+            <p class='item'>
+                <span class='left'>
+                    性别:
+                </span>
+                <span class='right' id="guardianSex">女</span>
+            </p>
+            <p class='item'>
+                <span class='left'>
+                    手机号码:
+                </span>
+                <span class='right' id="guardianPhone">18618216680</span>
+            </p>
+            <p class='item'>
+                <span class='left'>
+                    邮箱:
+                </span>
+                <span class='right' id="guardianMail">18618216680@qq.com</span>
+            </p>
+        </div>
+        <main>
+            <div id="sign" class="sign">
+                <span class="s-left"></span>
+                <span class="s-right"></span>
+                <span class='s-top'></span>
+                <span class="s-bottom"></span>
+                <span class="text">投保人签字<br>CA数字签名区域</span>
+                <!--<span class="date"></span>-->
+            </div>
+        </main>
+
+        <p id="consent" class="cen">
+            <span class="consents">
+                <i class="radius"></i>
+            </span>
+            我已阅读并同意
+            <a href="javascript:;" id="insuredPdfA">《被保险人交纳保险费授权声明》</a>
+        </p>
+        <div class='tabar'>
+            <span class='tabar-left pay'>应付金额 :<i class="money">152.00</i>元</span><span
+                class='tabar-right next-1'>下一步</span>
+        </div>
+        <div id="mc">
+            <div class='signatureBox'>
+                <div class="signBox">
+                    <span class="s-left sl"></span>
+                    <span class="s-right sr"></span>
+                    <span class='s-top st'></span>
+                    <span class="s-bottom sb"></span>
+                    <span class="text">投保人签字<br>CA数字签名区域</span>
+                    <div class="js-signature" data-width="600" data-height="200" data-border="1px solid #1ABC9C"
+                        data-background="#16A085" data-line-color="#fff" data-auto-fit="true">
+                    </div>
+                    <div class="funBox">
+                        <button id="clearBtn" ontouchstart="clearCanvas(event);">清除</button>
+                        <!--<button id="cancelBtn" onclick="cancelCanvas();">取消</button>-->
+                        <button id="saveBtn" ontouchstart="saveSignature();" disabled>确定</button></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script th:src="@{/assets/js/jquery-1.11.3.min.js}"></script>
+    <script th:src="@{/js/index.min.js}"></script>
+    <script th:src="@{/assets/js/jq-signature.js}"></script>
+    <script th:src="@{/js/Message.js}"></script>
+    <script th:src="@{/js/utils.js}"></script>
+</body>
+
+</html>

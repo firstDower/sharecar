@@ -1,11 +1,6 @@
 function getUrl(url){
-
-    return "http://localhost:8080/"+url;
-    //return "http://192.168.99.143:8080/yingda.app.web/"+url;
-    //return "http://testcarins.huanlebaoxian.cn/yingda.app.web/"+url;
-    //return "http://dhtest.tiancaibaoxian.com/"+url;
+    return "/manage/"+url;
 }
-
 function getPayUrl(obj) {
     return "http://zhcx.4009006666.cn:2046/ae/insure/weixinPay?orderNo="+obj+"&ds=03";
 }
@@ -21,18 +16,7 @@ $(document).ready(function() {
     if (ua2.match(/MicroMessenger/i) == 'micromessenger') {
         $(".navtit").hide();
     }
-    //ajax设置
-    $.ajaxSetup( {
-        //设置ajax请求结束后的执行动作
-        complete: function(XMLHttpRequest, textStatus) {
-            // 通过XMLHttpRequest取得响应头，sessionstatus
-            var sessionstatus = XMLHttpRequest.getResponseHeader("sessionStatus");
-            if(sessionstatus=="timeout"){
-                showMessage("用户长时间未操作，请重新进入车险首页！");
-                setTimeout(redirectUrl,5000);
-            }
-        }
-    });
+
 
     $('.popbox article .mqd').click(function () {
         $('.lady').hide();
@@ -183,6 +167,97 @@ function checkEmail(str){
 }
 
 var publicCarNameLength=4;
+
+//Create Time:  07/28/2011
+//Operator:     刘政伟
+//Description:  银行卡号Luhm校验
+
+//Luhm校验规则：16位银行卡号（19位通用）:
+
+// 1.将未带校验位的 15（或18）位卡号从右依次编号 1 到 15（18），位于奇数位号上的数字乘以 2。
+// 2.将奇位乘积的个十位全部相加，再加上所有偶数位上的数字。
+// 3.将加法和加上校验位能被 10 整除。
+
+//方法步骤很清晰，易理解，需要在页面引用Jquery.js
+
+
+//bankno为银行卡号 banknoInfo为显示提示信息的DIV或其他控件
+function luhmCheck(bankno){
+    var lastNum=bankno.substr(bankno.length-1,1);//取出最后一位（与luhm进行比较）
+
+    var first15Num=bankno.substr(0,bankno.length-1);//前15或18位
+    var newArr=new Array();
+    for(var i=first15Num.length-1;i>-1;i--){    //前15或18位倒序存进数组
+        newArr.push(first15Num.substr(i,1));
+    }
+    var arrJiShu=new Array();  //奇数位*2的积 <9
+    var arrJiShu2=new Array(); //奇数位*2的积 >9
+
+    var arrOuShu=new Array();  //偶数位数组
+    for(var j=0;j<newArr.length;j++){
+        if((j+1)%2==1){//奇数位
+            if(parseInt(newArr[j])*2<9)
+                arrJiShu.push(parseInt(newArr[j])*2);
+            else
+                arrJiShu2.push(parseInt(newArr[j])*2);
+        }
+        else //偶数位
+            arrOuShu.push(newArr[j]);
+    }
+
+    var jishu_child1=new Array();//奇数位*2 >9 的分割之后的数组个位数
+    var jishu_child2=new Array();//奇数位*2 >9 的分割之后的数组十位数
+    for(var h=0;h<arrJiShu2.length;h++){
+        jishu_child1.push(parseInt(arrJiShu2[h])%10);
+        jishu_child2.push(parseInt(arrJiShu2[h])/10);
+    }
+
+    var sumJiShu=0; //奇数位*2 < 9 的数组之和
+    var sumOuShu=0; //偶数位数组之和
+    var sumJiShuChild1=0; //奇数位*2 >9 的分割之后的数组个位数之和
+    var sumJiShuChild2=0; //奇数位*2 >9 的分割之后的数组十位数之和
+    var sumTotal=0;
+    for(var m=0;m<arrJiShu.length;m++){
+        sumJiShu=sumJiShu+parseInt(arrJiShu[m]);
+    }
+
+    for(var n=0;n<arrOuShu.length;n++){
+        sumOuShu=sumOuShu+parseInt(arrOuShu[n]);
+    }
+
+    for(var p=0;p<jishu_child1.length;p++){
+        sumJiShuChild1=sumJiShuChild1+parseInt(jishu_child1[p]);
+        sumJiShuChild2=sumJiShuChild2+parseInt(jishu_child2[p]);
+    }
+    //计算总和
+    sumTotal=parseInt(sumJiShu)+parseInt(sumOuShu)+parseInt(sumJiShuChild1)+parseInt(sumJiShuChild2);
+
+    //计算Luhm值
+    var k= parseInt(sumTotal)%10==0?10:parseInt(sumTotal)%10;
+    var luhm= 10-k;
+
+    if(lastNum==luhm && lastNum.length != 0){
+        return true;
+    }
+    else{
+
+        return false;
+    }
+}
+
+/*
+车牌号验证
+ */
+function isVehicleNumber(vehicleNumber) {
+    var result = false;
+    if (vehicleNumber.length == 7){
+        var express = /^[京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领A-Z]{1}[A-Z]{1}[A-Z0-9]{4}[A-Z0-9挂学警港澳]{1}$/;
+        result = express.test(vehicleNumber);
+    }
+    return result;
+}
+
+
 /*
  验证身份证的合法性
  根据〖中华人民共和国国家标准 GB 11643-1999〗中有关公民身份号码的规定，公民身份号码是特征组合码，由十七位数字本体码和一位数字校验码组成。排列顺序从左至右依次为：六位数字地址码，八位数字出生日期码，三位数字顺序码和一位数字校验码。
@@ -399,86 +474,6 @@ function getDateTimestamp(date){
     return date;//结果是毫秒
 }
 
-//核保查询
-function getUnderwritingFlag(orderId,isNotPay){
-    $(".indexZZ").show();
-    $.ajax({
-        url: "/getUnderwritingFlag",
-        type: "get",
-        contentType: "application/json",
-        dataType: "json",
-        data: {
-            orderId: orderId
-        },
-        success: function(data) {
-           // alert(JSON.stringify(data));
-            $(".indexZZ").hide();
-            var msg = "订单核保中，无法支付，详细信息可电话咨询!";
-            try {
-                if(data.status != 2){//没成功
-                    if(data.status == 1){//核保中
-                        alert(msg);
-                    }else{//核保失败
-                        var message = data.msg;
-                        if(message){
-                            alert("订单核保失败，无法支付，失败原因：" + message + "，详细信息可电话咨询!");
-                        }else{
-                            alert("订单核保失败，无法支付，详细信息可电话咨询!");
-                        }
-                    }
-                    if(isNotPay){
-                    }else{
-                        location.href="/myOrder";
-                    }
-                } else{
-                    //alert("订单核保成功，可以支付!");
-                    if(isNotPay){
-                        alert("订单核保成功，可以支付!");
-                    }else{
-                        payOrder(data.orderId);//支付
-                    }
-                }
-            }catch (e){
-                alert(JSON.stringify(e));
-                alert(msg);
-                location.href="/myOrder";
-            }
-        },error: function(e) {
-            $(".indexZZ").hide();
-            alert(msg);
-            location.href="/myOrder";
-        }
-    });
-}
-
-//支付订单
-function payOrder(orderId){
-    try{
-        var user = sessionStorage["user"];
-        user = eval("(" + user + ")");
-        var payInfo="";
-        $.ajax({
-            url: "/confirmPay",
-            type: "get",
-            async: true,
-            contentType: "application/json",
-            dataType: "json",
-            data: {
-                orderId: sessionStorage["orderId"],
-                openId: user.userOpenId
-            },
-            success: function (data) {
-                payInfo = data;
-                alert("私车支付信息:"+JSON.stringify(payInfo));
-                post("http://chexian.chelenet.com/agentPayment",{chargeInfo:JSON.stringify(payInfo),numSalePrice:sessionStorage["totalBasePrice"],orderId:sessionStorage["orderId"],carTypeValue:1,hebaoState:2});
-               }
-        });
-    }catch(e){
-        window.location.href="/myOrder";
-    }
-
-}
-
 /**
  * 小写数字转中文大写
  * @param n
@@ -498,30 +493,13 @@ function DX(n) {
     return str.replace(/零(千|百|拾|角)/g, "零").replace(/(零)+/g, "零").replace(/零(万|亿|元)/g, "$1").replace(/(亿)万|壹(拾)/g, "$1$2").replace(/^元零?|零分/g, "").replace(/元$/g, "元整");
 }
 
-function getPolicyStatus(status){
-	var policyStatus ="";
-	if(status == 1){
-		policyStatus="核保中";
-	}else if(status == 2){
-		policyStatus="核保失败";
-	}else if(status == 3){
-		policyStatus="待支付";
-	}else if(status == 4){
-		policyStatus="支付失败";
-	}else if(status == 5){
-		policyStatus="待承保";
-	}else if(status == 6){
-		policyStatus="已承保";
-	}else if(status == 7){
-		policyStatus="承保失败";
-	}else if(status == 8){
-		policyStatus="订单失效";
-	}else if(status == 9){
-		policyStatus="已退保";
-	}else if(status == 10){
-		policyStatus="人工核保";
-	}
-	return policyStatus;
+function checkMoney(v) {
+    var reg = /(^[1-9]([0-9]+)?(\.[0-9]{1,2})?$)|(^(0){1}$)|(^[0-9]\.[0-9]([0-9])?$)/;
+    if (reg.test(v)) {
+        return true;
+    }else{
+        return false;
+    }
 }
 
 /**
@@ -558,3 +536,38 @@ function trimAll(str){
     return str.replace(/\s/g,"");
 }
 
+/**
+ * 给url地址添加参数
+ * @param uri
+ * @param key
+ * @param value
+ * @returns {*}
+ */
+function updateQueryStringParameter(uri, key, value) {
+    if(!value) {
+        return uri;
+    }
+    var re = new RegExp("([?&])" + key + "=.*?(&|$)", "i");
+    var separator = uri.indexOf('?') !== -1 ? "&" : "?";
+    if (uri.match(re)) {
+        return uri.replace(re, '$1' + key + "=" + value + '$2');
+    }
+    else {
+        return uri + separator + key + "=" + value;
+    }
+}
+
+/**
+ *js替换 回车 为</br>
+ * 空格为  &nbsp
+ */
+function strToHtml(string) {
+
+
+    //替换所有的换行符
+    string = string.replace(/\r\n/g,"<br/>")
+    string = string.replace(/\n/g,"<br/>");
+    //替换所有的空格（中文空格、英文空格都会被替换）
+    string = string.replace(/\s/g,"&nbsp;");
+    return string;
+}

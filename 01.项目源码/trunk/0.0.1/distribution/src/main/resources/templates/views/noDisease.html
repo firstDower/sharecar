@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans" xmlns:th="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1,user-scalable=0,viewport-fit=cover"
+    />
+    <title>分享详情</title>
+    <script th:src="@{/assets/js/flexible.js}"></script>
+    <link rel="stylesheet" th:href="@{/app/css/style.min.css}" />
+    <script type="text/javascript" th:inline="javascript">
+      /*<![CDATA[*/
+      var ctxPath = /*[[@{/}]]*/ '';
+
+      /*]]>*/
+      if(ctxPath=='/'){
+          ctxPath="http://"+window.location.host+"/";
+      }
+      console.info("---ctxPath::"+ctxPath);
+
+      function isNotNull(src){
+          if(src==null||src==undefined||$.trim(src)==""){
+              return false;
+          }else{
+              return true;
+          }
+      }
+      function varNull(src){
+          if(src==null||src==undefined||$.trim(src)==""){
+              return "";
+          }else{
+              return src;
+          }
+      }
+    </script>
+    <style>
+      html,body{overflow:hidden}
+      .aaa{
+        background-color:olivedrab;
+
+        /*height: 5px;*/
+        font-size: 0.3rem;
+        text-align: center;
+        line-height: 1rem;
+        color: #ffffff;
+        -webkit-box-shadow:0 0 10px #000;
+        -moz-box-shadow:0 0 10px #000;
+        box-shadow:0 0 10px #000;
+      }
+#dw {
+  -webkit-box-shadow:0 0 10px #000;
+  -moz-box-shadow:0 0 10px #000;
+  box-shadow:0 0 10px #000;
+}
+    </style>
+  </head>
+
+  <body>
+    <div id="shareContent" class="page noDisease">
+      <div class="logo">
+        <img id="prdImgPath"  alt="" th:src="${instData}" />
+      </div>
+      <div class="describe">
+        <h1 >￥<i id="priceH1"></i><i>起</i></h1>
+        <div ><!--<p>首次投保年龄为出生30天至55周岁</p>
+          <p>最高可续保至80周岁</p>
+          <p>保障范围：105种重大疾病+50种轻症</p>
+          <p>最高保额：60万</p>
+          <p>保险期间：1年</p>-->
+          <pre id="divHtml"></pre>
+        </div>
+
+      </div>
+      <div class="footer">
+        <div class="ewm-box">
+          <div class="left-txt">
+            <p>扫一扫</p>
+            <p>或识别二维码</p>
+            <p>开启健康人生保障</p>
+          </div>
+          <div class="right-logo" id="qrcode">
+            <!--<img th:src="@{/assets/images/ewm2.png}" alt="" srcset="" />-->
+          </div>
+        </div>
+      </div>
+    </div>
+    <div align="center" id="dw" >
+      <!--　　<div style="float: right;width: 25px;height: 25px;" title="关闭" onclick="closeok()">
+      　　　　<span class="close"></span>
+      　　</div>-->
+    </div>
+    <p class="aaa">↑↑↑ 请长按上面图片选择您的分享方式</p>
+    <script th:src="@{/app/js/jquery-1.11.3.min.js}"></script>
+    <script th:src="@{/js/util.js}"></script>
+
+    <script th:src="@{/assets/js/qrcode.min.js}"></script>
+    <script th:src="@{/assets/js/html2canvas.js}"></script>
+    <script th:src="@{/js/views/noDisease.js}"></script>
+  </body>
+
+</html>

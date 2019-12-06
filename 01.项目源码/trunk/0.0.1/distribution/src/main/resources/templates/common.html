@@ -1,0 +1,51 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<div th:fragment="header_static">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="keywords" content="index" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="renderer" content="webkit" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <!-- <link rel="icon" type="image/png"  th:href="@{/static/images/appLogo.png}"/>
+  <link rel="apple-touch-icon-precomposed"  th:href="@{/static/assets/i/app-icon72x72@2x.png}"/> -->
+  <meta name="apple-mobile-web-app-title" content="iHandy" />
+  <script type="text/javascript" th:src="@{/micromarketing/js/zepto.min.js}"></script>
+  <link rel="stylesheet" th:href="@{/micromarketing/css/frozen.css}" media="all" >
+  <script type="text/javascript" th:src="@{/micromarketing/js/frozen.js}"></script>
+
+  <link rel="stylesheet" th:href="@{/app/css/style.min.css}"/>
+  <!--<script type="text/javascript" th:src="@{/app/js/jquery-1.11.3.min.js}" ></script>-->
+  <script type="text/javascript" th:src="@{/app/js/flexible.min.js}" ></script>
+  <script type="text/javascript" th:src="@{/app/js/index.min.js}" ></script>
+
+  
+  <script type="text/javascript" th:inline="javascript">
+	   /*<![CDATA[*/
+       var ctxPath = /*[[@{/}]]*/ '';
+       /*]]>*/
+       if(ctxPath=='/'){
+           ctxPath="http://"+window.location.host+"/";
+       }
+       console.info("---ctxPath::"+ctxPath);
+		
+		function isNotNull(src){
+			if(src==null||src==undefined||$.trim(src)==""){
+				return false;
+			}else{
+				return true;
+			}
+		}
+       function varNull(src){
+           if(src==null||src==undefined||$.trim(src)==""){
+               return "";
+           }else{
+               return src;
+           }
+       }
+  </script>
+</div>
+
+

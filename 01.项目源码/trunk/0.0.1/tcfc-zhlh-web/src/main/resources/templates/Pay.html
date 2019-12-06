@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <title>去支付</title>
+    <script th:src="@{/assets/js/flexible.js}" type="text/javascript"></script>
+    <link rel="stylesheet" th:href="@{/css/style.min.css}"/>
+
+</head>
+
+<body>
+    <div id="Pay" class="page">
+        <div class="particulars">
+            <ul>
+                <li>
+                    <span>订单编号:</span>
+                    <span>201909485663853757
+                    </span>
+                </li>
+                <li>
+                    <span>商品名称:</span>
+                    <span>中华团体综合医疗保险</span>
+                </li>
+                <li>
+                    <span>商品金额:</span>
+                    <span class='pay-money'>710.00 元</span>
+                </li>
+            </ul>
+        </div>
+        <h4>请选择支付方式</h4>
+        <p class="plan-pay"> <i class="logo"></i> 微信支付 <span class="wx-pay active"><i class="radius"></i></span></p>
+        <p class="plan-pay"> <i class="logo"></i> 微信扫码 <span class="wx-ewm"><i class="radius"></i></span></p>
+        <div class="ewm">
+            <img src="../../assets/images/ewm.png" alt="" srcset="">
+        </div>
+        <div class="footer">
+            <button id="affirm">确定支付</button>
+        </div>
+
+    </div>
+
+
+    <script th:src="@{/assets/js/jquery-1.11.3.min.js}"></script>
+    <script th:src="@{/js/index.min.js}"></script>
+</body>
+
+</html>
