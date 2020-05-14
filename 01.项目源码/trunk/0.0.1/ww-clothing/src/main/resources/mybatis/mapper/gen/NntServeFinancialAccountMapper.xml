@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dower.product.core.serverdb.dao.NntServeFinancialAccountMapper">
+  <resultMap id="BaseResultMap" type="com.dower.product.core.serverdb.model.NntServeFinancialAccount">
+    <id column="NUM_ID" jdbcType="INTEGER" property="numId" />
+    <result column="NUM_RECEIVE_ACCOUNT" jdbcType="DECIMAL" property="numReceiveAccount" />
+    <result column="NUM_BLOCKED_ACCOUNT" jdbcType="DECIMAL" property="numBlockedAccount" />
+    <result column="NUM_SETTLEMENT_ACCOUNT" jdbcType="DECIMAL" property="numSettlementAccount" />
+    <result column="DAT_CREAT_DATE" jdbcType="TIMESTAMP" property="datCreatDate" />
+    <result column="NUM_STATE" jdbcType="INTEGER" property="numState" />
+    <result column="NUM_USER_ID" jdbcType="INTEGER" property="numUserId" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    NUM_ID, NUM_RECEIVE_ACCOUNT, NUM_BLOCKED_ACCOUNT, NUM_SETTLEMENT_ACCOUNT, DAT_CREAT_DATE, 
+    NUM_STATE, NUM_USER_ID
+  </sql>
+  <select id="selectByExample" parameterType="com.dower.product.core.serverdb.model.NntServeFinancialAccountExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from nnt_serve_financial_account
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from nnt_serve_financial_account
+    where NUM_ID = #{numId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from nnt_serve_financial_account
+    where NUM_ID = #{numId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.dower.product.core.serverdb.model.NntServeFinancialAccountExample">
+    delete from nnt_serve_financial_account
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.dower.product.core.serverdb.model.NntServeFinancialAccount">
+    insert into nnt_serve_financial_account (NUM_ID, NUM_RECEIVE_ACCOUNT, NUM_BLOCKED_ACCOUNT, 
+      NUM_SETTLEMENT_ACCOUNT, DAT_CREAT_DATE, NUM_STATE, 
+      NUM_USER_ID)
+    values (#{numId,jdbcType=INTEGER}, #{numReceiveAccount,jdbcType=DECIMAL}, #{numBlockedAccount,jdbcType=DECIMAL}, 
+      #{numSettlementAccount,jdbcType=DECIMAL}, #{datCreatDate,jdbcType=TIMESTAMP}, #{numState,jdbcType=INTEGER}, 
+      #{numUserId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dower.product.core.serverdb.model.NntServeFinancialAccount">
+    insert into nnt_serve_financial_account
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="numId != null">
+        NUM_ID,
+      </if>
+      <if test="numReceiveAccount != null">
+        NUM_RECEIVE_ACCOUNT,
+      </if>
+      <if test="numBlockedAccount != null">
+        NUM_BLOCKED_ACCOUNT,
+      </if>
+      <if test="numSettlementAccount != null">
+        NUM_SETTLEMENT_ACCOUNT,
+      </if>
+      <if test="datCreatDate != null">
+        DAT_CREAT_DATE,
+      </if>
+      <if test="numState != null">
+        NUM_STATE,
+      </if>
+      <if test="numUserId != null">
+        NUM_USER_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="numId != null">
+        #{numId,jdbcType=INTEGER},
+      </if>
+      <if test="numReceiveAccount != null">
+        #{numReceiveAccount,jdbcType=DECIMAL},
+      </if>
+      <if test="numBlockedAccount != null">
+        #{numBlockedAccount,jdbcType=DECIMAL},
+      </if>
+      <if test="numSettlementAccount != null">
+        #{numSettlementAccount,jdbcType=DECIMAL},
+      </if>
+      <if test="datCreatDate != null">
+        #{datCreatDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="numState != null">
+        #{numState,jdbcType=INTEGER},
+      </if>
+      <if test="numUserId != null">
+        #{numUserId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.dower.product.core.serverdb.model.NntServeFinancialAccountExample" resultType="java.lang.Long">
+    select count(*) from nnt_serve_financial_account
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update nnt_serve_financial_account
+    <set>
+      <if test="record.numId != null">
+        NUM_ID = #{record.numId,jdbcType=INTEGER},
+      </if>
+      <if test="record.numReceiveAccount != null">
+        NUM_RECEIVE_ACCOUNT = #{record.numReceiveAccount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.numBlockedAccount != null">
+        NUM_BLOCKED_ACCOUNT = #{record.numBlockedAccount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.numSettlementAccount != null">
+        NUM_SETTLEMENT_ACCOUNT = #{record.numSettlementAccount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.datCreatDate != null">
+        DAT_CREAT_DATE = #{record.datCreatDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.numState != null">
+        NUM_STATE = #{record.numState,jdbcType=INTEGER},
+      </if>
+      <if test="record.numUserId != null">
+        NUM_USER_ID = #{record.numUserId,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update nnt_serve_financial_account
+    set NUM_ID = #{record.numId,jdbcType=INTEGER},
+      NUM_RECEIVE_ACCOUNT = #{record.numReceiveAccount,jdbcType=DECIMAL},
+      NUM_BLOCKED_ACCOUNT = #{record.numBlockedAccount,jdbcType=DECIMAL},
+      NUM_SETTLEMENT_ACCOUNT = #{record.numSettlementAccount,jdbcType=DECIMAL},
+      DAT_CREAT_DATE = #{record.datCreatDate,jdbcType=TIMESTAMP},
+      NUM_STATE = #{record.numState,jdbcType=INTEGER},
+      NUM_USER_ID = #{record.numUserId,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dower.product.core.serverdb.model.NntServeFinancialAccount">
+    update nnt_serve_financial_account
+    <set>
+      <if test="numReceiveAccount != null">
+        NUM_RECEIVE_ACCOUNT = #{numReceiveAccount,jdbcType=DECIMAL},
+      </if>
+      <if test="numBlockedAccount != null">
+        NUM_BLOCKED_ACCOUNT = #{numBlockedAccount,jdbcType=DECIMAL},
+      </if>
+      <if test="numSettlementAccount != null">
+        NUM_SETTLEMENT_ACCOUNT = #{numSettlementAccount,jdbcType=DECIMAL},
+      </if>
+      <if test="datCreatDate != null">
+        DAT_CREAT_DATE = #{datCreatDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="numState != null">
+        NUM_STATE = #{numState,jdbcType=INTEGER},
+      </if>
+      <if test="numUserId != null">
+        NUM_USER_ID = #{numUserId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where NUM_ID = #{numId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dower.product.core.serverdb.model.NntServeFinancialAccount">
+    update nnt_serve_financial_account
+    set NUM_RECEIVE_ACCOUNT = #{numReceiveAccount,jdbcType=DECIMAL},
+      NUM_BLOCKED_ACCOUNT = #{numBlockedAccount,jdbcType=DECIMAL},
+      NUM_SETTLEMENT_ACCOUNT = #{numSettlementAccount,jdbcType=DECIMAL},
+      DAT_CREAT_DATE = #{datCreatDate,jdbcType=TIMESTAMP},
+      NUM_STATE = #{numState,jdbcType=INTEGER},
+      NUM_USER_ID = #{numUserId,jdbcType=INTEGER}
+    where NUM_ID = #{numId,jdbcType=INTEGER}
+  </update>
+</mapper>

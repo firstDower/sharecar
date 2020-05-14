@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dower.product.core.repository.UsersDao">
+	<select id="queryUserList" parameterType="java.util.Map" resultType="java.util.Map">
+		select * from nnt_users t
+	</select>
+	<select id="queryUser" parameterType="java.util.Map" resultType="java.util.Map">
+		select * from nnt_users t where t.num_user_id = 2
+	</select>
+	<!--根据openid获取代理人信息-->
+	<select id="queryUserinfoByOpenid" parameterType="java.util.Map" resultType="java.util.Map">
+		select * from nnt_users t where t.vc_openid = #{openId}
+	</select>
+</mapper>

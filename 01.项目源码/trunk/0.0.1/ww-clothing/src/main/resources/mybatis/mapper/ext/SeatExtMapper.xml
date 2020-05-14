@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dower.product.core.repository.SeatExtDao">
+
+<!-- 根据商户订单id跟新支付状态 -->
+<update id="updatePayStateByOrderno">
+	UPDATE  nnt_user_journey B,nnt_order A SET B.NUM_PAY_STATE = 2  WHERE
+	B.NUM_NNT_USER_JOURNEY_ID = A.NUM_NNT_USER_JOURNEY_ID AND A.VC_ORDER_NO=#{orderNo}
+
+</update>
+
+<!--根据商户订单id查询订单（座位）详情 -->
+
+<!--查询订单（座位）详情-->
+<select id="getTripRecordDetailById" parameterType="java.util.Map" resultType="java.util.Map">
+SELECT
+	nuj.NUM_NNT_USER_JOURNEY_ID,
+	nuj.NUM_USER_ID,
+	nuj.NUM_STATE,
+	nuj.VC_SEAT_NO,
+	nuj.NUM_PAY_STATE,
+	nuj.DAT_CREAT_DATE,
+	nuj.NUM_PAY_TAYE,
+	nuj.NUM_AGREE_STATE,
+	nnto.NUM_ID NUM_ORDER_ID,
+	nnto.VC_ORDER_NO,
+	nnto.VC_OBJECT_DESC,
+	nnto.VC_DETAIL,
+	nnto.VC_DISCOUNT_SIGN,
+	nnto.NUM_TRADE_TYPE,
+	nnto.VC_OPENID,
+	nnto.VC_ACCATH,
+	t_code.NUM_ROUTE_ID,
+	t_code.VC_ROUTE_NO,
+	t_code.START_TIME,
+	t_code.DAT_DEPART_DATE,
+	t_code.NUM_MANNED_TYPE,
+	t_code.NUM_MAX_PASSENGERS,
+	t_code.NUM_UNIT_PRICE,
+	t_code.NUM_ROUTE_STATE,
+	t_code.carOwnerUserId,
+	t_code.start_city_id,
+	t_code.start_city_name,
+	t_code.end_city_id,
+	t_code.end_city_name,
+	t_code.VC_CAR_NO,
+	t_code.VC_BRAND,
+	t_code.VC_CAR_COLOR,
+	t_code.VC_REAL_NAME,
+	t_code.appointment_sum,
+	t_code.pay_sum
+FROM
+	nnt_user_journey nuj
+LEFT JOIN (
+	SELECT
+		t1.*, t2.appointment_sum,
+		t3.pay_sum
+	FROM
+		(
+			SELECT
+				nj.NUM_ROUTE_ID,
+				nj.VC_ROUTE_NO,
+				DATE_FORMAT(
+					nj.DAT_DEPART_DATE,
+					'%Y-%m-%d %H:%i'
+				) START_TIME,
+				nj.DAT_DEPART_DATE,
+				nj.NUM_MANNED_TYPE,
+				nj.NUM_MAX_PASSENGERS,
+				nj.NUM_UNIT_PRICE,
+				nj.NUM_ROUTE_STATE,
+				nj.NUM_USER_ID carOwnerUserId,
+				ntc.NUM_TRAVEL_CITY_ID start_city_id,
+				ntc.VC_CITY_NAME start_city_name,
+				ntc2.NUM_TRAVEL_CITY_ID end_city_id,
+				ntc2.VC_CITY_NAME end_city_name,
+				nci.VC_CAR_NO,
+				nci.VC_BRAND,
+				nci.VC_CAR_COLOR,
+				ncoi.VC_REAL_NAME
+			FROM
+				nnt_journey nj
+			LEFT JOIN nnt_travel_city ntc ON nj.NUM_START_TRAVEL_CITY_ID = ntc.NUM_TRAVEL_CITY_ID
+			LEFT JOIN nnt_travel_city ntc2 ON nj.NUM_END_TRAVEL_CITY_ID = ntc2.NUM_TRAVEL_CITY_ID
+			LEFT JOIN nnt_carinfo nci ON nj.NUM_USER_ID = nci.NUM_USER_ID
+			LEFT JOIN nnt_car_owner_info ncoi ON nj.NUM_USER_ID = ncoi.NUM_USER_ID
+			WHERE
+				1 = 1
+			AND (
+				nj.NUM_ROUTE_STATE = 2 || nj.NUM_ROUTE_STATE = 3
+			)
+		) AS t1
+	LEFT JOIN (
+		SELECT
+			nj1.NUM_ROUTE_ID,
+			count(nuj.NUM_ROUTE_ID) appointment_sum
+		FROM
+			nnt_journey nj1
+		LEFT JOIN nnt_user_journey nuj ON nj1.NUM_ROUTE_ID = nuj.NUM_ROUTE_ID
+		AND nuj.NUM_STATE = 1
+		AND nuj.NUM_PAY_STATE = 1
+		GROUP BY
+			nj1.NUM_ROUTE_ID
+	) AS t2 ON t1.NUM_ROUTE_ID = t2.NUM_ROUTE_ID
+	LEFT JOIN (
+		SELECT
+			nj1.NUM_ROUTE_ID,
+			count(nuj.NUM_ROUTE_ID) pay_sum
+		FROM
+			nnt_journey nj1
+		LEFT JOIN nnt_user_journey nuj ON nj1.NUM_ROUTE_ID = nuj.NUM_ROUTE_ID
+		AND nuj.NUM_STATE = 1
+		AND nuj.NUM_PAY_STATE = 2
+		GROUP BY
+			nj1.NUM_ROUTE_ID
+	) AS t3 ON t1.NUM_ROUTE_ID = t3.NUM_ROUTE_ID
+) t_code ON nuj.NUM_ROUTE_ID = t_code.NUM_ROUTE_ID
+LEFT JOIN nnt_order nnto ON nuj.NUM_NNT_USER_JOURNEY_ID = nnto.NUM_NNT_USER_JOURNEY_ID
+
+	<where>
+		<if test="userJourneyId != null">
+			nuj.NUM_NNT_USER_JOURNEY_ID = #{userJourneyId}
+		</if>
+		<if test="orderNo != null">
+			nnto.VC_ORDER_NO=#{orderNo}
+		</if>
+	</where>
+
+	<!-- WHERE nuj.NUM_NNT_USER_JOURNEY_ID = #{userJourneyId} -->
+</select>
+
+</mapper>

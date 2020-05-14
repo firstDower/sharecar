@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dower.product.core.serverdb.dao.NntUserJourneyMapper">
+  <resultMap id="BaseResultMap" type="com.dower.product.core.serverdb.model.NntUserJourney">
+    <id column="NUM_NNT_USER_JOURNEY_ID" jdbcType="INTEGER" property="numNntUserJourneyId" />
+    <result column="NUM_ROUTE_ID" jdbcType="INTEGER" property="numRouteId" />
+    <result column="NUM_USER_ID" jdbcType="INTEGER" property="numUserId" />
+    <result column="NUM_STATE" jdbcType="INTEGER" property="numState" />
+    <result column="VC_SEAT_NO" jdbcType="VARCHAR" property="vcSeatNo" />
+    <result column="NUM_PAY_STATE" jdbcType="INTEGER" property="numPayState" />
+    <result column="DAT_CREAT_DATE" jdbcType="TIMESTAMP" property="datCreatDate" />
+    <result column="NUM_PAY_TAYE" jdbcType="INTEGER" property="numPayTaye" />
+    <result column="NUM_AGREE_STATE" jdbcType="INTEGER" property="numAgreeState" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    NUM_NNT_USER_JOURNEY_ID, NUM_ROUTE_ID, NUM_USER_ID, NUM_STATE, VC_SEAT_NO, NUM_PAY_STATE, 
+    DAT_CREAT_DATE, NUM_PAY_TAYE, NUM_AGREE_STATE
+  </sql>
+  <select id="selectByExample" parameterType="com.dower.product.core.serverdb.model.NntUserJourneyExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from nnt_user_journey
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from nnt_user_journey
+    where NUM_NNT_USER_JOURNEY_ID = #{numNntUserJourneyId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from nnt_user_journey
+    where NUM_NNT_USER_JOURNEY_ID = #{numNntUserJourneyId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.dower.product.core.serverdb.model.NntUserJourneyExample">
+    delete from nnt_user_journey
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.dower.product.core.serverdb.model.NntUserJourney">
+    <selectKey keyProperty="numNntUserJourneyId" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into nnt_user_journey (NUM_ROUTE_ID, NUM_USER_ID, NUM_STATE, 
+      VC_SEAT_NO, NUM_PAY_STATE, DAT_CREAT_DATE, 
+      NUM_PAY_TAYE, NUM_AGREE_STATE)
+    values (#{numRouteId,jdbcType=INTEGER}, #{numUserId,jdbcType=INTEGER}, #{numState,jdbcType=INTEGER}, 
+      #{vcSeatNo,jdbcType=VARCHAR}, #{numPayState,jdbcType=INTEGER}, #{datCreatDate,jdbcType=TIMESTAMP}, 
+      #{numPayTaye,jdbcType=INTEGER}, #{numAgreeState,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dower.product.core.serverdb.model.NntUserJourney">
+    <selectKey keyProperty="numNntUserJourneyId" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into nnt_user_journey
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="numRouteId != null">
+        NUM_ROUTE_ID,
+      </if>
+      <if test="numUserId != null">
+        NUM_USER_ID,
+      </if>
+      <if test="numState != null">
+        NUM_STATE,
+      </if>
+      <if test="vcSeatNo != null">
+        VC_SEAT_NO,
+      </if>
+      <if test="numPayState != null">
+        NUM_PAY_STATE,
+      </if>
+      <if test="datCreatDate != null">
+        DAT_CREAT_DATE,
+      </if>
+      <if test="numPayTaye != null">
+        NUM_PAY_TAYE,
+      </if>
+      <if test="numAgreeState != null">
+        NUM_AGREE_STATE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="numRouteId != null">
+        #{numRouteId,jdbcType=INTEGER},
+      </if>
+      <if test="numUserId != null">
+        #{numUserId,jdbcType=INTEGER},
+      </if>
+      <if test="numState != null">
+        #{numState,jdbcType=INTEGER},
+      </if>
+      <if test="vcSeatNo != null">
+        #{vcSeatNo,jdbcType=VARCHAR},
+      </if>
+      <if test="numPayState != null">
+        #{numPayState,jdbcType=INTEGER},
+      </if>
+      <if test="datCreatDate != null">
+        #{datCreatDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="numPayTaye != null">
+        #{numPayTaye,jdbcType=INTEGER},
+      </if>
+      <if test="numAgreeState != null">
+        #{numAgreeState,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.dower.product.core.serverdb.model.NntUserJourneyExample" resultType="java.lang.Long">
+    select count(*) from nnt_user_journey
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update nnt_user_journey
+    <set>
+      <if test="record.numNntUserJourneyId != null">
+        NUM_NNT_USER_JOURNEY_ID = #{record.numNntUserJourneyId,jdbcType=INTEGER},
+      </if>
+      <if test="record.numRouteId != null">
+        NUM_ROUTE_ID = #{record.numRouteId,jdbcType=INTEGER},
+      </if>
+      <if test="record.numUserId != null">
+        NUM_USER_ID = #{record.numUserId,jdbcType=INTEGER},
+      </if>
+      <if test="record.numState != null">
+        NUM_STATE = #{record.numState,jdbcType=INTEGER},
+      </if>
+      <if test="record.vcSeatNo != null">
+        VC_SEAT_NO = #{record.vcSeatNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.numPayState != null">
+        NUM_PAY_STATE = #{record.numPayState,jdbcType=INTEGER},
+      </if>
+      <if test="record.datCreatDate != null">
+        DAT_CREAT_DATE = #{record.datCreatDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.numPayTaye != null">
+        NUM_PAY_TAYE = #{record.numPayTaye,jdbcType=INTEGER},
+      </if>
+      <if test="record.numAgreeState != null">
+        NUM_AGREE_STATE = #{record.numAgreeState,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update nnt_user_journey
+    set NUM_NNT_USER_JOURNEY_ID = #{record.numNntUserJourneyId,jdbcType=INTEGER},
+      NUM_ROUTE_ID = #{record.numRouteId,jdbcType=INTEGER},
+      NUM_USER_ID = #{record.numUserId,jdbcType=INTEGER},
+      NUM_STATE = #{record.numState,jdbcType=INTEGER},
+      VC_SEAT_NO = #{record.vcSeatNo,jdbcType=VARCHAR},
+      NUM_PAY_STATE = #{record.numPayState,jdbcType=INTEGER},
+      DAT_CREAT_DATE = #{record.datCreatDate,jdbcType=TIMESTAMP},
+      NUM_PAY_TAYE = #{record.numPayTaye,jdbcType=INTEGER},
+      NUM_AGREE_STATE = #{record.numAgreeState,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dower.product.core.serverdb.model.NntUserJourney">
+    update nnt_user_journey
+    <set>
+      <if test="numRouteId != null">
+        NUM_ROUTE_ID = #{numRouteId,jdbcType=INTEGER},
+      </if>
+      <if test="numUserId != null">
+        NUM_USER_ID = #{numUserId,jdbcType=INTEGER},
+      </if>
+      <if test="numState != null">
+        NUM_STATE = #{numState,jdbcType=INTEGER},
+      </if>
+      <if test="vcSeatNo != null">
+        VC_SEAT_NO = #{vcSeatNo,jdbcType=VARCHAR},
+      </if>
+      <if test="numPayState != null">
+        NUM_PAY_STATE = #{numPayState,jdbcType=INTEGER},
+      </if>
+      <if test="datCreatDate != null">
+        DAT_CREAT_DATE = #{datCreatDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="numPayTaye != null">
+        NUM_PAY_TAYE = #{numPayTaye,jdbcType=INTEGER},
+      </if>
+      <if test="numAgreeState != null">
+        NUM_AGREE_STATE = #{numAgreeState,jdbcType=INTEGER},
+      </if>
+    </set>
+    where NUM_NNT_USER_JOURNEY_ID = #{numNntUserJourneyId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dower.product.core.serverdb.model.NntUserJourney">
+    update nnt_user_journey
+    set NUM_ROUTE_ID = #{numRouteId,jdbcType=INTEGER},
+      NUM_USER_ID = #{numUserId,jdbcType=INTEGER},
+      NUM_STATE = #{numState,jdbcType=INTEGER},
+      VC_SEAT_NO = #{vcSeatNo,jdbcType=VARCHAR},
+      NUM_PAY_STATE = #{numPayState,jdbcType=INTEGER},
+      DAT_CREAT_DATE = #{datCreatDate,jdbcType=TIMESTAMP},
+      NUM_PAY_TAYE = #{numPayTaye,jdbcType=INTEGER},
+      NUM_AGREE_STATE = #{numAgreeState,jdbcType=INTEGER}
+    where NUM_NNT_USER_JOURNEY_ID = #{numNntUserJourneyId,jdbcType=INTEGER}
+  </update>
+</mapper>

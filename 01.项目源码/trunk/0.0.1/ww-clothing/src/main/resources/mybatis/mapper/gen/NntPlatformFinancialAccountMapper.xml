@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dower.product.core.serverdb.dao.NntPlatformFinancialAccountMapper">
+  <resultMap id="BaseResultMap" type="com.dower.product.core.serverdb.model.NntPlatformFinancialAccount">
+    <id column="NUM_ID" jdbcType="INTEGER" property="numId" />
+    <result column="NUM_SERVICE_CHARGE_ACCOUNT" jdbcType="DECIMAL" property="numServiceChargeAccount" />
+    <result column="NUM_COLLECTION_PAYMENT_ACCOUNT" jdbcType="DECIMAL" property="numCollectionPaymentAccount" />
+    <result column="NUM_SETTLEMENT_ACCOUNT" jdbcType="DECIMAL" property="numSettlementAccount" />
+    <result column="NUM_MARKETING_STRATEGY_ACCOUNT" jdbcType="DECIMAL" property="numMarketingStrategyAccount" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    NUM_ID, NUM_SERVICE_CHARGE_ACCOUNT, NUM_COLLECTION_PAYMENT_ACCOUNT, NUM_SETTLEMENT_ACCOUNT, 
+    NUM_MARKETING_STRATEGY_ACCOUNT
+  </sql>
+  <select id="selectByExample" parameterType="com.dower.product.core.serverdb.model.NntPlatformFinancialAccountExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from nnt_platform_financial_account
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from nnt_platform_financial_account
+    where NUM_ID = #{numId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from nnt_platform_financial_account
+    where NUM_ID = #{numId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.dower.product.core.serverdb.model.NntPlatformFinancialAccountExample">
+    delete from nnt_platform_financial_account
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.dower.product.core.serverdb.model.NntPlatformFinancialAccount">
+    insert into nnt_platform_financial_account (NUM_ID, NUM_SERVICE_CHARGE_ACCOUNT, NUM_COLLECTION_PAYMENT_ACCOUNT, 
+      NUM_SETTLEMENT_ACCOUNT, NUM_MARKETING_STRATEGY_ACCOUNT
+      )
+    values (#{numId,jdbcType=INTEGER}, #{numServiceChargeAccount,jdbcType=DECIMAL}, #{numCollectionPaymentAccount,jdbcType=DECIMAL}, 
+      #{numSettlementAccount,jdbcType=DECIMAL}, #{numMarketingStrategyAccount,jdbcType=DECIMAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.dower.product.core.serverdb.model.NntPlatformFinancialAccount">
+    insert into nnt_platform_financial_account
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="numId != null">
+        NUM_ID,
+      </if>
+      <if test="numServiceChargeAccount != null">
+        NUM_SERVICE_CHARGE_ACCOUNT,
+      </if>
+      <if test="numCollectionPaymentAccount != null">
+        NUM_COLLECTION_PAYMENT_ACCOUNT,
+      </if>
+      <if test="numSettlementAccount != null">
+        NUM_SETTLEMENT_ACCOUNT,
+      </if>
+      <if test="numMarketingStrategyAccount != null">
+        NUM_MARKETING_STRATEGY_ACCOUNT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="numId != null">
+        #{numId,jdbcType=INTEGER},
+      </if>
+      <if test="numServiceChargeAccount != null">
+        #{numServiceChargeAccount,jdbcType=DECIMAL},
+      </if>
+      <if test="numCollectionPaymentAccount != null">
+        #{numCollectionPaymentAccount,jdbcType=DECIMAL},
+      </if>
+      <if test="numSettlementAccount != null">
+        #{numSettlementAccount,jdbcType=DECIMAL},
+      </if>
+      <if test="numMarketingStrategyAccount != null">
+        #{numMarketingStrategyAccount,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.dower.product.core.serverdb.model.NntPlatformFinancialAccountExample" resultType="java.lang.Long">
+    select count(*) from nnt_platform_financial_account
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update nnt_platform_financial_account
+    <set>
+      <if test="record.numId != null">
+        NUM_ID = #{record.numId,jdbcType=INTEGER},
+      </if>
+      <if test="record.numServiceChargeAccount != null">
+        NUM_SERVICE_CHARGE_ACCOUNT = #{record.numServiceChargeAccount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.numCollectionPaymentAccount != null">
+        NUM_COLLECTION_PAYMENT_ACCOUNT = #{record.numCollectionPaymentAccount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.numSettlementAccount != null">
+        NUM_SETTLEMENT_ACCOUNT = #{record.numSettlementAccount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.numMarketingStrategyAccount != null">
+        NUM_MARKETING_STRATEGY_ACCOUNT = #{record.numMarketingStrategyAccount,jdbcType=DECIMAL},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update nnt_platform_financial_account
+    set NUM_ID = #{record.numId,jdbcType=INTEGER},
+      NUM_SERVICE_CHARGE_ACCOUNT = #{record.numServiceChargeAccount,jdbcType=DECIMAL},
+      NUM_COLLECTION_PAYMENT_ACCOUNT = #{record.numCollectionPaymentAccount,jdbcType=DECIMAL},
+      NUM_SETTLEMENT_ACCOUNT = #{record.numSettlementAccount,jdbcType=DECIMAL},
+      NUM_MARKETING_STRATEGY_ACCOUNT = #{record.numMarketingStrategyAccount,jdbcType=DECIMAL}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dower.product.core.serverdb.model.NntPlatformFinancialAccount">
+    update nnt_platform_financial_account
+    <set>
+      <if test="numServiceChargeAccount != null">
+        NUM_SERVICE_CHARGE_ACCOUNT = #{numServiceChargeAccount,jdbcType=DECIMAL},
+      </if>
+      <if test="numCollectionPaymentAccount != null">
+        NUM_COLLECTION_PAYMENT_ACCOUNT = #{numCollectionPaymentAccount,jdbcType=DECIMAL},
+      </if>
+      <if test="numSettlementAccount != null">
+        NUM_SETTLEMENT_ACCOUNT = #{numSettlementAccount,jdbcType=DECIMAL},
+      </if>
+      <if test="numMarketingStrategyAccount != null">
+        NUM_MARKETING_STRATEGY_ACCOUNT = #{numMarketingStrategyAccount,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where NUM_ID = #{numId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dower.product.core.serverdb.model.NntPlatformFinancialAccount">
+    update nnt_platform_financial_account
+    set NUM_SERVICE_CHARGE_ACCOUNT = #{numServiceChargeAccount,jdbcType=DECIMAL},
+      NUM_COLLECTION_PAYMENT_ACCOUNT = #{numCollectionPaymentAccount,jdbcType=DECIMAL},
+      NUM_SETTLEMENT_ACCOUNT = #{numSettlementAccount,jdbcType=DECIMAL},
+      NUM_MARKETING_STRATEGY_ACCOUNT = #{numMarketingStrategyAccount,jdbcType=DECIMAL}
+    where NUM_ID = #{numId,jdbcType=INTEGER}
+  </update>
+</mapper>
