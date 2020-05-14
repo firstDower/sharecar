@@ -4,6 +4,8 @@ import com.dower.sharerideapp.service.RedisService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.redisson.api.RLock;
+import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -15,9 +17,16 @@ import org.springframework.test.context.junit4.SpringRunner;
 public class AppApplicationTests {
 	@Autowired
 	RedisTemplate redisTemplate;
-
+	@Autowired
+	RedissonClient redissonClient;
 	@Autowired
 	RedisService redisService;
+
+	@Test
+	public void test01(){
+        RLock test01 = redissonClient.getLock("test01");
+        test01.lock();
+    }
 
 	@Test
 	public void contextLoads() {
