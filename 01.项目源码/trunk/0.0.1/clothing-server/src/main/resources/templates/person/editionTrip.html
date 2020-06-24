@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta charset="UTF-8">
+    <title>编辑行程</title>
+    <link rel="stylesheet" th:href="@{/css/commor.css}">
+    <link rel="stylesheet" th:href="@{/css/myCss.css}">
+    <script th:src="@{/js/jquery-1.11.1.min.js}"></script>
+    <script th:src="@{/js/person/editionTrip.js}"></script>
+    <link rel="stylesheet" th:href="@{/css/mobiscroll.custom-2.6.2.min.css}">
+    <script th:src="@{/js/mobiscroll.custom-2.6.2.min.js}"></script>
+    <script th:src="@{/js/util.js}"></script>
+</head>
+<body>
+<header class="headerRet">
+    <b class="BackBtn"></b>编辑行程
+</header>
+<div class="goTripAll ediTrip">
+    <p class="goTripCourse clear">
+        <input type="text" id="resPlace_dummy" placeholder="选择出发地" class="goTripCouCome" readonly="">
+        <select id="resPlace" class="demos" data-role="none" style="display: none;">
+        </select>
+        到
+        <input class="goTripCouGo" id="tarPlace_dummy"  placeholder="选择目的地"/>
+        <select id="tarPlace" class="demos" data-role="none" style="display: none;">
+        </select>
+    </p>
+    <p class="">
+        <span class="tripAllSingle">发车时间:</span><input type="text" placeholder="选择发车时间" id="startTime" disabled
+                                                       class="tripAllPle">
+    </p>
+    <p>
+        <span class="tripAllSingle">最大乘客数:</span><input type="text" id="passengers" placeholder="输入最多乘客数" class="tripAllPle">
+    </p>
+    <p>
+        <span class="tripAllSingle">费用 元/人:</span><input type="text" id="unitPrice" placeholder="输入单价" class="tripAllPle">
+    </p>
+    <p>
+        <input type="radio" id="carToP" name="numMannedType" checked class="radioCar" value="1"> <label for="carToP" class="carAndP">车找人</label>
+        <input type="radio" id="pToCar" name="numMannedType" class="radioCar" value="2"><label for="pToCar" class="carAndP">人找车</label>
+    </p>
+    <p class="ediTripSOD">
+        <button class="ediSure" id="updateTrip">确认</button><button id="updateStatus" class="editDet">发布</button>
+    </p>
+</div>
+
+</body>
+</html>

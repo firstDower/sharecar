@@ -1,0 +1,368 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dower.sharerideapp.core.serverdb.dao.ClProductMapper">
+  <resultMap id="BaseResultMap" type="com.dower.sharerideapp.core.serverdb.model.ClProduct">
+    <id column="NUM_ID" jdbcType="BIGINT" property="numId" />
+    <result column="VC_HIGHT" jdbcType="VARCHAR" property="vcHight" />
+    <result column="VC_WIGHT" jdbcType="VARCHAR" property="vcWight" />
+    <result column="VC_NAME" jdbcType="VARCHAR" property="vcName" />
+    <result column="VC_PHONE" jdbcType="VARCHAR" property="vcPhone" />
+    <result column="NUM_TYPE" jdbcType="TINYINT" property="numType" />
+    <result column="NUM_NUM" jdbcType="TINYINT" property="numNum" />
+    <result column="NUM_STATE" jdbcType="TINYINT" property="numState" />
+    <result column="DAT_CREAT_TIME" jdbcType="TIMESTAMP" property="datCreatTime" />
+    <result column="DAT_UPDATE_TIME" jdbcType="TIMESTAMP" property="datUpdateTime" />
+    <result column="NUM_PRICE" jdbcType="DECIMAL" property="numPrice" />
+    <result column="VC_USER_ID" jdbcType="VARCHAR" property="vcUserId" />
+    <result column="VC_OPEN_ID" jdbcType="VARCHAR" property="vcOpenId" />
+    <result column="DAT_CONFIRM_TIME" jdbcType="TIMESTAMP" property="datConfirmTime" />
+    <result column="VC_NOTES" jdbcType="VARCHAR" property="vcNotes" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    NUM_ID, VC_HIGHT, VC_WIGHT, VC_NAME, VC_PHONE, NUM_TYPE, NUM_NUM, NUM_STATE, DAT_CREAT_TIME, 
+    DAT_UPDATE_TIME, NUM_PRICE, VC_USER_ID, VC_OPEN_ID, DAT_CONFIRM_TIME, VC_NOTES
+  </sql>
+  <select id="selectByExample" parameterType="com.dower.sharerideapp.core.serverdb.model.ClProductExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from CL_PRODUCT
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from CL_PRODUCT
+    where NUM_ID = #{numId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from CL_PRODUCT
+    where NUM_ID = #{numId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.dower.sharerideapp.core.serverdb.model.ClProductExample">
+    delete from CL_PRODUCT
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.dower.sharerideapp.core.serverdb.model.ClProduct">
+    <selectKey keyProperty="numId" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into CL_PRODUCT (VC_HIGHT, VC_WIGHT, VC_NAME, 
+      VC_PHONE, NUM_TYPE, NUM_NUM, 
+      NUM_STATE, DAT_CREAT_TIME, DAT_UPDATE_TIME, 
+      NUM_PRICE, VC_USER_ID, VC_OPEN_ID, 
+      DAT_CONFIRM_TIME, VC_NOTES)
+    values (#{vcHight,jdbcType=VARCHAR}, #{vcWight,jdbcType=VARCHAR}, #{vcName,jdbcType=VARCHAR}, 
+      #{vcPhone,jdbcType=VARCHAR}, #{numType,jdbcType=TINYINT}, #{numNum,jdbcType=TINYINT}, 
+      #{numState,jdbcType=TINYINT}, #{datCreatTime,jdbcType=TIMESTAMP}, #{datUpdateTime,jdbcType=TIMESTAMP}, 
+      #{numPrice,jdbcType=DECIMAL}, #{vcUserId,jdbcType=VARCHAR}, #{vcOpenId,jdbcType=VARCHAR}, 
+      #{datConfirmTime,jdbcType=TIMESTAMP}, #{vcNotes,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dower.sharerideapp.core.serverdb.model.ClProduct">
+    <selectKey keyProperty="numId" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into CL_PRODUCT
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="vcHight != null">
+        VC_HIGHT,
+      </if>
+      <if test="vcWight != null">
+        VC_WIGHT,
+      </if>
+      <if test="vcName != null">
+        VC_NAME,
+      </if>
+      <if test="vcPhone != null">
+        VC_PHONE,
+      </if>
+      <if test="numType != null">
+        NUM_TYPE,
+      </if>
+      <if test="numNum != null">
+        NUM_NUM,
+      </if>
+      <if test="numState != null">
+        NUM_STATE,
+      </if>
+      <if test="datCreatTime != null">
+        DAT_CREAT_TIME,
+      </if>
+      <if test="datUpdateTime != null">
+        DAT_UPDATE_TIME,
+      </if>
+      <if test="numPrice != null">
+        NUM_PRICE,
+      </if>
+      <if test="vcUserId != null">
+        VC_USER_ID,
+      </if>
+      <if test="vcOpenId != null">
+        VC_OPEN_ID,
+      </if>
+      <if test="datConfirmTime != null">
+        DAT_CONFIRM_TIME,
+      </if>
+      <if test="vcNotes != null">
+        VC_NOTES,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="vcHight != null">
+        #{vcHight,jdbcType=VARCHAR},
+      </if>
+      <if test="vcWight != null">
+        #{vcWight,jdbcType=VARCHAR},
+      </if>
+      <if test="vcName != null">
+        #{vcName,jdbcType=VARCHAR},
+      </if>
+      <if test="vcPhone != null">
+        #{vcPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="numType != null">
+        #{numType,jdbcType=TINYINT},
+      </if>
+      <if test="numNum != null">
+        #{numNum,jdbcType=TINYINT},
+      </if>
+      <if test="numState != null">
+        #{numState,jdbcType=TINYINT},
+      </if>
+      <if test="datCreatTime != null">
+        #{datCreatTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="datUpdateTime != null">
+        #{datUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="numPrice != null">
+        #{numPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="vcUserId != null">
+        #{vcUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="vcOpenId != null">
+        #{vcOpenId,jdbcType=VARCHAR},
+      </if>
+      <if test="datConfirmTime != null">
+        #{datConfirmTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="vcNotes != null">
+        #{vcNotes,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.dower.sharerideapp.core.serverdb.model.ClProductExample" resultType="java.lang.Long">
+    select count(*) from CL_PRODUCT
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update CL_PRODUCT
+    <set>
+      <if test="record.numId != null">
+        NUM_ID = #{record.numId,jdbcType=BIGINT},
+      </if>
+      <if test="record.vcHight != null">
+        VC_HIGHT = #{record.vcHight,jdbcType=VARCHAR},
+      </if>
+      <if test="record.vcWight != null">
+        VC_WIGHT = #{record.vcWight,jdbcType=VARCHAR},
+      </if>
+      <if test="record.vcName != null">
+        VC_NAME = #{record.vcName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.vcPhone != null">
+        VC_PHONE = #{record.vcPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.numType != null">
+        NUM_TYPE = #{record.numType,jdbcType=TINYINT},
+      </if>
+      <if test="record.numNum != null">
+        NUM_NUM = #{record.numNum,jdbcType=TINYINT},
+      </if>
+      <if test="record.numState != null">
+        NUM_STATE = #{record.numState,jdbcType=TINYINT},
+      </if>
+      <if test="record.datCreatTime != null">
+        DAT_CREAT_TIME = #{record.datCreatTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.datUpdateTime != null">
+        DAT_UPDATE_TIME = #{record.datUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.numPrice != null">
+        NUM_PRICE = #{record.numPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.vcUserId != null">
+        VC_USER_ID = #{record.vcUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.vcOpenId != null">
+        VC_OPEN_ID = #{record.vcOpenId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.datConfirmTime != null">
+        DAT_CONFIRM_TIME = #{record.datConfirmTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.vcNotes != null">
+        VC_NOTES = #{record.vcNotes,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update CL_PRODUCT
+    set NUM_ID = #{record.numId,jdbcType=BIGINT},
+      VC_HIGHT = #{record.vcHight,jdbcType=VARCHAR},
+      VC_WIGHT = #{record.vcWight,jdbcType=VARCHAR},
+      VC_NAME = #{record.vcName,jdbcType=VARCHAR},
+      VC_PHONE = #{record.vcPhone,jdbcType=VARCHAR},
+      NUM_TYPE = #{record.numType,jdbcType=TINYINT},
+      NUM_NUM = #{record.numNum,jdbcType=TINYINT},
+      NUM_STATE = #{record.numState,jdbcType=TINYINT},
+      DAT_CREAT_TIME = #{record.datCreatTime,jdbcType=TIMESTAMP},
+      DAT_UPDATE_TIME = #{record.datUpdateTime,jdbcType=TIMESTAMP},
+      NUM_PRICE = #{record.numPrice,jdbcType=DECIMAL},
+      VC_USER_ID = #{record.vcUserId,jdbcType=VARCHAR},
+      VC_OPEN_ID = #{record.vcOpenId,jdbcType=VARCHAR},
+      DAT_CONFIRM_TIME = #{record.datConfirmTime,jdbcType=TIMESTAMP},
+      VC_NOTES = #{record.vcNotes,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dower.sharerideapp.core.serverdb.model.ClProduct">
+    update CL_PRODUCT
+    <set>
+      <if test="vcHight != null">
+        VC_HIGHT = #{vcHight,jdbcType=VARCHAR},
+      </if>
+      <if test="vcWight != null">
+        VC_WIGHT = #{vcWight,jdbcType=VARCHAR},
+      </if>
+      <if test="vcName != null">
+        VC_NAME = #{vcName,jdbcType=VARCHAR},
+      </if>
+      <if test="vcPhone != null">
+        VC_PHONE = #{vcPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="numType != null">
+        NUM_TYPE = #{numType,jdbcType=TINYINT},
+      </if>
+      <if test="numNum != null">
+        NUM_NUM = #{numNum,jdbcType=TINYINT},
+      </if>
+      <if test="numState != null">
+        NUM_STATE = #{numState,jdbcType=TINYINT},
+      </if>
+      <if test="datCreatTime != null">
+        DAT_CREAT_TIME = #{datCreatTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="datUpdateTime != null">
+        DAT_UPDATE_TIME = #{datUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="numPrice != null">
+        NUM_PRICE = #{numPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="vcUserId != null">
+        VC_USER_ID = #{vcUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="vcOpenId != null">
+        VC_OPEN_ID = #{vcOpenId,jdbcType=VARCHAR},
+      </if>
+      <if test="datConfirmTime != null">
+        DAT_CONFIRM_TIME = #{datConfirmTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="vcNotes != null">
+        VC_NOTES = #{vcNotes,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where NUM_ID = #{numId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dower.sharerideapp.core.serverdb.model.ClProduct">
+    update CL_PRODUCT
+    set VC_HIGHT = #{vcHight,jdbcType=VARCHAR},
+      VC_WIGHT = #{vcWight,jdbcType=VARCHAR},
+      VC_NAME = #{vcName,jdbcType=VARCHAR},
+      VC_PHONE = #{vcPhone,jdbcType=VARCHAR},
+      NUM_TYPE = #{numType,jdbcType=TINYINT},
+      NUM_NUM = #{numNum,jdbcType=TINYINT},
+      NUM_STATE = #{numState,jdbcType=TINYINT},
+      DAT_CREAT_TIME = #{datCreatTime,jdbcType=TIMESTAMP},
+      DAT_UPDATE_TIME = #{datUpdateTime,jdbcType=TIMESTAMP},
+      NUM_PRICE = #{numPrice,jdbcType=DECIMAL},
+      VC_USER_ID = #{vcUserId,jdbcType=VARCHAR},
+      VC_OPEN_ID = #{vcOpenId,jdbcType=VARCHAR},
+      DAT_CONFIRM_TIME = #{datConfirmTime,jdbcType=TIMESTAMP},
+      VC_NOTES = #{vcNotes,jdbcType=VARCHAR}
+    where NUM_ID = #{numId,jdbcType=BIGINT}
+  </update>
+</mapper>

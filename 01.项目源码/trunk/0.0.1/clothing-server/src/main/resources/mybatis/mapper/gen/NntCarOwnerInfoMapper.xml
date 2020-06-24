@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dower.sharerideapp.core.serverdb.dao.NntCarOwnerInfoMapper">
+  <resultMap id="BaseResultMap" type="com.dower.sharerideapp.core.serverdb.model.NntCarOwnerInfo">
+    <id column="NUM_ID" jdbcType="INTEGER" property="numId" />
+    <result column="NUM_USER_ID" jdbcType="INTEGER" property="numUserId" />
+    <result column="VC_DRIVING_LICENSE_PHOTO_ADDRESS" jdbcType="VARCHAR" property="vcDrivingLicensePhotoAddress" />
+    <result column="VC_DRIVING_LICENSE_NO" jdbcType="VARCHAR" property="vcDrivingLicenseNo" />
+    <result column="DAT_CERTIFICATION_START_DATE" jdbcType="TIMESTAMP" property="datCertificationStartDate" />
+    <result column="DAT_CERTIFICATION_END_DATE" jdbcType="TIMESTAMP" property="datCertificationEndDate" />
+    <result column="VC_REAL_NAME" jdbcType="VARCHAR" property="vcRealName" />
+    <result column="VC_IDENTITY_NO" jdbcType="VARCHAR" property="vcIdentityNo" />
+    <result column="VC_INVITE_CODE" jdbcType="VARCHAR" property="vcInviteCode" />
+    <result column="DAT_CREAT_DATE" jdbcType="TIMESTAMP" property="datCreatDate" />
+    <result column="DAT_UPDATE_DATE" jdbcType="TIMESTAMP" property="datUpdateDate" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    NUM_ID, NUM_USER_ID, VC_DRIVING_LICENSE_PHOTO_ADDRESS, VC_DRIVING_LICENSE_NO, DAT_CERTIFICATION_START_DATE, 
+    DAT_CERTIFICATION_END_DATE, VC_REAL_NAME, VC_IDENTITY_NO, VC_INVITE_CODE, DAT_CREAT_DATE, 
+    DAT_UPDATE_DATE
+  </sql>
+  <select id="selectByExample" parameterType="com.dower.sharerideapp.core.serverdb.model.NntCarOwnerInfoExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from nnt_car_owner_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from nnt_car_owner_info
+    where NUM_ID = #{numId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from nnt_car_owner_info
+    where NUM_ID = #{numId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.dower.sharerideapp.core.serverdb.model.NntCarOwnerInfoExample">
+    delete from nnt_car_owner_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.dower.sharerideapp.core.serverdb.model.NntCarOwnerInfo">
+    insert into nnt_car_owner_info (NUM_ID, NUM_USER_ID, VC_DRIVING_LICENSE_PHOTO_ADDRESS, 
+      VC_DRIVING_LICENSE_NO, DAT_CERTIFICATION_START_DATE, 
+      DAT_CERTIFICATION_END_DATE, VC_REAL_NAME, 
+      VC_IDENTITY_NO, VC_INVITE_CODE, DAT_CREAT_DATE, 
+      DAT_UPDATE_DATE)
+    values (#{numId,jdbcType=INTEGER}, #{numUserId,jdbcType=INTEGER}, #{vcDrivingLicensePhotoAddress,jdbcType=VARCHAR}, 
+      #{vcDrivingLicenseNo,jdbcType=VARCHAR}, #{datCertificationStartDate,jdbcType=TIMESTAMP}, 
+      #{datCertificationEndDate,jdbcType=TIMESTAMP}, #{vcRealName,jdbcType=VARCHAR}, 
+      #{vcIdentityNo,jdbcType=VARCHAR}, #{vcInviteCode,jdbcType=VARCHAR}, #{datCreatDate,jdbcType=TIMESTAMP}, 
+      #{datUpdateDate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dower.sharerideapp.core.serverdb.model.NntCarOwnerInfo">
+    insert into nnt_car_owner_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="numId != null">
+        NUM_ID,
+      </if>
+      <if test="numUserId != null">
+        NUM_USER_ID,
+      </if>
+      <if test="vcDrivingLicensePhotoAddress != null">
+        VC_DRIVING_LICENSE_PHOTO_ADDRESS,
+      </if>
+      <if test="vcDrivingLicenseNo != null">
+        VC_DRIVING_LICENSE_NO,
+      </if>
+      <if test="datCertificationStartDate != null">
+        DAT_CERTIFICATION_START_DATE,
+      </if>
+      <if test="datCertificationEndDate != null">
+        DAT_CERTIFICATION_END_DATE,
+      </if>
+      <if test="vcRealName != null">
+        VC_REAL_NAME,
+      </if>
+      <if test="vcIdentityNo != null">
+        VC_IDENTITY_NO,
+      </if>
+      <if test="vcInviteCode != null">
+        VC_INVITE_CODE,
+      </if>
+      <if test="datCreatDate != null">
+        DAT_CREAT_DATE,
+      </if>
+      <if test="datUpdateDate != null">
+        DAT_UPDATE_DATE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="numId != null">
+        #{numId,jdbcType=INTEGER},
+      </if>
+      <if test="numUserId != null">
+        #{numUserId,jdbcType=INTEGER},
+      </if>
+      <if test="vcDrivingLicensePhotoAddress != null">
+        #{vcDrivingLicensePhotoAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="vcDrivingLicenseNo != null">
+        #{vcDrivingLicenseNo,jdbcType=VARCHAR},
+      </if>
+      <if test="datCertificationStartDate != null">
+        #{datCertificationStartDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="datCertificationEndDate != null">
+        #{datCertificationEndDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="vcRealName != null">
+        #{vcRealName,jdbcType=VARCHAR},
+      </if>
+      <if test="vcIdentityNo != null">
+        #{vcIdentityNo,jdbcType=VARCHAR},
+      </if>
+      <if test="vcInviteCode != null">
+        #{vcInviteCode,jdbcType=VARCHAR},
+      </if>
+      <if test="datCreatDate != null">
+        #{datCreatDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="datUpdateDate != null">
+        #{datUpdateDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.dower.sharerideapp.core.serverdb.model.NntCarOwnerInfoExample" resultType="java.lang.Long">
+    select count(*) from nnt_car_owner_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update nnt_car_owner_info
+    <set>
+      <if test="record.numId != null">
+        NUM_ID = #{record.numId,jdbcType=INTEGER},
+      </if>
+      <if test="record.numUserId != null">
+        NUM_USER_ID = #{record.numUserId,jdbcType=INTEGER},
+      </if>
+      <if test="record.vcDrivingLicensePhotoAddress != null">
+        VC_DRIVING_LICENSE_PHOTO_ADDRESS = #{record.vcDrivingLicensePhotoAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.vcDrivingLicenseNo != null">
+        VC_DRIVING_LICENSE_NO = #{record.vcDrivingLicenseNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.datCertificationStartDate != null">
+        DAT_CERTIFICATION_START_DATE = #{record.datCertificationStartDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.datCertificationEndDate != null">
+        DAT_CERTIFICATION_END_DATE = #{record.datCertificationEndDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.vcRealName != null">
+        VC_REAL_NAME = #{record.vcRealName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.vcIdentityNo != null">
+        VC_IDENTITY_NO = #{record.vcIdentityNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.vcInviteCode != null">
+        VC_INVITE_CODE = #{record.vcInviteCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.datCreatDate != null">
+        DAT_CREAT_DATE = #{record.datCreatDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.datUpdateDate != null">
+        DAT_UPDATE_DATE = #{record.datUpdateDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update nnt_car_owner_info
+    set NUM_ID = #{record.numId,jdbcType=INTEGER},
+      NUM_USER_ID = #{record.numUserId,jdbcType=INTEGER},
+      VC_DRIVING_LICENSE_PHOTO_ADDRESS = #{record.vcDrivingLicensePhotoAddress,jdbcType=VARCHAR},
+      VC_DRIVING_LICENSE_NO = #{record.vcDrivingLicenseNo,jdbcType=VARCHAR},
+      DAT_CERTIFICATION_START_DATE = #{record.datCertificationStartDate,jdbcType=TIMESTAMP},
+      DAT_CERTIFICATION_END_DATE = #{record.datCertificationEndDate,jdbcType=TIMESTAMP},
+      VC_REAL_NAME = #{record.vcRealName,jdbcType=VARCHAR},
+      VC_IDENTITY_NO = #{record.vcIdentityNo,jdbcType=VARCHAR},
+      VC_INVITE_CODE = #{record.vcInviteCode,jdbcType=VARCHAR},
+      DAT_CREAT_DATE = #{record.datCreatDate,jdbcType=TIMESTAMP},
+      DAT_UPDATE_DATE = #{record.datUpdateDate,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dower.sharerideapp.core.serverdb.model.NntCarOwnerInfo">
+    update nnt_car_owner_info
+    <set>
+      <if test="numUserId != null">
+        NUM_USER_ID = #{numUserId,jdbcType=INTEGER},
+      </if>
+      <if test="vcDrivingLicensePhotoAddress != null">
+        VC_DRIVING_LICENSE_PHOTO_ADDRESS = #{vcDrivingLicensePhotoAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="vcDrivingLicenseNo != null">
+        VC_DRIVING_LICENSE_NO = #{vcDrivingLicenseNo,jdbcType=VARCHAR},
+      </if>
+      <if test="datCertificationStartDate != null">
+        DAT_CERTIFICATION_START_DATE = #{datCertificationStartDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="datCertificationEndDate != null">
+        DAT_CERTIFICATION_END_DATE = #{datCertificationEndDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="vcRealName != null">
+        VC_REAL_NAME = #{vcRealName,jdbcType=VARCHAR},
+      </if>
+      <if test="vcIdentityNo != null">
+        VC_IDENTITY_NO = #{vcIdentityNo,jdbcType=VARCHAR},
+      </if>
+      <if test="vcInviteCode != null">
+        VC_INVITE_CODE = #{vcInviteCode,jdbcType=VARCHAR},
+      </if>
+      <if test="datCreatDate != null">
+        DAT_CREAT_DATE = #{datCreatDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="datUpdateDate != null">
+        DAT_UPDATE_DATE = #{datUpdateDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where NUM_ID = #{numId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dower.sharerideapp.core.serverdb.model.NntCarOwnerInfo">
+    update nnt_car_owner_info
+    set NUM_USER_ID = #{numUserId,jdbcType=INTEGER},
+      VC_DRIVING_LICENSE_PHOTO_ADDRESS = #{vcDrivingLicensePhotoAddress,jdbcType=VARCHAR},
+      VC_DRIVING_LICENSE_NO = #{vcDrivingLicenseNo,jdbcType=VARCHAR},
+      DAT_CERTIFICATION_START_DATE = #{datCertificationStartDate,jdbcType=TIMESTAMP},
+      DAT_CERTIFICATION_END_DATE = #{datCertificationEndDate,jdbcType=TIMESTAMP},
+      VC_REAL_NAME = #{vcRealName,jdbcType=VARCHAR},
+      VC_IDENTITY_NO = #{vcIdentityNo,jdbcType=VARCHAR},
+      VC_INVITE_CODE = #{vcInviteCode,jdbcType=VARCHAR},
+      DAT_CREAT_DATE = #{datCreatDate,jdbcType=TIMESTAMP},
+      DAT_UPDATE_DATE = #{datUpdateDate,jdbcType=TIMESTAMP}
+    where NUM_ID = #{numId,jdbcType=INTEGER}
+  </update>
+</mapper>

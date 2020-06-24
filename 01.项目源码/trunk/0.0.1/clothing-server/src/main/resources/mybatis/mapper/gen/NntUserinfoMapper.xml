@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dower.sharerideapp.core.serverdb.dao.NntUserinfoMapper">
+  <resultMap id="BaseResultMap" type="com.dower.sharerideapp.core.serverdb.model.NntUserinfo">
+    <id column="NUM_ID" jdbcType="INTEGER" property="numId" />
+    <result column="NUM_USER_ID" jdbcType="INTEGER" property="numUserId" />
+    <result column="VC_BACK_CARD_NUMBER" jdbcType="VARCHAR" property="vcBackCardNumber" />
+    <result column="VC_IDCARD_NUMBER" jdbcType="VARCHAR" property="vcIdcardNumber" />
+    <result column="VC_DRIVER_LICENSE_NO" jdbcType="VARCHAR" property="vcDriverLicenseNo" />
+    <result column="VC_IDCARD_PICTURE_PATH_A" jdbcType="VARCHAR" property="vcIdcardPicturePathA" />
+    <result column="VC_IDCARD_PICTURE_PATH_B" jdbcType="VARCHAR" property="vcIdcardPicturePathB" />
+    <result column="VC_DRIVER_LICENSE_PATH_A" jdbcType="VARCHAR" property="vcDriverLicensePathA" />
+    <result column="VC_DRIVER_LICENSE_PATH_B" jdbcType="VARCHAR" property="vcDriverLicensePathB" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    NUM_ID, NUM_USER_ID, VC_BACK_CARD_NUMBER, VC_IDCARD_NUMBER, VC_DRIVER_LICENSE_NO, 
+    VC_IDCARD_PICTURE_PATH_A, VC_IDCARD_PICTURE_PATH_B, VC_DRIVER_LICENSE_PATH_A, VC_DRIVER_LICENSE_PATH_B
+  </sql>
+  <select id="selectByExample" parameterType="com.dower.sharerideapp.core.serverdb.model.NntUserinfoExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from nnt_userinfo
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from nnt_userinfo
+    where NUM_ID = #{numId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from nnt_userinfo
+    where NUM_ID = #{numId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.dower.sharerideapp.core.serverdb.model.NntUserinfoExample">
+    delete from nnt_userinfo
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.dower.sharerideapp.core.serverdb.model.NntUserinfo">
+    insert into nnt_userinfo (NUM_ID, NUM_USER_ID, VC_BACK_CARD_NUMBER, 
+      VC_IDCARD_NUMBER, VC_DRIVER_LICENSE_NO, VC_IDCARD_PICTURE_PATH_A, 
+      VC_IDCARD_PICTURE_PATH_B, VC_DRIVER_LICENSE_PATH_A, 
+      VC_DRIVER_LICENSE_PATH_B)
+    values (#{numId,jdbcType=INTEGER}, #{numUserId,jdbcType=INTEGER}, #{vcBackCardNumber,jdbcType=VARCHAR}, 
+      #{vcIdcardNumber,jdbcType=VARCHAR}, #{vcDriverLicenseNo,jdbcType=VARCHAR}, #{vcIdcardPicturePathA,jdbcType=VARCHAR}, 
+      #{vcIdcardPicturePathB,jdbcType=VARCHAR}, #{vcDriverLicensePathA,jdbcType=VARCHAR}, 
+      #{vcDriverLicensePathB,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dower.sharerideapp.core.serverdb.model.NntUserinfo">
+    insert into nnt_userinfo
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="numId != null">
+        NUM_ID,
+      </if>
+      <if test="numUserId != null">
+        NUM_USER_ID,
+      </if>
+      <if test="vcBackCardNumber != null">
+        VC_BACK_CARD_NUMBER,
+      </if>
+      <if test="vcIdcardNumber != null">
+        VC_IDCARD_NUMBER,
+      </if>
+      <if test="vcDriverLicenseNo != null">
+        VC_DRIVER_LICENSE_NO,
+      </if>
+      <if test="vcIdcardPicturePathA != null">
+        VC_IDCARD_PICTURE_PATH_A,
+      </if>
+      <if test="vcIdcardPicturePathB != null">
+        VC_IDCARD_PICTURE_PATH_B,
+      </if>
+      <if test="vcDriverLicensePathA != null">
+        VC_DRIVER_LICENSE_PATH_A,
+      </if>
+      <if test="vcDriverLicensePathB != null">
+        VC_DRIVER_LICENSE_PATH_B,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="numId != null">
+        #{numId,jdbcType=INTEGER},
+      </if>
+      <if test="numUserId != null">
+        #{numUserId,jdbcType=INTEGER},
+      </if>
+      <if test="vcBackCardNumber != null">
+        #{vcBackCardNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="vcIdcardNumber != null">
+        #{vcIdcardNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="vcDriverLicenseNo != null">
+        #{vcDriverLicenseNo,jdbcType=VARCHAR},
+      </if>
+      <if test="vcIdcardPicturePathA != null">
+        #{vcIdcardPicturePathA,jdbcType=VARCHAR},
+      </if>
+      <if test="vcIdcardPicturePathB != null">
+        #{vcIdcardPicturePathB,jdbcType=VARCHAR},
+      </if>
+      <if test="vcDriverLicensePathA != null">
+        #{vcDriverLicensePathA,jdbcType=VARCHAR},
+      </if>
+      <if test="vcDriverLicensePathB != null">
+        #{vcDriverLicensePathB,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.dower.sharerideapp.core.serverdb.model.NntUserinfoExample" resultType="java.lang.Long">
+    select count(*) from nnt_userinfo
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update nnt_userinfo
+    <set>
+      <if test="record.numId != null">
+        NUM_ID = #{record.numId,jdbcType=INTEGER},
+      </if>
+      <if test="record.numUserId != null">
+        NUM_USER_ID = #{record.numUserId,jdbcType=INTEGER},
+      </if>
+      <if test="record.vcBackCardNumber != null">
+        VC_BACK_CARD_NUMBER = #{record.vcBackCardNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.vcIdcardNumber != null">
+        VC_IDCARD_NUMBER = #{record.vcIdcardNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.vcDriverLicenseNo != null">
+        VC_DRIVER_LICENSE_NO = #{record.vcDriverLicenseNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.vcIdcardPicturePathA != null">
+        VC_IDCARD_PICTURE_PATH_A = #{record.vcIdcardPicturePathA,jdbcType=VARCHAR},
+      </if>
+      <if test="record.vcIdcardPicturePathB != null">
+        VC_IDCARD_PICTURE_PATH_B = #{record.vcIdcardPicturePathB,jdbcType=VARCHAR},
+      </if>
+      <if test="record.vcDriverLicensePathA != null">
+        VC_DRIVER_LICENSE_PATH_A = #{record.vcDriverLicensePathA,jdbcType=VARCHAR},
+      </if>
+      <if test="record.vcDriverLicensePathB != null">
+        VC_DRIVER_LICENSE_PATH_B = #{record.vcDriverLicensePathB,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update nnt_userinfo
+    set NUM_ID = #{record.numId,jdbcType=INTEGER},
+      NUM_USER_ID = #{record.numUserId,jdbcType=INTEGER},
+      VC_BACK_CARD_NUMBER = #{record.vcBackCardNumber,jdbcType=VARCHAR},
+      VC_IDCARD_NUMBER = #{record.vcIdcardNumber,jdbcType=VARCHAR},
+      VC_DRIVER_LICENSE_NO = #{record.vcDriverLicenseNo,jdbcType=VARCHAR},
+      VC_IDCARD_PICTURE_PATH_A = #{record.vcIdcardPicturePathA,jdbcType=VARCHAR},
+      VC_IDCARD_PICTURE_PATH_B = #{record.vcIdcardPicturePathB,jdbcType=VARCHAR},
+      VC_DRIVER_LICENSE_PATH_A = #{record.vcDriverLicensePathA,jdbcType=VARCHAR},
+      VC_DRIVER_LICENSE_PATH_B = #{record.vcDriverLicensePathB,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dower.sharerideapp.core.serverdb.model.NntUserinfo">
+    update nnt_userinfo
+    <set>
+      <if test="numUserId != null">
+        NUM_USER_ID = #{numUserId,jdbcType=INTEGER},
+      </if>
+      <if test="vcBackCardNumber != null">
+        VC_BACK_CARD_NUMBER = #{vcBackCardNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="vcIdcardNumber != null">
+        VC_IDCARD_NUMBER = #{vcIdcardNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="vcDriverLicenseNo != null">
+        VC_DRIVER_LICENSE_NO = #{vcDriverLicenseNo,jdbcType=VARCHAR},
+      </if>
+      <if test="vcIdcardPicturePathA != null">
+        VC_IDCARD_PICTURE_PATH_A = #{vcIdcardPicturePathA,jdbcType=VARCHAR},
+      </if>
+      <if test="vcIdcardPicturePathB != null">
+        VC_IDCARD_PICTURE_PATH_B = #{vcIdcardPicturePathB,jdbcType=VARCHAR},
+      </if>
+      <if test="vcDriverLicensePathA != null">
+        VC_DRIVER_LICENSE_PATH_A = #{vcDriverLicensePathA,jdbcType=VARCHAR},
+      </if>
+      <if test="vcDriverLicensePathB != null">
+        VC_DRIVER_LICENSE_PATH_B = #{vcDriverLicensePathB,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where NUM_ID = #{numId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dower.sharerideapp.core.serverdb.model.NntUserinfo">
+    update nnt_userinfo
+    set NUM_USER_ID = #{numUserId,jdbcType=INTEGER},
+      VC_BACK_CARD_NUMBER = #{vcBackCardNumber,jdbcType=VARCHAR},
+      VC_IDCARD_NUMBER = #{vcIdcardNumber,jdbcType=VARCHAR},
+      VC_DRIVER_LICENSE_NO = #{vcDriverLicenseNo,jdbcType=VARCHAR},
+      VC_IDCARD_PICTURE_PATH_A = #{vcIdcardPicturePathA,jdbcType=VARCHAR},
+      VC_IDCARD_PICTURE_PATH_B = #{vcIdcardPicturePathB,jdbcType=VARCHAR},
+      VC_DRIVER_LICENSE_PATH_A = #{vcDriverLicensePathA,jdbcType=VARCHAR},
+      VC_DRIVER_LICENSE_PATH_B = #{vcDriverLicensePathB,jdbcType=VARCHAR}
+    where NUM_ID = #{numId,jdbcType=INTEGER}
+  </update>
+</mapper>

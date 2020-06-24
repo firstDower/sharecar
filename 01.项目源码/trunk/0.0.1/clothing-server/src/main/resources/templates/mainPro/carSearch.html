@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta charset="UTF-8">
+    <title>行程搜索</title>
+    <link rel="stylesheet" th:href="@{/css/commor.css}">
+    <link rel="stylesheet" th:href="@{/css/myCss.css}">
+    <script th:src="@{/js/jquery-1.11.1.min.js}"></script>
+    <script th:src="@{/js/util.js}"></script>
+    <link rel="stylesheet" th:href="@{/css/mobiscroll.custom-2.6.2.min.css}">
+    <script th:src="@{/js/mobiscroll.custom-2.6.2.min.js}"></script>
+    <script th:src="@{/js/mainPro/carSearch.js}"></script>
+</head>
+<body>
+    <div class="carSgoBack">
+        <!--<img th:src="@{/img/go.jpg" alt="">-->
+    </div>
+    <div class="carSearch">
+        <p class="carSearchCity clear">
+            <input type="text" id="resPlace_dummy" placeholder="选择出发地" class="carSgo fl" readonly="">
+            <select id="resPlace" class="demos" data-role="none" style="display: none;">
+            </select>
+            <b class="searchTransfer"></b>
+            <!--<span class="carSarr fr">襄垣</span>-->
+            <input class="carSarr fr" id="tarPlace_dummy"  placeholder="选择目的地"/>
+            <select id="tarPlace" class="demos" data-role="none" style="display: none;">
+            </select>
+        </p>
+        <p class="carSyuYueTime">
+            <input type="text" placeholder="选择发车时间" id="yuYueTime" disabled class="yuYueTime">
+            出发
+        </p>
+        <p>
+            <button id="carSearchBtn" class="carSearchBtn">查询</button>
+        </p>
+        <p class="searchAboutCityHis">
+            <button>太原-襄垣</button><button>襄垣-太原</button><button>北京-太原</button>
+            <button>太原-襄垣</button><button>襄垣-太原</button><button>北京-太原</button>
+        </p>
+    </div>
+</body>
+</html>
