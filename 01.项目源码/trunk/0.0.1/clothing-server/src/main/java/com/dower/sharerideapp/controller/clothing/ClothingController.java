@@ -36,7 +36,7 @@ public class ClothingController {
 
     @PostMapping("/queryProductPage")
     public Result queryProductPage(@RequestBody String params){
-        return clothingService.queryProductPage(params);
+        return clothingService.queryProductPage2(params);
     }
 
     @PostMapping("/updateProduct")

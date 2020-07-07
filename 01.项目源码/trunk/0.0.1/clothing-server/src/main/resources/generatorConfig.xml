@@ -59,14 +59,27 @@
         <!-- schema即为数据库名 tableName为对应的数据库表 domainObjectName是要生成的实体类 enable*ByExample
             是否生成 example类 -->
 
-        <!--<table schema="nnt_db" tableName="nnt_users">
+        <table schema="nnt_db" tableName="nnt_users">
         </table>
-        <table schema="nnt_db" tableName="nnt_userinfo">
-        </table>
--->
-        <table schema="nnt_db" tableName="CL_PRODUCT">
+       <!-- <table schema="nnt_db" tableName="nnt_userinfo">
+        </table>-->
+
+<!--        <table schema="nnt_db" tableName="CL_PRODUCT">
             <generatedKey column="NUM_ID" sqlStatement="MySql" identity="true"/>
         </table>
+        <table schema="nnt_db" tableName="CL_FN_GRADE">
+            <generatedKey column="NUM_ID" sqlStatement="MySql" identity="true"/>
+        </table>
+        <table schema="nnt_db" tableName="CL_FN_SCHOOL">
+            <generatedKey column="NUM_ID" sqlStatement="MySql" identity="true"/>
+        </table>-->
+
+        <!--<table schema="nnt_db_test" tableName="CL_PRODUCT">
+            <generatedKey column="NUM_ID" sqlStatement="MySql" identity="true"/>
+        </table>-->
+
+
+
         <!--<table schema="nnt_db" tableName="nnt_journey">
             <generatedKey column="NUM_ROUTE_ID" sqlStatement="MySql" identity="true"/>
         </table>-->

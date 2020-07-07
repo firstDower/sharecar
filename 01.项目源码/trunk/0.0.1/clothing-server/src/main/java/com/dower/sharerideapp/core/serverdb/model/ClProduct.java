@@ -34,6 +34,20 @@ public class ClProduct {
 
     private String vcNotes;
 
+    private Long numSchoolId;
+
+    private Long numGradeId;
+
+    private Long numModelId;
+
+    private String vcOrderNo;
+
+    private String vcUnionId;
+
+    private String vcSignDesc;
+
+    private Byte numParType;
+
     public Long getNumId() {
         return numId;
     }
@@ -152,5 +166,61 @@ public class ClProduct {
 
     public void setVcNotes(String vcNotes) {
         this.vcNotes = vcNotes == null ? null : vcNotes.trim();
+    }
+
+    public Long getNumSchoolId() {
+        return numSchoolId;
+    }
+
+    public void setNumSchoolId(Long numSchoolId) {
+        this.numSchoolId = numSchoolId;
+    }
+
+    public Long getNumGradeId() {
+        return numGradeId;
+    }
+
+    public void setNumGradeId(Long numGradeId) {
+        this.numGradeId = numGradeId;
+    }
+
+    public Long getNumModelId() {
+        return numModelId;
+    }
+
+    public void setNumModelId(Long numModelId) {
+        this.numModelId = numModelId;
+    }
+
+    public String getVcOrderNo() {
+        return vcOrderNo;
+    }
+
+    public void setVcOrderNo(String vcOrderNo) {
+        this.vcOrderNo = vcOrderNo == null ? null : vcOrderNo.trim();
+    }
+
+    public String getVcUnionId() {
+        return vcUnionId;
+    }
+
+    public void setVcUnionId(String vcUnionId) {
+        this.vcUnionId = vcUnionId == null ? null : vcUnionId.trim();
+    }
+
+    public String getVcSignDesc() {
+        return vcSignDesc;
+    }
+
+    public void setVcSignDesc(String vcSignDesc) {
+        this.vcSignDesc = vcSignDesc == null ? null : vcSignDesc.trim();
+    }
+
+    public Byte getNumParType() {
+        return numParType;
+    }
+
+    public void setNumParType(Byte numParType) {
+        this.numParType = numParType;
     }
 }

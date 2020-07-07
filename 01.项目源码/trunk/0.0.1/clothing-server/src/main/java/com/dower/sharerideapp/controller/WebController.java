@@ -56,6 +56,17 @@ public class WebController {
         return "person/myInfo";
     }
 
+      /**
+     * 定制衣服页面
+     */
+
+    @RequestMapping("/goMakeCloth")
+    public String goMakeCloth() {
+        return "custom/customOne";
+    }
+
+
+
     /**
      * 行程查询页
      */

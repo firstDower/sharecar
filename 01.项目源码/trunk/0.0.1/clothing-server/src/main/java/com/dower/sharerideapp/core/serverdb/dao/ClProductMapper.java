@@ -3,8 +3,6 @@ package com.dower.sharerideapp.core.serverdb.dao;
 import com.dower.sharerideapp.core.serverdb.model.ClProduct;
 import com.dower.sharerideapp.core.serverdb.model.ClProductExample;
 import java.util.List;
-
-import com.github.pagehelper.Page;
 import org.apache.ibatis.annotations.Param;
 
 public interface ClProductMapper {

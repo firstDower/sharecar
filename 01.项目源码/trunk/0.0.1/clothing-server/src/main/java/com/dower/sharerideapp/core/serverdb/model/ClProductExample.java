@@ -1075,6 +1075,456 @@ public class ClProductExample {
             addCriterion("VC_NOTES not between", value1, value2, "vcNotes");
             return (Criteria) this;
         }
+
+        public Criteria andNumSchoolIdIsNull() {
+            addCriterion("NUM_SCHOOL_ID is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumSchoolIdIsNotNull() {
+            addCriterion("NUM_SCHOOL_ID is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumSchoolIdEqualTo(Long value) {
+            addCriterion("NUM_SCHOOL_ID =", value, "numSchoolId");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumSchoolIdNotEqualTo(Long value) {
+            addCriterion("NUM_SCHOOL_ID <>", value, "numSchoolId");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumSchoolIdGreaterThan(Long value) {
+            addCriterion("NUM_SCHOOL_ID >", value, "numSchoolId");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumSchoolIdGreaterThanOrEqualTo(Long value) {
+            addCriterion("NUM_SCHOOL_ID >=", value, "numSchoolId");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumSchoolIdLessThan(Long value) {
+            addCriterion("NUM_SCHOOL_ID <", value, "numSchoolId");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumSchoolIdLessThanOrEqualTo(Long value) {
+            addCriterion("NUM_SCHOOL_ID <=", value, "numSchoolId");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumSchoolIdIn(List<Long> values) {
+            addCriterion("NUM_SCHOOL_ID in", values, "numSchoolId");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumSchoolIdNotIn(List<Long> values) {
+            addCriterion("NUM_SCHOOL_ID not in", values, "numSchoolId");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumSchoolIdBetween(Long value1, Long value2) {
+            addCriterion("NUM_SCHOOL_ID between", value1, value2, "numSchoolId");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumSchoolIdNotBetween(Long value1, Long value2) {
+            addCriterion("NUM_SCHOOL_ID not between", value1, value2, "numSchoolId");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumGradeIdIsNull() {
+            addCriterion("NUM_GRADE_ID is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumGradeIdIsNotNull() {
+            addCriterion("NUM_GRADE_ID is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumGradeIdEqualTo(Long value) {
+            addCriterion("NUM_GRADE_ID =", value, "numGradeId");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumGradeIdNotEqualTo(Long value) {
+            addCriterion("NUM_GRADE_ID <>", value, "numGradeId");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumGradeIdGreaterThan(Long value) {
+            addCriterion("NUM_GRADE_ID >", value, "numGradeId");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumGradeIdGreaterThanOrEqualTo(Long value) {
+            addCriterion("NUM_GRADE_ID >=", value, "numGradeId");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumGradeIdLessThan(Long value) {
+            addCriterion("NUM_GRADE_ID <", value, "numGradeId");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumGradeIdLessThanOrEqualTo(Long value) {
+            addCriterion("NUM_GRADE_ID <=", value, "numGradeId");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumGradeIdIn(List<Long> values) {
+            addCriterion("NUM_GRADE_ID in", values, "numGradeId");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumGradeIdNotIn(List<Long> values) {
+            addCriterion("NUM_GRADE_ID not in", values, "numGradeId");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumGradeIdBetween(Long value1, Long value2) {
+            addCriterion("NUM_GRADE_ID between", value1, value2, "numGradeId");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumGradeIdNotBetween(Long value1, Long value2) {
+            addCriterion("NUM_GRADE_ID not between", value1, value2, "numGradeId");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumModelIdIsNull() {
+            addCriterion("NUM_MODEL_ID is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumModelIdIsNotNull() {
+            addCriterion("NUM_MODEL_ID is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumModelIdEqualTo(Long value) {
+            addCriterion("NUM_MODEL_ID =", value, "numModelId");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumModelIdNotEqualTo(Long value) {
+            addCriterion("NUM_MODEL_ID <>", value, "numModelId");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumModelIdGreaterThan(Long value) {
+            addCriterion("NUM_MODEL_ID >", value, "numModelId");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumModelIdGreaterThanOrEqualTo(Long value) {
+            addCriterion("NUM_MODEL_ID >=", value, "numModelId");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumModelIdLessThan(Long value) {
+            addCriterion("NUM_MODEL_ID <", value, "numModelId");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumModelIdLessThanOrEqualTo(Long value) {
+            addCriterion("NUM_MODEL_ID <=", value, "numModelId");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumModelIdIn(List<Long> values) {
+            addCriterion("NUM_MODEL_ID in", values, "numModelId");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumModelIdNotIn(List<Long> values) {
+            addCriterion("NUM_MODEL_ID not in", values, "numModelId");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumModelIdBetween(Long value1, Long value2) {
+            addCriterion("NUM_MODEL_ID between", value1, value2, "numModelId");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumModelIdNotBetween(Long value1, Long value2) {
+            addCriterion("NUM_MODEL_ID not between", value1, value2, "numModelId");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcOrderNoIsNull() {
+            addCriterion("VC_ORDER_NO is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcOrderNoIsNotNull() {
+            addCriterion("VC_ORDER_NO is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcOrderNoEqualTo(String value) {
+            addCriterion("VC_ORDER_NO =", value, "vcOrderNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcOrderNoNotEqualTo(String value) {
+            addCriterion("VC_ORDER_NO <>", value, "vcOrderNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcOrderNoGreaterThan(String value) {
+            addCriterion("VC_ORDER_NO >", value, "vcOrderNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcOrderNoGreaterThanOrEqualTo(String value) {
+            addCriterion("VC_ORDER_NO >=", value, "vcOrderNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcOrderNoLessThan(String value) {
+            addCriterion("VC_ORDER_NO <", value, "vcOrderNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcOrderNoLessThanOrEqualTo(String value) {
+            addCriterion("VC_ORDER_NO <=", value, "vcOrderNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcOrderNoLike(String value) {
+            addCriterion("VC_ORDER_NO like", value, "vcOrderNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcOrderNoNotLike(String value) {
+            addCriterion("VC_ORDER_NO not like", value, "vcOrderNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcOrderNoIn(List<String> values) {
+            addCriterion("VC_ORDER_NO in", values, "vcOrderNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcOrderNoNotIn(List<String> values) {
+            addCriterion("VC_ORDER_NO not in", values, "vcOrderNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcOrderNoBetween(String value1, String value2) {
+            addCriterion("VC_ORDER_NO between", value1, value2, "vcOrderNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcOrderNoNotBetween(String value1, String value2) {
+            addCriterion("VC_ORDER_NO not between", value1, value2, "vcOrderNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcUnionIdIsNull() {
+            addCriterion("VC_UNION_ID is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcUnionIdIsNotNull() {
+            addCriterion("VC_UNION_ID is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcUnionIdEqualTo(String value) {
+            addCriterion("VC_UNION_ID =", value, "vcUnionId");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcUnionIdNotEqualTo(String value) {
+            addCriterion("VC_UNION_ID <>", value, "vcUnionId");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcUnionIdGreaterThan(String value) {
+            addCriterion("VC_UNION_ID >", value, "vcUnionId");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcUnionIdGreaterThanOrEqualTo(String value) {
+            addCriterion("VC_UNION_ID >=", value, "vcUnionId");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcUnionIdLessThan(String value) {
+            addCriterion("VC_UNION_ID <", value, "vcUnionId");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcUnionIdLessThanOrEqualTo(String value) {
+            addCriterion("VC_UNION_ID <=", value, "vcUnionId");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcUnionIdLike(String value) {
+            addCriterion("VC_UNION_ID like", value, "vcUnionId");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcUnionIdNotLike(String value) {
+            addCriterion("VC_UNION_ID not like", value, "vcUnionId");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcUnionIdIn(List<String> values) {
+            addCriterion("VC_UNION_ID in", values, "vcUnionId");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcUnionIdNotIn(List<String> values) {
+            addCriterion("VC_UNION_ID not in", values, "vcUnionId");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcUnionIdBetween(String value1, String value2) {
+            addCriterion("VC_UNION_ID between", value1, value2, "vcUnionId");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcUnionIdNotBetween(String value1, String value2) {
+            addCriterion("VC_UNION_ID not between", value1, value2, "vcUnionId");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcSignDescIsNull() {
+            addCriterion("VC_SIGN_DESC is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcSignDescIsNotNull() {
+            addCriterion("VC_SIGN_DESC is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcSignDescEqualTo(String value) {
+            addCriterion("VC_SIGN_DESC =", value, "vcSignDesc");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcSignDescNotEqualTo(String value) {
+            addCriterion("VC_SIGN_DESC <>", value, "vcSignDesc");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcSignDescGreaterThan(String value) {
+            addCriterion("VC_SIGN_DESC >", value, "vcSignDesc");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcSignDescGreaterThanOrEqualTo(String value) {
+            addCriterion("VC_SIGN_DESC >=", value, "vcSignDesc");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcSignDescLessThan(String value) {
+            addCriterion("VC_SIGN_DESC <", value, "vcSignDesc");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcSignDescLessThanOrEqualTo(String value) {
+            addCriterion("VC_SIGN_DESC <=", value, "vcSignDesc");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcSignDescLike(String value) {
+            addCriterion("VC_SIGN_DESC like", value, "vcSignDesc");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcSignDescNotLike(String value) {
+            addCriterion("VC_SIGN_DESC not like", value, "vcSignDesc");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcSignDescIn(List<String> values) {
+            addCriterion("VC_SIGN_DESC in", values, "vcSignDesc");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcSignDescNotIn(List<String> values) {
+            addCriterion("VC_SIGN_DESC not in", values, "vcSignDesc");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcSignDescBetween(String value1, String value2) {
+            addCriterion("VC_SIGN_DESC between", value1, value2, "vcSignDesc");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcSignDescNotBetween(String value1, String value2) {
+            addCriterion("VC_SIGN_DESC not between", value1, value2, "vcSignDesc");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumParTypeIsNull() {
+            addCriterion("NUM_PAR_TYPE is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumParTypeIsNotNull() {
+            addCriterion("NUM_PAR_TYPE is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumParTypeEqualTo(Byte value) {
+            addCriterion("NUM_PAR_TYPE =", value, "numParType");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumParTypeNotEqualTo(Byte value) {
+            addCriterion("NUM_PAR_TYPE <>", value, "numParType");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumParTypeGreaterThan(Byte value) {
+            addCriterion("NUM_PAR_TYPE >", value, "numParType");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumParTypeGreaterThanOrEqualTo(Byte value) {
+            addCriterion("NUM_PAR_TYPE >=", value, "numParType");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumParTypeLessThan(Byte value) {
+            addCriterion("NUM_PAR_TYPE <", value, "numParType");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumParTypeLessThanOrEqualTo(Byte value) {
+            addCriterion("NUM_PAR_TYPE <=", value, "numParType");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumParTypeIn(List<Byte> values) {
+            addCriterion("NUM_PAR_TYPE in", values, "numParType");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumParTypeNotIn(List<Byte> values) {
+            addCriterion("NUM_PAR_TYPE not in", values, "numParType");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumParTypeBetween(Byte value1, Byte value2) {
+            addCriterion("NUM_PAR_TYPE between", value1, value2, "numParType");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumParTypeNotBetween(Byte value1, Byte value2) {
+            addCriterion("NUM_PAR_TYPE not between", value1, value2, "numParType");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

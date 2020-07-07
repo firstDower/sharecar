@@ -37,6 +37,33 @@ public class ReposiController {
 
 
     /**
+     * 年级字典信息
+     * @return
+     */
+    @RequestMapping("/getGradeList")
+    public Result getGradeList(){
+        return commService.getGradeList();
+    }
+
+    /**
+     * 学校字典信息
+     * @return
+     */
+    @RequestMapping("/getSchoolList")
+    public Result getSchoolList(){
+        return commService.getSchoolList();
+    }
+
+    /**
+     * 款式字段信息
+     * @return
+     */
+    @RequestMapping("/getModelList")
+    public Result getModelList(){
+        return commService.getModelList();
+    }
+
+    /**
      * 创建行程
      * @param params
      * @return

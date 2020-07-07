@@ -16,5 +16,6 @@ import java.util.Map;
  * @Date: Created in 13:47   2018/6/28
  */
 public interface ClothingExtDao {
-    Page<ClProduct> selectPageByExample(ClProductExample example);
+    List<Map> selectPageByExample(Map param);
+    Long selectLastNumid();
 }

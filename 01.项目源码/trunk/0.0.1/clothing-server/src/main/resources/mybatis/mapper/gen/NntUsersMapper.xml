@@ -10,6 +10,9 @@
     <result column="NUM_LEVEL" jdbcType="INTEGER" property="numLevel" />
     <result column="VC_REAL_NAME" jdbcType="VARCHAR" property="vcRealName" />
     <result column="NUM_STATE" jdbcType="INTEGER" property="numState" />
+    <result column="VC_HEAD_IMG_URL" jdbcType="VARCHAR" property="vcHeadImgUrl" />
+    <result column="VC_UNIONID" jdbcType="VARCHAR" property="vcUnionid" />
+    <result column="VC_SUBSCRIBE_SCENE" jdbcType="VARCHAR" property="vcSubscribeScene" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -71,7 +74,7 @@
   </sql>
   <sql id="Base_Column_List">
     NUM_USER_ID, VC_NICKNAME, VC_OPENID, VC_PHONE, VC_REMARK, NUM_LEVEL, VC_REAL_NAME, 
-    NUM_STATE
+    NUM_STATE, VC_HEAD_IMG_URL, VC_UNIONID, VC_SUBSCRIBE_SCENE
   </sql>
   <select id="selectByExample" parameterType="com.dower.sharerideapp.core.serverdb.model.NntUsersExample" resultMap="BaseResultMap">
     select
@@ -106,10 +109,12 @@
   <insert id="insert" parameterType="com.dower.sharerideapp.core.serverdb.model.NntUsers">
     insert into nnt_users (NUM_USER_ID, VC_NICKNAME, VC_OPENID, 
       VC_PHONE, VC_REMARK, NUM_LEVEL, 
-      VC_REAL_NAME, NUM_STATE)
+      VC_REAL_NAME, NUM_STATE, VC_HEAD_IMG_URL, 
+      VC_UNIONID, VC_SUBSCRIBE_SCENE)
     values (#{numUserId,jdbcType=INTEGER}, #{vcNickname,jdbcType=VARCHAR}, #{vcOpenid,jdbcType=VARCHAR}, 
       #{vcPhone,jdbcType=VARCHAR}, #{vcRemark,jdbcType=VARCHAR}, #{numLevel,jdbcType=INTEGER}, 
-      #{vcRealName,jdbcType=VARCHAR}, #{numState,jdbcType=INTEGER})
+      #{vcRealName,jdbcType=VARCHAR}, #{numState,jdbcType=INTEGER}, #{vcHeadImgUrl,jdbcType=VARCHAR}, 
+      #{vcUnionid,jdbcType=VARCHAR}, #{vcSubscribeScene,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.dower.sharerideapp.core.serverdb.model.NntUsers">
     insert into nnt_users
@@ -138,6 +143,15 @@
       <if test="numState != null">
         NUM_STATE,
       </if>
+      <if test="vcHeadImgUrl != null">
+        VC_HEAD_IMG_URL,
+      </if>
+      <if test="vcUnionid != null">
+        VC_UNIONID,
+      </if>
+      <if test="vcSubscribeScene != null">
+        VC_SUBSCRIBE_SCENE,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="numUserId != null">
@@ -163,6 +177,15 @@
       </if>
       <if test="numState != null">
         #{numState,jdbcType=INTEGER},
+      </if>
+      <if test="vcHeadImgUrl != null">
+        #{vcHeadImgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="vcUnionid != null">
+        #{vcUnionid,jdbcType=VARCHAR},
+      </if>
+      <if test="vcSubscribeScene != null">
+        #{vcSubscribeScene,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -199,6 +222,15 @@
       <if test="record.numState != null">
         NUM_STATE = #{record.numState,jdbcType=INTEGER},
       </if>
+      <if test="record.vcHeadImgUrl != null">
+        VC_HEAD_IMG_URL = #{record.vcHeadImgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.vcUnionid != null">
+        VC_UNIONID = #{record.vcUnionid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.vcSubscribeScene != null">
+        VC_SUBSCRIBE_SCENE = #{record.vcSubscribeScene,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -213,7 +245,10 @@
       VC_REMARK = #{record.vcRemark,jdbcType=VARCHAR},
       NUM_LEVEL = #{record.numLevel,jdbcType=INTEGER},
       VC_REAL_NAME = #{record.vcRealName,jdbcType=VARCHAR},
-      NUM_STATE = #{record.numState,jdbcType=INTEGER}
+      NUM_STATE = #{record.numState,jdbcType=INTEGER},
+      VC_HEAD_IMG_URL = #{record.vcHeadImgUrl,jdbcType=VARCHAR},
+      VC_UNIONID = #{record.vcUnionid,jdbcType=VARCHAR},
+      VC_SUBSCRIBE_SCENE = #{record.vcSubscribeScene,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -242,6 +277,15 @@
       <if test="numState != null">
         NUM_STATE = #{numState,jdbcType=INTEGER},
       </if>
+      <if test="vcHeadImgUrl != null">
+        VC_HEAD_IMG_URL = #{vcHeadImgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="vcUnionid != null">
+        VC_UNIONID = #{vcUnionid,jdbcType=VARCHAR},
+      </if>
+      <if test="vcSubscribeScene != null">
+        VC_SUBSCRIBE_SCENE = #{vcSubscribeScene,jdbcType=VARCHAR},
+      </if>
     </set>
     where NUM_USER_ID = #{numUserId,jdbcType=INTEGER}
   </update>
@@ -253,7 +297,10 @@
       VC_REMARK = #{vcRemark,jdbcType=VARCHAR},
       NUM_LEVEL = #{numLevel,jdbcType=INTEGER},
       VC_REAL_NAME = #{vcRealName,jdbcType=VARCHAR},
-      NUM_STATE = #{numState,jdbcType=INTEGER}
+      NUM_STATE = #{numState,jdbcType=INTEGER},
+      VC_HEAD_IMG_URL = #{vcHeadImgUrl,jdbcType=VARCHAR},
+      VC_UNIONID = #{vcUnionid,jdbcType=VARCHAR},
+      VC_SUBSCRIBE_SCENE = #{vcSubscribeScene,jdbcType=VARCHAR}
     where NUM_USER_ID = #{numUserId,jdbcType=INTEGER}
   </update>
 </mapper>

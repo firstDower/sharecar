@@ -20,6 +20,10 @@ public class CommUtil {
     public  static void main(String[] args) {
         Object o = "10";
         System.out.println(Integer.parseInt(o.toString()));
+        System.out.println(getLast3S("1"));
+        System.out.println(getLast3S("22"));
+        System.out.println(getLast3S("333"));
+        System.out.println(getLast3S("4444"));
     }
 
     /**
@@ -60,6 +64,15 @@ public class CommUtil {
         String result = "";
         result = String.format("%0" + num + "d", Integer.parseInt(code) + 1);
 
+        return result;
+    }
+
+    public static String getLast3S(String num){
+        String result = String.format("%0" + 3 + "d", Integer.parseInt(num));
+        int length = result.length();
+        if(length>=3) {
+            result = result.substring(length - 3, length);
+        }
         return result;
     }
 }

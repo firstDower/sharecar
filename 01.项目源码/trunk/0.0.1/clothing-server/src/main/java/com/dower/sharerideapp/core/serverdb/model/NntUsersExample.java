@@ -633,6 +633,216 @@ public class NntUsersExample {
             addCriterion("NUM_STATE not between", value1, value2, "numState");
             return (Criteria) this;
         }
+
+        public Criteria andVcHeadImgUrlIsNull() {
+            addCriterion("VC_HEAD_IMG_URL is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcHeadImgUrlIsNotNull() {
+            addCriterion("VC_HEAD_IMG_URL is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcHeadImgUrlEqualTo(String value) {
+            addCriterion("VC_HEAD_IMG_URL =", value, "vcHeadImgUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcHeadImgUrlNotEqualTo(String value) {
+            addCriterion("VC_HEAD_IMG_URL <>", value, "vcHeadImgUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcHeadImgUrlGreaterThan(String value) {
+            addCriterion("VC_HEAD_IMG_URL >", value, "vcHeadImgUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcHeadImgUrlGreaterThanOrEqualTo(String value) {
+            addCriterion("VC_HEAD_IMG_URL >=", value, "vcHeadImgUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcHeadImgUrlLessThan(String value) {
+            addCriterion("VC_HEAD_IMG_URL <", value, "vcHeadImgUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcHeadImgUrlLessThanOrEqualTo(String value) {
+            addCriterion("VC_HEAD_IMG_URL <=", value, "vcHeadImgUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcHeadImgUrlLike(String value) {
+            addCriterion("VC_HEAD_IMG_URL like", value, "vcHeadImgUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcHeadImgUrlNotLike(String value) {
+            addCriterion("VC_HEAD_IMG_URL not like", value, "vcHeadImgUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcHeadImgUrlIn(List<String> values) {
+            addCriterion("VC_HEAD_IMG_URL in", values, "vcHeadImgUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcHeadImgUrlNotIn(List<String> values) {
+            addCriterion("VC_HEAD_IMG_URL not in", values, "vcHeadImgUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcHeadImgUrlBetween(String value1, String value2) {
+            addCriterion("VC_HEAD_IMG_URL between", value1, value2, "vcHeadImgUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcHeadImgUrlNotBetween(String value1, String value2) {
+            addCriterion("VC_HEAD_IMG_URL not between", value1, value2, "vcHeadImgUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcUnionidIsNull() {
+            addCriterion("VC_UNIONID is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcUnionidIsNotNull() {
+            addCriterion("VC_UNIONID is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcUnionidEqualTo(String value) {
+            addCriterion("VC_UNIONID =", value, "vcUnionid");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcUnionidNotEqualTo(String value) {
+            addCriterion("VC_UNIONID <>", value, "vcUnionid");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcUnionidGreaterThan(String value) {
+            addCriterion("VC_UNIONID >", value, "vcUnionid");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcUnionidGreaterThanOrEqualTo(String value) {
+            addCriterion("VC_UNIONID >=", value, "vcUnionid");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcUnionidLessThan(String value) {
+            addCriterion("VC_UNIONID <", value, "vcUnionid");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcUnionidLessThanOrEqualTo(String value) {
+            addCriterion("VC_UNIONID <=", value, "vcUnionid");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcUnionidLike(String value) {
+            addCriterion("VC_UNIONID like", value, "vcUnionid");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcUnionidNotLike(String value) {
+            addCriterion("VC_UNIONID not like", value, "vcUnionid");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcUnionidIn(List<String> values) {
+            addCriterion("VC_UNIONID in", values, "vcUnionid");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcUnionidNotIn(List<String> values) {
+            addCriterion("VC_UNIONID not in", values, "vcUnionid");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcUnionidBetween(String value1, String value2) {
+            addCriterion("VC_UNIONID between", value1, value2, "vcUnionid");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcUnionidNotBetween(String value1, String value2) {
+            addCriterion("VC_UNIONID not between", value1, value2, "vcUnionid");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcSubscribeSceneIsNull() {
+            addCriterion("VC_SUBSCRIBE_SCENE is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcSubscribeSceneIsNotNull() {
+            addCriterion("VC_SUBSCRIBE_SCENE is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcSubscribeSceneEqualTo(String value) {
+            addCriterion("VC_SUBSCRIBE_SCENE =", value, "vcSubscribeScene");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcSubscribeSceneNotEqualTo(String value) {
+            addCriterion("VC_SUBSCRIBE_SCENE <>", value, "vcSubscribeScene");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcSubscribeSceneGreaterThan(String value) {
+            addCriterion("VC_SUBSCRIBE_SCENE >", value, "vcSubscribeScene");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcSubscribeSceneGreaterThanOrEqualTo(String value) {
+            addCriterion("VC_SUBSCRIBE_SCENE >=", value, "vcSubscribeScene");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcSubscribeSceneLessThan(String value) {
+            addCriterion("VC_SUBSCRIBE_SCENE <", value, "vcSubscribeScene");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcSubscribeSceneLessThanOrEqualTo(String value) {
+            addCriterion("VC_SUBSCRIBE_SCENE <=", value, "vcSubscribeScene");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcSubscribeSceneLike(String value) {
+            addCriterion("VC_SUBSCRIBE_SCENE like", value, "vcSubscribeScene");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcSubscribeSceneNotLike(String value) {
+            addCriterion("VC_SUBSCRIBE_SCENE not like", value, "vcSubscribeScene");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcSubscribeSceneIn(List<String> values) {
+            addCriterion("VC_SUBSCRIBE_SCENE in", values, "vcSubscribeScene");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcSubscribeSceneNotIn(List<String> values) {
+            addCriterion("VC_SUBSCRIBE_SCENE not in", values, "vcSubscribeScene");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcSubscribeSceneBetween(String value1, String value2) {
+            addCriterion("VC_SUBSCRIBE_SCENE between", value1, value2, "vcSubscribeScene");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcSubscribeSceneNotBetween(String value1, String value2) {
+            addCriterion("VC_SUBSCRIBE_SCENE not between", value1, value2, "vcSubscribeScene");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

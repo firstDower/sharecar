@@ -2,6 +2,7 @@ package com.dower.sharerideapp.utils;
 
 import com.alibaba.fastjson.JSON;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -67,9 +68,19 @@ public class Result {
 //		printInfo(a>>1);
 //		int b = a + (a>>1);
 //		printInfo(b);
-		System.out.println(new Date());
+		//System.out.println(new Date());
 
-
+		String result = "";
+		// 保留num的位数
+		// 0 代表前面补充0
+		// num 代表长度为4
+		// d 代表参数为正数型
+		result = String.format("%0" + 3 + "d", Integer.parseInt("21"));
+		int length = result.length();
+		if(length>=3) {
+			result = result.substring(length - 3, length);
+		}
+		System.out.println(result);
 	}
 
     private static void printInfo(int num){

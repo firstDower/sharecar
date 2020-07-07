@@ -17,6 +17,12 @@ public class NntUsers {
 
     private Integer numState;
 
+    private String vcHeadImgUrl;
+
+    private String vcUnionid;
+
+    private String vcSubscribeScene;
+
     public Integer getNumUserId() {
         return numUserId;
     }
@@ -79,5 +85,29 @@ public class NntUsers {
 
     public void setNumState(Integer numState) {
         this.numState = numState;
+    }
+
+    public String getVcHeadImgUrl() {
+        return vcHeadImgUrl;
+    }
+
+    public void setVcHeadImgUrl(String vcHeadImgUrl) {
+        this.vcHeadImgUrl = vcHeadImgUrl == null ? null : vcHeadImgUrl.trim();
+    }
+
+    public String getVcUnionid() {
+        return vcUnionid;
+    }
+
+    public void setVcUnionid(String vcUnionid) {
+        this.vcUnionid = vcUnionid == null ? null : vcUnionid.trim();
+    }
+
+    public String getVcSubscribeScene() {
+        return vcSubscribeScene;
+    }
+
+    public void setVcSubscribeScene(String vcSubscribeScene) {
+        this.vcSubscribeScene = vcSubscribeScene == null ? null : vcSubscribeScene.trim();
     }
 }

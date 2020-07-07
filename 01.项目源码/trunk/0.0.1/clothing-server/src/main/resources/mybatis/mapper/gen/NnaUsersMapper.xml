@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dower.sharerideapp.core.serverdb.dao.NnaUsersMapper">
+  <resultMap id="BaseResultMap" type="com.dower.sharerideapp.core.serverdb.model.NnaUsers">
+    <id column="NUM_USER_ID" jdbcType="INTEGER" property="numUserId" />
+    <result column="VC_LOGIN_NAME" jdbcType="VARCHAR" property="vcLoginName" />
+    <result column="VC_PHONE" jdbcType="VARCHAR" property="vcPhone" />
+    <result column="VC_EMAIL" jdbcType="VARCHAR" property="vcEmail" />
+    <result column="VC_PASSWORD" jdbcType="VARCHAR" property="vcPassword" />
+    <result column="NUM_STATE" jdbcType="INTEGER" property="numState" />
+    <result column="VC_DESC" jdbcType="VARCHAR" property="vcDesc" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    NUM_USER_ID, VC_LOGIN_NAME, VC_PHONE, VC_EMAIL, VC_PASSWORD, NUM_STATE, VC_DESC
+  </sql>
+  <select id="selectByExample" parameterType="com.dower.sharerideapp.core.serverdb.model.NnaUsersExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from nna_users
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from nna_users
+    where NUM_USER_ID = #{numUserId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from nna_users
+    where NUM_USER_ID = #{numUserId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.dower.sharerideapp.core.serverdb.model.NnaUsersExample">
+    delete from nna_users
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.dower.sharerideapp.core.serverdb.model.NnaUsers">
+    <selectKey keyProperty="numUserId" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into nna_users (VC_LOGIN_NAME, VC_PHONE, VC_EMAIL, 
+      VC_PASSWORD, NUM_STATE, VC_DESC
+      )
+    values (#{vcLoginName,jdbcType=VARCHAR}, #{vcPhone,jdbcType=VARCHAR}, #{vcEmail,jdbcType=VARCHAR}, 
+      #{vcPassword,jdbcType=VARCHAR}, #{numState,jdbcType=INTEGER}, #{vcDesc,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.dower.sharerideapp.core.serverdb.model.NnaUsers">
+    <selectKey keyProperty="numUserId" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into nna_users
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="vcLoginName != null">
+        VC_LOGIN_NAME,
+      </if>
+      <if test="vcPhone != null">
+        VC_PHONE,
+      </if>
+      <if test="vcEmail != null">
+        VC_EMAIL,
+      </if>
+      <if test="vcPassword != null">
+        VC_PASSWORD,
+      </if>
+      <if test="numState != null">
+        NUM_STATE,
+      </if>
+      <if test="vcDesc != null">
+        VC_DESC,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="vcLoginName != null">
+        #{vcLoginName,jdbcType=VARCHAR},
+      </if>
+      <if test="vcPhone != null">
+        #{vcPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="vcEmail != null">
+        #{vcEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="vcPassword != null">
+        #{vcPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="numState != null">
+        #{numState,jdbcType=INTEGER},
+      </if>
+      <if test="vcDesc != null">
+        #{vcDesc,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.dower.sharerideapp.core.serverdb.model.NnaUsersExample" resultType="java.lang.Long">
+    select count(*) from nna_users
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update nna_users
+    <set>
+      <if test="record.numUserId != null">
+        NUM_USER_ID = #{record.numUserId,jdbcType=INTEGER},
+      </if>
+      <if test="record.vcLoginName != null">
+        VC_LOGIN_NAME = #{record.vcLoginName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.vcPhone != null">
+        VC_PHONE = #{record.vcPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.vcEmail != null">
+        VC_EMAIL = #{record.vcEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.vcPassword != null">
+        VC_PASSWORD = #{record.vcPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="record.numState != null">
+        NUM_STATE = #{record.numState,jdbcType=INTEGER},
+      </if>
+      <if test="record.vcDesc != null">
+        VC_DESC = #{record.vcDesc,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update nna_users
+    set NUM_USER_ID = #{record.numUserId,jdbcType=INTEGER},
+      VC_LOGIN_NAME = #{record.vcLoginName,jdbcType=VARCHAR},
+      VC_PHONE = #{record.vcPhone,jdbcType=VARCHAR},
+      VC_EMAIL = #{record.vcEmail,jdbcType=VARCHAR},
+      VC_PASSWORD = #{record.vcPassword,jdbcType=VARCHAR},
+      NUM_STATE = #{record.numState,jdbcType=INTEGER},
+      VC_DESC = #{record.vcDesc,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dower.sharerideapp.core.serverdb.model.NnaUsers">
+    update nna_users
+    <set>
+      <if test="vcLoginName != null">
+        VC_LOGIN_NAME = #{vcLoginName,jdbcType=VARCHAR},
+      </if>
+      <if test="vcPhone != null">
+        VC_PHONE = #{vcPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="vcEmail != null">
+        VC_EMAIL = #{vcEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="vcPassword != null">
+        VC_PASSWORD = #{vcPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="numState != null">
+        NUM_STATE = #{numState,jdbcType=INTEGER},
+      </if>
+      <if test="vcDesc != null">
+        VC_DESC = #{vcDesc,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where NUM_USER_ID = #{numUserId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dower.sharerideapp.core.serverdb.model.NnaUsers">
+    update nna_users
+    set VC_LOGIN_NAME = #{vcLoginName,jdbcType=VARCHAR},
+      VC_PHONE = #{vcPhone,jdbcType=VARCHAR},
+      VC_EMAIL = #{vcEmail,jdbcType=VARCHAR},
+      VC_PASSWORD = #{vcPassword,jdbcType=VARCHAR},
+      NUM_STATE = #{numState,jdbcType=INTEGER},
+      VC_DESC = #{vcDesc,jdbcType=VARCHAR}
+    where NUM_USER_ID = #{numUserId,jdbcType=INTEGER}
+  </update>
+</mapper>
