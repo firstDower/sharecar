@@ -41,6 +41,23 @@ public class UsersService {
     @Autowired
     private NntCarOwnerInfoMapper nntCarOwnerInfoMapper;
 
+    public NntUsers selectUsersByUnionid(JSONObject openjson){
+        String unionid = openjson.getString("unionid");
+
+        NntUsersExample example = new NntUsersExample();
+        NntUsersExample.Criteria criteria = example.createCriteria();
+        criteria.andVcUnionidEqualTo(unionid);
+        List<NntUsers> Users = nntUsersMapper.selectByExample(example);
+        LOGGER.info("查询结果返回="+Users);
+        if(Users.size()==0){
+            NntUsers nntUsers = new NntUsers();
+            nntUsers.setVcUnionid(unionid);
+            int i = nntUsersMapper.insertSelective(nntUsers);
+            Users = nntUsersMapper.selectByExample(example);
+        }
+        return Users.get(0);
+    }
+
     public NntUsers selectUsersBuOpenid(NntUsers nntUsers){
         NntUsersExample example = new NntUsersExample();
         NntUsersExample.Criteria criteria = example.createCriteria();
@@ -109,7 +126,7 @@ public class UsersService {
         return result;
     }
 
-    @Transactional
+    //@Transactional
     public Result editPersionExtraInfo(String params) {
         Result result = new Result(false,"用户扩展信息跟新失败");
         try {

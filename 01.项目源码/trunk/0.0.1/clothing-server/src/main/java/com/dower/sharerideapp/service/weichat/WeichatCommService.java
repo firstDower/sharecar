@@ -3,6 +3,7 @@ package com.dower.sharerideapp.service.weichat;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.dower.sharerideapp.utils.HttpRequestUtil;
+import com.dower.sharerideapp.utils.weichat.WeiXinUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
@@ -22,8 +23,36 @@ public class WeichatCommService {
     private RedisTemplate redisTemplate;
     @Autowired
     private Environment env;
-    @Autowired
-    private WeichatCommService weichatCommService;
+
+    /**
+     * 小程序获取sessionkey
+     */
+
+    public JSONObject getSessionKey(JSONObject infodata) {
+        Map<String, String> params = new HashMap();
+        params.put("secret", infodata.getString("secret"));
+        params.put("appid", infodata.getString("appid"));
+        params.put("grant_type", "authorization_code");
+        params.put("js_code", infodata.getString("code"));
+        String res = HttpRequestUtil.request("https://api.weixin.qq.com/sns/jscode2session", params,false);
+        log.info("小程序获取code返回结果resp：：{}",res);
+        JSONObject oppidObj = JSONObject.parseObject(res);
+        String openid = (String) oppidObj.get("openid");
+        String session_key = (String) oppidObj.get("session_key");
+        oppidObj.put("openid", openid);
+        oppidObj.put("session_key", session_key);
+        if (oppidObj.containsKey("unionid")) {
+            oppidObj.put("unionid", (String) oppidObj.get("unionid"));
+        }else{
+            String encryptedData=infodata.getString("encryptedData");
+            String iv=infodata.getString("iv");
+            JSONObject object = WeiXinUtils.getUserInfo(encryptedData,session_key,iv);
+            log.info("再次获取unionid=======>>>>{}",object);
+            oppidObj.put("unionid", object.getString("unionId"));
+        }
+        return oppidObj;
+    }
+
     /**
      * 公众号生成带参二维码（临时）
      * @return
@@ -31,7 +60,7 @@ public class WeichatCommService {
     public String createQrcode(String agentId){
         String result = "";
         try{
-            String accessTokenByCache = weichatCommService.getAccessTokenByCache();
+            String accessTokenByCache = getAccessTokenByCache();
             String menuJsonStr = "{\"expire_seconds\": 2592000, \"action_name\": \"QR_STR_SCENE\", \"action_info\": {\"scene\": {\"scene_str\": \""+agentId+"\"}}}";
             String url = "https://api.weixin.qq.com/cgi-bin/qrcode/create?access_token="+accessTokenByCache;
             String httpResult = HttpRequestUtil.sendPostTest(url, JSON.parseObject(menuJsonStr));

@@ -209,6 +209,35 @@ public class WeichatMainController {
     }
 
     /**
+     * 小程序登录
+     */
+    @ResponseBody
+    //@RequestMapping("/login")
+    public Result loginPhone(@RequestBody String param) {
+        Result result = new Result(false, "小程序登录异常！");
+        log.info("小程序登录参数param:：{}",param);
+        try {
+            JSONObject dataObj = JSONObject.parseObject(param);
+            JSONObject openjson  = weichatCommService.getSessionKey(dataObj);
+
+            dataObj.put("openid", openjson.get("openid"));
+            dataObj.put("unionid", openjson.get("unionid"));
+
+            NntUsers nntUsers = usersService.selectUsersByUnionid(dataObj);
+            nntUsers.setVcOpenid(openjson.getString("openid"));
+            result.setSuccess(true);
+            result.setMsg("小程序登录成功！");
+            result.setResultInfo(nntUsers);
+        } catch (Exception e) {
+            log.error("小程序登录异常 {}", e);
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+
+
+    /**
      * 小程序根据code获取openId
      * @param param
      * @return

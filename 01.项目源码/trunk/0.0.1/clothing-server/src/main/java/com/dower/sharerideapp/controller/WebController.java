@@ -18,6 +18,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 public class WebController {
 
+    @RequestMapping("/login")
+    public String login() {
+        return "adminP/login";
+    }
+
     @RequestMapping("/index")
     public String index() {
         return "person/myInfo";

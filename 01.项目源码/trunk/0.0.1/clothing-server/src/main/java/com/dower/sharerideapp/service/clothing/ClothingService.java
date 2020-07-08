@@ -111,11 +111,11 @@ public class ClothingService {
             JSONObject jsonparams = JSON.parseObject(params);
             ClProductExample example = new ClProductExample();
             ClProductExample.Criteria criteria = example.createCriteria();
-            if (jsonparams.containsKey("VC_OPEN_ID")&&StringUtils.isNotBlank(jsonparams.getString("VC_OPEN_ID"))){
-                String vc_open_id = jsonparams.getString("VC_OPEN_ID");
+            if (jsonparams.containsKey("VC_USER_ID")&&StringUtils.isNotBlank(jsonparams.getString("VC_USER_ID"))){
+                String vc_user_id = jsonparams.getString("VC_USER_ID");
                 //administrator
-                if(!"administrator".equalsIgnoreCase(vc_open_id))
-                    criteria.andVcOpenIdEqualTo(vc_open_id);
+                if(!"administrator".equalsIgnoreCase(vc_user_id))
+                    criteria.andVcOpenIdEqualTo(vc_user_id);
             }else {
                 result.setMsg("VC_OPEN_ID为必传参数！");
                 return result;
@@ -163,11 +163,11 @@ public class ClothingService {
             JSONObject jsonparams = JSON.parseObject(params);
             Map map = (Map) JSONObject.parseObject(params);
 
-            if (jsonparams.containsKey("VC_OPEN_ID")&&StringUtils.isNotBlank(jsonparams.getString("VC_OPEN_ID"))){
-                String vc_open_id = jsonparams.getString("VC_OPEN_ID");
+            if (jsonparams.containsKey("VC_USER_ID")&&StringUtils.isNotBlank(jsonparams.getString("VC_USER_ID"))){
+                String vc_user_id = jsonparams.getString("VC_USER_ID");
                 //administrator
-                if("administrator".equalsIgnoreCase(vc_open_id))
-                    map.remove("VC_OPEN_ID");
+                if("administrator".equalsIgnoreCase(vc_user_id))
+                    map.remove("VC_USER_ID");
             }else {
                 result.setMsg("VC_OPEN_ID为必传参数！");
                 return result;

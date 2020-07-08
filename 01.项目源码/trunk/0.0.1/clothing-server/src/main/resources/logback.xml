@@ -9,7 +9,7 @@
             <OnMatch>DENY</OnMatch>
         </filter>
         <encoder>
-            <pattern>%-4relative [%thread] %-5level - %msg%n</pattern>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n</pattern>
         </encoder>
     </appender>
     <appender name="FILE"

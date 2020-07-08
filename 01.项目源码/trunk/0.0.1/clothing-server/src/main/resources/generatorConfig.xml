@@ -59,8 +59,8 @@
         <!-- schema即为数据库名 tableName为对应的数据库表 domainObjectName是要生成的实体类 enable*ByExample
             是否生成 example类 -->
 
-        <table schema="nnt_db" tableName="nnt_users">
-        </table>
+        <!--<table schema="nnt_db" tableName="nnt_users">
+        </table>-->
        <!-- <table schema="nnt_db" tableName="nnt_userinfo">
         </table>-->
 
@@ -74,10 +74,23 @@
             <generatedKey column="NUM_ID" sqlStatement="MySql" identity="true"/>
         </table>-->
 
-        <!--<table schema="nnt_db_test" tableName="CL_PRODUCT">
-            <generatedKey column="NUM_ID" sqlStatement="MySql" identity="true"/>
-        </table>-->
+        <table schema="nnt_db_test" tableName="nna_users">
+            <generatedKey column="NUM_USER_ID" sqlStatement="MySql" identity="true"/>
+        </table>
+        <table schema="nnt_db_test" tableName="nna_user_role">
+            <generatedKey column="NUM_USER_ROLE_ID" sqlStatement="MySql" identity="true"/>
+        </table>
+        <table schema="nnt_db_test" tableName="nna_roles">
+            <generatedKey column="NUM_ROLE_ID" sqlStatement="MySql" identity="true"/>
+        </table>
 
+        <table schema="nnt_db_test" tableName="nna_role_right">
+            <generatedKey column="NUM_ROLE_RIGHT_ID" sqlStatement="MySql" identity="true"/>
+        </table>
+
+        <table schema="nnt_db_test" tableName="nna_rights">
+            <generatedKey column="NUM_RIGHT_ID" sqlStatement="MySql" identity="true"/>
+        </table>
 
 
         <!--<table schema="nnt_db" tableName="nnt_journey">

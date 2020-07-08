@@ -37,8 +37,8 @@
 		WHERE
 			(
 				1=1
-			<if test="VC_OPEN_ID != null and VC_OPEN_ID !=''">
-				AND cp.VC_OPEN_ID = #{VC_OPEN_ID}
+			<if test="VC_USER_ID != null and VC_USER_ID !=''">
+				AND cp.VC_USER_ID = #{VC_USER_ID}
 			</if>
 			<if test="VC_NAME != null and VC_NAME !=''">
 				AND cp.VC_NAME LIKE CONCAT('%',#{VC_NAME},'%')
