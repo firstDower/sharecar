@@ -212,7 +212,7 @@ public class WeichatMainController {
      * 小程序登录
      */
     @ResponseBody
-    //@RequestMapping("/login")
+    @RequestMapping("/login")
     public Result loginPhone(@RequestBody String param) {
         Result result = new Result(false, "小程序登录异常！");
         log.info("小程序登录参数param:：{}",param);

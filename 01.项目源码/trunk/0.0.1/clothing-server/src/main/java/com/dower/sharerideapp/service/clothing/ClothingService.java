@@ -169,7 +169,7 @@ public class ClothingService {
                 if("administrator".equalsIgnoreCase(vc_user_id))
                     map.remove("VC_USER_ID");
             }else {
-                result.setMsg("VC_OPEN_ID为必传参数！");
+                result.setMsg("VC_USER_ID为必传参数！");
                 return result;
             }
 

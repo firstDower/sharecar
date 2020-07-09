@@ -71,8 +71,12 @@ public class ShiroConfig {
         //静态文件
         map.put("/admin/**","anon");
         map.put("/error/**","anon");
+        map.put("/login","anon");
+        map.put("/login","anon");
+        map.put("/login","anon");
+        map.put("/reposi/**","anon");
         map.put("/**", "authc");
-        shiroFilterFactoryBean.setLoginUrl("/login");
+        shiroFilterFactoryBean.setLoginUrl("/");
         shiroFilterFactoryBean.setUnauthorizedUrl("/error");
         shiroFilterFactoryBean.setSuccessUrl("/jump/adminP/index");
         shiroFilterFactoryBean.setFilterChainDefinitionMap(map);

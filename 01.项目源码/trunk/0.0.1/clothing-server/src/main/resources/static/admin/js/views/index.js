@@ -12,7 +12,7 @@ var index = {
             dataType: 'json',
             success: function(data){
                 if(data.success){
-                    location.href= ctxPath + 'login';
+                    location.href= ctxPath;
                 }else {
                     layer.msg(data.msg,function(){
                     });

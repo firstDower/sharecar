@@ -18,7 +18,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 public class WebController {
 
-    @RequestMapping("/login")
+    @RequestMapping("/")
     public String login() {
         return "adminP/login";
     }

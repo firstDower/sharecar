@@ -27,6 +27,8 @@ public class Result {
 		this.resultInfo = resultInfo;
 	}
 
+	public Integer code = 0;
+
 	public boolean success;//是否成功
 	
 	public String msg;//消息描述
