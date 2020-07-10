@@ -1525,6 +1525,66 @@ public class ClProductExample {
             addCriterion("NUM_PAR_TYPE not between", value1, value2, "numParType");
             return (Criteria) this;
         }
+
+        public Criteria andNumIsDelIsNull() {
+            addCriterion("NUM_IS_DEL is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumIsDelIsNotNull() {
+            addCriterion("NUM_IS_DEL is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumIsDelEqualTo(Byte value) {
+            addCriterion("NUM_IS_DEL =", value, "numIsDel");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumIsDelNotEqualTo(Byte value) {
+            addCriterion("NUM_IS_DEL <>", value, "numIsDel");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumIsDelGreaterThan(Byte value) {
+            addCriterion("NUM_IS_DEL >", value, "numIsDel");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumIsDelGreaterThanOrEqualTo(Byte value) {
+            addCriterion("NUM_IS_DEL >=", value, "numIsDel");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumIsDelLessThan(Byte value) {
+            addCriterion("NUM_IS_DEL <", value, "numIsDel");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumIsDelLessThanOrEqualTo(Byte value) {
+            addCriterion("NUM_IS_DEL <=", value, "numIsDel");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumIsDelIn(List<Byte> values) {
+            addCriterion("NUM_IS_DEL in", values, "numIsDel");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumIsDelNotIn(List<Byte> values) {
+            addCriterion("NUM_IS_DEL not in", values, "numIsDel");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumIsDelBetween(Byte value1, Byte value2) {
+            addCriterion("NUM_IS_DEL between", value1, value2, "numIsDel");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumIsDelNotBetween(Byte value1, Byte value2) {
+            addCriterion("NUM_IS_DEL not between", value1, value2, "numIsDel");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

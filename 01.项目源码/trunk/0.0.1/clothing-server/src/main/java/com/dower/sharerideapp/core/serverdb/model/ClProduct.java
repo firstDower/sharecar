@@ -48,6 +48,8 @@ public class ClProduct {
 
     private Byte numParType;
 
+    private Byte numIsDel;
+
     public Long getNumId() {
         return numId;
     }
@@ -222,5 +224,13 @@ public class ClProduct {
 
     public void setNumParType(Byte numParType) {
         this.numParType = numParType;
+    }
+
+    public Byte getNumIsDel() {
+        return numIsDel;
+    }
+
+    public void setNumIsDel(Byte numIsDel) {
+        this.numIsDel = numIsDel;
     }
 }

@@ -55,12 +55,16 @@ public class ClothingService {
             if (jsonparams.containsKey("VC_NAME")){
                 clProduct.setVcName(jsonparams.getString("VC_NAME"));
             }
-            clProduct.setVcPhone(jsonparams.getString("VC_PHONE"));
-            clProduct.setNumType(jsonparams.getByte("NUM_TYPE"));
+            if (jsonparams.containsKey("VC_PHONE")) {
+                clProduct.setVcPhone(jsonparams.getString("VC_PHONE"));
+            }
+            if (jsonparams.containsKey("NUM_TYPE")) {
+                clProduct.setNumType(jsonparams.getByte("NUM_TYPE"));
+            }
             if (jsonparams.containsKey("NUM_NUM")){
                 clProduct.setNumNum(jsonparams.getByte("NUM_NUM"));
             }
-            if (jsonparams.containsKey("NUM_PRICE")){
+            if (jsonparams.containsKey("NUM_PRICE")&&StringUtils.isNotBlank(jsonparams.getString("NUM_PRICE"))){
                 clProduct.setNumPrice(new BigDecimal(jsonparams.getString("NUM_PRICE")));
             }
             if (jsonparams.containsKey("VC_USER_ID")){
@@ -82,6 +86,8 @@ public class ClothingService {
                 clProduct.setVcUnionId(jsonparams.getString("VC_UNION_ID"));
             if (jsonparams.containsKey("NUM_PAR_TYPE"))
                 clProduct.setNumParType(jsonparams.getByte("NUM_PAR_TYPE"));
+            if (jsonparams.containsKey("VC_SIGN_DESC"))
+                clProduct.setVcSignDesc(jsonparams.getString("VC_SIGN_DESC"));
             SimpleDateFormat sdf = new SimpleDateFormat("MMddHH");
             String dateNowStr = sdf.format(new Date());
             String vc_phone = jsonparams.getString("VC_PHONE");
@@ -247,7 +253,7 @@ public class ClothingService {
      * @return
      */
     public Result updateProduct(String params){
-        Result result = new Result(false,"修改服装定制异常！");
+        Result result = new Result(false,"修改异常！");
         try{
             log.info("修改服装定制param：{}",params);
             JSONObject jsonparams = JSON.parseObject(params);
@@ -289,9 +295,11 @@ public class ClothingService {
             if (jsonparams.containsKey("VC_NOTES")&&StringUtils.isNotBlank(jsonparams.getString("VC_NOTES")))
                 clProduct.setVcNotes(jsonparams.getString("VC_NOTES"));
             clProduct.setDatUpdateTime(new Date());
+            if (jsonparams.containsKey("NUM_IS_DEL")&&StringUtils.isNotBlank(jsonparams.getString("NUM_IS_DEL")))
+                clProduct.setNumIsDel(jsonparams.getByte("NUM_IS_DEL"));
             int i = clProductMapper.updateByPrimaryKeySelective(clProduct);
             result.setSuccess(true);
-            result.setMsg("查询定制衣服列表成功！");
+            result.setMsg("修改成功！");
             result.setResultInfo(i);
             log.info("查询定制衣服列表成功：{}",result);
         }catch (Exception e){

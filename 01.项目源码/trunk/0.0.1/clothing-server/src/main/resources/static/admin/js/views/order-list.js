@@ -1,18 +1,71 @@
-$(function () {
-    //$("#logout").click(index.logout);
-})
+
+
 layui.use(['laydate', 'form'],
     function() {
         var laydate = layui.laydate;
 
         //执行一个laydate实例
         laydate.render({
-            elem: '#start' //指定元素
+            elem: '#DAT_CREAT_TIME_START' //指定元素
         });
 
         //执行一个laydate实例
         laydate.render({
-            elem: '#end' //指定元素
+            elem: '#DAT_CREAT_TIME_END' //指定元素
+        });
+
+        $.ajax({
+            type:"post",
+            url:ctxPath + "reposi/getGradeList",
+            dataType:"json",
+            success:function(data){
+                console.log("================"+data)
+                var cityStr = '';
+                $.each(data.resultInfo,function(index,value){
+                    cityStr += '<option value="'+value.numId+'">'+value.vcGradeName+'</option>'
+                });
+                $('#NUM_GRADE_ID').append(cityStr);
+                layui.form.render('select');
+            },
+            error:function(){
+                closeMsg();
+            }
+        });
+
+
+        $.ajax({
+            type:"post",
+            url:ctxPath + "reposi/getSchoolList",
+            dataType:"json",
+            success:function(data){
+                var cityStr = '';
+                $.each(data.resultInfo,function(index,value){
+                    cityStr += '<option value="'+value.numId+'">'+value.vcSchoolName+'</option>'
+                });
+                $('#NUM_SCHOOL_ID').append(cityStr);
+                layui.form.render('select');
+            },
+            error:function(){
+                closeMsg();
+            }
+        });
+
+
+        $.ajax({
+            type:"post",
+            url:ctxPath + "reposi/getModelList",
+            dataType:"json",
+            success:function(data){
+                var cityStr = '';
+                $.each(data.resultInfo,function(index,value){
+                    cityStr += '<option value="'+value.numId+'">'+value.vcModelName+'</option>'
+                });
+                $('#NUM_MODEL_ID').append(cityStr);
+                layui.form.render('select');
+            },
+            error:function(){
+                closeMsg();
+            }
         });
     });
 layui.use('table', function(){
@@ -28,8 +81,15 @@ layui.use('table', function(){
         ,method: 'post'
         ,contentType: 'application/json'
         ,cellMinWidth: 80 //全局定义常规单元格的最小宽度，layui 2.2.1 新增
+        ,toolbar: '#toolbarDemo'
+        ,defaultToolbar: ['filter', 'exports', 'print', {
+            title: '提示'
+            ,layEvent: 'LAYTABLE_TIPS'
+            ,icon: 'layui-icon-tips'
+        }]
         ,cols: [
             [ //表头
+                //{type: 'checkbox', fixed: 'left'},
                 {field: 'numId',width:'3%' , title: 'ID',  fixed: 'left'}
                 ,{field: 'vcName',width:'6%' ,  title: '姓名' }
                 ,{field: 'vcPhone',width:'10%' ,  title: '手机号' }
@@ -72,7 +132,10 @@ layui.use('table', function(){
                             result = "半袖"
                         }else if(numType==3){
                             result = "修改"
+                        }else {
+                            result = "其他"
                         }
+
                         return result;
                 } }
                 ,{field: 'numParType',width:'6%' ,  title: '种类',
@@ -89,6 +152,7 @@ layui.use('table', function(){
                 ,{field: 'datCreatTime',width:'10%' ,  title: '创建时间', sort: true}
                 ,{field: 'vcNotes',width:'8%' ,  title: '用户备注'}
                 ,{field: 'vcSignDesc',width:'8%' ,  title: '商家备注'}
+                ,{fixed: 'right', title:'操作', toolbar: '#barDemo', width:140}
             ]
         ]
         ,request: {
@@ -107,14 +171,70 @@ layui.use('table', function(){
 
     });
 
+    //监听行工具事件
+    table.on('tool(orderList)', function(obj){
+        var data = obj.data;
+        console.log("=====监听行工具事件======="+JSON.stringify(data));
+        if(obj.event === 'del'){
+            layer.confirm('真的删除行么', function(index){
+                var param = {};
+                var numId = data.numId;
+                param.NUM_ID = numId;
+                param.NUM_IS_DEL = 2;
+                $.ajax({
+                    type: 'POST',
+                    url: ctxPath + "reposi/updateProduct",
+                    timeout:8000,
+                    data : JSON.stringify(param),
+                    contentType: 'application/json',
+                    dataType: 'json',
+                    success: function(data){
+                        if(data.success){
+                            obj.del();
+                            layer.close(index);
+                        }else {
+                            layer.msg(data.msg,function(){
+                            });
+                        }
+                    },
+                    error: function(xhr, type){
+                    }
+                });
+
+            });
+        } else if(obj.event === 'edit'){
+            sessionStorage["pageData"] = JSON.stringify(data);
+            xadmin.open('修改订单','./order-edit.html');
+        }
+    });
+
+    /*条件查询，筛选*/
     var $ = layui.$, active = {
         reload: function(){
-            var NUM_STATE = $("#NUM_STATE").val();
             var VC_ORDER_NO = $("#VC_ORDER_NO").val();
+            var VC_PHONE = $('#VC_PHONE').val();
+            var VC_NAME = $('#VC_NAME').val();
+            var NUM_PAR_TYPE = $('#NUM_PAR_TYPE').val();
+            var NUM_TYPE = $('#NUM_TYPE').val();
+            var NUM_STATE = $('#NUM_STATE').val();
+            var NUM_MODEL_ID = $('#NUM_MODEL_ID').val();
+            var NUM_SCHOOL_ID = $('#NUM_SCHOOL_ID').val();
+            var NUM_GRADE_ID = $('#NUM_GRADE_ID').val();
+            var DAT_CREAT_TIME_START = $('#DAT_CREAT_TIME_START').val();
+            var DAT_CREAT_TIME_END = $('#DAT_CREAT_TIME_END').val();
             tableIns.reload({
                 where: {
                     VC_USER_ID: 'administrator',
                     NUM_STATE:NUM_STATE,
+                    VC_PHONE:VC_PHONE,
+                    VC_NAME:VC_NAME,
+                    NUM_PAR_TYPE:NUM_PAR_TYPE,
+                    NUM_TYPE:NUM_TYPE,
+                    NUM_MODEL_ID:NUM_MODEL_ID,
+                    NUM_SCHOOL_ID:NUM_SCHOOL_ID,
+                    NUM_GRADE_ID:NUM_GRADE_ID,
+                    DAT_CREAT_TIME_START:DAT_CREAT_TIME_START,
+                    DAT_CREAT_TIME_END:DAT_CREAT_TIME_END,
                     VC_ORDER_NO:VC_ORDER_NO
                 }
                 ,page: {
@@ -123,7 +243,7 @@ layui.use('table', function(){
             });
         }
     };
-
+    /*查询按钮*/
     $('#sreach').on('click', function(){
         active.reload();
     });

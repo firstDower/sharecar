@@ -24,6 +24,7 @@
     <result column="VC_UNION_ID" jdbcType="VARCHAR" property="vcUnionId" />
     <result column="VC_SIGN_DESC" jdbcType="VARCHAR" property="vcSignDesc" />
     <result column="NUM_PAR_TYPE" jdbcType="TINYINT" property="numParType" />
+    <result column="NUM_IS_DEL" jdbcType="TINYINT" property="numIsDel" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -86,7 +87,8 @@
   <sql id="Base_Column_List">
     NUM_ID, VC_HIGHT, VC_WIGHT, VC_NAME, VC_PHONE, NUM_TYPE, NUM_NUM, NUM_STATE, DAT_CREAT_TIME, 
     DAT_UPDATE_TIME, NUM_PRICE, VC_USER_ID, VC_OPEN_ID, DAT_CONFIRM_TIME, VC_NOTES, NUM_SCHOOL_ID, 
-    NUM_GRADE_ID, NUM_MODEL_ID, VC_ORDER_NO, VC_UNION_ID, VC_SIGN_DESC, NUM_PAR_TYPE
+    NUM_GRADE_ID, NUM_MODEL_ID, VC_ORDER_NO, VC_UNION_ID, VC_SIGN_DESC, NUM_PAR_TYPE, 
+    NUM_IS_DEL
   </sql>
   <select id="selectByExample" parameterType="com.dower.sharerideapp.core.serverdb.model.ClProductExample" resultMap="BaseResultMap">
     select
@@ -128,16 +130,16 @@
       NUM_PRICE, VC_USER_ID, VC_OPEN_ID, 
       DAT_CONFIRM_TIME, VC_NOTES, NUM_SCHOOL_ID, 
       NUM_GRADE_ID, NUM_MODEL_ID, VC_ORDER_NO, 
-      VC_UNION_ID, VC_SIGN_DESC, NUM_PAR_TYPE
-      )
+      VC_UNION_ID, VC_SIGN_DESC, NUM_PAR_TYPE, 
+      NUM_IS_DEL)
     values (#{vcHight,jdbcType=VARCHAR}, #{vcWight,jdbcType=VARCHAR}, #{vcName,jdbcType=VARCHAR}, 
       #{vcPhone,jdbcType=VARCHAR}, #{numType,jdbcType=TINYINT}, #{numNum,jdbcType=TINYINT}, 
       #{numState,jdbcType=TINYINT}, #{datCreatTime,jdbcType=TIMESTAMP}, #{datUpdateTime,jdbcType=TIMESTAMP}, 
       #{numPrice,jdbcType=DECIMAL}, #{vcUserId,jdbcType=VARCHAR}, #{vcOpenId,jdbcType=VARCHAR}, 
       #{datConfirmTime,jdbcType=TIMESTAMP}, #{vcNotes,jdbcType=VARCHAR}, #{numSchoolId,jdbcType=BIGINT}, 
       #{numGradeId,jdbcType=BIGINT}, #{numModelId,jdbcType=BIGINT}, #{vcOrderNo,jdbcType=VARCHAR}, 
-      #{vcUnionId,jdbcType=VARCHAR}, #{vcSignDesc,jdbcType=VARCHAR}, #{numParType,jdbcType=TINYINT}
-      )
+      #{vcUnionId,jdbcType=VARCHAR}, #{vcSignDesc,jdbcType=VARCHAR}, #{numParType,jdbcType=TINYINT}, 
+      #{numIsDel,jdbcType=TINYINT})
   </insert>
   <insert id="insertSelective" parameterType="com.dower.sharerideapp.core.serverdb.model.ClProduct">
     <selectKey keyProperty="numId" order="AFTER" resultType="java.lang.Long">
@@ -208,6 +210,9 @@
       <if test="numParType != null">
         NUM_PAR_TYPE,
       </if>
+      <if test="numIsDel != null">
+        NUM_IS_DEL,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="vcHight != null">
@@ -272,6 +277,9 @@
       </if>
       <if test="numParType != null">
         #{numParType,jdbcType=TINYINT},
+      </if>
+      <if test="numIsDel != null">
+        #{numIsDel,jdbcType=TINYINT},
       </if>
     </trim>
   </insert>
@@ -350,6 +358,9 @@
       <if test="record.numParType != null">
         NUM_PAR_TYPE = #{record.numParType,jdbcType=TINYINT},
       </if>
+      <if test="record.numIsDel != null">
+        NUM_IS_DEL = #{record.numIsDel,jdbcType=TINYINT},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -378,7 +389,8 @@
       VC_ORDER_NO = #{record.vcOrderNo,jdbcType=VARCHAR},
       VC_UNION_ID = #{record.vcUnionId,jdbcType=VARCHAR},
       VC_SIGN_DESC = #{record.vcSignDesc,jdbcType=VARCHAR},
-      NUM_PAR_TYPE = #{record.numParType,jdbcType=TINYINT}
+      NUM_PAR_TYPE = #{record.numParType,jdbcType=TINYINT},
+      NUM_IS_DEL = #{record.numIsDel,jdbcType=TINYINT}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -449,6 +461,9 @@
       <if test="numParType != null">
         NUM_PAR_TYPE = #{numParType,jdbcType=TINYINT},
       </if>
+      <if test="numIsDel != null">
+        NUM_IS_DEL = #{numIsDel,jdbcType=TINYINT},
+      </if>
     </set>
     where NUM_ID = #{numId,jdbcType=BIGINT}
   </update>
@@ -474,7 +489,8 @@
       VC_ORDER_NO = #{vcOrderNo,jdbcType=VARCHAR},
       VC_UNION_ID = #{vcUnionId,jdbcType=VARCHAR},
       VC_SIGN_DESC = #{vcSignDesc,jdbcType=VARCHAR},
-      NUM_PAR_TYPE = #{numParType,jdbcType=TINYINT}
+      NUM_PAR_TYPE = #{numParType,jdbcType=TINYINT},
+      NUM_IS_DEL = #{numIsDel,jdbcType=TINYINT}
     where NUM_ID = #{numId,jdbcType=BIGINT}
   </update>
 </mapper>

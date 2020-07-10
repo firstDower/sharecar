@@ -36,7 +36,7 @@
 		LEFT JOIN CL_FN_MODEL cfm ON cp.NUM_MODEL_ID = cfm.NUM_ID
 		WHERE
 			(
-				1=1
+				cp.NUM_IS_DEL = 1
 			<if test="VC_USER_ID != null and VC_USER_ID !=''">
 				AND cp.VC_USER_ID = #{VC_USER_ID}
 			</if>
@@ -69,6 +69,12 @@
 			</if>
 			<if test="VC_ORDER_NO != null and VC_ORDER_NO != ''">
 				AND cp.VC_ORDER_NO  LIKE CONCAT('%',#{VC_ORDER_NO},'%')
+			</if>
+			<if test="DAT_CREAT_TIME_START != null and DAT_CREAT_TIME_START != ''">
+				and DATE_FORMAT(cp.DAT_CREAT_TIME,'%Y-%m-%d') <![CDATA[ >= ]]> DATE_FORMAT(#{DAT_CREAT_TIME_START},'%Y-%m-%d')
+			</if>
+			<if test="DAT_CREAT_TIME_END != null and DAT_CREAT_TIME_END != ''">
+				and DATE_FORMAT(cp.DAT_CREAT_TIME,'%Y-%m-%d') <![CDATA[ <= ]]> DATE_FORMAT(#{DAT_CREAT_TIME_END},'%Y-%m-%d')
 			</if>
 			)
 		ORDER BY

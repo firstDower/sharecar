@@ -5,7 +5,7 @@
 </head>
 <body class="login-bg">
 <div th:insert="common/htmlJS::common_js(~{::script})">
-    <script type="text/javascript" th:src="@{/admin/js/views/orderAdd.js}"></script>
+    <script type="text/javascript" th:src="@{/admin/js/views/orderEdit.js}"></script>
 </div>
         <div class="layui-fluid">
             <div class="layui-row">
@@ -108,7 +108,7 @@
                     <div class="layui-form-item">
                         <div class="layui-inline">
                             <label class="layui-form-label"></label>
-                            <button class="layui-btn" lay-filter="add" lay-submit="">提交</button>
+                            <button class="layui-btn" lay-filter="orderEdit" lay-submit="">提交</button>
                         </div>
                     </div>
         </form>

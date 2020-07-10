@@ -64,17 +64,17 @@
        <!-- <table schema="nnt_db" tableName="nnt_userinfo">
         </table>-->
 
-<!--        <table schema="nnt_db" tableName="CL_PRODUCT">
+       <table schema="nnt_db" tableName="CL_PRODUCT">
             <generatedKey column="NUM_ID" sqlStatement="MySql" identity="true"/>
         </table>
-        <table schema="nnt_db" tableName="CL_FN_GRADE">
+        <!-- <table schema="nnt_db" tableName="CL_FN_GRADE">
             <generatedKey column="NUM_ID" sqlStatement="MySql" identity="true"/>
         </table>
         <table schema="nnt_db" tableName="CL_FN_SCHOOL">
             <generatedKey column="NUM_ID" sqlStatement="MySql" identity="true"/>
         </table>-->
 
-        <table schema="nnt_db_test" tableName="nna_users">
+        <!--<table schema="nnt_db_test" tableName="nna_users">
             <generatedKey column="NUM_USER_ID" sqlStatement="MySql" identity="true"/>
         </table>
         <table schema="nnt_db_test" tableName="nna_user_role">
@@ -90,7 +90,7 @@
 
         <table schema="nnt_db_test" tableName="nna_rights">
             <generatedKey column="NUM_RIGHT_ID" sqlStatement="MySql" identity="true"/>
-        </table>
+        </table>-->
 
 
         <!--<table schema="nnt_db" tableName="nnt_journey">
