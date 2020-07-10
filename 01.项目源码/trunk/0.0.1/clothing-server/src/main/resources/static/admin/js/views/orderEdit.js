@@ -19,6 +19,7 @@ layui.use(['form', 'layer'],
             $("#NUM_NUM").val(pageData.numNum);
             $("#NUM_PRICE").val(pageData.numPrice);
             $("#VC_SIGN_DESC").val(pageData.vcSignDesc);
+            $("#NUM_STATE").val(pageData.numState);
 
 
 
