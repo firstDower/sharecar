@@ -11,6 +11,8 @@ import com.dower.sharerideapp.core.serverdb.dao.NntUserinfoMapper;
 import com.dower.sharerideapp.core.serverdb.dao.NntUsersMapper;
 import com.dower.sharerideapp.core.serverdb.model.*;
 import com.dower.sharerideapp.utils.Result;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +29,7 @@ import java.util.Map;
  * @Description:
  * @Date: Created in 14:04   2018/6/28
  */
+@Slf4j
 @Service
 public class UsersService {
     private static final Logger LOGGER = LogManager.getLogger(UsersService.class);
@@ -42,20 +45,42 @@ public class UsersService {
     private NntCarOwnerInfoMapper nntCarOwnerInfoMapper;
 
     public NntUsers selectUsersByUnionid(JSONObject openjson){
-        String unionid = openjson.getString("unionid");
-
-        NntUsersExample example = new NntUsersExample();
-        NntUsersExample.Criteria criteria = example.createCriteria();
-        criteria.andVcUnionidEqualTo(unionid);
-        List<NntUsers> Users = nntUsersMapper.selectByExample(example);
-        LOGGER.info("查询结果返回="+Users);
-        if(Users.size()==0){
-            NntUsers nntUsers = new NntUsers();
-            nntUsers.setVcUnionid(unionid);
-            int i = nntUsersMapper.insertSelective(nntUsers);
-            Users = nntUsersMapper.selectByExample(example);
+        NntUsers nntUser = null;
+        try{
+            String unionid = openjson.getString("unionid");
+            NntUsersExample example = new NntUsersExample();
+            NntUsersExample.Criteria criteria = example.createCriteria();
+            criteria.andVcUnionidEqualTo(unionid);
+            List<NntUsers> Users = nntUsersMapper.selectByExample(example);
+            LOGGER.info("查询结果返回="+Users);
+            if(Users.size()==0){
+                NntUsers nntUsers = new NntUsers();
+                nntUsers.setVcUnionid(unionid);
+                nntUsers.setVcNickname(openjson.getString("nickName"));
+                nntUsers.setVcHeadImgUrl(openjson.getString("avatarUrl"));
+                nntUsers.setVcOpenid(openjson.getString("openid"));
+                int i = nntUsersMapper.insertSelective(nntUsers);
+                Users = nntUsersMapper.selectByExample(example);
+            }else{
+                NntUsers nntUsers = Users.get(0);
+                String vcHeadImgUrl = nntUsers.getVcHeadImgUrl();
+                if(null==vcHeadImgUrl|| StringUtils.isBlank(vcHeadImgUrl)){
+                    log.info("微信头像获取结果为：：{}",vcHeadImgUrl);
+                    NntUsers users = new NntUsers();
+                    users.setNumUserId(nntUsers.getNumUserId());
+                    users.setVcOpenid(openjson.getString("openid"));
+                    users.setVcHeadImgUrl(openjson.getString("avatarUrl"));
+                    users.setVcNickname(openjson.getString("nickName"));
+                    int i = nntUsersMapper.updateByPrimaryKeySelective(users);
+                    log.info("微信头像昵称信息更新到数据库结果：：{}",i);
+                }
+            }
+            nntUser = Users.get(0);
+        }catch (Exception e){
+            log.error("selectUsersByUnionid::{}",e);
         }
-        return Users.get(0);
+
+        return nntUser;
     }
 
     public NntUsers selectUsersBuOpenid(NntUsers nntUsers){

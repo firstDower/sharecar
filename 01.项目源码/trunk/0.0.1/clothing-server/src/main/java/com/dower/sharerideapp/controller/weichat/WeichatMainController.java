@@ -39,6 +39,7 @@ import java.util.*;
  */
 @Slf4j
 @Controller
+@RequestMapping("/weichat")
 public class WeichatMainController {
     @Value("${weixin.appid}")
     private String appid;
@@ -48,113 +49,7 @@ public class WeichatMainController {
     UsersService usersService;
     @Autowired
     private WeichatCommService weichatCommService;
-    /*****
-     * 确认请求来自微信服务器
-     *
-     *  signature  微信加密签名
-     *  timestamp   时间戳
-     *  nonce  随机数
-     *  echostr  随机字符串
-     * @return
-     * @return
-     */
-    @ResponseBody
-    @RequestMapping(value = "/weChatSend/valid", method = RequestMethod.GET)
-    public String doGetMethod(HttpServletRequest request, HttpServletResponse response){
-        String signature = request.getParameter("signature");
-        String timestamp = request.getParameter("timestamp");
-        String nonce = request.getParameter("nonce");
-        String echostr = request.getParameter("echostr");
-        if (signature != null && timestamp != null && nonce != null) {
-            if (SignUtil.checkSignature(signature, timestamp, nonce)) {
-                return echostr;
-            }
-        }
-        return null;
-    }
 
-    @RequestMapping(value = "/weChatSend/valid", method = RequestMethod.POST)
-    public void cathcMessage(HttpServletRequest request, HttpServletResponse response){
-
-
-
-        String str = "";
-        try {
-
-            request.setCharacterEncoding("UTF-8");
-            response.setCharacterEncoding("UTF-8");
-            PrintWriter out = response.getWriter();
-            Map<String, String> map = WeiXinUtils.xmlToMap(request);
-            log.info("接受到的微信消息map"+map.toString());
-
-
-            //从集合中，获取XML各个节点的内容
-
-            String ToUserName = map.get("ToUserName");
-
-            String FromUserName = map.get("FromUserName");
-
-            String CreateTime = map.get("CreateTime");
-
-            String MsgType = map.get("MsgType");
-
-            String Content = map.get("Content");
-
-            String MsgId = map.get("MsgId");
-
-            String Event = map.get("Event");
-            log.info("接受到的微信消息Content="+Content);
-            //这里只处理文本消息
-            if (MsgType.equalsIgnoreCase("text")){
-
-                Message message=new Message();
-                message.setFromUserName(ToUserName);
-                message.setToUserName(FromUserName);
-                message.setContent("您发送的消息是text文本消息"+Content);
-                message.setMsgId(MsgId);
-                message.setMsgType("text");
-                message.setCreateTime(new Date().getTime());
-
-                //str=WeiXinUtils.objectToXml(message);
-            }else if(MsgType.equalsIgnoreCase("event")){
-                if(Event.equalsIgnoreCase("subscribe")||Event.equalsIgnoreCase("scan")){
-                    String EventKey = map.get("EventKey");
-                    if(StringUtils.isNotBlank(EventKey)){
-                        String qrscene_ = StringUtils.substringAfter(EventKey, "qrscene_");
-                        if(StringUtils.isBlank(qrscene_)){
-                            qrscene_ = EventKey;
-                        }
-                        String openId = FromUserName;
-                        JSONObject json = new JSONObject();
-                        json.put("openId",openId);
-                        json.put("pId",qrscene_);
-                        //建立虚拟的上下级关系
-                        log.info("//建立虚拟的上下级关系params:"+json.toJSONString());
-                    }
-
-
-                    Message message=new Message();
-                    message.setFromUserName(ToUserName);
-                    message.setToUserName(FromUserName);
-                    message.setContent(WeiXinUtils.getSubscribMsg());
-                    message.setMsgId(MsgId);
-                    message.setMsgType("text");
-                    message.setCreateTime(new Date().getTime());
-                    //str=WeiXinUtils.objectToXml(message);
-                }else if(Event.equalsIgnoreCase("unsubscribe")){
-                    //用户取消关注，删除用户数据
-                    log.info("//建立虚拟的上下级关系result:");
-                }
-            }
-            log.info("自动回复消息="+str);
-            out.print(str);
-            out.close();
-
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-        //return str;
-    }
 
     @RequestMapping("/rediractHomeUrl")
     public String rediractHomeUrl(RedirectAttributes redirectAttributes, String code, String state, HttpServletRequest request, HttpServletResponse response)   {
@@ -163,20 +58,18 @@ public class WeichatMainController {
         String url = "index";
         try {
             log.info("code:"+code+";state:"+state);
-            String openId = getOpenId(code);
-            log.info("openId=========="+openId);
-
-
+            String userId = getUserId(code);
+            log.info("userId=========="+userId);
             JSONObject jsonObjectState = JSONObject.parseObject(state);
             String redictNo = jsonObjectState.getString("redictNo");
-            if("001".equals(redictNo)){
-                url = "redirect:goMakeCloth";
-            }else if("002".equals(redictNo)){
-                url = "redirect:goMyInfo";
+            if("1".equals(redictNo)){
+                url = "redirect:/weichat/goMakeCloth";
+            }else if("2".equals(redictNo)){
+                url = "redirect:/weichat/goMyInfo";
             }else if("003".equals(redictNo)){
                 url = "redirect:goMyInfo";
             }
-            redirectAttributes.addAttribute("openId",openId);
+            redirectAttributes.addAttribute("userId",userId);
             log.info("url:"+url);
         } catch (Exception e) {
             e.printStackTrace();
@@ -185,12 +78,12 @@ public class WeichatMainController {
     }
 
     /**
-     * 获取openid
+     * 获取openid,登录自己的服务
      * @param code
      * @return
      */
-    public String getOpenId(String code){
-        String openid = "";
+    public String getUserId(String code){
+        String resultStr = "";
         try{
             Map<String, String> params = new HashMap();
             params.put("secret", secret);
@@ -200,50 +93,36 @@ public class WeichatMainController {
             String result = HttpRequestUtil.request("https://api.weixin.qq.com/sns/oauth2/access_token", params,false);
             JSONObject jsonObject = JSONObject.parseObject(result);
             log.info("获取openid，jsonObject="+jsonObject);
-            openid = jsonObject.get("openid").toString();
+            String openid = jsonObject.get("openid").toString();
+            String access_token = jsonObject.getString("access_token");
+            JSONObject param = new JSONObject();
+            param.put("openid",openid);
+            param.put("access_token",access_token);
+            String userinfoByWeixin = weichatCommService.getUserinfoByWeixin(param);
+            JSONObject object = JSONObject.parseObject(userinfoByWeixin);
+            //unionid
+            param.put("unionid", object.getString("unionid"));
+            //性别
+            param.put("gender", object.getString("sex"));
+            //头像
+            param.put("avatarUrl", object.getString("headimgurl"));
+            //昵称
+            param.put("nickName", object.getString("nickname"));
+            NntUsers nntUsers = usersService.selectUsersByUnionid(param);
+            resultStr = nntUsers.getNumUserId().toString();
         }catch (Exception e){
-            log.error("获取openid异常！");
+            log.error("获取openid异常！{}",e);
         }
-
-        return openid;
+        return resultStr;
     }
-
-    /**
-     * 小程序登录
-     */
-    @ResponseBody
-    @RequestMapping("/login")
-    public Result loginPhone(@RequestBody String param) {
-        Result result = new Result(false, "小程序登录异常！");
-        log.info("小程序登录参数param:：{}",param);
-        try {
-            JSONObject dataObj = JSONObject.parseObject(param);
-            JSONObject openjson  = weichatCommService.getSessionKey(dataObj);
-
-            dataObj.put("openid", openjson.get("openid"));
-            dataObj.put("unionid", openjson.get("unionid"));
-
-            NntUsers nntUsers = usersService.selectUsersByUnionid(dataObj);
-            nntUsers.setVcOpenid(openjson.getString("openid"));
-            result.setSuccess(true);
-            result.setMsg("小程序登录成功！");
-            result.setResultInfo(nntUsers);
-        } catch (Exception e) {
-            log.error("小程序登录异常 {}", e);
-            e.printStackTrace();
-        }
-        return result;
-    }
-
-
 
     /**
      * 小程序根据code获取openId
      * @param param
      * @return
      */
-    @ResponseBody
-    @RequestMapping("/getOpenIdByCode")
+    //@ResponseBody
+    //@RequestMapping("/getOpenIdByCode")
     public Result getOpenIdByCode(@RequestBody String param){
         Result result = new Result(false,"根据code获取openId异常！");
         try{

@@ -52,23 +52,6 @@ public class WebController {
     public String goSetPersonInfo() {
         return "person/setPerInfo";
     }
-    /**
-     * 个人中心页
-     */
-
-    @RequestMapping("/goMyInfo")
-    public String goMyInfo() {
-        return "person/myInfo";
-    }
-
-      /**
-     * 定制衣服页面
-     */
-
-    @RequestMapping("/goMakeCloth")
-    public String goMakeCloth() {
-        return "custom/customOne";
-    }
 
 
 

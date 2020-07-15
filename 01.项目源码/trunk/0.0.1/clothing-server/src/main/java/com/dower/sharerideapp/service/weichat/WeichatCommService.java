@@ -41,7 +41,7 @@ public class WeichatCommService {
         String session_key = (String) oppidObj.get("session_key");
         oppidObj.put("openid", openid);
         oppidObj.put("session_key", session_key);
-        if (oppidObj.containsKey("unionid")) {
+       /* if (oppidObj.containsKey("unionid")) {
             oppidObj.put("unionid", (String) oppidObj.get("unionid"));
         }else{
             String encryptedData=infodata.getString("encryptedData");
@@ -49,7 +49,19 @@ public class WeichatCommService {
             JSONObject object = WeiXinUtils.getUserInfo(encryptedData,session_key,iv);
             log.info("再次获取unionid=======>>>>{}",object);
             oppidObj.put("unionid", object.getString("unionId"));
-        }
+        }*/
+
+        String encryptedData=infodata.getString("encryptedData");
+        String iv=infodata.getString("iv");
+        JSONObject object = WeiXinUtils.getUserInfo(encryptedData,session_key,iv);
+        log.info("再次获取unionid==用户信息=====>>>>{}",object);
+        oppidObj.put("unionid", object.getString("unionId"));
+        //性别
+        oppidObj.put("gender", object.getString("gender"));
+        //头像
+        oppidObj.put("avatarUrl", object.getString("avatarUrl"));
+        //昵称
+        oppidObj.put("nickName", object.getString("nickName"));
         return oppidObj;
     }
 
@@ -150,5 +162,20 @@ public class WeichatCommService {
         return jsonObject.getString("ticket");
     }
 
+    /**
+     * 公众号拉取用户信息(需scope为 snsapi_userinfo)
+     * @return
+     */
+    public String getUserinfoByWeixin(JSONObject param){
+        String url = "https://api.weixin.qq.com/sns/userinfo";
+        Map<String, String> params = new HashMap();
+        params.put("access_token",param.getString("access_token"));
+        params.put("openid", param.getString("openid"));
+        params.put("lang", "zh_CN");
+        log.info("公众号拉取用户信息，params::{}",params);
+        String result = HttpRequestUtil.request(url, params,false);
+        log.info("公众号拉取用户信息，result::{}",result);
+        return result;
+    }
 
 }
