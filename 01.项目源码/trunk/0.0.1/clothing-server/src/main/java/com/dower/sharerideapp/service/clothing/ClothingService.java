@@ -88,6 +88,7 @@ public class ClothingService {
                 clProduct.setNumParType(jsonparams.getByte("NUM_PAR_TYPE"));
             if (jsonparams.containsKey("VC_SIGN_DESC"))
                 clProduct.setVcSignDesc(jsonparams.getString("VC_SIGN_DESC"));
+            clProduct.setDatCreatTime(new Date());
             SimpleDateFormat sdf = new SimpleDateFormat("MMddHH");
             String dateNowStr = sdf.format(new Date());
             String vc_phone = jsonparams.getString("VC_PHONE");
