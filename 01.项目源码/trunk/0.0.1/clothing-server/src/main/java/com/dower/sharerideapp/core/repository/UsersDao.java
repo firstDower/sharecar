@@ -12,6 +12,6 @@ import java.util.Map;
  */
 public interface UsersDao {
     public List<HashMap<String,Object>> queryUserList();
-    public List<HashMap<String,Object>> queryUser();
+    public HashMap<String,Object> queryUser(Map<String,Object> param);
     public HashMap<String,Object> queryUserinfoByOpenid(Map<String,Object> param);
 }

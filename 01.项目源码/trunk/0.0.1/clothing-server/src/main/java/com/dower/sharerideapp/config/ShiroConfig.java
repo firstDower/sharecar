@@ -75,7 +75,8 @@ public class ShiroConfig {
         map.put("/reposi/**","anon");
         map.put("/weichat/**","anon");
         map.put("/weChatSend/valid","anon");
-        map.put("/**", "authc");
+
+        //map.put("/**", "authc");
         shiroFilterFactoryBean.setLoginUrl("/");
         shiroFilterFactoryBean.setUnauthorizedUrl("/error");
         shiroFilterFactoryBean.setSuccessUrl("/jump/adminP/index");

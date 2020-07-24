@@ -1,15 +1,18 @@
 package com.dower.sharerideapp.controller.weichat;
 
 import com.alibaba.fastjson.JSONObject;
+import com.dower.sharerideapp.core.serverdb.model.ClProduct;
 import com.dower.sharerideapp.core.serverdb.model.NntOrder;
-import com.dower.sharerideapp.domain.config.weixin.MyConfig;
+import com.dower.sharerideapp.domain.config.weixin.sdk.MyConfig;
 import com.dower.sharerideapp.domain.config.weixin.WeixinConfig;
+import com.dower.sharerideapp.domain.config.weixin.sdk.WXPay;
+import com.dower.sharerideapp.domain.config.weixin.sdk.WXPayConstants;
+import com.dower.sharerideapp.domain.config.weixin.sdk.WXPayUtil;
 import com.dower.sharerideapp.service.SeatExtService;
+import com.dower.sharerideapp.service.clothing.ClothingService;
 import com.dower.sharerideapp.utils.CommUtil;
+import com.dower.sharerideapp.utils.DateUtils;
 import com.dower.sharerideapp.utils.Result;
-import com.github.wxpay.sdk.WXPay;
-import com.github.wxpay.sdk.WXPayConstants;
-import com.github.wxpay.sdk.WXPayUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.SortedMap;
@@ -30,6 +34,7 @@ import java.util.TreeMap;
  * @Description:
  * @Date: Created in 16:52   2018/7/17
  */
+@RequestMapping("/weichat")
 @RestController
 public class WXPayController {
     private static final Logger LOGGER = LogManager.getLogger(WXPayController.class);
@@ -37,6 +42,8 @@ public class WXPayController {
     SeatExtService seatService;
     @Autowired
     WeixinConfig weixinConfig;
+    @Autowired
+    ClothingService clothingService;
     @RequestMapping("/notify")
     public String notify(HttpServletRequest request, HttpServletResponse response) throws Exception {
         String result;//返回给微信的处理结果
@@ -63,6 +70,7 @@ public class WXPayController {
 
         MyConfig config = new MyConfig();
         WXPay wxpay = new WXPay(config);
+        //WXPay wxpay = new WXPay(config,WXPayConstants.SignType.MD5, true);
         LOGGER.info("微信支付异步回调 reqXml="+notityXml);
         Map<String, String> notifyMap = WXPayUtil.xmlToMap(notityXml);  // 转换成map
         String out_trade_no = notifyMap.get("out_trade_no");
@@ -91,60 +99,66 @@ public class WXPayController {
     }
 
     @RequestMapping("/wxpay")
-    public Map<String, String> wxpay(String openid,String userJourneyId,HttpServletRequest request, HttpServletResponse response) {
+    public Map<String, String> wxpay(String numId,String openId,HttpServletRequest request, HttpServletResponse response) {
         Map<String, String> resp = new HashMap<>();
         Map<String, String> resultMap = new HashMap<String, String>();
         try {
-            Map<String,Object> params = new HashMap<>();
-            params.put("userJourneyId",userJourneyId);
+
+            JSONObject params = new JSONObject();
+            params.put("numId",numId);
+            Result clothing = clothingService.getClothing(params.toJSONString());
             //根据userJourneyId，查询记录详情。
-            Result result = seatService.getSeatDetailById(params);
-            JSONObject seatDetail = (JSONObject) result.getResultInfo();
+            if(clothing.success){
+                ClProduct cloth = (ClProduct) clothing.getResultInfo();
+                String vcExpireTime = cloth.getVcExpireTime();
+                String vcOrderNo = cloth.getVcOrderNo();
+                BigDecimal numPrice = cloth.getNumPrice();
 
-            String out_trade_no = seatDetail.getString("VC_ORDER_NO");
-            //判断是否已经生成订单号
-            if (out_trade_no==null){
-                out_trade_no = CommUtil.getOrderNo(seatDetail);
-            }
-            LOGGER.info("微信支付模拟测试开始。openid="+openid);
+                MyConfig config = new MyConfig();
+                WXPay wxpay = new WXPay(config);
 
-            MyConfig config = new MyConfig();
-            WXPay wxpay = new WXPay(config);
-
-            Map<String, String> data = new HashMap<String, String>();
-            data.put("body", weixinConfig.body);
-            data.put("out_trade_no", out_trade_no);
-            data.put("fee_type", weixinConfig.feeType);
-            //data.put("total_fee", String.valueOf(seatDetail.getIntValue("NUM_UNIT_PRICE")*100));
-            data.put("total_fee", "1");
-            data.put("spbill_create_ip", weixinConfig.spbillCreateIp);
-            data.put("notify_url", weixinConfig.notifyrl);
-            data.put("trade_type", weixinConfig.tradeType);  // 此处指定为公众号支付
-            data.put("openid", openid);
-
-            resp = wxpay.unifiedOrder(data);
-
-
-            if(resp.containsKey("return_code")){
-                String return_code = String.valueOf(resp.get("return_code"));
-                if ("SUCCESS".equals(return_code)){
-                    resultMap.put("appId",config.getAppID());
-                    resultMap.put("timeStamp",System.currentTimeMillis()/1000+"");
-                    resultMap.put("nonceStr", WXPayUtil.generateNonceStr());
-                    resultMap.put("package", "prepay_id="+resp.get("prepay_id"));
-                    resultMap.put("signType", "MD5");
-                    resultMap.put("paySign",  WXPayUtil.generateSignature(resultMap, config.getKey(), WXPayConstants.SignType.MD5));
-
-                    NntOrder nntOrder = new NntOrder();
-                    nntOrder.setNumId(seatDetail.getInteger("NUM_ORDER_ID"));
-                    nntOrder.setVcOrderNo(out_trade_no);
-                    nntOrder.setVcOpenid(openid);
-                    Result updataSeatDetailResult = seatService.updataSeatDetail(nntOrder);
+                Map<String, String> data = new HashMap<String, String>();
+                data.put("body", weixinConfig.body);
+                data.put("out_trade_no", vcOrderNo);
+                data.put("fee_type", weixinConfig.feeType);
+                //data.put("total_fee", String.valueOf(numPrice.longValue()*100));
+                data.put("total_fee", "1");
+                data.put("spbill_create_ip", weixinConfig.spbillCreateIp);
+                data.put("notify_url", weixinConfig.notifyrl);
+                data.put("trade_type", weixinConfig.tradeType);  // 此处指定为公众号支付
+                data.put("openid", openId);
+                if(org.apache.commons.lang3.StringUtils.isBlank(vcExpireTime)){
+                    String expireTime = DateUtils.getExpireTime();
+                    data.put("time_expire", expireTime);
+                    JSONObject paramJson = new JSONObject();
+                    paramJson.put("NUM_ID",numId);
+                    paramJson.put("VC_EXPIRE_TIME",expireTime);
+                    Result result = clothingService.updateProduct(paramJson.toString());
+                    LOGGER.info("微信支付更新time_expire结果:：{}",JSONObject.toJSON(result) );
                 }
+                resp = wxpay.unifiedOrder(data);
+                LOGGER.info("微信支付模拟resultMap:：{}",JSONObject.toJSON(resp) );
+
+                if(resp.containsKey("return_code")){
+                    String return_code = String.valueOf(resp.get("return_code"));
+                    if ("SUCCESS".equals(return_code)){
+                        resultMap.put("appId",config.getAppID());
+                        resultMap.put("timeStamp",System.currentTimeMillis()/1000+"");
+                        resultMap.put("nonceStr", WXPayUtil.generateNonceStr());
+                        resultMap.put("package", "prepay_id="+resp.get("prepay_id"));
+                        resultMap.put("signType", "HMAC-SHA256");
+                        resultMap.put("paySign",  WXPayUtil.generateSignature(resultMap, config.getKey(), WXPayConstants.SignType.HMACSHA256));
+                    }
+                }else {
+                    throw new Exception(String.format(resp.toString()));
+                }
+                System.out.println("微信支付模拟resultMap="+resultMap);
             }else {
-                throw new Exception(String.format(resp.toString()));
+                return resultMap;
             }
-            System.out.println("微信支付模拟resultMap="+resultMap);
+
+
+
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -2,6 +2,7 @@ package com.dower.sharerideapp.service.clothing;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.dower.sharerideapp.core.repository.UsersDao;
 import com.dower.sharerideapp.core.repository.clothing.ClothingExtDao;
 import com.dower.sharerideapp.core.serverdb.dao.ClProductMapper;
 import com.dower.sharerideapp.core.serverdb.model.ClProduct;
@@ -18,6 +19,7 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -31,6 +33,11 @@ public class ClothingService {
     private ClProductMapper clProductMapper;
     @Autowired
     private ClothingExtDao clothingExtDao;
+    @Autowired
+    private UsersDao usersDao;
+
+
+
     /**
      * {"NUM_HIGHT":"175","NUM_WIGHT":"65","VC_NAME":"张三","VC_PHONE":"15555551649","NUM_TYPE":"1"}
      * 创建定制衣服订单
@@ -291,6 +298,8 @@ public class ClothingService {
             //VC_SIGN_DESC
             if (jsonparams.containsKey("VC_SIGN_DESC")&&StringUtils.isNotBlank(jsonparams.getString("VC_SIGN_DESC")))
                 clProduct.setVcSignDesc(jsonparams.getString("VC_SIGN_DESC"));
+            if (jsonparams.containsKey("VC_EXPIRE_TIME")&&StringUtils.isNotBlank(jsonparams.getString("VC_EXPIRE_TIME")))
+                clProduct.setVcExpireTime(jsonparams.getString("VC_EXPIRE_TIME"));
             if (jsonparams.containsKey("NUM_PRICE")&&StringUtils.isNotBlank(jsonparams.getString("NUM_PRICE")))
                 clProduct.setNumPrice(new BigDecimal(jsonparams.getByte("NUM_PRICE")));
             if (jsonparams.containsKey("VC_NOTES")&&StringUtils.isNotBlank(jsonparams.getString("VC_NOTES")))
@@ -306,6 +315,53 @@ public class ClothingService {
         }catch (Exception e){
             e.printStackTrace();
             log.error("查询定制衣服列表异常！");
+        }
+        return result;
+    }
+
+    /**
+     * 根据userid查询用户信息
+     * @param params
+     * @return
+     */
+    public Result getUserInfo(String params) {
+        Result result = new Result(false,"获取用户信息异常！");
+        try{
+            log.info("根据userid获取用户信息param：{}",params);
+            JSONObject jsonparams = JSON.parseObject(params);
+            Map<String,Object> param = new HashMap<>();
+            param.put("userId",jsonparams.getString("userId"));
+            HashMap<String, Object> stringObjectHashMap = usersDao.queryUser(param);
+            result.setResultInfo(stringObjectHashMap);
+            result.setSuccess(true);
+            log.info("根据userid获取用户信息成功！：：{}",stringObjectHashMap);
+        }catch (Exception e){
+            e.printStackTrace();
+            log.error("获取用户信息异常！");
+        }
+        return result;
+    }
+
+    /**
+     * 查询订单详情
+     * @param params
+     * @return
+     */
+    public Result getClothing(String params) {
+        Result result = new Result(false,"查询订单详情异常！");
+        try{
+            log.info("查询订单详情param：{}",params);
+            JSONObject jsonparams = JSON.parseObject(params);
+            Map<String,Object> param = new HashMap<>();
+            param.put("numId",jsonparams.getString("numId"));
+            //HashMap<String, Object> stringObjectHashMap = usersDao.queryUser(param);
+            ClProduct clProduct = clProductMapper.selectByPrimaryKey(jsonparams.getLong("numId"));
+            result.setResultInfo(clProduct);
+            result.setSuccess(true);
+            log.info("查询订单详情成功！：：{}",clProduct);
+        }catch (Exception e){
+            e.printStackTrace();
+            log.error("查询订单详情异常！");
         }
         return result;
     }

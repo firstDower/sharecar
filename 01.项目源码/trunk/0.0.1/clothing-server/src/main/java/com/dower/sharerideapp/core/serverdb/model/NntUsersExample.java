@@ -104,63 +104,63 @@ public class NntUsersExample {
             criteria.add(new Criterion(condition, value1, value2));
         }
 
-        public Criteria andNumUserIdIsNull() {
-            addCriterion("NUM_USER_ID is null");
+        public Criteria andNumIdIsNull() {
+            addCriterion("NUM_ID is null");
             return (Criteria) this;
         }
 
-        public Criteria andNumUserIdIsNotNull() {
-            addCriterion("NUM_USER_ID is not null");
+        public Criteria andNumIdIsNotNull() {
+            addCriterion("NUM_ID is not null");
             return (Criteria) this;
         }
 
-        public Criteria andNumUserIdEqualTo(Integer value) {
-            addCriterion("NUM_USER_ID =", value, "numUserId");
+        public Criteria andNumIdEqualTo(Integer value) {
+            addCriterion("NUM_ID =", value, "numId");
             return (Criteria) this;
         }
 
-        public Criteria andNumUserIdNotEqualTo(Integer value) {
-            addCriterion("NUM_USER_ID <>", value, "numUserId");
+        public Criteria andNumIdNotEqualTo(Integer value) {
+            addCriterion("NUM_ID <>", value, "numId");
             return (Criteria) this;
         }
 
-        public Criteria andNumUserIdGreaterThan(Integer value) {
-            addCriterion("NUM_USER_ID >", value, "numUserId");
+        public Criteria andNumIdGreaterThan(Integer value) {
+            addCriterion("NUM_ID >", value, "numId");
             return (Criteria) this;
         }
 
-        public Criteria andNumUserIdGreaterThanOrEqualTo(Integer value) {
-            addCriterion("NUM_USER_ID >=", value, "numUserId");
+        public Criteria andNumIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("NUM_ID >=", value, "numId");
             return (Criteria) this;
         }
 
-        public Criteria andNumUserIdLessThan(Integer value) {
-            addCriterion("NUM_USER_ID <", value, "numUserId");
+        public Criteria andNumIdLessThan(Integer value) {
+            addCriterion("NUM_ID <", value, "numId");
             return (Criteria) this;
         }
 
-        public Criteria andNumUserIdLessThanOrEqualTo(Integer value) {
-            addCriterion("NUM_USER_ID <=", value, "numUserId");
+        public Criteria andNumIdLessThanOrEqualTo(Integer value) {
+            addCriterion("NUM_ID <=", value, "numId");
             return (Criteria) this;
         }
 
-        public Criteria andNumUserIdIn(List<Integer> values) {
-            addCriterion("NUM_USER_ID in", values, "numUserId");
+        public Criteria andNumIdIn(List<Integer> values) {
+            addCriterion("NUM_ID in", values, "numId");
             return (Criteria) this;
         }
 
-        public Criteria andNumUserIdNotIn(List<Integer> values) {
-            addCriterion("NUM_USER_ID not in", values, "numUserId");
+        public Criteria andNumIdNotIn(List<Integer> values) {
+            addCriterion("NUM_ID not in", values, "numId");
             return (Criteria) this;
         }
 
-        public Criteria andNumUserIdBetween(Integer value1, Integer value2) {
-            addCriterion("NUM_USER_ID between", value1, value2, "numUserId");
+        public Criteria andNumIdBetween(Integer value1, Integer value2) {
+            addCriterion("NUM_ID between", value1, value2, "numId");
             return (Criteria) this;
         }
 
-        public Criteria andNumUserIdNotBetween(Integer value1, Integer value2) {
-            addCriterion("NUM_USER_ID not between", value1, value2, "numUserId");
+        public Criteria andNumIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("NUM_ID not between", value1, value2, "numId");
             return (Criteria) this;
         }
 
@@ -841,6 +841,76 @@ public class NntUsersExample {
 
         public Criteria andVcSubscribeSceneNotBetween(String value1, String value2) {
             addCriterion("VC_SUBSCRIBE_SCENE not between", value1, value2, "vcSubscribeScene");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumUserIdIsNull() {
+            addCriterion("NUM_USER_ID is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumUserIdIsNotNull() {
+            addCriterion("NUM_USER_ID is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumUserIdEqualTo(String value) {
+            addCriterion("NUM_USER_ID =", value, "numUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumUserIdNotEqualTo(String value) {
+            addCriterion("NUM_USER_ID <>", value, "numUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumUserIdGreaterThan(String value) {
+            addCriterion("NUM_USER_ID >", value, "numUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumUserIdGreaterThanOrEqualTo(String value) {
+            addCriterion("NUM_USER_ID >=", value, "numUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumUserIdLessThan(String value) {
+            addCriterion("NUM_USER_ID <", value, "numUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumUserIdLessThanOrEqualTo(String value) {
+            addCriterion("NUM_USER_ID <=", value, "numUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumUserIdLike(String value) {
+            addCriterion("NUM_USER_ID like", value, "numUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumUserIdNotLike(String value) {
+            addCriterion("NUM_USER_ID not like", value, "numUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumUserIdIn(List<String> values) {
+            addCriterion("NUM_USER_ID in", values, "numUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumUserIdNotIn(List<String> values) {
+            addCriterion("NUM_USER_ID not in", values, "numUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumUserIdBetween(String value1, String value2) {
+            addCriterion("NUM_USER_ID between", value1, value2, "numUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumUserIdNotBetween(String value1, String value2) {
+            addCriterion("NUM_USER_ID not between", value1, value2, "numUserId");
             return (Criteria) this;
         }
     }

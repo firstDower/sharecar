@@ -1,0 +1,85 @@
+<!doctype html>
+<html class="x-admin-sm">
+<head th:replace="common/weichat/htmlHead :: common_header(~{::title})">
+	<title>定制</title>
+</head>
+<body>
+<div th:insert="common/weichat/htmlJS::common_js(~{::script})">
+	<script type="text/javascript" th:src="@{/weichat/app/js/custom.js}"></script>
+</div>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">校服订制</h1>
+		</header>
+		<div class="mui-content">
+			<div class="mui-content-padded" style="margin: 5px;">
+				<form class="mui-input-group">
+					<div class="mui-input-row mui-radio">
+						<label>校服裤</label>
+						<input name="NUM_TYPE" type="radio" checked>
+					</div>
+					<div class="mui-input-row mui-radio ">
+						<label>半袖</label>
+						<input name="NUM_TYPE" type="radio" checked>
+					</div>
+					<div class="mui-input-row">
+					    <label for="NUM_SCHOOL_ID">学校：</label>
+					    <select name="NUM_SCHOOL_ID" id="NUM_SCHOOL_ID" class="mui-btn-block">
+						</select>
+					</div>
+					<div class="mui-input-row">
+					    <label for="NUM_GRADE_ID">年级：</label>
+					    <select id="NUM_GRADE_ID" name="NUM_GRADE_ID" class="mui-btn-block">
+						</select>
+					</div>
+					<div class="mui-input-row">
+					    <label for="NUM_MODEL_ID">款式：</label>
+					    <select id="NUM_MODEL_ID" name="NUM_MODEL_ID" class="mui-btn-block">
+						</select>
+					</div>
+					<div class="mui-input-row">
+					    <label for="VC_HIGHT">身高：</label>
+					     <input type="text" id="VC_HIGHT" name="VC_HIGHT" class="mui-input-clear" placeholder="请输入身高">
+					</div>
+					<div class="mui-input-row">
+					    <label for="VC_WIGHT">体重：</label>
+					     <input type="text" id="VC_WIGHT" name="VC_WIGHT" class="mui-input-clear" placeholder="请输入体重">
+					</div>
+					<div class="mui-input-row">
+					    <label for="NUM_NUM">数量：</label>
+					     <input type="text" id="NUM_NUM" name="NUM_NUM" class="mui-input-clear" placeholder="请输入数量">
+					</div>
+					<div class="mui-input-row">
+					    <label for="VC_NAME">联系人：</label>
+					     <input type="text" id="VC_NAME" name="VC_NAME" class="mui-input-clear" placeholder="请输入联系人姓名">
+					</div>
+					<div class="mui-input-row">
+					    <label for="VC_PHONE">联系电话：</label>
+					     <input type="text" id="VC_PHONE" name="VC_PHONE" class="mui-input-clear" placeholder="请输入联系电话">
+					</div>
+					<div class="mui-input-row">
+					    <label for="VC_NOTES">备注：</label>
+					     <input type="text" id="VC_NOTES" name="VC_NOTES" class="mui-input-clear" placeholder="请输入备注">
+					</div>
+					
+					<button type="button" class="mui-btn mui-btn-blue mui-btn-block">提交</button>
+						
+				</form>
+				
+				
+			</div>
+			<div id="popover" class="mui-popover">
+			  <ul class="mui-table-view">
+			    <li class="mui-table-view-cell"><a href="#">Item1</a></li>
+			    <li class="mui-table-view-cell"><a href="#">Item2</a></li>
+			    <li class="mui-table-view-cell"><a href="#">Item3</a></li>
+			    <li class="mui-table-view-cell"><a href="#">Item4</a></li>
+			    <li class="mui-table-view-cell"><a href="#">Item5</a></li>
+			  </ul>
+		</div>
+		<script type="text/javascript">
+			mui.init()
+		</script>
+	</body>
+
+</html>

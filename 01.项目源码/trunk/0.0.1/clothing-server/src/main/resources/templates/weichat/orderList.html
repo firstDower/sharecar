@@ -1,0 +1,57 @@
+<!doctype html>
+<html class="x-admin-sm">
+<head th:replace="common/weichat/htmlHead :: common_header(~{::title})">
+  <title>列表</title>
+</head>
+<style>
+  .mui-content>.mui-table-view:first-child {
+    margin-top: -1px;
+  }
+</style>
+<body>
+<div th:insert="common/weichat/htmlJS::common_js(~{::script})">
+  <script th:src="@{/weichat/assets/js/mui.pullToRefresh.js}"></script>
+  <script th:src="@{/weichat/assets/js/mui.pullToRefresh.material.js}"></script>
+  <script type="text/javascript" th:src="@{/weichat/app/js/orderList.js}"></script>
+</div>
+<header class="mui-bar mui-bar-nav">
+  <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+  <h1 class="mui-title">我的订单</h1>
+</header>
+<div class="mui-content">
+  <div id="slider" class="mui-slider mui-fullscreen">
+    <div id="sliderSegmentedControl" class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+      <div class="mui-scroll">
+        <a NUM_STATE="" class="mui-control-item mui-active" >
+          全部
+        </a>
+        <a NUM_STATE="1" class="mui-control-item" >
+          已预约
+        </a>
+        <a NUM_STATE="2" class="mui-control-item" >
+          制作中
+        </a>
+        <a  NUM_STATE="3" class="mui-control-item" >
+          已取消
+        </a>
+        <a  NUM_STATE="5" class="mui-control-item" >
+          待取货
+        </a>
+        <a  NUM_STATE="7" class="mui-control-item" >
+          完成
+        </a>
+      </div>
+    </div>
+    <div class="mui-slider-group">
+      <!--全部-->
+      <div id="pullrefresh" class="mui-scroll-wrapper">
+        <div class="mui-scroll">
+          <ul id="dataUl" class="mui-table-view">
+
+          </ul>
+        </div>
+      </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,56 @@
+<!doctype html>
+<html class="x-admin-sm">
+<head th:replace="common/weichat/htmlHead :: common_header(~{::title})">
+    <title>首页</title>
+</head>
+<body>
+<div th:insert="common/weichat/htmlJS::common_js(~{::script})">
+    <script th:src="@{/js/md5.js}"></script>
+    <script th:src="@{/js/util.js}"></script>
+</div>
+<div class="mui-content">
+    <div class="mui-content-padded">
+        <h3 id="testClick">服务</h3>
+    </div>
+</div>
+<script>
+$(function () {
+    test.init();
+})
+
+var test = {
+    init:function () {
+        util.getToken();
+    }
+}
+    $("#testClick").click(function () {
+        var param = {
+            nonce_str:'1DIP9ylGvfZe1YYB',
+            appid:'wx9e9b0787da65bc0f'
+        }
+        var timeStamp = util.createTimeStamp();
+        param.timeStamp = timeStamp;
+        var sign = util.getParamData(param);
+        $.ajax({
+            type: 'POST',
+            url: ctxPath + "securityService/testToken",
+            timeout:8000,
+            data : param,
+            headers: {
+                'token':sessionStorage['token'],
+                'sign':sign,
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'pro_name':util.pro_name
+            },
+            dataType: 'json',
+            success: function(data){
+                console.log("=========="+JSON.stringify(data));
+            },
+            error: function(xhr, type){
+            }
+        });
+    });
+
+</script>
+</body>
+</html>

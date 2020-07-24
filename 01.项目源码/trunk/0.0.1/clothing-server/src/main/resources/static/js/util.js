@@ -1,116 +1,76 @@
-function getUrl(url){
 
-    return url;
-    //return "http://192.168.99.143:8080/yingda.app.web/"+url;
-    //return "http://testcarins.huanlebaoxian.cn/yingda.app.web/"+url;
-    //return "http://dhtest.tiancaibaoxian.com/"+url;
-//"http://demo.doweryouxia.com/"
-}
-
-function getPayUrl(obj) {
-    return "http://zhcx.4009006666.cn:2046/ae/insure/weixinPay?orderNo="+obj+"&ds=03";
-}
-//判断是否微信登陆
-$(document).ready(function() {
-    //禁止浏览器访问
-    /*var ua = window.navigator.userAgent;
-     if(ua.indexOf("MicroMessenger")<=0&&ua.indexOf("Windows Phone")<=0){
-     location.href=getUrl("error.html");
-     }*/
-
-    var ua2 = window.navigator.userAgent.toLowerCase();
-    if (ua2.match(/MicroMessenger/i) == 'micromessenger') {
-        $(".navtit").hide();
-    }
-    //ajax设置
-    $.ajaxSetup( {
-        //设置ajax请求结束后的执行动作
-        complete: function(XMLHttpRequest, textStatus) {
-            // 通过XMLHttpRequest取得响应头，sessionstatus
-            var sessionstatus = XMLHttpRequest.getResponseHeader("sessionStatus");
-            if(sessionstatus=="timeout"){
-                showMessage("用户长时间未操作，请重新进入车险首页！");
-                setTimeout(redirectUrl,5000);
+var util = {
+    getParamData: function (jsonobj) {
+        var signstr = this.obj2str(jsonobj)
+        signstr = signstr + '&key=' + this.pro_pass;
+        console.log("signstrkey:",signstr)
+        var sign = hex_md5(signstr);
+        sign = sign.toUpperCase();
+        return sign;
+    },
+    //object转string,用于签名计算
+    obj2str: function (args) {
+        var keys = Object.keys(args)
+        keys = keys.sort() //参数名ASCII码从小到大排序（字典序）；
+        var newArgs = {}
+        keys.forEach(function (key) {
+            //如果参数的值为空 、undefined不参与签名；
+            if (args[key] != "" && args[key] != 'undefined'&&typeof(args[key]) != "undefined") {
+                newArgs[key] = args[key]  //参数名区分大小写；
             }
+
+        })
+        var string = ''
+        for (var k in newArgs) {
+            string += '&' + k + '=' + newArgs[k]
         }
-    });
-
-    $('.popbox article .mqd').click(function () {
-        $('.lady').hide();
-        $('.popbox').hide();
-    })
-});
-
-function redirectUrl(){
-    var win = window;
-    while (win != win.top){
-        win = win.top;
+        string = string.substr(1)
+        return string
+    },
+    //时间戳产生的函数, 当前时间以证书表达，精确到秒的字符串
+    createTimeStamp: function () {
+        return parseInt(new Date().getTime() / 1000) + ''
+    },
+    pro_pass : "MtD3AyxboTqTiPDPc9nO359Y8Qs66l7eAnK2T64C65Jwpm7kWFoumUFHrj7IFrYz5UNPtXtVGCus3i53DldSNdGgaknkzJsizXQR",
+    pro_name : "telrgJVOZuiOUCV"
+    ,
+    getToken:function () {
+        var token = sessionStorage["token"];
+        if(token)
+            return token;
+        var param = {}
+        param.pro_name = this.pro_name;
+        var timeStamp = util.createTimeStamp();
+        param.timeStamp = timeStamp;
+        var sign = util.getParamData(param);
+        $.ajax({
+            type: 'POST',
+            url: ctxPath + "apiService/getToken",
+            timeout:8000,
+            data : param,
+            headers: {
+                'sign':sign,
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'pro_name':util.pro_name
+            },
+            async: false,
+            dataType: 'json',
+            success: function(data){
+                console.log("=========="+JSON.stringify(data));
+                if(data.code==200){
+                    data = data.data;
+                    var token = data.token;
+                    sessionStorage["token"] = token;
+                    return token;
+                }else {
+                    console.log("获取toke异常，"+data.msg)
+                }
+            },
+            error: function(xhr, type){
+            }
+        });
     }
-    win.location.href= getUrl("ajax/content/record/carInfo.html");
 }
-
-
-/**
- * 访问图片地址
- * @param url
- * @returns
- */
-function getImgUrl(url){
-    return "http://localhost:8080/"+url;
-    //return "http://testcarins.huanlebaoxian.cn/"+url;
-    //return "http://chexian.huanlebaoxian.cn/"+url;
-}
-
-/**
- * 信息提示框（带确定、取消按钮）
- * @param message
- */
-function showMessageConfirm(message){
-    $('.lady').show();
-    $('.popboxconfirm').show();
-    $('#confirmmessageId').html(message);
-    $('.popboxconfirm article .mqd').click(function () {
-        $('.lady').hide();
-        $('.popboxconfirm').hide();
-    })
-}
-
-/**
- * 信息提示框（带确定按钮）
- * @param message
- */
-function showMessage(message){
-    $('.lady').css("display","inline");
-    $('.popbox').show();
-    $('#messageId').html(message);
-}
-
-/**
- * 信息提示层（不带按钮）
- * @param msg
- */
-function alertMsg(msg){
-    $(".prom").html(msg);
-    $(".prom").show();
-    $(".lady").show();
-}
-
-/**
- * 关闭信息提示层（不带确定按钮）
- */
-function closeMsg(){
-    $(".lady").hide();
-    $(".prom").hide();
-    $(".prom").html("");
-}
-/**
- * 点击遮罩层，关闭提示信息（）
- */
-$(".lady").click(function(){
-    closeMsg();
-    $(".popbox").hide();
-});
-
 
 /**
  * 获取url参数
@@ -141,19 +101,7 @@ function toDecimal2(x) {
     }
     return s;
 }
-//校验车牌号
-function checkCarNo(carNo) {
-    var result = false;
-    if (carNo.length == 7){
-      var express = /^[京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领A-Z]{1}[A-Z]{1}[A-Z0-9]{4}[A-Z0-9挂学警港澳]{1}$/;
-      result = express.test(carNo);
-    }else if(carNo.length == 8){
-      //新能源汽车校验规则
-      var express = /^(([\u4e00-\u9fa5]{1}[A-Z]{1})[-]?|([wW][Jj][\u4e00-\u9fa5]{1}[-]?)|([a-zA-Z]{2}))([A-Za-z0-9]{5}|[DdFf][A-HJ-NP-Za-hj-np-z0-9][0-9]{4}|[0-9]{5}[DdFf])$/;
-      result = express.test(carNo);
-    }
-    return result;
-}
+
 //验证邮政编码
 function checkPostCode(v){
      var re= /^[1-9][0-9]{5}$/
@@ -183,7 +131,7 @@ function checkEmail(str){
     }
 }
 
-var publicCarNameLength=4;
+
 
 //Create Time:  07/28/2011
 //Operator:     刘政伟

@@ -24,6 +24,12 @@ public class ClothingController {
     @Autowired
     ClothingService clothingService;
 
+    //getUserInfo
+    @PostMapping("/getUserInfo")
+    public Result getUserInfo(@RequestBody String params){
+        return clothingService.getUserInfo(params);
+    }
+
     @PostMapping("/creatProduct")
     public Result creatProduct(@RequestBody String params){
         return clothingService.creatProduct(params);

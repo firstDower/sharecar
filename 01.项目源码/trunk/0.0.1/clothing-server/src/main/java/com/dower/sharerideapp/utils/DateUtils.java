@@ -27,4 +27,14 @@ public class DateUtils {
         SimpleDateFormat sdf = new SimpleDateFormat(format);
         return sdf.format(new Date(Long.valueOf(seconds+"000")));
     }
+    public static String getExpireTime() {
+        String yyyyMMddHHmmss = DateUtils.timeStamp2Date(String.valueOf(System.currentTimeMillis()/1000+31536000), "yyyyMMddHHmmss");
+        return yyyyMMddHHmmss;
+    }
+
+
+    public static void main(String[] args) {
+
+        System.out.println(DateUtils.getExpireTime());
+    }
 }

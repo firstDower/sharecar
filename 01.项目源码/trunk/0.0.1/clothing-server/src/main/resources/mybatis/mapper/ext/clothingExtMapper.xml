@@ -26,6 +26,8 @@
 			cp.VC_UNION_ID vcUnionId,
 			cp.VC_SIGN_DESC vcSignDesc,
 			cp.NUM_PAR_TYPE numParType,
+			cp.NUM_PAY_STATE numPayState,
+			cp.VC_EXPIRE_TIME vcExpireTime,
 			cfg.VC_GRADE_NAME vcGradeName,
 			cfs.VC_SCHOOL_NAME vcSchoolName,
 			cfm.VC_MODEL_NAME vcModelName
@@ -51,6 +53,9 @@
 			</if>
 			<if test="NUM_STATE != null and NUM_STATE != ''">
 				AND cp.NUM_STATE = #{NUM_STATE}
+			</if>
+			<if test="NUM_PAY_STATE != null and NUM_PAY_STATE != ''">
+				AND cp.NUM_PAY_STATE = #{NUM_PAY_STATE}
 			</if>
 			<if test="NUM_PAR_TYPE != null and NUM_PAR_TYPE != ''">
 				AND cp.NUM_PAR_TYPE = #{NUM_PAR_TYPE}

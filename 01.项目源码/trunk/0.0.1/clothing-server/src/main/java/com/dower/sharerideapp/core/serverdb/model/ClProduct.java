@@ -50,6 +50,10 @@ public class ClProduct {
 
     private Byte numIsDel;
 
+    private Byte numPayState;
+
+    private String vcExpireTime;
+
     public Long getNumId() {
         return numId;
     }
@@ -232,5 +236,21 @@ public class ClProduct {
 
     public void setNumIsDel(Byte numIsDel) {
         this.numIsDel = numIsDel;
+    }
+
+    public Byte getNumPayState() {
+        return numPayState;
+    }
+
+    public void setNumPayState(Byte numPayState) {
+        this.numPayState = numPayState;
+    }
+
+    public String getVcExpireTime() {
+        return vcExpireTime;
+    }
+
+    public void setVcExpireTime(String vcExpireTime) {
+        this.vcExpireTime = vcExpireTime == null ? null : vcExpireTime.trim();
     }
 }

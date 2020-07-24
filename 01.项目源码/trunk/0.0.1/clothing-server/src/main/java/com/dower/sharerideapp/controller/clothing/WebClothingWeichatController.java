@@ -19,7 +19,7 @@ public class WebClothingWeichatController {
 
     @RequestMapping("/goMyInfo")
     public String goMyInfo() {
-        return "person/myInfo";
+        return "weichat/personalCenter";
     }
 
       /**
@@ -28,7 +28,7 @@ public class WebClothingWeichatController {
 
     @RequestMapping("/goMakeCloth")
     public String goMakeCloth() {
-        return "custom/customOne";
+        return "weichat/index";
     }
 }
 

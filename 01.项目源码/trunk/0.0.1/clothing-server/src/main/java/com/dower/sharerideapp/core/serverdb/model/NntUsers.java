@@ -1,7 +1,7 @@
 package com.dower.sharerideapp.core.serverdb.model;
 
 public class NntUsers {
-    private Integer numUserId;
+    private Integer numId;
 
     private String vcNickname;
 
@@ -23,12 +23,14 @@ public class NntUsers {
 
     private String vcSubscribeScene;
 
-    public Integer getNumUserId() {
-        return numUserId;
+    private String numUserId;
+
+    public Integer getNumId() {
+        return numId;
     }
 
-    public void setNumUserId(Integer numUserId) {
-        this.numUserId = numUserId;
+    public void setNumId(Integer numId) {
+        this.numId = numId;
     }
 
     public String getVcNickname() {
@@ -109,5 +111,13 @@ public class NntUsers {
 
     public void setVcSubscribeScene(String vcSubscribeScene) {
         this.vcSubscribeScene = vcSubscribeScene == null ? null : vcSubscribeScene.trim();
+    }
+
+    public String getNumUserId() {
+        return numUserId;
+    }
+
+    public void setNumUserId(String numUserId) {
+        this.numUserId = numUserId == null ? null : numUserId.trim();
     }
 }

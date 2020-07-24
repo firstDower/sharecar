@@ -1,0 +1,51 @@
+<!doctype html>
+<html class="x-admin-sm">
+<head th:replace="common/weichat/htmlHead :: common_header(~{::title})">
+	<title>首页</title>
+</head>
+<body>
+<div th:insert="common/weichat/htmlJS::common_js(~{::script})">
+	<script type="text/javascript" th:src="@{/weichat/app/js/index.js}"></script>
+</div>
+		<div class="mui-content">
+			<div class="mui-slider">
+			  <div class="mui-slider-group">
+				<div class="mui-slider-item mui-slider-item-duplicate"><a href="#"><img th:src="@{/weichat/app/img/1.jpg}" /></a></div>
+				<div class="mui-slider-item"><a href="#"><img th:src="@{/weichat/app/img/1.jpg}" /></a></div>
+				<div class="mui-slider-item"><a href="#"><img th:src="@{/weichat/app/img/1.jpg}" /></a></div>
+				<div class="mui-slider-item"><a href="#"><img th:src="@{/weichat/app/img/1.jpg}" /></a></div>
+			  </div>
+			</div>
+		</div>
+		<div class="mui-content">
+			<div class="mui-content-padded">
+				<h3>服务</h3>
+			</div>
+		</div>
+		<div class="mui-content" style="background-color:#fff">
+				<ul class="mui-table-view mui-grid-view">
+					<li id="customLi" class="mui-table-view-cell mui-media mui-col-xs-6">
+						<a href="#">
+							<img class=" mui-media-object-img" th:src="@{/weichat/app/img/2.jpg}">
+							<div class="mui-media-body">校服定制</div>
+						</a>
+					</li>
+					<li id="modifyLi" class="mui-table-view-cell mui-media mui-col-xs-6">
+						<a href="#">
+							<img class=" mui-media-object-img" th:src="@{/weichat/app/img/4.jpg}">
+							<div class="mui-media-body">衣服修改</div>
+						</a>
+					</li>
+				</ul>
+
+		</div>
+		<script type="text/javascript">
+			mui.init()
+			var gallery = mui('.mui-slider');
+			gallery.slider({
+			    interval: 2000 //自动轮播周期，若为0则不自动播放，默认为0；
+			});
+		</script>
+	</body>
+
+</html>

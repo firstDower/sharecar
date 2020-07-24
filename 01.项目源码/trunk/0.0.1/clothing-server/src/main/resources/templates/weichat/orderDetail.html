@@ -1,0 +1,54 @@
+<!doctype html>
+<html class="x-admin-sm">
+<head th:replace="common/weichat/htmlHead :: common_header(~{::title})">
+  <title>详情</title>
+</head>
+<body>
+<div th:insert="common/weichat/htmlJS::common_js(~{::script})">
+  <script type="text/javascript" th:src="@{/weichat/app/js/orderDetail.js}"></script>
+</div>
+<div class="mui-content" style="background-color: #fff;padding: 10px;">
+  <div class="customizeDetailList clearfix">
+    <span class="explainTitle redFont" id="numParTypeStr"></span>
+    <div class="explainContent"><span class="noImportantFont">订单编号: <span id="vcOrderNo"></span></span></div>
+    <span class="explainOther noImportantFont" id="numState"></span>
+  </div>
+  <div class="customizeDetailList clearfix">
+    <span class="explainTitle" id="numType"></span>
+    <div class="explainContent">
+      <span id="vcSchoolName"></span><br>
+      <span id="vcGradeName"></span><br>
+      <span id="vcModelName"></span>
+    </div>
+  </div>
+  <div class="customizeDetailList clearfix">
+    <span class="explainTitle">修改说明:</span>
+    <div class="explainContent"><span id="vcNotes"></span></div>
+  </div>
+  <div class="customizeDetailList clearfix">
+    <span class="explainOther">定制数量: <span id="numNum"></span> 件</span>
+  </div>
+  <div class="customizeDetailList clearfix">
+    <span class="explainTitle">联系人:</span>
+    <span class="explainOther noImportantFont" id="vcName"></span>
+  </div>
+  <div class="customizeDetailList clearfix">
+    <span class="explainTitle">联系电话:</span>
+    <span class="explainOther noImportantFont" id="vcPhone"></span>
+  </div>
+  <div class="customizeDetailList clearfix">
+    <span class="explainTitle">身高:</span>
+    <span class="explainOther redFont"> <span id="vcHight"></span> cm</span>
+  </div>
+  <div class="customizeDetailList clearfix">
+    <span class="explainTitle">体重</span>
+    <span class="explainOther redFont"><apan id="vcWight"></apan>  kg</span>
+  </div>
+  <div class="customizeDetailList clearfix">
+    <span class="explainTitle noImportantFont">创建时间: <span id="datCreatTime"></span></span>
+  </div>
+  <div><p><span style="border: 2px solid #2ac845;">订单金额 <span>60</span> ￥</span><butten id="payButton" class="mui-btn mui-btn-primary mui-btn-outlined">立即支付</butten></p></div>
+</div>
+</body>
+
+</html>

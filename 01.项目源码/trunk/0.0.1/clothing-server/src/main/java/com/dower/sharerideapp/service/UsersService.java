@@ -10,6 +10,7 @@ import com.dower.sharerideapp.core.serverdb.dao.NntCarinfoMapper;
 import com.dower.sharerideapp.core.serverdb.dao.NntUserinfoMapper;
 import com.dower.sharerideapp.core.serverdb.dao.NntUsersMapper;
 import com.dower.sharerideapp.core.serverdb.model.*;
+import com.dower.sharerideapp.domain.config.weixin.sdk.WXPayUtil;
 import com.dower.sharerideapp.utils.Result;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -44,6 +45,11 @@ public class UsersService {
     @Autowired
     private NntCarOwnerInfoMapper nntCarOwnerInfoMapper;
 
+    /**
+     * 获取用户唯一标识
+     * @param openjson
+     * @return
+     */
     public NntUsers selectUsersByUnionid(JSONObject openjson){
         NntUsers nntUser = null;
         try{
@@ -52,10 +58,12 @@ public class UsersService {
             NntUsersExample.Criteria criteria = example.createCriteria();
             criteria.andVcUnionidEqualTo(unionid);
             List<NntUsers> Users = nntUsersMapper.selectByExample(example);
-            LOGGER.info("查询结果返回="+Users);
+
             if(Users.size()==0){
                 NntUsers nntUsers = new NntUsers();
                 nntUsers.setVcUnionid(unionid);
+
+                nntUsers.setNumUserId(WXPayUtil.MD5(unionid));
                 nntUsers.setVcNickname(openjson.getString("nickName"));
                 nntUsers.setVcHeadImgUrl(openjson.getString("avatarUrl"));
                 nntUsers.setVcOpenid(openjson.getString("openid"));
@@ -67,15 +75,26 @@ public class UsersService {
                 if(null==vcHeadImgUrl|| StringUtils.isBlank(vcHeadImgUrl)){
                     log.info("微信头像获取结果为：：{}",vcHeadImgUrl);
                     NntUsers users = new NntUsers();
-                    users.setNumUserId(nntUsers.getNumUserId());
+                    users.setNumId(nntUsers.getNumId());
+                    users.setNumUserId(WXPayUtil.MD5(unionid));
                     users.setVcOpenid(openjson.getString("openid"));
                     users.setVcHeadImgUrl(openjson.getString("avatarUrl"));
                     users.setVcNickname(openjson.getString("nickName"));
                     int i = nntUsersMapper.updateByPrimaryKeySelective(users);
                     log.info("微信头像昵称信息更新到数据库结果：：{}",i);
                 }
+                String numUserId = nntUsers.getNumUserId();
+                if(null==numUserId|| StringUtils.isBlank(numUserId)){
+                    log.info("微信获取numuserid结果为：：{}",numUserId);
+                    NntUsers users = new NntUsers();
+                    users.setNumId(nntUsers.getNumId());
+                    users.setNumUserId(WXPayUtil.MD5(unionid));
+                    int i = nntUsersMapper.updateByPrimaryKeySelective(users);
+                    log.info("微信numuserid信息更新到数据库结果：：{}",i);
+                }
             }
             nntUser = Users.get(0);
+            LOGGER.info("查询结果返回::{}",JSON.toJSONString(nntUser));
         }catch (Exception e){
             log.error("selectUsersByUnionid::{}",e);
         }
@@ -109,7 +128,7 @@ public class UsersService {
         return result;
     }
 
-    public Result queryUser(){
+    /*public Result queryUser(){
         Result result = new Result();
         try {
             Map<String,Object> resultMap = new HashMap<String,Object>();
@@ -120,7 +139,7 @@ public class UsersService {
             e.printStackTrace();
         }
         return result;
-    }
+    }*/
 
     /**
      * 根据openid获取用户信息
@@ -137,7 +156,7 @@ public class UsersService {
         try {
             JSONObject jsonparams = JSON.parseObject(params);
             NntUsers users = new NntUsers();
-            users.setNumUserId(jsonparams.getInteger("numUserId"));
+            users.setNumId(jsonparams.getInteger("numId"));
             users.setVcRealName(jsonparams.getString("vcRealName"));
             users.setVcPhone(jsonparams.getString("vcPhone"));
             users.setNumState(jsonparams.getInteger("numState"));
@@ -157,7 +176,7 @@ public class UsersService {
         try {
             JSONObject jsonparams = JSON.parseObject(params);
             NntUsers users = new NntUsers();
-            users.setNumUserId(jsonparams.getInteger("numUserId"));
+            users.setNumId(jsonparams.getInteger("numId"));
             users.setNumState(jsonparams.getInteger("numState"));
             int i = nntUsersMapper.updateByPrimaryKeySelective(users);
 

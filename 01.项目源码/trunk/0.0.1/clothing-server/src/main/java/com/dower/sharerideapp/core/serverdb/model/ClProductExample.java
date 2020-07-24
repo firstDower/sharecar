@@ -1585,6 +1585,136 @@ public class ClProductExample {
             addCriterion("NUM_IS_DEL not between", value1, value2, "numIsDel");
             return (Criteria) this;
         }
+
+        public Criteria andNumPayStateIsNull() {
+            addCriterion("NUM_PAY_STATE is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumPayStateIsNotNull() {
+            addCriterion("NUM_PAY_STATE is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumPayStateEqualTo(Byte value) {
+            addCriterion("NUM_PAY_STATE =", value, "numPayState");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumPayStateNotEqualTo(Byte value) {
+            addCriterion("NUM_PAY_STATE <>", value, "numPayState");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumPayStateGreaterThan(Byte value) {
+            addCriterion("NUM_PAY_STATE >", value, "numPayState");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumPayStateGreaterThanOrEqualTo(Byte value) {
+            addCriterion("NUM_PAY_STATE >=", value, "numPayState");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumPayStateLessThan(Byte value) {
+            addCriterion("NUM_PAY_STATE <", value, "numPayState");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumPayStateLessThanOrEqualTo(Byte value) {
+            addCriterion("NUM_PAY_STATE <=", value, "numPayState");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumPayStateIn(List<Byte> values) {
+            addCriterion("NUM_PAY_STATE in", values, "numPayState");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumPayStateNotIn(List<Byte> values) {
+            addCriterion("NUM_PAY_STATE not in", values, "numPayState");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumPayStateBetween(Byte value1, Byte value2) {
+            addCriterion("NUM_PAY_STATE between", value1, value2, "numPayState");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumPayStateNotBetween(Byte value1, Byte value2) {
+            addCriterion("NUM_PAY_STATE not between", value1, value2, "numPayState");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcExpireTimeIsNull() {
+            addCriterion("VC_EXPIRE_TIME is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcExpireTimeIsNotNull() {
+            addCriterion("VC_EXPIRE_TIME is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcExpireTimeEqualTo(String value) {
+            addCriterion("VC_EXPIRE_TIME =", value, "vcExpireTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcExpireTimeNotEqualTo(String value) {
+            addCriterion("VC_EXPIRE_TIME <>", value, "vcExpireTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcExpireTimeGreaterThan(String value) {
+            addCriterion("VC_EXPIRE_TIME >", value, "vcExpireTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcExpireTimeGreaterThanOrEqualTo(String value) {
+            addCriterion("VC_EXPIRE_TIME >=", value, "vcExpireTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcExpireTimeLessThan(String value) {
+            addCriterion("VC_EXPIRE_TIME <", value, "vcExpireTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcExpireTimeLessThanOrEqualTo(String value) {
+            addCriterion("VC_EXPIRE_TIME <=", value, "vcExpireTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcExpireTimeLike(String value) {
+            addCriterion("VC_EXPIRE_TIME like", value, "vcExpireTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcExpireTimeNotLike(String value) {
+            addCriterion("VC_EXPIRE_TIME not like", value, "vcExpireTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcExpireTimeIn(List<String> values) {
+            addCriterion("VC_EXPIRE_TIME in", values, "vcExpireTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcExpireTimeNotIn(List<String> values) {
+            addCriterion("VC_EXPIRE_TIME not in", values, "vcExpireTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcExpireTimeBetween(String value1, String value2) {
+            addCriterion("VC_EXPIRE_TIME between", value1, value2, "vcExpireTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcExpireTimeNotBetween(String value1, String value2) {
+            addCriterion("VC_EXPIRE_TIME not between", value1, value2, "vcExpireTime");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

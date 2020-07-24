@@ -2,6 +2,9 @@ package com.dower.sharerideapp.utils;
 
 import com.alibaba.fastjson.JSONObject;
 
+import javax.servlet.http.HttpServletRequest;
+import java.util.Iterator;
+import java.util.Map;
 import java.util.UUID;
 
 /**
@@ -74,5 +77,32 @@ public class CommUtil {
             result = result.substring(length - 3, length);
         }
         return result;
+    }
+
+    /**
+     *判断时间戳是否在一分钟内
+     **/
+    public static boolean checkTimeStamp(long ts)
+    {
+        if (Math.abs(ts - System.currentTimeMillis() / 1000) > 60)
+        {
+            return false;
+        }
+        return true;
+    }
+
+    public static JSONObject getParamData(HttpServletRequest request){
+
+        JSONObject jsonObject = new JSONObject();
+
+        Map<String, String[]> parameterMap = request.getParameterMap();
+        Iterator<String> iter = parameterMap.keySet().iterator();
+        String key = "";
+        while(iter.hasNext()){
+            key=iter.next();
+            jsonObject.put(key,request.getParameter(key));
+
+        }
+        return jsonObject;
     }
 }
