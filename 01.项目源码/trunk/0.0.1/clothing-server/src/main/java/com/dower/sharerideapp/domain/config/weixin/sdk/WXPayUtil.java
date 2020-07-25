@@ -171,7 +171,11 @@ public class WXPayUtil {
             return false;
         }
         String sign = data.get(WXPayConstants.FIELD_SIGN);
-        return generateSignature(data, key, signType).equals(sign);
+        String s = generateSignature(data, key, signType);
+        WXPayUtil.getLogger().info("后台接口接受参数sign：：{}",sign);
+        WXPayUtil.getLogger().info("后台计算签名结果sign：：{}",s);
+        boolean equals = generateSignature(data, key, signType).equals(sign);
+        return equals;
     }
 
     /**

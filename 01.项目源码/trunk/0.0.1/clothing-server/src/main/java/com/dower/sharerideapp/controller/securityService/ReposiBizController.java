@@ -1,7 +1,9 @@
 package com.dower.sharerideapp.controller.securityService;
 
 import com.alibaba.fastjson.JSONObject;
+import com.dower.sharerideapp.service.CommNewService;
 import com.dower.sharerideapp.service.CommService;
+import com.dower.sharerideapp.service.annotation.PublicUrl;
 import com.dower.sharerideapp.utils.CommUtil;
 import com.dower.sharerideapp.utils.Result;
 import com.dower.sharerideapp.utils.ret.RetResponse;
@@ -20,9 +22,10 @@ import javax.servlet.http.HttpServletResponse;
 @Slf4j
 @RestController
 @RequestMapping("/securityService")
+@PublicUrl(signValidate = true)
 public class ReposiBizController {
     @Autowired
-    CommService commService;
+    CommNewService commNewService;
 
     public RetResult testToken (HttpServletRequest request, HttpServletResponse response)  throws Exception{
         JSONObject param = CommUtil.getParamData(request);
@@ -34,8 +37,8 @@ public class ReposiBizController {
      * @return
      */
     @RequestMapping("/getGradeList")
-    public Result getGradeList(){
-        return commService.getGradeList();
+    public RetResult getGradeList(){
+        return commNewService.getGradeList();
     }
 
     /**
@@ -43,8 +46,8 @@ public class ReposiBizController {
      * @return
      */
     @RequestMapping("/getSchoolList")
-    public Result getSchoolList(){
-        return commService.getSchoolList();
+    public RetResult getSchoolList(){
+        return commNewService.getSchoolList();
     }
 
     /**
@@ -52,7 +55,7 @@ public class ReposiBizController {
      * @return
      */
     @RequestMapping("/getModelList")
-    public Result getModelList(){
-        return commService.getModelList();
+    public RetResult getModelList(){
+        return commNewService.getModelList();
     }
 }

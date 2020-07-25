@@ -116,36 +116,6 @@ public class WeichatMainController {
         return resultStr;
     }
 
-    /**
-     * 小程序根据code获取openId
-     * @param param
-     * @return
-     */
-    //@ResponseBody
-    //@RequestMapping("/getOpenIdByCode")
-    public Result getOpenIdByCode(@RequestBody String param){
-        Result result = new Result(false,"根据code获取openId异常！");
-        try{
-            log.info("根据code获取openId,param:{}",param);
-            JSONObject jsonparams = JSON.parseObject(param);
-            Map<String, String> params = new HashMap();
-            params.put("secret", jsonparams.getString("secret"));
-            params.put("appid", jsonparams.getString("appid"));
-            params.put("grant_type", "authorization_code");
-            params.put("js_code", jsonparams.getString("code"));
-            String res = HttpRequestUtil.request("https://api.weixin.qq.com/sns/jscode2session", params,false);
-            JSONObject jsonObject = JSONObject.parseObject(res);
-            log.info("根据code获取openId,result:{}",res);
-            String openid = jsonObject.get("openid").toString();
-            result.setSuccess(true);
-            result.setResultInfo(res);
-        }catch (Exception e){
-            log.error("获取openid异常！");
-        }
-
-        return result;
-    }
-
     @ResponseBody
     @RequestMapping("/wxSignature")
     public Result wxSignature(String url) {

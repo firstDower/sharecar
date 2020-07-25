@@ -1,6 +1,6 @@
 
 var util = {
-    getParamData: function (jsonobj) {
+    getSign: function (jsonobj) {
         var signstr = this.obj2str(jsonobj)
         signstr = signstr + '&key=' + this.pro_pass;
         console.log("signstrkey:",signstr)
@@ -42,7 +42,7 @@ var util = {
         param.pro_name = this.pro_name;
         var timeStamp = util.createTimeStamp();
         param.timeStamp = timeStamp;
-        var sign = util.getParamData(param);
+        var sign = util.getSign(param);
         $.ajax({
             type: 'POST',
             url: ctxPath + "apiService/getToken",
@@ -69,6 +69,23 @@ var util = {
             error: function(xhr, type){
             }
         });
+    },
+    initHeaders:function (param) {
+        var headers = {
+            'token':sessionStorage['token'],
+            'sign':this.getSign(param),
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'pro_name':this.pro_name
+        }
+        return headers;
+    },
+    initNoTokenHeaders:function (param) {
+        var headers = {
+            'sign':this.getSign(param),
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'pro_name':this.pro_name
+        }
+        return headers;
     }
 }
 

@@ -15,6 +15,10 @@ public class RetResponse {
         return new RetResult<T>().setCode(RetCode.SUCCESS).setMsg(SUCCESS).setData(data);
     }
 
+    public static <T> RetResult<T> makeOKRsp(String message,T data) {
+        return new RetResult<T>().setCode(RetCode.SUCCESS).setMsg(message).setData(data);
+    }
+
     public static <T> RetResult<T> makeErrRsp(String message) {
         return new RetResult<T>().setCode(RetCode.FAIL).setMsg(message);
     }

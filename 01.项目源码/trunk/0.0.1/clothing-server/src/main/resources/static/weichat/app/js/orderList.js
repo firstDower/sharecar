@@ -66,20 +66,13 @@ var orderList = {
         param.pageNum = pageNo;
         param.pageSize = pageSize;
         $.extend(param, pageData);
-        var timeStamp = util.createTimeStamp();
-        param.timeStamp = timeStamp;
-        var sign = util.getParamData(param);
+        param.timeStamp = util.createTimeStamp();
         $.ajax({
             type: 'POST',
             url: ctxPath + "securityService/queryProductPage",
             timeout:8000,
             data : param,
-            headers: {
-                'token':sessionStorage['token'],
-                'sign':sign,
-                'Content-Type': 'application/x-www-form-urlencoded',
-                'pro_name':util.pro_name
-            },
+            headers: util.initHeaders(param),
             dataType: 'json',
             success: function(data){
                 console.log("========="+JSON.stringify(data));

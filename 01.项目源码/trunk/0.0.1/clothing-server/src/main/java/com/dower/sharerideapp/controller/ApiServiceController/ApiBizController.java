@@ -27,6 +27,7 @@ import java.util.Map;
 @Slf4j
 @RestController
 @RequestMapping("/apiService")
+@PublicUrl(signValidate = true)
 public class ApiBizController {
     /**
      * api 获取token
@@ -35,7 +36,7 @@ public class ApiBizController {
      * @return
      * @throws Exception
      */
-    @PublicUrl(signValidate = true)
+
     @PostMapping(value = "/getToken")
     public RetResult getToken ( HttpServletRequest request, HttpServletResponse response)  throws Exception{
         JSONObject jsonObject = CommUtil.getParamData(request);

@@ -9,6 +9,7 @@ import com.dower.sharerideapp.service.exception.MyException;
 import com.dower.sharerideapp.service.exception.SignException;
 import com.dower.sharerideapp.service.exception.TokenException;
 import com.dower.sharerideapp.utils.*;
+import com.dower.sharerideapp.utils.ret.RetCode;
 import com.dower.sharerideapp.utils.ret.RetMesage;
 import com.dower.sharerideapp.utils.ret.RetResponse;
 import io.jsonwebtoken.Claims;
@@ -26,8 +27,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.BufferedReader;
-import java.util.Iterator;
 import java.util.Map;
 
 /**
@@ -54,17 +53,13 @@ public class SafeHandlerInterceptor implements HandlerInterceptor {
         String token = request.getHeader("token");
 
         JSONObject jsonObject = CommUtil.getParamData(request);
+        log.info("拦截器请求地址url：：{}",request.getRequestURI());
         log.info("拦截器请求参数jsonParam：：{}",jsonObject);
         jsonObject.put("sign",sign);
 
-        log.info("拦截器请求参数jsonParam：：{}",jsonObject);
-
-        //String token = jsonObject.getString("token");
-        //String sign = jsonObject.getString("sign");
+        //时间戳验证
         String timeStamp = jsonObject.getString("timeStamp");
         log.info("pro_name::{},拦截器请求参数token={}\n,sign={}\n,timeStamp={}",pro_name,token,sign,timeStamp);
-
-
         try {
             //验证timeStamp
             boolean b = CommUtil.checkTimeStamp(Long.parseLong(timeStamp));
@@ -76,8 +71,10 @@ public class SafeHandlerInterceptor implements HandlerInterceptor {
             throw new TokenException("非法请求！");
         }
 
-
-
+        ValidateResponse validateResponse1 = timeStampValidate(request, jsonObject);
+        if (!validateResponse1.isValidate()) {
+            throw validateResponse1.getException();
+        }
         if (handler instanceof HandlerMethod) {
             HandlerMethod handlerMethod = (HandlerMethod) handler;
             if (handlerMethod.getBean() instanceof BasicErrorController) {//exclude frame BasicErrorController
@@ -139,6 +136,29 @@ public class SafeHandlerInterceptor implements HandlerInterceptor {
     }
 
     /**
+     * 时间戳验证
+     *
+     * @param request
+     * @return
+     */
+    private ValidateResponse timeStampValidate(HttpServletRequest request, JSONObject jsonObject) {
+
+        String timeStamp = jsonObject.getString("timeStamp");
+        boolean timeStampValidate = false;
+        try {
+            //验证timeStamp
+            timeStampValidate = CommUtil.checkTimeStamp(Long.parseLong(timeStamp));
+            log.info("验证timeStamp结果：：{}",timeStampValidate);
+            if(!timeStampValidate){
+                return new ValidateResponse(timeStampValidate, new MyException(RetCode.TIMESTAMP_ERROR.code,"非法请求！"));
+            }
+        }catch (Exception e){
+            return new ValidateResponse(timeStampValidate, new MyException(RetCode.TIMESTAMP_ERROR.code,"非法请求！"));
+        }
+        return new ValidateResponse(timeStampValidate, null);
+    }
+
+    /**
      * 签名校验
      *
      * @param request
@@ -146,15 +166,15 @@ public class SafeHandlerInterceptor implements HandlerInterceptor {
      */
     private ValidateResponse paramSignValidate(HttpServletRequest request, JSONObject jsonObject) {
         //验证sign
-        boolean signatureValid;
+        boolean signatureValid = false;
         try {
             signatureValid = WXPayUtil.isSignatureValid(JSON.parseObject(jsonObject.toString(), Map.class), pro_pass, WXPayConstants.SignType.MD5);
             if(!signatureValid){
-                return new ValidateResponse(false,new SignException("签名错误！"));
+                return new ValidateResponse(signatureValid,new SignException("签名错误！"));
             }
         } catch (Exception e) {
             e.printStackTrace();
-            return new ValidateResponse(false,new SignException("签名错误！"));
+            return new ValidateResponse(signatureValid,new SignException("签名错误！"));
         }
 
         return new ValidateResponse(signatureValid, null);

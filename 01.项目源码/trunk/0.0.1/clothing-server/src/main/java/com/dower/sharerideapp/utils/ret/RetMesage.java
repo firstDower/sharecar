@@ -12,6 +12,7 @@ public enum RetMesage {
     UNAUTHORIZED("未认证（签名错误）"),//未认证（签名错误）
     SIGN_ERROR("签名错误"),//签名错误）
     TOKEN_ERROR("token错误"),//token错误
+    TIMESTAMP_ERROR("请求不合法"),//(时间戳验证不通过)
     NOT_FOUND("接口不存在"),//接口不存在
     PARAMETER("参数信息错误"),//参数信息错误
     UPGRADE("系统升级中请稍后重试！"),

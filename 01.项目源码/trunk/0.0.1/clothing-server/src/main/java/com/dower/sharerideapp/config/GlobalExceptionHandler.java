@@ -1,5 +1,6 @@
 package com.dower.sharerideapp.config;
 
+import com.dower.sharerideapp.service.exception.MyException;
 import com.dower.sharerideapp.service.exception.SignException;
 import com.dower.sharerideapp.service.exception.TokenException;
 import com.dower.sharerideapp.utils.ret.RetCode;
@@ -31,6 +32,13 @@ public class GlobalExceptionHandler {
     public RetResult handleSignException(Exception exception) {
         return RetResponse.makeRsp(RetCode.SIGN_ERROR.code,RetMesage.SIGN_ERROR.code);
     }
+
+    @ExceptionHandler(MyException.class)
+    @ResponseBody
+    public RetResult handleMyException(MyException exception) {
+        return RetResponse.makeRsp(exception.getCode(),exception.getMessage());
+    }
+
     @ExceptionHandler(Exception.class)
     @ResponseBody
     public RetResult handleException(Exception exception) {

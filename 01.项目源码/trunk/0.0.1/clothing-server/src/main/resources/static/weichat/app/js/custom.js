@@ -6,17 +6,22 @@ $(function () {
             custom.dataInit();
         },
         dataInit:function () {
+            var param = {}
+            param.timeStamp = util.createTimeStamp();
             $.ajax({
                 type:"post",
-                url:ctxPath + "reposi/getGradeList",
+                url:ctxPath + "securityService/getGradeList",
+                data : param,
+                headers: util.initNoTokenHeaders(param),
                 dataType:"json",
                 success:function(data){
-                    console.log("================"+data)
-                    var cityStr = '';
-                    $.each(data.resultInfo,function(index,value){
-                        cityStr += '<option value="'+value.numId+'">'+value.vcGradeName+'</option>'
-                    });
-                    $('#NUM_GRADE_ID').append(cityStr);
+                    if(data.code==200){
+                        var cityStr = '';
+                        $.each(data.data,function(index,value){
+                            cityStr += '<option value="'+value.numId+'">'+value.vcGradeName+'</option>'
+                        });
+                        $('#NUM_GRADE_ID').append(cityStr);
+                    }
                 },
                 error:function(){
                     closeMsg();
@@ -26,14 +31,18 @@ $(function () {
 
             $.ajax({
                 type:"post",
-                url:ctxPath + "reposi/getSchoolList",
+                url:ctxPath + "securityService/getSchoolList",
+                data : param,
+                headers: util.initNoTokenHeaders(param),
                 dataType:"json",
                 success:function(data){
-                    var cityStr = '';
-                    $.each(data.resultInfo,function(index,value){
-                        cityStr += '<option value="'+value.numId+'">'+value.vcSchoolName+'</option>'
-                    });
-                    $('#NUM_SCHOOL_ID').append(cityStr);
+                    if(data.code==200){
+                        var cityStr = '';
+                        $.each(data.data,function(index,value){
+                            cityStr += '<option value="'+value.numId+'">'+value.vcSchoolName+'</option>'
+                        });
+                        $('#NUM_SCHOOL_ID').append(cityStr);
+                    }
                 },
                 error:function(){
                     closeMsg();
@@ -43,14 +52,19 @@ $(function () {
 
             $.ajax({
                 type:"post",
-                url:ctxPath + "reposi/getModelList",
+                url:ctxPath + "securityService/getModelList",
+                data : param,
+                headers: util.initNoTokenHeaders(param),
                 dataType:"json",
                 success:function(data){
-                    var cityStr = '';
-                    $.each(data.resultInfo,function(index,value){
-                        cityStr += '<option value="'+value.numId+'">'+value.vcModelName+'</option>'
-                    });
-                    $('#NUM_MODEL_ID').append(cityStr);
+                    if(data.code==200){
+                        var cityStr = '';
+                        $.each(data.data,function(index,value){
+                            cityStr += '<option value="'+value.numId+'">'+value.vcModelName+'</option>'
+                        });
+                        $('#NUM_MODEL_ID').append(cityStr);
+                    }
+
                 },
                 error:function(){
                     closeMsg();
