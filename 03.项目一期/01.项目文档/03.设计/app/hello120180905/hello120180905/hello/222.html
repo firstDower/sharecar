@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta charset="UTF-8">
+    <title>个人中心</title>
+    <link rel="stylesheet" href="css/commor.css">
+    <link rel="stylesheet" href="css/myCss.css">
+    <script src="js/jquery-3.3.1.min.js"></script>
+</head>
+<body>
+
+<button id="alert" class="alertBtn">弹出</button>
+
+<div class="modle_frame" id="motaik">
+    <div class="loadBox serverErr">
+        <p>服务器发生异常！</p>
+        <button id="sureBtn">确定</button>
+    </div>
+    <!--<div class="loadBox ifSure">-->
+    <!--<p>您确定要删除吗？</p>-->
+    <!--<button>确定</button><button class="cancelBtn">取消</button>-->
+    <!--</div>-->
+
+    <!--<div class="loading loadBox">正在加载中... <img src="img/333.gif" alt=""> </div>-->
+</div>
+
+<script>
+    $("#alert").click(function(){
+        $("#motaik").show();
+    });
+    $("#sureBtn").click(function(){
+        $("#motaik").hide();
+    });
+</script>
+
+
+</body>
+</html>
