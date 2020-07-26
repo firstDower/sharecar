@@ -3,6 +3,7 @@ $(function () {
 })
 var personalCenter = {
     init:function () {
+        util.checkToken();
         $("#orderList").click(function () {
             location.href= ctxPath + 'jump/weichat/orderList';
         })
@@ -14,17 +15,19 @@ var personalCenter = {
         var param = {
             'userId':userId
         }
+        param.timeStamp = util.createTimeStamp();
         $.ajax({
             type: 'POST',
-            url: ctxPath + "reposi/getUserInfo",
+            url: ctxPath + "securityService/getUserInfo",
             timeout:8000,
-            data : JSON.stringify(param),
+            data : param,
+            headers: util.initHeaders(param),
             contentType: 'application/json',
             dataType: 'json',
             success: function(data){
                 console.log("==========="+JSON.stringify(data));
-                if(data.success){
-                    var userInfo = data.resultInfo;
+                if(data.code==200){
+                    var userInfo = data.data;
                     sessionStorage["userInfo"] = JSON.stringify(userInfo);
                 }else {
                     mui.toast(data.msg);

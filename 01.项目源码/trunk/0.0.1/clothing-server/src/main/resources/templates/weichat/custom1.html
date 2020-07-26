@@ -1,0 +1,110 @@
+<!doctype html>
+<html class="x-admin-sm">
+<head th:replace="common/weichat/htmlHead :: common_header(~{::title})">
+  <title>定制</title>
+</head>
+<body>
+<div th:insert="common/weichat/htmlJS::common_js(~{::script})">
+  <script type="text/javascript" th:src="@{/weichat/app/js/custom.js}"></script>
+</div>
+      <div class=" customizedDetailBox">
+        <div class="customizedDetails clearfix">
+          <span class="fl">定做选择:</span>
+          <div><input type="radio" id="qqqqq" name="NUM_TYPE" value="1" checked class="fl"><label for="qqqqq" class="fl">校服裤</label></div>
+          <div><input type="radio" id="qwer" name="NUM_TYPE" value="2" class="fl"><label for="qwer" class="fl">半袖</label></div>
+
+        </div>
+        <div class="detailsLists clearfix">
+          <span class="title fl">
+            学校:<i></i>
+          </span>
+          <div class="content fl">
+            <select name="" id="NUM_SCHOOL_ID">
+
+            </select>
+          </div>
+          <b class="mui-navigate-right detaileRight"></b>
+        </div>
+        <div class="detailsLists clearfix">
+          <span class="title fl">
+            年级班级:<i></i>
+          </span>
+          <div class="content fl">
+            <select name="" id="NUM_GRADE_ID">
+
+            </select>
+          </div>
+          <b class="mui-navigate-right detaileRight"></b>
+        </div>
+        <div class="detailsLists clearfix">
+          <span class="title fl">
+            款式:<i></i>
+          </span>
+          <div class="content fl">
+            <select name="" id="NUM_MODEL_ID">
+
+            </select>
+          </div>
+          <b class="mui-navigate-right detaileRight"></b>
+        </div>
+        <div class="detailsLists clearfix">
+          <span class="title fl">
+            身高(cm):<i></i>
+          </span>
+          <div class="content fl">
+            <input type="text" id="VC_HIGHT" placeholder="输入身高">
+          </div>
+          <b class="detaileRight unit">厘米</b>
+        </div>
+        <div class="detailsLists clearfix">
+          <span class="title fl">
+            体重(kg):<i></i>
+          </span>
+          <div class="content fl">
+            <input type="text" id="VC_WIGHT" placeholder="输入体重">
+          </div>
+          <b class="detaileRight unit">公斤</b>
+        </div>
+        <div class="detailsLists clearfix">
+          <span class="title fl">
+            预定数量:<i></i>
+          </span>
+          <div class="content fl">
+            <input id="NUM_NUM" type="text" value="1" placeholder="1" >
+          </div>
+          <b class="detaileRight unit">件</b>
+        </div>
+        <div class="detailsLists clearfix">
+          <span class="title fl">
+            联系人:<i></i>
+          </span>
+          <div class="content fl">
+            <input type="text" id="VC_NAME" placeholder="输入联系人姓名" >
+          </div>
+        </div>
+        <div class="detailsLists clearfix">
+          <span class="title fl">
+            联系电话:<i></i>
+          </span>
+          <div class="content fl">
+            <input id="VC_PHONE" type="text" placeholder="常用手机号" >
+          </div>
+        </div>
+        <div class="detailsLists clearfix">
+          <span class="title fl">
+            其他说明:<i></i>
+          </span>
+          <div class="content fl">
+            <textarea id="VC_NOTES" name="" placeholder="(可不填)" cols="30" rows="1">
+
+            </textarea>
+          </div>
+        </div>
+        <button id="subBut" class="mui-btn mui-btn-blue mui-btn-block OrderNowBtn">立即订购</button>
+
+
+      </div>
+      <div class="footerLXZY">©羚猩制衣</div>
+
+</body>
+</html>

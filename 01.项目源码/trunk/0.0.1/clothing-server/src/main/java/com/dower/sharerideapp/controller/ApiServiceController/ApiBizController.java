@@ -9,6 +9,7 @@ import com.dower.sharerideapp.utils.Result;
 import com.dower.sharerideapp.utils.TokenProccessor;
 import com.dower.sharerideapp.utils.ret.RetResponse;
 import com.dower.sharerideapp.utils.ret.RetResult;
+import io.jsonwebtoken.Claims;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -49,5 +50,25 @@ public class ApiBizController {
         return RetResponse.makeOKRsp(result);
     }
 
+    /**
+     * api 验证token
+     * @param request
+     * @param response
+     * @return
+     * @throws Exception
+     */
+    @PostMapping(value = "/checkToken")
+    public RetResult checkToken ( HttpServletRequest request, HttpServletResponse response)  throws Exception{
+        JSONObject jsonObject = CommUtil.getParamData(request);
+        log.info(" api 验证token获取参数param：：{}",jsonObject);
+        String pro_name = jsonObject.getString("pro_name");
+        String token = jsonObject.getString("token");
 
+        Claims checkToken = TokenProccessor.parseJWT(token);
+        log.info("checkToken::{}",token);
+        JSONObject result = new JSONObject();
+        result.put("token",token);
+        result.put("expires_in","7200");
+        return RetResponse.makeOKRsp(result);
+    }
 }

@@ -34,6 +34,43 @@ var util = {
     pro_pass : "MtD3AyxboTqTiPDPc9nO359Y8Qs66l7eAnK2T64C65Jwpm7kWFoumUFHrj7IFrYz5UNPtXtVGCus3i53DldSNdGgaknkzJsizXQR",
     pro_name : "telrgJVOZuiOUCV"
     ,
+    checkToken:function () {
+        var token = sessionStorage["token"];
+        if(!token){
+            util.getToken();
+        }else{
+            var param = {}
+            param.pro_name = this.pro_name;
+            param.token = token;
+            var timeStamp = util.createTimeStamp();
+            param.timeStamp = timeStamp;
+            var sign = util.getSign(param);
+            $.ajax({
+                type: 'POST',
+                url: ctxPath + "apiService/checkToken",
+                timeout:8000,
+                data : param,
+                headers: {
+                    'sign':sign,
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'pro_name':util.pro_name
+                },
+                async: false,
+                dataType: 'json',
+                success: function(data){
+                    console.log("=========="+JSON.stringify(data));
+                    if(data.code==200){
+
+                    }else {
+                        sessionStorage["token"] = "";
+                        util.getToken();
+                    }
+                },
+                error: function(xhr, type){
+                }
+            });
+        }
+    },
     getToken:function () {
         var token = sessionStorage["token"];
         if(token)

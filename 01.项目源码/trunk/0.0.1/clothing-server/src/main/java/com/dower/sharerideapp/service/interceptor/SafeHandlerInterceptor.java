@@ -63,7 +63,6 @@ public class SafeHandlerInterceptor implements HandlerInterceptor {
         try {
             //验证timeStamp
             boolean b = CommUtil.checkTimeStamp(Long.parseLong(timeStamp));
-            log.info("验证timeStamp结果：：{}",b);
             if(!b){
                 throw new TokenException("非法请求！");
             }

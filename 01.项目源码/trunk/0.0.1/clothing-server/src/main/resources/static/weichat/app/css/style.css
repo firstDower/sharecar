@@ -108,7 +108,7 @@ blockquote:before, blockquote:after, q:before, q:after { content: ''; content: n
     text-align: center;
     border-right:1px solid #333;
 
- }
+}
 .personalCenter .personalList .integral{
     width:50%;
     text-align: center;
@@ -140,30 +140,7 @@ blockquote:before, blockquote:after, q:before, q:after { content: ''; content: n
     font-size: 0.4rem;
     color:#333;
 }
-/*!*  orderList  *!
-.orderList{
-    width:100%;
-}
-.orderList li{
-    float: left;
-    width:25%;
-    height:1.2rem;
-    line-height: 1.2rem;
 
-}
-.orderList li a{
-    width:100%;
-    text-align: center;
-    height:100%;
-    display: inline-block;
-    font-size: 0.4rem;
-    color:#333;
-
-}
-.orderList li a:hover{
-    background-color: #007aff;
-    color:#fff;
-}*/
 /*定做详情*/
 .customizeDetailList{
     border-bottom: 1px solid #ddd;
@@ -186,4 +163,45 @@ blockquote:before, blockquote:after, q:before, q:after { content: ''; content: n
 }
 .noImportantFont{
     color:#999;
+}
+/*校服定制*/
+.customizeChoose{
+    height:40px;
+    font-size: 20px;
+    color:#000000;
+    font-weight: 500;
+    padding-left:15px;
+    line-height: 40px;
+}
+.mui-radio.mui-left label, .mui-checkbox.mui-left label {
+    padding-right: 0px;
+    padding-left: 55px;
+}
+.mui-input-group .mui-input-row:after{
+    height:0;
+}
+.mui-input-row{
+    height:30px;
+    line-height: 30px;
+}
+.myCustomizedList{
+    position: relative;
+    border:1px solid #eee;
+
+}
+.myCustomizedList .unitFont{
+    position: absolute;
+    right:14px;
+    top:8px;
+    font-size: 16px;
+    color:#797979;
+    font-weight: normal;
+}
+.SubmitBtn{
+    margin: 10px 0 20px 0;
+    padding:5px 0;
+}
+.aboutLyzy{
+    text-align: center;
+    font-size: 14px;
 }
