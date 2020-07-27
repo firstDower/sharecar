@@ -1,6 +1,5 @@
 package com.dower.sharerideapp.core.serverdb.model;
 
-import java.math.BigDecimal;
 import java.util.Date;
 
 public class ClProduct {
@@ -24,7 +23,7 @@ public class ClProduct {
 
     private Date datUpdateTime;
 
-    private BigDecimal numPrice;
+    private Long numPrice;
 
     private String vcUserId;
 
@@ -53,6 +52,8 @@ public class ClProduct {
     private Byte numPayState;
 
     private String vcExpireTime;
+
+    private Byte numPayType;
 
     public Long getNumId() {
         return numId;
@@ -134,11 +135,11 @@ public class ClProduct {
         this.datUpdateTime = datUpdateTime;
     }
 
-    public BigDecimal getNumPrice() {
+    public Long getNumPrice() {
         return numPrice;
     }
 
-    public void setNumPrice(BigDecimal numPrice) {
+    public void setNumPrice(Long numPrice) {
         this.numPrice = numPrice;
     }
 
@@ -252,5 +253,13 @@ public class ClProduct {
 
     public void setVcExpireTime(String vcExpireTime) {
         this.vcExpireTime = vcExpireTime == null ? null : vcExpireTime.trim();
+    }
+
+    public Byte getNumPayType() {
+        return numPayType;
+    }
+
+    public void setNumPayType(Byte numPayType) {
+        this.numPayType = numPayType;
     }
 }

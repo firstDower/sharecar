@@ -49,6 +49,15 @@ var orderList = {
                 }
             });
         });
+        mui("#pullrefresh").on('tap', '.mui-btn', function (e) {
+            e.stopPropagation();
+            var numId = $(this).parents('.mui-table-view-cell').attr('numId');
+            var param = {};
+            param.NUM_ID = numId;
+            param.NUM_STATE = 3;//取消订单：3
+            orderList.updataOrder(param);
+
+        });
     },
     pulldownRefresh:function () {
         $("#dataUl").html("");
@@ -57,6 +66,36 @@ var orderList = {
     },
     pullupRefresh:function () {
         orderList.getOrderData();
+    },
+    updataOrder:function (obj) {
+        var userInfo = JSON.parse(sessionStorage["userInfo"]);
+        var userId = userInfo.NUM_USER_ID;
+        var param = {};
+        param.VC_USER_ID = userId;
+        param.NUM_ID = obj.NUM_ID;
+        var NUM_STATE = obj.NUM_STATE;
+        if(NUM_STATE){
+            param.NUM_STATE = NUM_STATE;
+        }
+        param.timeStamp = util.createTimeStamp();
+        $.ajax({
+            type: 'POST',
+            url: ctxPath + "securityService/updateProduct",
+            timeout:8000,
+            data : param,
+            headers: util.initHeaders(param),
+            dataType: 'json',
+            success: function(data){
+                console.log("========="+JSON.stringify(data));
+                if(data.code==200){
+                    mui.toast("操作成功！");
+                }else {
+                    mui.toast(data.msg);
+                }
+            },
+            error: function(xhr, type){
+            }
+        });
     },
     getOrderData:function () {
         var userInfo = JSON.parse(sessionStorage["userInfo"]);
@@ -132,7 +171,11 @@ var orderList = {
                 '<li class="mui-table-view-cell" orderData=\''+JSON.stringify(item)+'\' numId="'+item.numId+'"><div>'+
                 '<img class="mui-media-object mui-pull-left" src="'+ctxPath+'weichat/app/img/4.jpg">'+
                 '<div class="mui-media-body">'+
-                '<p class="mui-ellipsis"><span>'+numParTypeStr+numTypeStr+'</span><span class="mui-text-right">&nbsp&nbsp&nbsp&nbsp&nbsp'+numStateStr+'</span></p>'+
+                '<p class="mui-ellipsis"><span>'+numParTypeStr+numTypeStr+'</span><span class="mui-text-right">&nbsp&nbsp&nbsp&nbsp&nbsp'+numStateStr+'</span>';
+            if(item.numState == 1){
+                htmlStr +='<button type="button" class="mui-btn mui-btn-danger mui-btn-outlined">取消</button>' ;
+            }
+            htmlStr +='</p>'+
                 '<p class="mui-ellipsis"><span>'+item.vcName+'</span></p>'+
                 '<p class="mui-ellipsis"><span>'+item.datCreatTime+'</span><butten>&nbsp&nbsp&nbsp&nbsp&nbsp详情</butten></p>'+
                 '</div>'+

@@ -3,7 +3,7 @@ var util = {
     getSign: function (jsonobj) {
         var signstr = this.obj2str(jsonobj)
         signstr = signstr + '&key=' + this.pro_pass;
-        console.log("signstrkey:",signstr)
+        console.log("signstrkey:",signstr);
         var sign = hex_md5(signstr);
         sign = sign.toUpperCase();
         return sign;
@@ -22,7 +22,7 @@ var util = {
         })
         var string = ''
         for (var k in newArgs) {
-            string += '&' + k + '=' + newArgs[k]
+            string += '&' + k + '=' + $.trim(newArgs[k]);
         }
         string = string.substr(1)
         return string
@@ -35,7 +35,7 @@ var util = {
     pro_name : "telrgJVOZuiOUCV"
     ,
     checkToken:function () {
-        var token = sessionStorage["token"];
+        var token = localStorage["token"];
         if(!token){
             util.getToken();
         }else{
@@ -62,7 +62,7 @@ var util = {
                     if(data.code==200){
 
                     }else {
-                        sessionStorage["token"] = "";
+                        localStorage["token"] = "";
                         util.getToken();
                     }
                 },
@@ -72,7 +72,7 @@ var util = {
         }
     },
     getToken:function () {
-        var token = sessionStorage["token"];
+        var token = localStorage["token"];
         if(token)
             return token;
         var param = {}
@@ -97,7 +97,7 @@ var util = {
                 if(data.code==200){
                     data = data.data;
                     var token = data.token;
-                    sessionStorage["token"] = token;
+                    localStorage["token"] = token;
                     return token;
                 }else {
                     console.log("获取toke异常，"+data.msg)
@@ -109,7 +109,7 @@ var util = {
     },
     initHeaders:function (param) {
         var headers = {
-            'token':sessionStorage['token'],
+            'token':localStorage['token'],
             'sign':this.getSign(param),
             'Content-Type': 'application/x-www-form-urlencoded',
             'pro_name':this.pro_name

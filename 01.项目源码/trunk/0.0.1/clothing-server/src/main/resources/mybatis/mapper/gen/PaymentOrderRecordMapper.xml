@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dower.sharerideapp.core.serverdb.dao.PaymentOrderRecordMapper">
+  <resultMap id="BaseResultMap" type="com.dower.sharerideapp.core.serverdb.model.PaymentOrderRecord">
+    <id column="NUM_ID" jdbcType="BIGINT" property="numId" />
+    <result column="VC_ORDER_NO" jdbcType="VARCHAR" property="vcOrderNo" />
+    <result column="NUM_USER_MONEY_LOG_ID" jdbcType="BIGINT" property="numUserMoneyLogId" />
+    <result column="NUM_USER_COUPON_ID" jdbcType="BIGINT" property="numUserCouponId" />
+    <result column="NUM_GROUP_BUY_DETAILS_ID" jdbcType="BIGINT" property="numGroupBuyDetailsId" />
+    <result column="NUM_BARGAIN_BIZ_LOG_ID" jdbcType="BIGINT" property="numBargainBizLogId" />
+    <result column="NUM_PAY_FLOW_ID" jdbcType="BIGINT" property="numPayFlowId" />
+    <result column="DAT_CREAT_TIME" jdbcType="TIMESTAMP" property="datCreatTime" />
+    <result column="NUM_PAY_STATE" jdbcType="TINYINT" property="numPayState" />
+    <result column="NUM_IS_DEL" jdbcType="TINYINT" property="numIsDel" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    NUM_ID, VC_ORDER_NO, NUM_USER_MONEY_LOG_ID, NUM_USER_COUPON_ID, NUM_GROUP_BUY_DETAILS_ID, 
+    NUM_BARGAIN_BIZ_LOG_ID, NUM_PAY_FLOW_ID, DAT_CREAT_TIME, NUM_PAY_STATE, NUM_IS_DEL
+  </sql>
+  <select id="selectByExample" parameterType="com.dower.sharerideapp.core.serverdb.model.PaymentOrderRecordExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from payment_order_record
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from payment_order_record
+    where NUM_ID = #{numId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from payment_order_record
+    where NUM_ID = #{numId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.dower.sharerideapp.core.serverdb.model.PaymentOrderRecordExample">
+    delete from payment_order_record
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.dower.sharerideapp.core.serverdb.model.PaymentOrderRecord">
+    <selectKey keyProperty="numId" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into payment_order_record (VC_ORDER_NO, NUM_USER_MONEY_LOG_ID, NUM_USER_COUPON_ID, 
+      NUM_GROUP_BUY_DETAILS_ID, NUM_BARGAIN_BIZ_LOG_ID, 
+      NUM_PAY_FLOW_ID, DAT_CREAT_TIME, NUM_PAY_STATE, 
+      NUM_IS_DEL)
+    values (#{vcOrderNo,jdbcType=VARCHAR}, #{numUserMoneyLogId,jdbcType=BIGINT}, #{numUserCouponId,jdbcType=BIGINT}, 
+      #{numGroupBuyDetailsId,jdbcType=BIGINT}, #{numBargainBizLogId,jdbcType=BIGINT}, 
+      #{numPayFlowId,jdbcType=BIGINT}, #{datCreatTime,jdbcType=TIMESTAMP}, #{numPayState,jdbcType=TINYINT}, 
+      #{numIsDel,jdbcType=TINYINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dower.sharerideapp.core.serverdb.model.PaymentOrderRecord">
+    <selectKey keyProperty="numId" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into payment_order_record
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="vcOrderNo != null">
+        VC_ORDER_NO,
+      </if>
+      <if test="numUserMoneyLogId != null">
+        NUM_USER_MONEY_LOG_ID,
+      </if>
+      <if test="numUserCouponId != null">
+        NUM_USER_COUPON_ID,
+      </if>
+      <if test="numGroupBuyDetailsId != null">
+        NUM_GROUP_BUY_DETAILS_ID,
+      </if>
+      <if test="numBargainBizLogId != null">
+        NUM_BARGAIN_BIZ_LOG_ID,
+      </if>
+      <if test="numPayFlowId != null">
+        NUM_PAY_FLOW_ID,
+      </if>
+      <if test="datCreatTime != null">
+        DAT_CREAT_TIME,
+      </if>
+      <if test="numPayState != null">
+        NUM_PAY_STATE,
+      </if>
+      <if test="numIsDel != null">
+        NUM_IS_DEL,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="vcOrderNo != null">
+        #{vcOrderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="numUserMoneyLogId != null">
+        #{numUserMoneyLogId,jdbcType=BIGINT},
+      </if>
+      <if test="numUserCouponId != null">
+        #{numUserCouponId,jdbcType=BIGINT},
+      </if>
+      <if test="numGroupBuyDetailsId != null">
+        #{numGroupBuyDetailsId,jdbcType=BIGINT},
+      </if>
+      <if test="numBargainBizLogId != null">
+        #{numBargainBizLogId,jdbcType=BIGINT},
+      </if>
+      <if test="numPayFlowId != null">
+        #{numPayFlowId,jdbcType=BIGINT},
+      </if>
+      <if test="datCreatTime != null">
+        #{datCreatTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="numPayState != null">
+        #{numPayState,jdbcType=TINYINT},
+      </if>
+      <if test="numIsDel != null">
+        #{numIsDel,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.dower.sharerideapp.core.serverdb.model.PaymentOrderRecordExample" resultType="java.lang.Long">
+    select count(*) from payment_order_record
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update payment_order_record
+    <set>
+      <if test="record.numId != null">
+        NUM_ID = #{record.numId,jdbcType=BIGINT},
+      </if>
+      <if test="record.vcOrderNo != null">
+        VC_ORDER_NO = #{record.vcOrderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.numUserMoneyLogId != null">
+        NUM_USER_MONEY_LOG_ID = #{record.numUserMoneyLogId,jdbcType=BIGINT},
+      </if>
+      <if test="record.numUserCouponId != null">
+        NUM_USER_COUPON_ID = #{record.numUserCouponId,jdbcType=BIGINT},
+      </if>
+      <if test="record.numGroupBuyDetailsId != null">
+        NUM_GROUP_BUY_DETAILS_ID = #{record.numGroupBuyDetailsId,jdbcType=BIGINT},
+      </if>
+      <if test="record.numBargainBizLogId != null">
+        NUM_BARGAIN_BIZ_LOG_ID = #{record.numBargainBizLogId,jdbcType=BIGINT},
+      </if>
+      <if test="record.numPayFlowId != null">
+        NUM_PAY_FLOW_ID = #{record.numPayFlowId,jdbcType=BIGINT},
+      </if>
+      <if test="record.datCreatTime != null">
+        DAT_CREAT_TIME = #{record.datCreatTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.numPayState != null">
+        NUM_PAY_STATE = #{record.numPayState,jdbcType=TINYINT},
+      </if>
+      <if test="record.numIsDel != null">
+        NUM_IS_DEL = #{record.numIsDel,jdbcType=TINYINT},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update payment_order_record
+    set NUM_ID = #{record.numId,jdbcType=BIGINT},
+      VC_ORDER_NO = #{record.vcOrderNo,jdbcType=VARCHAR},
+      NUM_USER_MONEY_LOG_ID = #{record.numUserMoneyLogId,jdbcType=BIGINT},
+      NUM_USER_COUPON_ID = #{record.numUserCouponId,jdbcType=BIGINT},
+      NUM_GROUP_BUY_DETAILS_ID = #{record.numGroupBuyDetailsId,jdbcType=BIGINT},
+      NUM_BARGAIN_BIZ_LOG_ID = #{record.numBargainBizLogId,jdbcType=BIGINT},
+      NUM_PAY_FLOW_ID = #{record.numPayFlowId,jdbcType=BIGINT},
+      DAT_CREAT_TIME = #{record.datCreatTime,jdbcType=TIMESTAMP},
+      NUM_PAY_STATE = #{record.numPayState,jdbcType=TINYINT},
+      NUM_IS_DEL = #{record.numIsDel,jdbcType=TINYINT}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dower.sharerideapp.core.serverdb.model.PaymentOrderRecord">
+    update payment_order_record
+    <set>
+      <if test="vcOrderNo != null">
+        VC_ORDER_NO = #{vcOrderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="numUserMoneyLogId != null">
+        NUM_USER_MONEY_LOG_ID = #{numUserMoneyLogId,jdbcType=BIGINT},
+      </if>
+      <if test="numUserCouponId != null">
+        NUM_USER_COUPON_ID = #{numUserCouponId,jdbcType=BIGINT},
+      </if>
+      <if test="numGroupBuyDetailsId != null">
+        NUM_GROUP_BUY_DETAILS_ID = #{numGroupBuyDetailsId,jdbcType=BIGINT},
+      </if>
+      <if test="numBargainBizLogId != null">
+        NUM_BARGAIN_BIZ_LOG_ID = #{numBargainBizLogId,jdbcType=BIGINT},
+      </if>
+      <if test="numPayFlowId != null">
+        NUM_PAY_FLOW_ID = #{numPayFlowId,jdbcType=BIGINT},
+      </if>
+      <if test="datCreatTime != null">
+        DAT_CREAT_TIME = #{datCreatTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="numPayState != null">
+        NUM_PAY_STATE = #{numPayState,jdbcType=TINYINT},
+      </if>
+      <if test="numIsDel != null">
+        NUM_IS_DEL = #{numIsDel,jdbcType=TINYINT},
+      </if>
+    </set>
+    where NUM_ID = #{numId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dower.sharerideapp.core.serverdb.model.PaymentOrderRecord">
+    update payment_order_record
+    set VC_ORDER_NO = #{vcOrderNo,jdbcType=VARCHAR},
+      NUM_USER_MONEY_LOG_ID = #{numUserMoneyLogId,jdbcType=BIGINT},
+      NUM_USER_COUPON_ID = #{numUserCouponId,jdbcType=BIGINT},
+      NUM_GROUP_BUY_DETAILS_ID = #{numGroupBuyDetailsId,jdbcType=BIGINT},
+      NUM_BARGAIN_BIZ_LOG_ID = #{numBargainBizLogId,jdbcType=BIGINT},
+      NUM_PAY_FLOW_ID = #{numPayFlowId,jdbcType=BIGINT},
+      DAT_CREAT_TIME = #{datCreatTime,jdbcType=TIMESTAMP},
+      NUM_PAY_STATE = #{numPayState,jdbcType=TINYINT},
+      NUM_IS_DEL = #{numIsDel,jdbcType=TINYINT}
+    where NUM_ID = #{numId,jdbcType=BIGINT}
+  </update>
+</mapper>

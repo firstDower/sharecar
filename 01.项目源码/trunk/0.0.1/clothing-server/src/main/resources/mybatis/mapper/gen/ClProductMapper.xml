@@ -12,7 +12,7 @@
     <result column="NUM_STATE" jdbcType="TINYINT" property="numState" />
     <result column="DAT_CREAT_TIME" jdbcType="TIMESTAMP" property="datCreatTime" />
     <result column="DAT_UPDATE_TIME" jdbcType="TIMESTAMP" property="datUpdateTime" />
-    <result column="NUM_PRICE" jdbcType="DECIMAL" property="numPrice" />
+    <result column="NUM_PRICE" jdbcType="BIGINT" property="numPrice" />
     <result column="VC_USER_ID" jdbcType="VARCHAR" property="vcUserId" />
     <result column="VC_OPEN_ID" jdbcType="VARCHAR" property="vcOpenId" />
     <result column="DAT_CONFIRM_TIME" jdbcType="TIMESTAMP" property="datConfirmTime" />
@@ -27,6 +27,7 @@
     <result column="NUM_IS_DEL" jdbcType="TINYINT" property="numIsDel" />
     <result column="NUM_PAY_STATE" jdbcType="TINYINT" property="numPayState" />
     <result column="VC_EXPIRE_TIME" jdbcType="VARCHAR" property="vcExpireTime" />
+    <result column="NUM_PAY_TYPE" jdbcType="TINYINT" property="numPayType" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -90,7 +91,7 @@
     NUM_ID, VC_HIGHT, VC_WIGHT, VC_NAME, VC_PHONE, NUM_TYPE, NUM_NUM, NUM_STATE, DAT_CREAT_TIME, 
     DAT_UPDATE_TIME, NUM_PRICE, VC_USER_ID, VC_OPEN_ID, DAT_CONFIRM_TIME, VC_NOTES, NUM_SCHOOL_ID, 
     NUM_GRADE_ID, NUM_MODEL_ID, VC_ORDER_NO, VC_UNION_ID, VC_SIGN_DESC, NUM_PAR_TYPE, 
-    NUM_IS_DEL, NUM_PAY_STATE, VC_EXPIRE_TIME
+    NUM_IS_DEL, NUM_PAY_STATE, VC_EXPIRE_TIME, NUM_PAY_TYPE
   </sql>
   <select id="selectByExample" parameterType="com.dower.sharerideapp.core.serverdb.model.ClProductExample" resultMap="BaseResultMap">
     select
@@ -133,17 +134,17 @@
       DAT_CONFIRM_TIME, VC_NOTES, NUM_SCHOOL_ID, 
       NUM_GRADE_ID, NUM_MODEL_ID, VC_ORDER_NO, 
       VC_UNION_ID, VC_SIGN_DESC, NUM_PAR_TYPE, 
-      NUM_IS_DEL, NUM_PAY_STATE, VC_EXPIRE_TIME
-      )
+      NUM_IS_DEL, NUM_PAY_STATE, VC_EXPIRE_TIME, 
+      NUM_PAY_TYPE)
     values (#{vcHight,jdbcType=VARCHAR}, #{vcWight,jdbcType=VARCHAR}, #{vcName,jdbcType=VARCHAR}, 
       #{vcPhone,jdbcType=VARCHAR}, #{numType,jdbcType=TINYINT}, #{numNum,jdbcType=TINYINT}, 
       #{numState,jdbcType=TINYINT}, #{datCreatTime,jdbcType=TIMESTAMP}, #{datUpdateTime,jdbcType=TIMESTAMP}, 
-      #{numPrice,jdbcType=DECIMAL}, #{vcUserId,jdbcType=VARCHAR}, #{vcOpenId,jdbcType=VARCHAR}, 
+      #{numPrice,jdbcType=BIGINT}, #{vcUserId,jdbcType=VARCHAR}, #{vcOpenId,jdbcType=VARCHAR}, 
       #{datConfirmTime,jdbcType=TIMESTAMP}, #{vcNotes,jdbcType=VARCHAR}, #{numSchoolId,jdbcType=BIGINT}, 
       #{numGradeId,jdbcType=BIGINT}, #{numModelId,jdbcType=BIGINT}, #{vcOrderNo,jdbcType=VARCHAR}, 
       #{vcUnionId,jdbcType=VARCHAR}, #{vcSignDesc,jdbcType=VARCHAR}, #{numParType,jdbcType=TINYINT}, 
-      #{numIsDel,jdbcType=TINYINT}, #{numPayState,jdbcType=TINYINT}, #{vcExpireTime,jdbcType=VARCHAR}
-      )
+      #{numIsDel,jdbcType=TINYINT}, #{numPayState,jdbcType=TINYINT}, #{vcExpireTime,jdbcType=VARCHAR}, 
+      #{numPayType,jdbcType=TINYINT})
   </insert>
   <insert id="insertSelective" parameterType="com.dower.sharerideapp.core.serverdb.model.ClProduct">
     <selectKey keyProperty="numId" order="AFTER" resultType="java.lang.Long">
@@ -223,6 +224,9 @@
       <if test="vcExpireTime != null">
         VC_EXPIRE_TIME,
       </if>
+      <if test="numPayType != null">
+        NUM_PAY_TYPE,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="vcHight != null">
@@ -253,7 +257,7 @@
         #{datUpdateTime,jdbcType=TIMESTAMP},
       </if>
       <if test="numPrice != null">
-        #{numPrice,jdbcType=DECIMAL},
+        #{numPrice,jdbcType=BIGINT},
       </if>
       <if test="vcUserId != null">
         #{vcUserId,jdbcType=VARCHAR},
@@ -297,6 +301,9 @@
       <if test="vcExpireTime != null">
         #{vcExpireTime,jdbcType=VARCHAR},
       </if>
+      <if test="numPayType != null">
+        #{numPayType,jdbcType=TINYINT},
+      </if>
     </trim>
   </insert>
   <select id="countByExample" parameterType="com.dower.sharerideapp.core.serverdb.model.ClProductExample" resultType="java.lang.Long">
@@ -339,7 +346,7 @@
         DAT_UPDATE_TIME = #{record.datUpdateTime,jdbcType=TIMESTAMP},
       </if>
       <if test="record.numPrice != null">
-        NUM_PRICE = #{record.numPrice,jdbcType=DECIMAL},
+        NUM_PRICE = #{record.numPrice,jdbcType=BIGINT},
       </if>
       <if test="record.vcUserId != null">
         VC_USER_ID = #{record.vcUserId,jdbcType=VARCHAR},
@@ -383,6 +390,9 @@
       <if test="record.vcExpireTime != null">
         VC_EXPIRE_TIME = #{record.vcExpireTime,jdbcType=VARCHAR},
       </if>
+      <if test="record.numPayType != null">
+        NUM_PAY_TYPE = #{record.numPayType,jdbcType=TINYINT},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -400,7 +410,7 @@
       NUM_STATE = #{record.numState,jdbcType=TINYINT},
       DAT_CREAT_TIME = #{record.datCreatTime,jdbcType=TIMESTAMP},
       DAT_UPDATE_TIME = #{record.datUpdateTime,jdbcType=TIMESTAMP},
-      NUM_PRICE = #{record.numPrice,jdbcType=DECIMAL},
+      NUM_PRICE = #{record.numPrice,jdbcType=BIGINT},
       VC_USER_ID = #{record.vcUserId,jdbcType=VARCHAR},
       VC_OPEN_ID = #{record.vcOpenId,jdbcType=VARCHAR},
       DAT_CONFIRM_TIME = #{record.datConfirmTime,jdbcType=TIMESTAMP},
@@ -414,7 +424,8 @@
       NUM_PAR_TYPE = #{record.numParType,jdbcType=TINYINT},
       NUM_IS_DEL = #{record.numIsDel,jdbcType=TINYINT},
       NUM_PAY_STATE = #{record.numPayState,jdbcType=TINYINT},
-      VC_EXPIRE_TIME = #{record.vcExpireTime,jdbcType=VARCHAR}
+      VC_EXPIRE_TIME = #{record.vcExpireTime,jdbcType=VARCHAR},
+      NUM_PAY_TYPE = #{record.numPayType,jdbcType=TINYINT}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -450,7 +461,7 @@
         DAT_UPDATE_TIME = #{datUpdateTime,jdbcType=TIMESTAMP},
       </if>
       <if test="numPrice != null">
-        NUM_PRICE = #{numPrice,jdbcType=DECIMAL},
+        NUM_PRICE = #{numPrice,jdbcType=BIGINT},
       </if>
       <if test="vcUserId != null">
         VC_USER_ID = #{vcUserId,jdbcType=VARCHAR},
@@ -494,6 +505,9 @@
       <if test="vcExpireTime != null">
         VC_EXPIRE_TIME = #{vcExpireTime,jdbcType=VARCHAR},
       </if>
+      <if test="numPayType != null">
+        NUM_PAY_TYPE = #{numPayType,jdbcType=TINYINT},
+      </if>
     </set>
     where NUM_ID = #{numId,jdbcType=BIGINT}
   </update>
@@ -508,7 +522,7 @@
       NUM_STATE = #{numState,jdbcType=TINYINT},
       DAT_CREAT_TIME = #{datCreatTime,jdbcType=TIMESTAMP},
       DAT_UPDATE_TIME = #{datUpdateTime,jdbcType=TIMESTAMP},
-      NUM_PRICE = #{numPrice,jdbcType=DECIMAL},
+      NUM_PRICE = #{numPrice,jdbcType=BIGINT},
       VC_USER_ID = #{vcUserId,jdbcType=VARCHAR},
       VC_OPEN_ID = #{vcOpenId,jdbcType=VARCHAR},
       DAT_CONFIRM_TIME = #{datConfirmTime,jdbcType=TIMESTAMP},
@@ -522,7 +536,8 @@
       NUM_PAR_TYPE = #{numParType,jdbcType=TINYINT},
       NUM_IS_DEL = #{numIsDel,jdbcType=TINYINT},
       NUM_PAY_STATE = #{numPayState,jdbcType=TINYINT},
-      VC_EXPIRE_TIME = #{vcExpireTime,jdbcType=VARCHAR}
+      VC_EXPIRE_TIME = #{vcExpireTime,jdbcType=VARCHAR},
+      NUM_PAY_TYPE = #{numPayType,jdbcType=TINYINT}
     where NUM_ID = #{numId,jdbcType=BIGINT}
   </update>
 </mapper>

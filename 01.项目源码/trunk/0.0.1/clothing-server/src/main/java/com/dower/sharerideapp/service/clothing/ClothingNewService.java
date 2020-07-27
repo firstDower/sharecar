@@ -73,7 +73,7 @@ public class ClothingNewService {
                 clProduct.setNumNum(jsonparams.getByte("NUM_NUM"));
             }
             if (jsonparams.containsKey("NUM_PRICE")&&StringUtils.isNotBlank(jsonparams.getString("NUM_PRICE"))){
-                clProduct.setNumPrice(new BigDecimal(jsonparams.getString("NUM_PRICE")));
+                clProduct.setNumPrice(jsonparams.getLong("NUM_PRICE"));
             }
             if (jsonparams.containsKey("VC_USER_ID")){
                 clProduct.setVcUserId(jsonparams.getString("VC_USER_ID"));
@@ -101,7 +101,18 @@ public class ClothingNewService {
             String dateNowStr = sdf.format(new Date());
             String vc_phone = jsonparams.getString("VC_PHONE");
             String last3S = CommUtil.getLast3S(String.valueOf(l + 1));
-            String orderNo = "CU"+dateNowStr+vc_phone.substring(7)+last3S;
+
+            Byte num_par_type = jsonparams.getByte("NUM_PAR_TYPE");
+            String typeHeadStr = "CU";
+            if(num_par_type==1){
+                typeHeadStr = "CU";
+            }else if(num_par_type==2){
+                typeHeadStr = "MC";
+            }else {
+                typeHeadStr = "OR";
+            }
+
+            String orderNo = typeHeadStr+dateNowStr+vc_phone.substring(7)+last3S;
             clProduct.setVcOrderNo(orderNo);
             int i = clProductMapper.insertSelective(clProduct);
 
@@ -196,7 +207,7 @@ public class ClothingNewService {
             if (jsonparams.containsKey("VC_EXPIRE_TIME")&&StringUtils.isNotBlank(jsonparams.getString("VC_EXPIRE_TIME")))
                 clProduct.setVcExpireTime(jsonparams.getString("VC_EXPIRE_TIME"));
             if (jsonparams.containsKey("NUM_PRICE")&&StringUtils.isNotBlank(jsonparams.getString("NUM_PRICE")))
-                clProduct.setNumPrice(new BigDecimal(jsonparams.getByte("NUM_PRICE")));
+                clProduct.setNumPrice(jsonparams.getLong("NUM_PRICE"));
             if (jsonparams.containsKey("VC_NOTES")&&StringUtils.isNotBlank(jsonparams.getString("VC_NOTES")))
                 clProduct.setVcNotes(jsonparams.getString("VC_NOTES"));
             clProduct.setDatUpdateTime(new Date());

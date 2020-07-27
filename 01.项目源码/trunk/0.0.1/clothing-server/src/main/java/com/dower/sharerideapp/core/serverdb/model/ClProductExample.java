@@ -1,6 +1,5 @@
 package com.dower.sharerideapp.core.serverdb.model;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -756,52 +755,52 @@ public class ClProductExample {
             return (Criteria) this;
         }
 
-        public Criteria andNumPriceEqualTo(BigDecimal value) {
+        public Criteria andNumPriceEqualTo(Long value) {
             addCriterion("NUM_PRICE =", value, "numPrice");
             return (Criteria) this;
         }
 
-        public Criteria andNumPriceNotEqualTo(BigDecimal value) {
+        public Criteria andNumPriceNotEqualTo(Long value) {
             addCriterion("NUM_PRICE <>", value, "numPrice");
             return (Criteria) this;
         }
 
-        public Criteria andNumPriceGreaterThan(BigDecimal value) {
+        public Criteria andNumPriceGreaterThan(Long value) {
             addCriterion("NUM_PRICE >", value, "numPrice");
             return (Criteria) this;
         }
 
-        public Criteria andNumPriceGreaterThanOrEqualTo(BigDecimal value) {
+        public Criteria andNumPriceGreaterThanOrEqualTo(Long value) {
             addCriterion("NUM_PRICE >=", value, "numPrice");
             return (Criteria) this;
         }
 
-        public Criteria andNumPriceLessThan(BigDecimal value) {
+        public Criteria andNumPriceLessThan(Long value) {
             addCriterion("NUM_PRICE <", value, "numPrice");
             return (Criteria) this;
         }
 
-        public Criteria andNumPriceLessThanOrEqualTo(BigDecimal value) {
+        public Criteria andNumPriceLessThanOrEqualTo(Long value) {
             addCriterion("NUM_PRICE <=", value, "numPrice");
             return (Criteria) this;
         }
 
-        public Criteria andNumPriceIn(List<BigDecimal> values) {
+        public Criteria andNumPriceIn(List<Long> values) {
             addCriterion("NUM_PRICE in", values, "numPrice");
             return (Criteria) this;
         }
 
-        public Criteria andNumPriceNotIn(List<BigDecimal> values) {
+        public Criteria andNumPriceNotIn(List<Long> values) {
             addCriterion("NUM_PRICE not in", values, "numPrice");
             return (Criteria) this;
         }
 
-        public Criteria andNumPriceBetween(BigDecimal value1, BigDecimal value2) {
+        public Criteria andNumPriceBetween(Long value1, Long value2) {
             addCriterion("NUM_PRICE between", value1, value2, "numPrice");
             return (Criteria) this;
         }
 
-        public Criteria andNumPriceNotBetween(BigDecimal value1, BigDecimal value2) {
+        public Criteria andNumPriceNotBetween(Long value1, Long value2) {
             addCriterion("NUM_PRICE not between", value1, value2, "numPrice");
             return (Criteria) this;
         }
@@ -1713,6 +1712,66 @@ public class ClProductExample {
 
         public Criteria andVcExpireTimeNotBetween(String value1, String value2) {
             addCriterion("VC_EXPIRE_TIME not between", value1, value2, "vcExpireTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumPayTypeIsNull() {
+            addCriterion("NUM_PAY_TYPE is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumPayTypeIsNotNull() {
+            addCriterion("NUM_PAY_TYPE is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumPayTypeEqualTo(Byte value) {
+            addCriterion("NUM_PAY_TYPE =", value, "numPayType");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumPayTypeNotEqualTo(Byte value) {
+            addCriterion("NUM_PAY_TYPE <>", value, "numPayType");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumPayTypeGreaterThan(Byte value) {
+            addCriterion("NUM_PAY_TYPE >", value, "numPayType");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumPayTypeGreaterThanOrEqualTo(Byte value) {
+            addCriterion("NUM_PAY_TYPE >=", value, "numPayType");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumPayTypeLessThan(Byte value) {
+            addCriterion("NUM_PAY_TYPE <", value, "numPayType");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumPayTypeLessThanOrEqualTo(Byte value) {
+            addCriterion("NUM_PAY_TYPE <=", value, "numPayType");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumPayTypeIn(List<Byte> values) {
+            addCriterion("NUM_PAY_TYPE in", values, "numPayType");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumPayTypeNotIn(List<Byte> values) {
+            addCriterion("NUM_PAY_TYPE not in", values, "numPayType");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumPayTypeBetween(Byte value1, Byte value2) {
+            addCriterion("NUM_PAY_TYPE between", value1, value2, "numPayType");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumPayTypeNotBetween(Byte value1, Byte value2) {
+            addCriterion("NUM_PAY_TYPE not between", value1, value2, "numPayType");
             return (Criteria) this;
         }
     }

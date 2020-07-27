@@ -2,15 +2,22 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dower.sharerideapp.core.serverdb.dao.NntUserinfoMapper">
   <resultMap id="BaseResultMap" type="com.dower.sharerideapp.core.serverdb.model.NntUserinfo">
-    <id column="NUM_ID" jdbcType="INTEGER" property="numId" />
-    <result column="NUM_USER_ID" jdbcType="INTEGER" property="numUserId" />
-    <result column="VC_BACK_CARD_NUMBER" jdbcType="VARCHAR" property="vcBackCardNumber" />
-    <result column="VC_IDCARD_NUMBER" jdbcType="VARCHAR" property="vcIdcardNumber" />
-    <result column="VC_DRIVER_LICENSE_NO" jdbcType="VARCHAR" property="vcDriverLicenseNo" />
-    <result column="VC_IDCARD_PICTURE_PATH_A" jdbcType="VARCHAR" property="vcIdcardPicturePathA" />
-    <result column="VC_IDCARD_PICTURE_PATH_B" jdbcType="VARCHAR" property="vcIdcardPicturePathB" />
-    <result column="VC_DRIVER_LICENSE_PATH_A" jdbcType="VARCHAR" property="vcDriverLicensePathA" />
-    <result column="VC_DRIVER_LICENSE_PATH_B" jdbcType="VARCHAR" property="vcDriverLicensePathB" />
+    <id column="NUM_USERINFO_ID" jdbcType="INTEGER" property="numUserinfoId" />
+    <result column="NUM_USER_ID" jdbcType="VARCHAR" property="numUserId" />
+    <result column="VC_NAME" jdbcType="VARCHAR" property="vcName" />
+    <result column="NUM_IDCARD_TYPE" jdbcType="TINYINT" property="numIdcardType" />
+    <result column="VC_IDCARD_NO" jdbcType="VARCHAR" property="vcIdcardNo" />
+    <result column="VC_MOBILE_PHONE" jdbcType="VARCHAR" property="vcMobilePhone" />
+    <result column="VC_EMAIL" jdbcType="VARCHAR" property="vcEmail" />
+    <result column="NUM_GENDER" jdbcType="CHAR" property="numGender" />
+    <result column="NUM_USER_POINT" jdbcType="INTEGER" property="numUserPoint" />
+    <result column="DAT_REGISTER_TIME" jdbcType="TIMESTAMP" property="datRegisterTime" />
+    <result column="DAT_BIRTHDAY" jdbcType="TIMESTAMP" property="datBirthday" />
+    <result column="NUM_USER_LEVEL" jdbcType="TINYINT" property="numUserLevel" />
+    <result column="NUM_USER_MONEY" jdbcType="BIGINT" property="numUserMoney" />
+    <result column="DAT_MODIFIED_TIME" jdbcType="TIMESTAMP" property="datModifiedTime" />
+    <result column="NUM_USER_STATE" jdbcType="TINYINT" property="numUserState" />
+    <result column="NUM_IS_DEL" jdbcType="TINYINT" property="numIsDel" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -71,8 +78,9 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    NUM_ID, NUM_USER_ID, VC_BACK_CARD_NUMBER, VC_IDCARD_NUMBER, VC_DRIVER_LICENSE_NO, 
-    VC_IDCARD_PICTURE_PATH_A, VC_IDCARD_PICTURE_PATH_B, VC_DRIVER_LICENSE_PATH_A, VC_DRIVER_LICENSE_PATH_B
+    NUM_USERINFO_ID, NUM_USER_ID, VC_NAME, NUM_IDCARD_TYPE, VC_IDCARD_NO, VC_MOBILE_PHONE, 
+    VC_EMAIL, NUM_GENDER, NUM_USER_POINT, DAT_REGISTER_TIME, DAT_BIRTHDAY, NUM_USER_LEVEL, 
+    NUM_USER_MONEY, DAT_MODIFIED_TIME, NUM_USER_STATE, NUM_IS_DEL
   </sql>
   <select id="selectByExample" parameterType="com.dower.sharerideapp.core.serverdb.model.NntUserinfoExample" resultMap="BaseResultMap">
     select
@@ -92,11 +100,11 @@
     select 
     <include refid="Base_Column_List" />
     from nnt_userinfo
-    where NUM_ID = #{numId,jdbcType=INTEGER}
+    where NUM_USERINFO_ID = #{numUserinfoId,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from nnt_userinfo
-    where NUM_ID = #{numId,jdbcType=INTEGER}
+    where NUM_USERINFO_ID = #{numUserinfoId,jdbcType=INTEGER}
   </delete>
   <delete id="deleteByExample" parameterType="com.dower.sharerideapp.core.serverdb.model.NntUserinfoExample">
     delete from nnt_userinfo
@@ -105,73 +113,119 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.dower.sharerideapp.core.serverdb.model.NntUserinfo">
-    insert into nnt_userinfo (NUM_ID, NUM_USER_ID, VC_BACK_CARD_NUMBER, 
-      VC_IDCARD_NUMBER, VC_DRIVER_LICENSE_NO, VC_IDCARD_PICTURE_PATH_A, 
-      VC_IDCARD_PICTURE_PATH_B, VC_DRIVER_LICENSE_PATH_A, 
-      VC_DRIVER_LICENSE_PATH_B)
-    values (#{numId,jdbcType=INTEGER}, #{numUserId,jdbcType=INTEGER}, #{vcBackCardNumber,jdbcType=VARCHAR}, 
-      #{vcIdcardNumber,jdbcType=VARCHAR}, #{vcDriverLicenseNo,jdbcType=VARCHAR}, #{vcIdcardPicturePathA,jdbcType=VARCHAR}, 
-      #{vcIdcardPicturePathB,jdbcType=VARCHAR}, #{vcDriverLicensePathA,jdbcType=VARCHAR}, 
-      #{vcDriverLicensePathB,jdbcType=VARCHAR})
+    <selectKey keyProperty="numUserinfoId" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into nnt_userinfo (NUM_USER_ID, VC_NAME, NUM_IDCARD_TYPE, 
+      VC_IDCARD_NO, VC_MOBILE_PHONE, VC_EMAIL, 
+      NUM_GENDER, NUM_USER_POINT, DAT_REGISTER_TIME, 
+      DAT_BIRTHDAY, NUM_USER_LEVEL, NUM_USER_MONEY, 
+      DAT_MODIFIED_TIME, NUM_USER_STATE, NUM_IS_DEL
+      )
+    values (#{numUserId,jdbcType=VARCHAR}, #{vcName,jdbcType=VARCHAR}, #{numIdcardType,jdbcType=TINYINT}, 
+      #{vcIdcardNo,jdbcType=VARCHAR}, #{vcMobilePhone,jdbcType=VARCHAR}, #{vcEmail,jdbcType=VARCHAR}, 
+      #{numGender,jdbcType=CHAR}, #{numUserPoint,jdbcType=INTEGER}, #{datRegisterTime,jdbcType=TIMESTAMP}, 
+      #{datBirthday,jdbcType=TIMESTAMP}, #{numUserLevel,jdbcType=TINYINT}, #{numUserMoney,jdbcType=BIGINT}, 
+      #{datModifiedTime,jdbcType=TIMESTAMP}, #{numUserState,jdbcType=TINYINT}, #{numIsDel,jdbcType=TINYINT}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.dower.sharerideapp.core.serverdb.model.NntUserinfo">
+    <selectKey keyProperty="numUserinfoId" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
     insert into nnt_userinfo
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="numId != null">
-        NUM_ID,
-      </if>
       <if test="numUserId != null">
         NUM_USER_ID,
       </if>
-      <if test="vcBackCardNumber != null">
-        VC_BACK_CARD_NUMBER,
+      <if test="vcName != null">
+        VC_NAME,
       </if>
-      <if test="vcIdcardNumber != null">
-        VC_IDCARD_NUMBER,
+      <if test="numIdcardType != null">
+        NUM_IDCARD_TYPE,
       </if>
-      <if test="vcDriverLicenseNo != null">
-        VC_DRIVER_LICENSE_NO,
+      <if test="vcIdcardNo != null">
+        VC_IDCARD_NO,
       </if>
-      <if test="vcIdcardPicturePathA != null">
-        VC_IDCARD_PICTURE_PATH_A,
+      <if test="vcMobilePhone != null">
+        VC_MOBILE_PHONE,
       </if>
-      <if test="vcIdcardPicturePathB != null">
-        VC_IDCARD_PICTURE_PATH_B,
+      <if test="vcEmail != null">
+        VC_EMAIL,
       </if>
-      <if test="vcDriverLicensePathA != null">
-        VC_DRIVER_LICENSE_PATH_A,
+      <if test="numGender != null">
+        NUM_GENDER,
       </if>
-      <if test="vcDriverLicensePathB != null">
-        VC_DRIVER_LICENSE_PATH_B,
+      <if test="numUserPoint != null">
+        NUM_USER_POINT,
+      </if>
+      <if test="datRegisterTime != null">
+        DAT_REGISTER_TIME,
+      </if>
+      <if test="datBirthday != null">
+        DAT_BIRTHDAY,
+      </if>
+      <if test="numUserLevel != null">
+        NUM_USER_LEVEL,
+      </if>
+      <if test="numUserMoney != null">
+        NUM_USER_MONEY,
+      </if>
+      <if test="datModifiedTime != null">
+        DAT_MODIFIED_TIME,
+      </if>
+      <if test="numUserState != null">
+        NUM_USER_STATE,
+      </if>
+      <if test="numIsDel != null">
+        NUM_IS_DEL,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="numId != null">
-        #{numId,jdbcType=INTEGER},
-      </if>
       <if test="numUserId != null">
-        #{numUserId,jdbcType=INTEGER},
+        #{numUserId,jdbcType=VARCHAR},
       </if>
-      <if test="vcBackCardNumber != null">
-        #{vcBackCardNumber,jdbcType=VARCHAR},
+      <if test="vcName != null">
+        #{vcName,jdbcType=VARCHAR},
       </if>
-      <if test="vcIdcardNumber != null">
-        #{vcIdcardNumber,jdbcType=VARCHAR},
+      <if test="numIdcardType != null">
+        #{numIdcardType,jdbcType=TINYINT},
       </if>
-      <if test="vcDriverLicenseNo != null">
-        #{vcDriverLicenseNo,jdbcType=VARCHAR},
+      <if test="vcIdcardNo != null">
+        #{vcIdcardNo,jdbcType=VARCHAR},
       </if>
-      <if test="vcIdcardPicturePathA != null">
-        #{vcIdcardPicturePathA,jdbcType=VARCHAR},
+      <if test="vcMobilePhone != null">
+        #{vcMobilePhone,jdbcType=VARCHAR},
       </if>
-      <if test="vcIdcardPicturePathB != null">
-        #{vcIdcardPicturePathB,jdbcType=VARCHAR},
+      <if test="vcEmail != null">
+        #{vcEmail,jdbcType=VARCHAR},
       </if>
-      <if test="vcDriverLicensePathA != null">
-        #{vcDriverLicensePathA,jdbcType=VARCHAR},
+      <if test="numGender != null">
+        #{numGender,jdbcType=CHAR},
       </if>
-      <if test="vcDriverLicensePathB != null">
-        #{vcDriverLicensePathB,jdbcType=VARCHAR},
+      <if test="numUserPoint != null">
+        #{numUserPoint,jdbcType=INTEGER},
+      </if>
+      <if test="datRegisterTime != null">
+        #{datRegisterTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="datBirthday != null">
+        #{datBirthday,jdbcType=TIMESTAMP},
+      </if>
+      <if test="numUserLevel != null">
+        #{numUserLevel,jdbcType=TINYINT},
+      </if>
+      <if test="numUserMoney != null">
+        #{numUserMoney,jdbcType=BIGINT},
+      </if>
+      <if test="datModifiedTime != null">
+        #{datModifiedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="numUserState != null">
+        #{numUserState,jdbcType=TINYINT},
+      </if>
+      <if test="numIsDel != null">
+        #{numIsDel,jdbcType=TINYINT},
       </if>
     </trim>
   </insert>
@@ -184,32 +238,53 @@
   <update id="updateByExampleSelective" parameterType="map">
     update nnt_userinfo
     <set>
-      <if test="record.numId != null">
-        NUM_ID = #{record.numId,jdbcType=INTEGER},
+      <if test="record.numUserinfoId != null">
+        NUM_USERINFO_ID = #{record.numUserinfoId,jdbcType=INTEGER},
       </if>
       <if test="record.numUserId != null">
-        NUM_USER_ID = #{record.numUserId,jdbcType=INTEGER},
+        NUM_USER_ID = #{record.numUserId,jdbcType=VARCHAR},
       </if>
-      <if test="record.vcBackCardNumber != null">
-        VC_BACK_CARD_NUMBER = #{record.vcBackCardNumber,jdbcType=VARCHAR},
+      <if test="record.vcName != null">
+        VC_NAME = #{record.vcName,jdbcType=VARCHAR},
       </if>
-      <if test="record.vcIdcardNumber != null">
-        VC_IDCARD_NUMBER = #{record.vcIdcardNumber,jdbcType=VARCHAR},
+      <if test="record.numIdcardType != null">
+        NUM_IDCARD_TYPE = #{record.numIdcardType,jdbcType=TINYINT},
       </if>
-      <if test="record.vcDriverLicenseNo != null">
-        VC_DRIVER_LICENSE_NO = #{record.vcDriverLicenseNo,jdbcType=VARCHAR},
+      <if test="record.vcIdcardNo != null">
+        VC_IDCARD_NO = #{record.vcIdcardNo,jdbcType=VARCHAR},
       </if>
-      <if test="record.vcIdcardPicturePathA != null">
-        VC_IDCARD_PICTURE_PATH_A = #{record.vcIdcardPicturePathA,jdbcType=VARCHAR},
+      <if test="record.vcMobilePhone != null">
+        VC_MOBILE_PHONE = #{record.vcMobilePhone,jdbcType=VARCHAR},
       </if>
-      <if test="record.vcIdcardPicturePathB != null">
-        VC_IDCARD_PICTURE_PATH_B = #{record.vcIdcardPicturePathB,jdbcType=VARCHAR},
+      <if test="record.vcEmail != null">
+        VC_EMAIL = #{record.vcEmail,jdbcType=VARCHAR},
       </if>
-      <if test="record.vcDriverLicensePathA != null">
-        VC_DRIVER_LICENSE_PATH_A = #{record.vcDriverLicensePathA,jdbcType=VARCHAR},
+      <if test="record.numGender != null">
+        NUM_GENDER = #{record.numGender,jdbcType=CHAR},
       </if>
-      <if test="record.vcDriverLicensePathB != null">
-        VC_DRIVER_LICENSE_PATH_B = #{record.vcDriverLicensePathB,jdbcType=VARCHAR},
+      <if test="record.numUserPoint != null">
+        NUM_USER_POINT = #{record.numUserPoint,jdbcType=INTEGER},
+      </if>
+      <if test="record.datRegisterTime != null">
+        DAT_REGISTER_TIME = #{record.datRegisterTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.datBirthday != null">
+        DAT_BIRTHDAY = #{record.datBirthday,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.numUserLevel != null">
+        NUM_USER_LEVEL = #{record.numUserLevel,jdbcType=TINYINT},
+      </if>
+      <if test="record.numUserMoney != null">
+        NUM_USER_MONEY = #{record.numUserMoney,jdbcType=BIGINT},
+      </if>
+      <if test="record.datModifiedTime != null">
+        DAT_MODIFIED_TIME = #{record.datModifiedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.numUserState != null">
+        NUM_USER_STATE = #{record.numUserState,jdbcType=TINYINT},
+      </if>
+      <if test="record.numIsDel != null">
+        NUM_IS_DEL = #{record.numIsDel,jdbcType=TINYINT},
       </if>
     </set>
     <if test="_parameter != null">
@@ -218,15 +293,22 @@
   </update>
   <update id="updateByExample" parameterType="map">
     update nnt_userinfo
-    set NUM_ID = #{record.numId,jdbcType=INTEGER},
-      NUM_USER_ID = #{record.numUserId,jdbcType=INTEGER},
-      VC_BACK_CARD_NUMBER = #{record.vcBackCardNumber,jdbcType=VARCHAR},
-      VC_IDCARD_NUMBER = #{record.vcIdcardNumber,jdbcType=VARCHAR},
-      VC_DRIVER_LICENSE_NO = #{record.vcDriverLicenseNo,jdbcType=VARCHAR},
-      VC_IDCARD_PICTURE_PATH_A = #{record.vcIdcardPicturePathA,jdbcType=VARCHAR},
-      VC_IDCARD_PICTURE_PATH_B = #{record.vcIdcardPicturePathB,jdbcType=VARCHAR},
-      VC_DRIVER_LICENSE_PATH_A = #{record.vcDriverLicensePathA,jdbcType=VARCHAR},
-      VC_DRIVER_LICENSE_PATH_B = #{record.vcDriverLicensePathB,jdbcType=VARCHAR}
+    set NUM_USERINFO_ID = #{record.numUserinfoId,jdbcType=INTEGER},
+      NUM_USER_ID = #{record.numUserId,jdbcType=VARCHAR},
+      VC_NAME = #{record.vcName,jdbcType=VARCHAR},
+      NUM_IDCARD_TYPE = #{record.numIdcardType,jdbcType=TINYINT},
+      VC_IDCARD_NO = #{record.vcIdcardNo,jdbcType=VARCHAR},
+      VC_MOBILE_PHONE = #{record.vcMobilePhone,jdbcType=VARCHAR},
+      VC_EMAIL = #{record.vcEmail,jdbcType=VARCHAR},
+      NUM_GENDER = #{record.numGender,jdbcType=CHAR},
+      NUM_USER_POINT = #{record.numUserPoint,jdbcType=INTEGER},
+      DAT_REGISTER_TIME = #{record.datRegisterTime,jdbcType=TIMESTAMP},
+      DAT_BIRTHDAY = #{record.datBirthday,jdbcType=TIMESTAMP},
+      NUM_USER_LEVEL = #{record.numUserLevel,jdbcType=TINYINT},
+      NUM_USER_MONEY = #{record.numUserMoney,jdbcType=BIGINT},
+      DAT_MODIFIED_TIME = #{record.datModifiedTime,jdbcType=TIMESTAMP},
+      NUM_USER_STATE = #{record.numUserState,jdbcType=TINYINT},
+      NUM_IS_DEL = #{record.numIsDel,jdbcType=TINYINT}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -235,42 +317,70 @@
     update nnt_userinfo
     <set>
       <if test="numUserId != null">
-        NUM_USER_ID = #{numUserId,jdbcType=INTEGER},
+        NUM_USER_ID = #{numUserId,jdbcType=VARCHAR},
       </if>
-      <if test="vcBackCardNumber != null">
-        VC_BACK_CARD_NUMBER = #{vcBackCardNumber,jdbcType=VARCHAR},
+      <if test="vcName != null">
+        VC_NAME = #{vcName,jdbcType=VARCHAR},
       </if>
-      <if test="vcIdcardNumber != null">
-        VC_IDCARD_NUMBER = #{vcIdcardNumber,jdbcType=VARCHAR},
+      <if test="numIdcardType != null">
+        NUM_IDCARD_TYPE = #{numIdcardType,jdbcType=TINYINT},
       </if>
-      <if test="vcDriverLicenseNo != null">
-        VC_DRIVER_LICENSE_NO = #{vcDriverLicenseNo,jdbcType=VARCHAR},
+      <if test="vcIdcardNo != null">
+        VC_IDCARD_NO = #{vcIdcardNo,jdbcType=VARCHAR},
       </if>
-      <if test="vcIdcardPicturePathA != null">
-        VC_IDCARD_PICTURE_PATH_A = #{vcIdcardPicturePathA,jdbcType=VARCHAR},
+      <if test="vcMobilePhone != null">
+        VC_MOBILE_PHONE = #{vcMobilePhone,jdbcType=VARCHAR},
       </if>
-      <if test="vcIdcardPicturePathB != null">
-        VC_IDCARD_PICTURE_PATH_B = #{vcIdcardPicturePathB,jdbcType=VARCHAR},
+      <if test="vcEmail != null">
+        VC_EMAIL = #{vcEmail,jdbcType=VARCHAR},
       </if>
-      <if test="vcDriverLicensePathA != null">
-        VC_DRIVER_LICENSE_PATH_A = #{vcDriverLicensePathA,jdbcType=VARCHAR},
+      <if test="numGender != null">
+        NUM_GENDER = #{numGender,jdbcType=CHAR},
       </if>
-      <if test="vcDriverLicensePathB != null">
-        VC_DRIVER_LICENSE_PATH_B = #{vcDriverLicensePathB,jdbcType=VARCHAR},
+      <if test="numUserPoint != null">
+        NUM_USER_POINT = #{numUserPoint,jdbcType=INTEGER},
+      </if>
+      <if test="datRegisterTime != null">
+        DAT_REGISTER_TIME = #{datRegisterTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="datBirthday != null">
+        DAT_BIRTHDAY = #{datBirthday,jdbcType=TIMESTAMP},
+      </if>
+      <if test="numUserLevel != null">
+        NUM_USER_LEVEL = #{numUserLevel,jdbcType=TINYINT},
+      </if>
+      <if test="numUserMoney != null">
+        NUM_USER_MONEY = #{numUserMoney,jdbcType=BIGINT},
+      </if>
+      <if test="datModifiedTime != null">
+        DAT_MODIFIED_TIME = #{datModifiedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="numUserState != null">
+        NUM_USER_STATE = #{numUserState,jdbcType=TINYINT},
+      </if>
+      <if test="numIsDel != null">
+        NUM_IS_DEL = #{numIsDel,jdbcType=TINYINT},
       </if>
     </set>
-    where NUM_ID = #{numId,jdbcType=INTEGER}
+    where NUM_USERINFO_ID = #{numUserinfoId,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.dower.sharerideapp.core.serverdb.model.NntUserinfo">
     update nnt_userinfo
-    set NUM_USER_ID = #{numUserId,jdbcType=INTEGER},
-      VC_BACK_CARD_NUMBER = #{vcBackCardNumber,jdbcType=VARCHAR},
-      VC_IDCARD_NUMBER = #{vcIdcardNumber,jdbcType=VARCHAR},
-      VC_DRIVER_LICENSE_NO = #{vcDriverLicenseNo,jdbcType=VARCHAR},
-      VC_IDCARD_PICTURE_PATH_A = #{vcIdcardPicturePathA,jdbcType=VARCHAR},
-      VC_IDCARD_PICTURE_PATH_B = #{vcIdcardPicturePathB,jdbcType=VARCHAR},
-      VC_DRIVER_LICENSE_PATH_A = #{vcDriverLicensePathA,jdbcType=VARCHAR},
-      VC_DRIVER_LICENSE_PATH_B = #{vcDriverLicensePathB,jdbcType=VARCHAR}
-    where NUM_ID = #{numId,jdbcType=INTEGER}
+    set NUM_USER_ID = #{numUserId,jdbcType=VARCHAR},
+      VC_NAME = #{vcName,jdbcType=VARCHAR},
+      NUM_IDCARD_TYPE = #{numIdcardType,jdbcType=TINYINT},
+      VC_IDCARD_NO = #{vcIdcardNo,jdbcType=VARCHAR},
+      VC_MOBILE_PHONE = #{vcMobilePhone,jdbcType=VARCHAR},
+      VC_EMAIL = #{vcEmail,jdbcType=VARCHAR},
+      NUM_GENDER = #{numGender,jdbcType=CHAR},
+      NUM_USER_POINT = #{numUserPoint,jdbcType=INTEGER},
+      DAT_REGISTER_TIME = #{datRegisterTime,jdbcType=TIMESTAMP},
+      DAT_BIRTHDAY = #{datBirthday,jdbcType=TIMESTAMP},
+      NUM_USER_LEVEL = #{numUserLevel,jdbcType=TINYINT},
+      NUM_USER_MONEY = #{numUserMoney,jdbcType=BIGINT},
+      DAT_MODIFIED_TIME = #{datModifiedTime,jdbcType=TIMESTAMP},
+      NUM_USER_STATE = #{numUserState,jdbcType=TINYINT},
+      NUM_IS_DEL = #{numIsDel,jdbcType=TINYINT}
+    where NUM_USERINFO_ID = #{numUserinfoId,jdbcType=INTEGER}
   </update>
 </mapper>

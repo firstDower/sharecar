@@ -10,7 +10,7 @@ public interface NntUserinfoMapper {
 
     int deleteByExample(NntUserinfoExample example);
 
-    int deleteByPrimaryKey(Integer numId);
+    int deleteByPrimaryKey(Integer numUserinfoId);
 
     int insert(NntUserinfo record);
 
@@ -18,7 +18,7 @@ public interface NntUserinfoMapper {
 
     List<NntUserinfo> selectByExample(NntUserinfoExample example);
 
-    NntUserinfo selectByPrimaryKey(Integer numId);
+    NntUserinfo selectByPrimaryKey(Integer numUserinfoId);
 
     int updateByExampleSelective(@Param("record") NntUserinfo record, @Param("example") NntUserinfoExample example);
 

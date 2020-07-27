@@ -112,7 +112,7 @@ public class WXPayController {
                 ClProduct cloth = (ClProduct) clothing.getResultInfo();
                 String vcExpireTime = cloth.getVcExpireTime();
                 String vcOrderNo = cloth.getVcOrderNo();
-                BigDecimal numPrice = cloth.getNumPrice();
+                Long numPrice = cloth.getNumPrice();
 
                 MyConfig config = new MyConfig();
                 WXPay wxpay = new WXPay(config);

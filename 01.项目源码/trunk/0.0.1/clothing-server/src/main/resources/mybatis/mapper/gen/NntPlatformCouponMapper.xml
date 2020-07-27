@@ -1,0 +1,417 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dower.sharerideapp.core.serverdb.dao.NntPlatformCouponMapper">
+  <resultMap id="BaseResultMap" type="com.dower.sharerideapp.core.serverdb.model.NntPlatformCoupon">
+    <id column="NUM_ID" jdbcType="BIGINT" property="numId" />
+    <result column="VC_COUPON_NAME" jdbcType="VARCHAR" property="vcCouponName" />
+    <result column="NUM_ISSUE_TOTAL" jdbcType="INTEGER" property="numIssueTotal" />
+    <result column="NUM_DISCOUNT_TYPE" jdbcType="TINYINT" property="numDiscountType" />
+    <result column="NUM_DISCOUNT_NUMBER" jdbcType="INTEGER" property="numDiscountNumber" />
+    <result column="VC_DISCOUNT_STR" jdbcType="VARCHAR" property="vcDiscountStr" />
+    <result column="NUM_HAS_DISCOUNT_LIMIT" jdbcType="TINYINT" property="numHasDiscountLimit" />
+    <result column="NUM_LIMIT_PRICE" jdbcType="INTEGER" property="numLimitPrice" />
+    <result column="NUM_MEMBER" jdbcType="TINYINT" property="numMember" />
+    <result column="NUM_USER_LIMIT_NUM" jdbcType="TINYINT" property="numUserLimitNum" />
+    <result column="NUM_LIMIT_DATE_TYPE" jdbcType="TINYINT" property="numLimitDateType" />
+    <result column="NUM_AVAILABLE_DAYS" jdbcType="INTEGER" property="numAvailableDays" />
+    <result column="NUM_AVAILABLE_GOODS" jdbcType="BIGINT" property="numAvailableGoods" />
+    <result column="VC_INSTRUCTIONS" jdbcType="VARCHAR" property="vcInstructions" />
+    <result column="DAT_CREAT_DATE" jdbcType="TIMESTAMP" property="datCreatDate" />
+    <result column="DAT_START_DATE" jdbcType="TIMESTAMP" property="datStartDate" />
+    <result column="DAT_END_DATE" jdbcType="TIMESTAMP" property="datEndDate" />
+    <result column="NUM_CREAT_ADMIN_USER_ID" jdbcType="BIGINT" property="numCreatAdminUserId" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    NUM_ID, VC_COUPON_NAME, NUM_ISSUE_TOTAL, NUM_DISCOUNT_TYPE, NUM_DISCOUNT_NUMBER, 
+    VC_DISCOUNT_STR, NUM_HAS_DISCOUNT_LIMIT, NUM_LIMIT_PRICE, NUM_MEMBER, NUM_USER_LIMIT_NUM, 
+    NUM_LIMIT_DATE_TYPE, NUM_AVAILABLE_DAYS, NUM_AVAILABLE_GOODS, VC_INSTRUCTIONS, DAT_CREAT_DATE, 
+    DAT_START_DATE, DAT_END_DATE, NUM_CREAT_ADMIN_USER_ID
+  </sql>
+  <select id="selectByExample" parameterType="com.dower.sharerideapp.core.serverdb.model.NntPlatformCouponExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from nnt_platform_coupon
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from nnt_platform_coupon
+    where NUM_ID = #{numId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from nnt_platform_coupon
+    where NUM_ID = #{numId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.dower.sharerideapp.core.serverdb.model.NntPlatformCouponExample">
+    delete from nnt_platform_coupon
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.dower.sharerideapp.core.serverdb.model.NntPlatformCoupon">
+    <selectKey keyProperty="numId" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into nnt_platform_coupon (VC_COUPON_NAME, NUM_ISSUE_TOTAL, NUM_DISCOUNT_TYPE, 
+      NUM_DISCOUNT_NUMBER, VC_DISCOUNT_STR, NUM_HAS_DISCOUNT_LIMIT, 
+      NUM_LIMIT_PRICE, NUM_MEMBER, NUM_USER_LIMIT_NUM, 
+      NUM_LIMIT_DATE_TYPE, NUM_AVAILABLE_DAYS, NUM_AVAILABLE_GOODS, 
+      VC_INSTRUCTIONS, DAT_CREAT_DATE, DAT_START_DATE, 
+      DAT_END_DATE, NUM_CREAT_ADMIN_USER_ID)
+    values (#{vcCouponName,jdbcType=VARCHAR}, #{numIssueTotal,jdbcType=INTEGER}, #{numDiscountType,jdbcType=TINYINT}, 
+      #{numDiscountNumber,jdbcType=INTEGER}, #{vcDiscountStr,jdbcType=VARCHAR}, #{numHasDiscountLimit,jdbcType=TINYINT}, 
+      #{numLimitPrice,jdbcType=INTEGER}, #{numMember,jdbcType=TINYINT}, #{numUserLimitNum,jdbcType=TINYINT}, 
+      #{numLimitDateType,jdbcType=TINYINT}, #{numAvailableDays,jdbcType=INTEGER}, #{numAvailableGoods,jdbcType=BIGINT}, 
+      #{vcInstructions,jdbcType=VARCHAR}, #{datCreatDate,jdbcType=TIMESTAMP}, #{datStartDate,jdbcType=TIMESTAMP}, 
+      #{datEndDate,jdbcType=TIMESTAMP}, #{numCreatAdminUserId,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dower.sharerideapp.core.serverdb.model.NntPlatformCoupon">
+    <selectKey keyProperty="numId" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into nnt_platform_coupon
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="vcCouponName != null">
+        VC_COUPON_NAME,
+      </if>
+      <if test="numIssueTotal != null">
+        NUM_ISSUE_TOTAL,
+      </if>
+      <if test="numDiscountType != null">
+        NUM_DISCOUNT_TYPE,
+      </if>
+      <if test="numDiscountNumber != null">
+        NUM_DISCOUNT_NUMBER,
+      </if>
+      <if test="vcDiscountStr != null">
+        VC_DISCOUNT_STR,
+      </if>
+      <if test="numHasDiscountLimit != null">
+        NUM_HAS_DISCOUNT_LIMIT,
+      </if>
+      <if test="numLimitPrice != null">
+        NUM_LIMIT_PRICE,
+      </if>
+      <if test="numMember != null">
+        NUM_MEMBER,
+      </if>
+      <if test="numUserLimitNum != null">
+        NUM_USER_LIMIT_NUM,
+      </if>
+      <if test="numLimitDateType != null">
+        NUM_LIMIT_DATE_TYPE,
+      </if>
+      <if test="numAvailableDays != null">
+        NUM_AVAILABLE_DAYS,
+      </if>
+      <if test="numAvailableGoods != null">
+        NUM_AVAILABLE_GOODS,
+      </if>
+      <if test="vcInstructions != null">
+        VC_INSTRUCTIONS,
+      </if>
+      <if test="datCreatDate != null">
+        DAT_CREAT_DATE,
+      </if>
+      <if test="datStartDate != null">
+        DAT_START_DATE,
+      </if>
+      <if test="datEndDate != null">
+        DAT_END_DATE,
+      </if>
+      <if test="numCreatAdminUserId != null">
+        NUM_CREAT_ADMIN_USER_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="vcCouponName != null">
+        #{vcCouponName,jdbcType=VARCHAR},
+      </if>
+      <if test="numIssueTotal != null">
+        #{numIssueTotal,jdbcType=INTEGER},
+      </if>
+      <if test="numDiscountType != null">
+        #{numDiscountType,jdbcType=TINYINT},
+      </if>
+      <if test="numDiscountNumber != null">
+        #{numDiscountNumber,jdbcType=INTEGER},
+      </if>
+      <if test="vcDiscountStr != null">
+        #{vcDiscountStr,jdbcType=VARCHAR},
+      </if>
+      <if test="numHasDiscountLimit != null">
+        #{numHasDiscountLimit,jdbcType=TINYINT},
+      </if>
+      <if test="numLimitPrice != null">
+        #{numLimitPrice,jdbcType=INTEGER},
+      </if>
+      <if test="numMember != null">
+        #{numMember,jdbcType=TINYINT},
+      </if>
+      <if test="numUserLimitNum != null">
+        #{numUserLimitNum,jdbcType=TINYINT},
+      </if>
+      <if test="numLimitDateType != null">
+        #{numLimitDateType,jdbcType=TINYINT},
+      </if>
+      <if test="numAvailableDays != null">
+        #{numAvailableDays,jdbcType=INTEGER},
+      </if>
+      <if test="numAvailableGoods != null">
+        #{numAvailableGoods,jdbcType=BIGINT},
+      </if>
+      <if test="vcInstructions != null">
+        #{vcInstructions,jdbcType=VARCHAR},
+      </if>
+      <if test="datCreatDate != null">
+        #{datCreatDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="datStartDate != null">
+        #{datStartDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="datEndDate != null">
+        #{datEndDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="numCreatAdminUserId != null">
+        #{numCreatAdminUserId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.dower.sharerideapp.core.serverdb.model.NntPlatformCouponExample" resultType="java.lang.Long">
+    select count(*) from nnt_platform_coupon
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update nnt_platform_coupon
+    <set>
+      <if test="record.numId != null">
+        NUM_ID = #{record.numId,jdbcType=BIGINT},
+      </if>
+      <if test="record.vcCouponName != null">
+        VC_COUPON_NAME = #{record.vcCouponName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.numIssueTotal != null">
+        NUM_ISSUE_TOTAL = #{record.numIssueTotal,jdbcType=INTEGER},
+      </if>
+      <if test="record.numDiscountType != null">
+        NUM_DISCOUNT_TYPE = #{record.numDiscountType,jdbcType=TINYINT},
+      </if>
+      <if test="record.numDiscountNumber != null">
+        NUM_DISCOUNT_NUMBER = #{record.numDiscountNumber,jdbcType=INTEGER},
+      </if>
+      <if test="record.vcDiscountStr != null">
+        VC_DISCOUNT_STR = #{record.vcDiscountStr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.numHasDiscountLimit != null">
+        NUM_HAS_DISCOUNT_LIMIT = #{record.numHasDiscountLimit,jdbcType=TINYINT},
+      </if>
+      <if test="record.numLimitPrice != null">
+        NUM_LIMIT_PRICE = #{record.numLimitPrice,jdbcType=INTEGER},
+      </if>
+      <if test="record.numMember != null">
+        NUM_MEMBER = #{record.numMember,jdbcType=TINYINT},
+      </if>
+      <if test="record.numUserLimitNum != null">
+        NUM_USER_LIMIT_NUM = #{record.numUserLimitNum,jdbcType=TINYINT},
+      </if>
+      <if test="record.numLimitDateType != null">
+        NUM_LIMIT_DATE_TYPE = #{record.numLimitDateType,jdbcType=TINYINT},
+      </if>
+      <if test="record.numAvailableDays != null">
+        NUM_AVAILABLE_DAYS = #{record.numAvailableDays,jdbcType=INTEGER},
+      </if>
+      <if test="record.numAvailableGoods != null">
+        NUM_AVAILABLE_GOODS = #{record.numAvailableGoods,jdbcType=BIGINT},
+      </if>
+      <if test="record.vcInstructions != null">
+        VC_INSTRUCTIONS = #{record.vcInstructions,jdbcType=VARCHAR},
+      </if>
+      <if test="record.datCreatDate != null">
+        DAT_CREAT_DATE = #{record.datCreatDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.datStartDate != null">
+        DAT_START_DATE = #{record.datStartDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.datEndDate != null">
+        DAT_END_DATE = #{record.datEndDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.numCreatAdminUserId != null">
+        NUM_CREAT_ADMIN_USER_ID = #{record.numCreatAdminUserId,jdbcType=BIGINT},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update nnt_platform_coupon
+    set NUM_ID = #{record.numId,jdbcType=BIGINT},
+      VC_COUPON_NAME = #{record.vcCouponName,jdbcType=VARCHAR},
+      NUM_ISSUE_TOTAL = #{record.numIssueTotal,jdbcType=INTEGER},
+      NUM_DISCOUNT_TYPE = #{record.numDiscountType,jdbcType=TINYINT},
+      NUM_DISCOUNT_NUMBER = #{record.numDiscountNumber,jdbcType=INTEGER},
+      VC_DISCOUNT_STR = #{record.vcDiscountStr,jdbcType=VARCHAR},
+      NUM_HAS_DISCOUNT_LIMIT = #{record.numHasDiscountLimit,jdbcType=TINYINT},
+      NUM_LIMIT_PRICE = #{record.numLimitPrice,jdbcType=INTEGER},
+      NUM_MEMBER = #{record.numMember,jdbcType=TINYINT},
+      NUM_USER_LIMIT_NUM = #{record.numUserLimitNum,jdbcType=TINYINT},
+      NUM_LIMIT_DATE_TYPE = #{record.numLimitDateType,jdbcType=TINYINT},
+      NUM_AVAILABLE_DAYS = #{record.numAvailableDays,jdbcType=INTEGER},
+      NUM_AVAILABLE_GOODS = #{record.numAvailableGoods,jdbcType=BIGINT},
+      VC_INSTRUCTIONS = #{record.vcInstructions,jdbcType=VARCHAR},
+      DAT_CREAT_DATE = #{record.datCreatDate,jdbcType=TIMESTAMP},
+      DAT_START_DATE = #{record.datStartDate,jdbcType=TIMESTAMP},
+      DAT_END_DATE = #{record.datEndDate,jdbcType=TIMESTAMP},
+      NUM_CREAT_ADMIN_USER_ID = #{record.numCreatAdminUserId,jdbcType=BIGINT}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dower.sharerideapp.core.serverdb.model.NntPlatformCoupon">
+    update nnt_platform_coupon
+    <set>
+      <if test="vcCouponName != null">
+        VC_COUPON_NAME = #{vcCouponName,jdbcType=VARCHAR},
+      </if>
+      <if test="numIssueTotal != null">
+        NUM_ISSUE_TOTAL = #{numIssueTotal,jdbcType=INTEGER},
+      </if>
+      <if test="numDiscountType != null">
+        NUM_DISCOUNT_TYPE = #{numDiscountType,jdbcType=TINYINT},
+      </if>
+      <if test="numDiscountNumber != null">
+        NUM_DISCOUNT_NUMBER = #{numDiscountNumber,jdbcType=INTEGER},
+      </if>
+      <if test="vcDiscountStr != null">
+        VC_DISCOUNT_STR = #{vcDiscountStr,jdbcType=VARCHAR},
+      </if>
+      <if test="numHasDiscountLimit != null">
+        NUM_HAS_DISCOUNT_LIMIT = #{numHasDiscountLimit,jdbcType=TINYINT},
+      </if>
+      <if test="numLimitPrice != null">
+        NUM_LIMIT_PRICE = #{numLimitPrice,jdbcType=INTEGER},
+      </if>
+      <if test="numMember != null">
+        NUM_MEMBER = #{numMember,jdbcType=TINYINT},
+      </if>
+      <if test="numUserLimitNum != null">
+        NUM_USER_LIMIT_NUM = #{numUserLimitNum,jdbcType=TINYINT},
+      </if>
+      <if test="numLimitDateType != null">
+        NUM_LIMIT_DATE_TYPE = #{numLimitDateType,jdbcType=TINYINT},
+      </if>
+      <if test="numAvailableDays != null">
+        NUM_AVAILABLE_DAYS = #{numAvailableDays,jdbcType=INTEGER},
+      </if>
+      <if test="numAvailableGoods != null">
+        NUM_AVAILABLE_GOODS = #{numAvailableGoods,jdbcType=BIGINT},
+      </if>
+      <if test="vcInstructions != null">
+        VC_INSTRUCTIONS = #{vcInstructions,jdbcType=VARCHAR},
+      </if>
+      <if test="datCreatDate != null">
+        DAT_CREAT_DATE = #{datCreatDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="datStartDate != null">
+        DAT_START_DATE = #{datStartDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="datEndDate != null">
+        DAT_END_DATE = #{datEndDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="numCreatAdminUserId != null">
+        NUM_CREAT_ADMIN_USER_ID = #{numCreatAdminUserId,jdbcType=BIGINT},
+      </if>
+    </set>
+    where NUM_ID = #{numId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dower.sharerideapp.core.serverdb.model.NntPlatformCoupon">
+    update nnt_platform_coupon
+    set VC_COUPON_NAME = #{vcCouponName,jdbcType=VARCHAR},
+      NUM_ISSUE_TOTAL = #{numIssueTotal,jdbcType=INTEGER},
+      NUM_DISCOUNT_TYPE = #{numDiscountType,jdbcType=TINYINT},
+      NUM_DISCOUNT_NUMBER = #{numDiscountNumber,jdbcType=INTEGER},
+      VC_DISCOUNT_STR = #{vcDiscountStr,jdbcType=VARCHAR},
+      NUM_HAS_DISCOUNT_LIMIT = #{numHasDiscountLimit,jdbcType=TINYINT},
+      NUM_LIMIT_PRICE = #{numLimitPrice,jdbcType=INTEGER},
+      NUM_MEMBER = #{numMember,jdbcType=TINYINT},
+      NUM_USER_LIMIT_NUM = #{numUserLimitNum,jdbcType=TINYINT},
+      NUM_LIMIT_DATE_TYPE = #{numLimitDateType,jdbcType=TINYINT},
+      NUM_AVAILABLE_DAYS = #{numAvailableDays,jdbcType=INTEGER},
+      NUM_AVAILABLE_GOODS = #{numAvailableGoods,jdbcType=BIGINT},
+      VC_INSTRUCTIONS = #{vcInstructions,jdbcType=VARCHAR},
+      DAT_CREAT_DATE = #{datCreatDate,jdbcType=TIMESTAMP},
+      DAT_START_DATE = #{datStartDate,jdbcType=TIMESTAMP},
+      DAT_END_DATE = #{datEndDate,jdbcType=TIMESTAMP},
+      NUM_CREAT_ADMIN_USER_ID = #{numCreatAdminUserId,jdbcType=BIGINT}
+    where NUM_ID = #{numId,jdbcType=BIGINT}
+  </update>
+</mapper>

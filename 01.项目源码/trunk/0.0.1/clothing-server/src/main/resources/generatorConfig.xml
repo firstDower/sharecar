@@ -59,16 +59,31 @@
         <!-- schema即为数据库名 tableName为对应的数据库表 domainObjectName是要生成的实体类 enable*ByExample
             是否生成 example类 -->
 
-        <table schema="nnt_db_test" tableName="nnt_users">
+        <!--<table schema="nnt_db_test" tableName="nnt_users">
             <generatedKey column="NUM_ID" sqlStatement="MySql" identity="true"/>
-        </table>
+        </table>-->
 
         <!--<table schema="nnt_db" tableName="nnt_users">
         </table>-->
        <!-- <table schema="nnt_db" tableName="nnt_userinfo">
         </table>-->
 
-       <!--<table schema="nnt_db" tableName="CL_PRODUCT">
+       <table schema="nnt_db_test" tableName="nnt_userinfo">
+            <generatedKey column="NUM_USERINFO_ID" sqlStatement="MySql" identity="true"/>
+        </table>
+       <table schema="nnt_db_test" tableName="nnt_user_balance_change_recode">
+            <generatedKey column="NUM_ID" sqlStatement="MySql" identity="true"/>
+        </table>
+       <table schema="nnt_db_test" tableName="nnt_user_coupons">
+            <generatedKey column="NUM_ID" sqlStatement="MySql" identity="true"/>
+        </table>
+      <!-- <table schema="nnt_db_test" tableName="payment_order_record">
+            <generatedKey column="NUM_ID" sqlStatement="MySql" identity="true"/>
+        </table>
+       <table schema="nnt_db_test" tableName="payment_flow">
+            <generatedKey column="NUM_ID" sqlStatement="MySql" identity="true"/>
+        </table>
+       <table schema="nnt_db_test" tableName="nnt_platform_coupon">
             <generatedKey column="NUM_ID" sqlStatement="MySql" identity="true"/>
         </table>-->
         <!-- <table schema="nnt_db" tableName="CL_FN_GRADE">

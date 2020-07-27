@@ -3,12 +3,13 @@ $(function () {
 })
     var custom = {
         init:function () {
-            util.checkToken();
             custom.dataInit();
             $("#subBut").click(this.addOrder);
         },
         addOrder:function () {
             var param = {}
+            //1：定制；2 ：修改
+            param.NUM_PAR_TYPE = 1;
             var NUM_TYPE = $("input[name='NUM_TYPE']:checked").val();
             param.NUM_TYPE = NUM_TYPE;
             var NUM_SCHOOL_ID = $("#NUM_SCHOOL_ID").val();
@@ -38,11 +39,12 @@ $(function () {
 
             param.VC_NAME = VC_NAME;
             var VC_PHONE = $("#VC_PHONE").val().trim();
-            if(!VC_PHONE){
-                mui.toast("请输入联系手机号！");
+            if(!checkMobile(VC_PHONE)){
+                mui.toast("请输入正确的手机号！");
                 return false;
             }
             param.VC_PHONE = VC_PHONE;
+
             var VC_NOTES = $("#VC_NOTES").val();
 
 

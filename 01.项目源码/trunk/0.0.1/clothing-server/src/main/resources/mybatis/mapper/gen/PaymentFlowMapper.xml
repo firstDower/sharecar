@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dower.sharerideapp.core.serverdb.dao.PaymentFlowMapper">
+  <resultMap id="BaseResultMap" type="com.dower.sharerideapp.core.serverdb.model.PaymentFlow">
+    <id column="NUM_ID" jdbcType="INTEGER" property="numId" />
+    <result column="VC_BANK_TYPE" jdbcType="VARCHAR" property="vcBankType" />
+    <result column="VC_MCH_ID" jdbcType="VARCHAR" property="vcMchId" />
+    <result column="VC_OPENID" jdbcType="VARCHAR" property="vcOpenid" />
+    <result column="VC_ORDER_NO" jdbcType="VARCHAR" property="vcOrderNo" />
+    <result column="NUM_PAY_STATE" jdbcType="TINYINT" property="numPayState" />
+    <result column="NUM_TOTAL_FEE" jdbcType="BIGINT" property="numTotalFee" />
+    <result column="NUM_CASH_FEE" jdbcType="BIGINT" property="numCashFee" />
+    <result column="VC_TRANSACTION_ID" jdbcType="VARCHAR" property="vcTransactionId" />
+    <result column="DAT_CREAT_TIME" jdbcType="TIMESTAMP" property="datCreatTime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    NUM_ID, VC_BANK_TYPE, VC_MCH_ID, VC_OPENID, VC_ORDER_NO, NUM_PAY_STATE, NUM_TOTAL_FEE, 
+    NUM_CASH_FEE, VC_TRANSACTION_ID, DAT_CREAT_TIME
+  </sql>
+  <select id="selectByExample" parameterType="com.dower.sharerideapp.core.serverdb.model.PaymentFlowExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from payment_flow
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from payment_flow
+    where NUM_ID = #{numId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from payment_flow
+    where NUM_ID = #{numId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.dower.sharerideapp.core.serverdb.model.PaymentFlowExample">
+    delete from payment_flow
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.dower.sharerideapp.core.serverdb.model.PaymentFlow">
+    <selectKey keyProperty="numId" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into payment_flow (VC_BANK_TYPE, VC_MCH_ID, VC_OPENID, 
+      VC_ORDER_NO, NUM_PAY_STATE, NUM_TOTAL_FEE, 
+      NUM_CASH_FEE, VC_TRANSACTION_ID, DAT_CREAT_TIME
+      )
+    values (#{vcBankType,jdbcType=VARCHAR}, #{vcMchId,jdbcType=VARCHAR}, #{vcOpenid,jdbcType=VARCHAR}, 
+      #{vcOrderNo,jdbcType=VARCHAR}, #{numPayState,jdbcType=TINYINT}, #{numTotalFee,jdbcType=BIGINT}, 
+      #{numCashFee,jdbcType=BIGINT}, #{vcTransactionId,jdbcType=VARCHAR}, #{datCreatTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.dower.sharerideapp.core.serverdb.model.PaymentFlow">
+    <selectKey keyProperty="numId" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into payment_flow
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="vcBankType != null">
+        VC_BANK_TYPE,
+      </if>
+      <if test="vcMchId != null">
+        VC_MCH_ID,
+      </if>
+      <if test="vcOpenid != null">
+        VC_OPENID,
+      </if>
+      <if test="vcOrderNo != null">
+        VC_ORDER_NO,
+      </if>
+      <if test="numPayState != null">
+        NUM_PAY_STATE,
+      </if>
+      <if test="numTotalFee != null">
+        NUM_TOTAL_FEE,
+      </if>
+      <if test="numCashFee != null">
+        NUM_CASH_FEE,
+      </if>
+      <if test="vcTransactionId != null">
+        VC_TRANSACTION_ID,
+      </if>
+      <if test="datCreatTime != null">
+        DAT_CREAT_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="vcBankType != null">
+        #{vcBankType,jdbcType=VARCHAR},
+      </if>
+      <if test="vcMchId != null">
+        #{vcMchId,jdbcType=VARCHAR},
+      </if>
+      <if test="vcOpenid != null">
+        #{vcOpenid,jdbcType=VARCHAR},
+      </if>
+      <if test="vcOrderNo != null">
+        #{vcOrderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="numPayState != null">
+        #{numPayState,jdbcType=TINYINT},
+      </if>
+      <if test="numTotalFee != null">
+        #{numTotalFee,jdbcType=BIGINT},
+      </if>
+      <if test="numCashFee != null">
+        #{numCashFee,jdbcType=BIGINT},
+      </if>
+      <if test="vcTransactionId != null">
+        #{vcTransactionId,jdbcType=VARCHAR},
+      </if>
+      <if test="datCreatTime != null">
+        #{datCreatTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.dower.sharerideapp.core.serverdb.model.PaymentFlowExample" resultType="java.lang.Long">
+    select count(*) from payment_flow
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update payment_flow
+    <set>
+      <if test="record.numId != null">
+        NUM_ID = #{record.numId,jdbcType=INTEGER},
+      </if>
+      <if test="record.vcBankType != null">
+        VC_BANK_TYPE = #{record.vcBankType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.vcMchId != null">
+        VC_MCH_ID = #{record.vcMchId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.vcOpenid != null">
+        VC_OPENID = #{record.vcOpenid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.vcOrderNo != null">
+        VC_ORDER_NO = #{record.vcOrderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.numPayState != null">
+        NUM_PAY_STATE = #{record.numPayState,jdbcType=TINYINT},
+      </if>
+      <if test="record.numTotalFee != null">
+        NUM_TOTAL_FEE = #{record.numTotalFee,jdbcType=BIGINT},
+      </if>
+      <if test="record.numCashFee != null">
+        NUM_CASH_FEE = #{record.numCashFee,jdbcType=BIGINT},
+      </if>
+      <if test="record.vcTransactionId != null">
+        VC_TRANSACTION_ID = #{record.vcTransactionId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.datCreatTime != null">
+        DAT_CREAT_TIME = #{record.datCreatTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update payment_flow
+    set NUM_ID = #{record.numId,jdbcType=INTEGER},
+      VC_BANK_TYPE = #{record.vcBankType,jdbcType=VARCHAR},
+      VC_MCH_ID = #{record.vcMchId,jdbcType=VARCHAR},
+      VC_OPENID = #{record.vcOpenid,jdbcType=VARCHAR},
+      VC_ORDER_NO = #{record.vcOrderNo,jdbcType=VARCHAR},
+      NUM_PAY_STATE = #{record.numPayState,jdbcType=TINYINT},
+      NUM_TOTAL_FEE = #{record.numTotalFee,jdbcType=BIGINT},
+      NUM_CASH_FEE = #{record.numCashFee,jdbcType=BIGINT},
+      VC_TRANSACTION_ID = #{record.vcTransactionId,jdbcType=VARCHAR},
+      DAT_CREAT_TIME = #{record.datCreatTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dower.sharerideapp.core.serverdb.model.PaymentFlow">
+    update payment_flow
+    <set>
+      <if test="vcBankType != null">
+        VC_BANK_TYPE = #{vcBankType,jdbcType=VARCHAR},
+      </if>
+      <if test="vcMchId != null">
+        VC_MCH_ID = #{vcMchId,jdbcType=VARCHAR},
+      </if>
+      <if test="vcOpenid != null">
+        VC_OPENID = #{vcOpenid,jdbcType=VARCHAR},
+      </if>
+      <if test="vcOrderNo != null">
+        VC_ORDER_NO = #{vcOrderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="numPayState != null">
+        NUM_PAY_STATE = #{numPayState,jdbcType=TINYINT},
+      </if>
+      <if test="numTotalFee != null">
+        NUM_TOTAL_FEE = #{numTotalFee,jdbcType=BIGINT},
+      </if>
+      <if test="numCashFee != null">
+        NUM_CASH_FEE = #{numCashFee,jdbcType=BIGINT},
+      </if>
+      <if test="vcTransactionId != null">
+        VC_TRANSACTION_ID = #{vcTransactionId,jdbcType=VARCHAR},
+      </if>
+      <if test="datCreatTime != null">
+        DAT_CREAT_TIME = #{datCreatTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where NUM_ID = #{numId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dower.sharerideapp.core.serverdb.model.PaymentFlow">
+    update payment_flow
+    set VC_BANK_TYPE = #{vcBankType,jdbcType=VARCHAR},
+      VC_MCH_ID = #{vcMchId,jdbcType=VARCHAR},
+      VC_OPENID = #{vcOpenid,jdbcType=VARCHAR},
+      VC_ORDER_NO = #{vcOrderNo,jdbcType=VARCHAR},
+      NUM_PAY_STATE = #{numPayState,jdbcType=TINYINT},
+      NUM_TOTAL_FEE = #{numTotalFee,jdbcType=BIGINT},
+      NUM_CASH_FEE = #{numCashFee,jdbcType=BIGINT},
+      VC_TRANSACTION_ID = #{vcTransactionId,jdbcType=VARCHAR},
+      DAT_CREAT_TIME = #{datCreatTime,jdbcType=TIMESTAMP}
+    where NUM_ID = #{numId,jdbcType=INTEGER}
+  </update>
+</mapper>

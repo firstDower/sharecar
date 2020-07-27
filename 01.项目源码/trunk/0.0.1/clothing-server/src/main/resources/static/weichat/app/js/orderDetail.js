@@ -7,7 +7,6 @@ var orderDetail = {
         orderDetail.initWeixin();
     },
     onBridgeReady:function (data) {
-        alert("=======onBridgeReady==========")
         WeixinJSBridge.invoke(
             'getBrandWCPayRequest', {
                 "appId":data.appId,     //公众号名称，由商户传入
@@ -24,7 +23,7 @@ var orderDetail = {
             });
     },
     pay:function(data){
-        alert("=======pay==========")
+
         if (typeof WeixinJSBridge == "undefined"){
             if( document.addEventListener ){
                 document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
@@ -33,7 +32,7 @@ var orderDetail = {
                 document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
             }
         }else{
-            alert("=======pay==onBridgeReady========")
+
             orderDetail.onBridgeReady(data);
         }
 
@@ -120,5 +119,10 @@ var orderDetail = {
             numTypeStr = "半袖"
         }
         $("#numType").html(numTypeStr)
+        var numPayState = orderData.numPayState;
+        if(numPayState==1&&numState!=3&&numState!=7){
+            $("#payButton").show();
+        }
+
     }
 }

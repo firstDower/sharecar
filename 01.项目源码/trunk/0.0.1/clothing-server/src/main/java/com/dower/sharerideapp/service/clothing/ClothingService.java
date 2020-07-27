@@ -72,7 +72,7 @@ public class ClothingService {
                 clProduct.setNumNum(jsonparams.getByte("NUM_NUM"));
             }
             if (jsonparams.containsKey("NUM_PRICE")&&StringUtils.isNotBlank(jsonparams.getString("NUM_PRICE"))){
-                clProduct.setNumPrice(new BigDecimal(jsonparams.getString("NUM_PRICE")));
+                clProduct.setNumPrice(jsonparams.getLong("NUM_PRICE"));
             }
             if (jsonparams.containsKey("VC_USER_ID")){
                 clProduct.setVcUserId(jsonparams.getString("VC_USER_ID"));
@@ -301,7 +301,7 @@ public class ClothingService {
             if (jsonparams.containsKey("VC_EXPIRE_TIME")&&StringUtils.isNotBlank(jsonparams.getString("VC_EXPIRE_TIME")))
                 clProduct.setVcExpireTime(jsonparams.getString("VC_EXPIRE_TIME"));
             if (jsonparams.containsKey("NUM_PRICE")&&StringUtils.isNotBlank(jsonparams.getString("NUM_PRICE")))
-                clProduct.setNumPrice(new BigDecimal(jsonparams.getByte("NUM_PRICE")));
+                clProduct.setNumPrice(jsonparams.getLong("NUM_PRICE"));
             if (jsonparams.containsKey("VC_NOTES")&&StringUtils.isNotBlank(jsonparams.getString("VC_NOTES")))
                 clProduct.setVcNotes(jsonparams.getString("VC_NOTES"));
             clProduct.setDatUpdateTime(new Date());

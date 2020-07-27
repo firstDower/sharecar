@@ -1,93 +1,165 @@
 package com.dower.sharerideapp.core.serverdb.model;
 
+import java.util.Date;
+
 public class NntUserinfo {
-    private Integer numId;
+    private Integer numUserinfoId;
 
-    private Integer numUserId;
+    private String numUserId;
 
-    private String vcBackCardNumber;
+    private String vcName;
 
-    private String vcIdcardNumber;
+    private Byte numIdcardType;
 
-    private String vcDriverLicenseNo;
+    private String vcIdcardNo;
 
-    private String vcIdcardPicturePathA;
+    private String vcMobilePhone;
 
-    private String vcIdcardPicturePathB;
+    private String vcEmail;
 
-    private String vcDriverLicensePathA;
+    private String numGender;
 
-    private String vcDriverLicensePathB;
+    private Integer numUserPoint;
 
-    public Integer getNumId() {
-        return numId;
+    private Date datRegisterTime;
+
+    private Date datBirthday;
+
+    private Byte numUserLevel;
+
+    private Long numUserMoney;
+
+    private Date datModifiedTime;
+
+    private Byte numUserState;
+
+    private Byte numIsDel;
+
+    public Integer getNumUserinfoId() {
+        return numUserinfoId;
     }
 
-    public void setNumId(Integer numId) {
-        this.numId = numId;
+    public void setNumUserinfoId(Integer numUserinfoId) {
+        this.numUserinfoId = numUserinfoId;
     }
 
-    public Integer getNumUserId() {
+    public String getNumUserId() {
         return numUserId;
     }
 
-    public void setNumUserId(Integer numUserId) {
-        this.numUserId = numUserId;
+    public void setNumUserId(String numUserId) {
+        this.numUserId = numUserId == null ? null : numUserId.trim();
     }
 
-    public String getVcBackCardNumber() {
-        return vcBackCardNumber;
+    public String getVcName() {
+        return vcName;
     }
 
-    public void setVcBackCardNumber(String vcBackCardNumber) {
-        this.vcBackCardNumber = vcBackCardNumber == null ? null : vcBackCardNumber.trim();
+    public void setVcName(String vcName) {
+        this.vcName = vcName == null ? null : vcName.trim();
     }
 
-    public String getVcIdcardNumber() {
-        return vcIdcardNumber;
+    public Byte getNumIdcardType() {
+        return numIdcardType;
     }
 
-    public void setVcIdcardNumber(String vcIdcardNumber) {
-        this.vcIdcardNumber = vcIdcardNumber == null ? null : vcIdcardNumber.trim();
+    public void setNumIdcardType(Byte numIdcardType) {
+        this.numIdcardType = numIdcardType;
     }
 
-    public String getVcDriverLicenseNo() {
-        return vcDriverLicenseNo;
+    public String getVcIdcardNo() {
+        return vcIdcardNo;
     }
 
-    public void setVcDriverLicenseNo(String vcDriverLicenseNo) {
-        this.vcDriverLicenseNo = vcDriverLicenseNo == null ? null : vcDriverLicenseNo.trim();
+    public void setVcIdcardNo(String vcIdcardNo) {
+        this.vcIdcardNo = vcIdcardNo == null ? null : vcIdcardNo.trim();
     }
 
-    public String getVcIdcardPicturePathA() {
-        return vcIdcardPicturePathA;
+    public String getVcMobilePhone() {
+        return vcMobilePhone;
     }
 
-    public void setVcIdcardPicturePathA(String vcIdcardPicturePathA) {
-        this.vcIdcardPicturePathA = vcIdcardPicturePathA == null ? null : vcIdcardPicturePathA.trim();
+    public void setVcMobilePhone(String vcMobilePhone) {
+        this.vcMobilePhone = vcMobilePhone == null ? null : vcMobilePhone.trim();
     }
 
-    public String getVcIdcardPicturePathB() {
-        return vcIdcardPicturePathB;
+    public String getVcEmail() {
+        return vcEmail;
     }
 
-    public void setVcIdcardPicturePathB(String vcIdcardPicturePathB) {
-        this.vcIdcardPicturePathB = vcIdcardPicturePathB == null ? null : vcIdcardPicturePathB.trim();
+    public void setVcEmail(String vcEmail) {
+        this.vcEmail = vcEmail == null ? null : vcEmail.trim();
     }
 
-    public String getVcDriverLicensePathA() {
-        return vcDriverLicensePathA;
+    public String getNumGender() {
+        return numGender;
     }
 
-    public void setVcDriverLicensePathA(String vcDriverLicensePathA) {
-        this.vcDriverLicensePathA = vcDriverLicensePathA == null ? null : vcDriverLicensePathA.trim();
+    public void setNumGender(String numGender) {
+        this.numGender = numGender == null ? null : numGender.trim();
     }
 
-    public String getVcDriverLicensePathB() {
-        return vcDriverLicensePathB;
+    public Integer getNumUserPoint() {
+        return numUserPoint;
     }
 
-    public void setVcDriverLicensePathB(String vcDriverLicensePathB) {
-        this.vcDriverLicensePathB = vcDriverLicensePathB == null ? null : vcDriverLicensePathB.trim();
+    public void setNumUserPoint(Integer numUserPoint) {
+        this.numUserPoint = numUserPoint;
+    }
+
+    public Date getDatRegisterTime() {
+        return datRegisterTime;
+    }
+
+    public void setDatRegisterTime(Date datRegisterTime) {
+        this.datRegisterTime = datRegisterTime;
+    }
+
+    public Date getDatBirthday() {
+        return datBirthday;
+    }
+
+    public void setDatBirthday(Date datBirthday) {
+        this.datBirthday = datBirthday;
+    }
+
+    public Byte getNumUserLevel() {
+        return numUserLevel;
+    }
+
+    public void setNumUserLevel(Byte numUserLevel) {
+        this.numUserLevel = numUserLevel;
+    }
+
+    public Long getNumUserMoney() {
+        return numUserMoney;
+    }
+
+    public void setNumUserMoney(Long numUserMoney) {
+        this.numUserMoney = numUserMoney;
+    }
+
+    public Date getDatModifiedTime() {
+        return datModifiedTime;
+    }
+
+    public void setDatModifiedTime(Date datModifiedTime) {
+        this.datModifiedTime = datModifiedTime;
+    }
+
+    public Byte getNumUserState() {
+        return numUserState;
+    }
+
+    public void setNumUserState(Byte numUserState) {
+        this.numUserState = numUserState;
+    }
+
+    public Byte getNumIsDel() {
+        return numIsDel;
+    }
+
+    public void setNumIsDel(Byte numIsDel) {
+        this.numIsDel = numIsDel;
     }
 }
