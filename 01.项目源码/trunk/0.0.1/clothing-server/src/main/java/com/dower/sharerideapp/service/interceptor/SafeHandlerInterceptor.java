@@ -58,17 +58,7 @@ public class SafeHandlerInterceptor implements HandlerInterceptor {
         jsonObject.put("sign",sign);
 
         //时间戳验证
-        String timeStamp = jsonObject.getString("timeStamp");
-        log.info("pro_name::{},拦截器请求参数token={}\n,sign={}\n,timeStamp={}",pro_name,token,sign,timeStamp);
-        try {
-            //验证timeStamp
-            boolean b = CommUtil.checkTimeStamp(Long.parseLong(timeStamp));
-            if(!b){
-                throw new TokenException("非法请求！");
-            }
-        }catch (Exception e){
-            throw new TokenException("非法请求！");
-        }
+
 
         ValidateResponse validateResponse1 = timeStampValidate(request, jsonObject);
         if (!validateResponse1.isValidate()) {

@@ -3,6 +3,9 @@
 *{
     margin:0; padding:0;
 }
+.my-content{
+    padding:0 10px;
+}
 body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, input, button, textarea, p, blockquote, th, td { margin: 0; padding: 0;  font-family: "微软雅黑"; }
 fieldset, img { border: 0; }
 ul, ol, li { list-style: none; font-family:'Microsoft YaHei'; }
@@ -204,4 +207,216 @@ blockquote:before, blockquote:after, q:before, q:after { content: ''; content: n
 .aboutLyzy{
     text-align: center;
     font-size: 14px;
+}
+/*个人中心页面*/
+.aboutMySelf {
+
+}
+.aboutOrder{
+    background-color: #fff;
+    border-radius: 6px;margin: 10px 0;
+    padding: 0 15px;
+
+}
+.aboutOrder .myOrderList{
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+
+
+}
+.aboutOrder .myOrderList>a{
+    display: block;
+    text-align: center;
+}
+.aboutOrder .orderTitle{
+    line-height: 46px;
+    font-size: 18px;
+}
+
+.aboutOrder .myOrderList .orderIcon{
+    display: block;
+    width:30px;
+    height:30px;
+    margin: 0 auto;
+}
+
+.aboutOrder .myOrderList .orderIcon{
+    width:30px;
+    height:30px;
+    margin: 0 auto;
+}
+
+.myServerList a{
+    font-size: 14px;
+}
+
+
+
+/*=====订单详情页面====*/
+.OrderDetail>ul{
+    padding:10px;
+    background-color: #fff;
+    line-height: 1.5;
+    font-size: 16px;
+}
+.OrderDetail>ul>li{
+    padding:10px;
+    border-bottom:1px solid #eee;
+}
+.OrderDetail .title{
+    /*font-size: 16px;*/
+    /*color:#000;*/
+
+}
+
+.OrderDetail .orderTime{
+    font-size: 14px;
+}
+.OrderDetail .orderType{
+    font-weight: bold;
+    font-size: 18px;
+}
+.OrderDetail .icon-order{
+    display: inline-block;
+    width:16px;
+    height:16px;
+    background: url("../images/hongqi.png");
+    background-size: 100% 100%;
+    margin-right: 2px;
+}
+.OrderDetail .redFont{
+    color:#f2270c;
+}
+.OrderDetail .grayFont{
+    color:#797979;
+}
+.OrderDetail  .stateBtn{
+    padding:2px 4px;
+    background: #2ac845;
+    color:#fff;
+    font-size: 14px;
+    border-radius: 6px;
+}
+/**/
+.footOrder{
+    padding: 0 10px;
+    height:40px;
+    line-height: 40px;
+    text-align: center;
+    width:100%;
+    /*display: flex;*/
+    background-color: #fff;
+}
+.footOrder .toPayBtn{
+    width:50%;
+    color:#fff;
+
+    font-size: 16px;
+    background-color: #2ac845;
+}
+
+.payAmount{
+    width:50%;
+    color:#f2270c;
+    font-size: 16px;
+    background-color: #fff;
+}
+
+
+.commorTitle{
+    height: 56px;
+    line-height:56px;
+    background-color: #fff;
+    color:#000;
+    font-size: 22px;
+    border-bottom: 1px solid #eee;
+    padding:0 10px;
+    font-weight: 500;
+}
+/*支付页面*/
+.payOrderList{
+    position: relative;
+
+
+}
+.payOrderList span{
+    color:#333;
+}
+.payOrderList  .payOrderListAmout{
+    position: absolute;
+    right:10px;
+    top:22px;
+    color:#333;
+    font-size: 16px;
+}
+.calculationPiece{
+    text-align: center;
+    height:40px;
+    line-height: 40px;
+    background-color: #fff;
+    color:#666;
+}
+.calculationList{
+    margin: 5px 0px;
+    background-color: #fff;
+}
+
+.calculationList>li>span{
+    font-size: 16px;
+    line-height: 46px;
+    color:#242424;
+}
+.calculationList>li>span.CommorAmout{
+    color:#333;
+}
+.weightAmout{
+    color:#000;
+    font-weight: 500;
+}
+.calculationList .redFont {
+    color: #f2270c;
+}
+.totalAmout .actualPayment{
+    font-size: 20px;
+    line-height: 40px;
+    color:#000;
+    font-weight: 500;
+}
+
+.toBePaid{
+    text-align: center;
+}
+.toBePaid .toBePaidBtn{
+    font-size: 20px;
+    line-height:40px;
+    color:#000;
+
+}
+.toBePaid>span{
+    line-height: 1.2;
+    font-size: 16px;
+
+}
+.toBePaid .payList{
+    width:100%;
+    margin: 20px 0px;
+}
+.toBePaid .payList>a{
+    display: inline-block;
+    font-size: 12px;
+    border-radius: 5px;
+    width:23%;
+    padding:5px;
+    color:#fff;
+    background-color: #f2270c;
+}
+.toBePaid .payList .greenBtn{
+    background-color: #2ac845;
+}
+.toBePaid .payList .pinkBtn{
+    background-color: pink;
+}
+.toBePaid .payList .blueBtn{
+    background-color: blue;
 }

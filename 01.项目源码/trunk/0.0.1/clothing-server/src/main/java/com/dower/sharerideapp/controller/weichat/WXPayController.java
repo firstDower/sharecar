@@ -98,6 +98,23 @@ public class WXPayController {
         return result;
     }
 
+    /**
+     * params
+     * 1.订单id
+     * 2.用户id
+     * 3.商品金额
+     * 4.实付金额
+     * 5.优惠金额
+     * 6.余额抵扣金额
+     * 7.优惠券id
+     * 8.团购id
+     * 9.砍价id
+     * @param numId
+     * @param openId
+     * @param request
+     * @param response
+     * @return
+     */
     @RequestMapping("/wxpay")
     public Map<String, String> wxpay(String numId,String openId,HttpServletRequest request, HttpServletResponse response) {
         Map<String, String> resp = new HashMap<>();
@@ -107,7 +124,17 @@ public class WXPayController {
             JSONObject params = new JSONObject();
             params.put("numId",numId);
             Result clothing = clothingService.getClothing(params.toJSONString());
-            //根据userJourneyId，查询记录详情。
+            //根据orderId，查询记录详情。
+            //订单支付状态
+            /**
+             * 一.待支付状态,
+             * 1.调取订单预支付接口生产预支付单
+             * 2.调取微信统一下单接口
+             * 3.生成微信支付流水
+             * 4.更新订单状态为预支付状态
+             * 二.预支付状态
+             * 1.调取微信统一下单接口
+             */
             if(clothing.success){
                 ClProduct cloth = (ClProduct) clothing.getResultInfo();
                 String vcExpireTime = cloth.getVcExpireTime();

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<title>订单详情</title>
+	<link rel="stylesheet" href="../../assets/js/mui.js">
+	<link rel="stylesheet" href="../../assets/css/mui.css">
+	<link rel="stylesheet" href="../css/style.css">
+	<!--<script src="../../assets/js/flexible.js"></script>-->
+
+</head>
+<body>
+<header class="mui-bar mui-bar-nav">
+	<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+	<h1 class="mui-title">待支付订单</h1>
+</header>
+
+<div class="toBePaid mui-content my-content">
+	<p class="toBePaidBtn">待支付 &nbsp;></p>
+	<span>请在订单提交后尽快完成支付，超时订单将自动取消</span>
+	<div class="payList">
+		<a href="#" class="pinkBtn">取消订单</a>
+		<a href="#" class="greenBtn">去支付</a>
+		<a href="#" class="">线下支付</a>
+		<a href="#" class="blueBtn">联系客服</a>
+	</div>
+</div>
+
+<div class="OrderDetail">
+	<h3 class="commorTitle">羚猩制衣</h3>
+	<ul>
+		<li>
+			<span class="redFont orderType"> <i class="icon-order"></i>定做</span> <span>订单编号:CU070811049028</span>
+			<!--<span class="fr grayFont">已取消</span>-->
+			<a class="fr grayFont stateBtn">取消</a>
+		</li>
+		<li class="clearfix">
+			<span class="title fl">校服裤:</span>
+			<div class="fl detailcontent">
+				<span>襄垣县第一中学高中部</span><br>
+				<span>高三</span><br>
+				<span>冬款</span>
+			</div>
+		</li>
+		<li class="clearfix">
+			<span class="title fl">修改说明:</span>
+			<div class="fl">
+				紧急件快速取
+			</div>
+		</li>
+
+		<li class="clearfix">
+			<span class="fl title">联系人:</span>
+			<span class="fr grayFont">向琼</span>
+		</li>
+		<li class="clearfix">
+					<span class="fl title">
+						联系电话:
+					</span>
+			<span class="fr grayFont">
+						17811680689
+					</span>
+		</li>
+		<li class="clearfix">
+			<span class="fl title">身高:</span>
+			<span class="fr redFont">125cm</span>
+		</li>
+		<li class="clearfix">
+					<span class="fl title">
+						体重:
+					</span>
+			<span class="fr redFont">
+						65kg
+					</span>
+		</li>
+		<li class="clearfix">
+					<span class="fl grayFont orderTime">
+						创建时间:2020-08-08 00:37:20
+					</span>
+		</li>
+	</ul>
+</div>
+<ul class="calculationList my-content">
+	<li class="clearfix">
+		<span class="fl">包装费</span>
+		<span class="fr weightAmout">¥1</span>
+	</li>
+	<li class="clearfix">
+		<span class="fl">商品金额</span>
+		<span class="fr weightAmout">¥70*1</span>
+	</li>
+
+</ul>
+<!--优惠券/满减优惠券list-->
+<ul class="calculationList my-content">
+	<li class="clearfix">
+		<span class="fl">红包</span>
+		<span class="fr weightAmout redFont">-¥1</span>
+	</li>
+	<li class="clearfix">
+		<span class="fl">优惠券</span>
+		<span class="fr weightAmout redFont">-¥20</span>
+	</li>
+	<li class="clearfix">
+		<span class="fl">商品金额</span>
+		<span class="fr weightAmout">¥70</span>
+	</li>
+	<li class="clearfix totalAmout">
+		<p class="fr">
+			已优惠 <span class="redFont">¥30.90</span> <span>实付金额</span><b class="actualPayment">¥39.00</b>
+		</p>
+	</li>
+</ul>
+
+</div>
+<div class="footOrder clearfix">
+	<div class="fl payAmount">
+		¥70.00
+	</div>
+	<a href="#" class="toPayBtn fr">去支付</a>
+</div>
+
+
+<script type="text/javascript">
+  mui.init()
+</script>
+</body>
+
+</html>

@@ -1,0 +1,76 @@
+<!doctype html>
+<html class="x-admin-sm">
+<head th:replace="common/weichat/htmlHead :: common_header(~{::title})">
+  <title>个人中心</title>
+</head>
+<body>
+<div th:insert="common/weichat/htmlJS::common_js(~{::script})">
+  <script type="text/javascript" th:src="@{/weichat/app/js/personalCenter.js}"></script>
+</div>
+<div class="mui-content,mui-content-padded personalCenter">
+  <div class="personalImg">
+    <img src="" alt="">
+  </div>
+  <div class="personalList clearfix">
+   <div class="member fl">
+     <h6>普通会员</h6>
+     <span>我的等级</span>
+   </div>
+    <div class="integral fr">
+      <h6>26</h6>
+      <span>我的积分</span>
+    </div>
+  </div>
+</div>
+
+<div class="mui-content myPersonalContent" style="background-color:#fff">
+  <div class="mui-content-padded">
+    <h3>我的资产</h3>
+  </div>
+  <div>
+    <ul class="mui-table-view mui-grid-view">
+      <li id="orderList" class="mui-table-view-cell mui-media mui-col-xs-4">
+        <a href="#">
+          <b class=" mui-media-object-img myMediaImage"></b>
+          <div class="mui-media-body">订单列表</div>
+        </a>
+      </li>
+      <li class="mui-table-view-cell mui-media mui-col-xs-4">
+        <a href="#">
+          <b class=" mui-media-object-img myMediaImage integraImage"></b>
+          <div class="mui-media-body">积分列表</div>
+        </a>
+      </li>
+      <li class="mui-table-view-cell mui-media mui-col-xs-4">
+        <a href="#">
+          <b class=" mui-media-object-img myMediaImage CouponImage"></b>
+          <div class="mui-media-body">优惠券列表</div>
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
+<div class="mui-content personalOtherList">
+  <ul class="mui-table-view">
+    <li class="mui-table-view-cell">
+      <a class="mui-navigate-right personalOtherListfont">邀请好友</a>
+    </li>
+    <li class="mui-table-view-cell">
+      <a class="mui-navigate-right personalOtherListfont">一键反馈</a>
+    </li>
+    <li class="mui-table-view-cell">
+      <a class="mui-navigate-right personalOtherListfont">联系客服</a>
+    </li>
+    <li class="mui-table-view-cell">
+      <a class="mui-navigate-right personalOtherListfont">关于羚猩制衣</a>
+    </li>
+  </ul>
+</div>
+<script src="../../assets/js/mui.js"></script>
+<script src="../../assets/js/flexible.js"></script>
+<script type="text/javascript">
+
+</script>
+</body>
+
+</html>
