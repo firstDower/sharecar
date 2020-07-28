@@ -1,15 +1,23 @@
 package com.dower.sharerideapp.service.payment;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.dower.sharerideapp.core.serverdb.dao.*;
 import com.dower.sharerideapp.core.serverdb.model.*;
-import com.dower.sharerideapp.service.clothing.ClothingService;
+import com.dower.sharerideapp.domain.config.weixin.WeixinConfig;
+import com.dower.sharerideapp.domain.config.weixin.sdk.MyConfig;
+import com.dower.sharerideapp.domain.config.weixin.sdk.WXPay;
+import com.dower.sharerideapp.domain.config.weixin.sdk.WXPayConstants;
+import com.dower.sharerideapp.domain.config.weixin.sdk.WXPayUtil;
+import com.dower.sharerideapp.service.clothing.ClothingNewService;
+import com.dower.sharerideapp.utils.DateUtils;
 import com.dower.sharerideapp.utils.ret.RetResponse;
 import com.dower.sharerideapp.utils.ret.RetResult;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -22,7 +30,7 @@ import java.util.Map;
 @Service
 public class PaymentService {
     @Autowired
-    ClothingService clothingService;
+    WeixinConfig weixinConfig;
     @Autowired
     private ClProductMapper clProductMapper;
     @Autowired
@@ -35,8 +43,71 @@ public class PaymentService {
     private NntUserBalanceChangeRecodeMapper nntUserBalanceChangeRecodeMapper;
     @Autowired
     private PaymentFlowMapper paymentFlowMapper;
-
-
+    @Autowired
+    private NntPlatformCouponMapper nntPlatformCouponMapper;
+    @Autowired
+    private ClothingNewService clothingNewService;
+    /**
+     * 微信支付预支付通用接口
+     * 1.订单id  numOrderId
+     * 2.用户id  numUserId
+     * 3.商品金额  numTotalFee
+     * 4.实付金额  numCashFee
+     * 5.优惠金额  numDiscountFee
+     * 6.余额抵扣金额  useBalance
+     * 7.优惠券id      useCouponId
+     * 8.团购id       useGroupBuyId
+     * 9.砍价id       useBargainId
+     * 10.订单编号  vcOrderNo
+     * @param jsonparams
+     * @return
+     */
+    @Transactional(rollbackFor = {RuntimeException.class, Error.class})
+    public RetResult weichatPayment(JSONObject jsonparams){
+        try {
+            //获取订单详情
+            RetResult clothing = clothingNewService.getClothing(jsonparams);
+            //订单支付状态
+            /**
+             * 一.待支付状态,
+             * 1.调取订单预支付接口生产预支付单
+             * 2.调取微信统一下单接口
+             * 3.生成微信支付流水
+             * 4.更新订单状态为预支付状态
+             * 二.预支付状态
+             * 1.调取微信统一下单接口
+             */
+            if(clothing.code==200) {
+                ClProduct cloth = (ClProduct) clothing.getData();
+                Byte numPayState = cloth.getNumPayState();
+                jsonparams.put("vcOrderNo",cloth.getVcOrderNo());
+                jsonparams.put("numPayState",numPayState);
+                if (numPayState == 1) {//待支付
+                    RetResult retResult = this.AdvancePayment(jsonparams);
+                    if (retResult.code==200){
+                        return this.weiChatUnifiedOrder(jsonparams);
+                    }else {
+                        return retResult;
+                    }
+                } else if (numPayState == 2) {//预支付
+                    //查询微信支付所需要的数据
+                    RetResult perPaymentData = this.getPerPaymentData(jsonparams);
+                    if(perPaymentData.code==200){
+                        return this.weiChatUnifiedOrder(jsonparams);
+                    }else {
+                        return perPaymentData;
+                    }
+                } else {
+                    return RetResponse.makeErrRsp("订单状态异常，支付失败！");
+                }
+            }else {
+                return clothing;
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            return RetResponse.makeErrRsp("后台生成微信支付流水异常！");
+        }
+    }
 
     /**
      * 微信预支付service
@@ -46,6 +117,15 @@ public class PaymentService {
      * 3.团购记录id （验证团购）useGroupBuyId   0:没有；或者团购id
      * 4.砍价记录id  （验证砍价，修改状态未结束砍价） useBargainId 0:没有；或者砍价记录id
      *
+     *1.订单id  numOrderId
+     * 2.用户id  numUserId
+     * 3.商品金额  numTotalFee
+     * 4.实付金额  numCashFee
+     * 5.优惠金额  numDiscountFee
+     * 6.余额抵扣金额  useBalance
+     * 7.优惠券id      useCouponId
+     * 8.团购id       useGroupBuyId
+     * 9.砍价id       useBargainId
      * 流程
      * 1.查询订单支付数据
      * 2.验证余额
@@ -55,51 +135,69 @@ public class PaymentService {
      *
      * @return
      */
-    public RetResult AdvancePayment(String params){
+    public RetResult AdvancePayment(JSONObject jsonparams){
         try{
-            JSONObject jsonparams = JSON.parseObject(params);
+            JSONObject resultJson = new JSONObject();
+
             //1.查询订单支付数据（这一步不用）
-            log.info("微信预支付service，param：：{}",params);
-            RetResult orderPaymentData = this.getOrderPaymentData(params);
+            log.info("微信预支付service，param：：{}",jsonparams);
+            //RetResult orderPaymentData = this.getOrderPaymentData(jsonparams);
             //2.验证余额
             Long useBalance = jsonparams.getLong("useBalance");
             if(useBalance!=0){
                 RetResult retResultcheckUseBalance = this.checkUseBalance(jsonparams);
                 if(retResultcheckUseBalance.code!=200){
                     return retResultcheckUseBalance;
+                }else {
+                    resultJson.put("useBalance",useBalance);
                 }
             }
             //3.验证优惠券
             Long useCouponId = jsonparams.getLong("useCouponId");
             if(useCouponId!=0){
-                RetResult retResultcheckUseCoupon = this.checkUseCoupon(jsonparams);
-                if(retResultcheckUseCoupon.code!=200){
-                    return retResultcheckUseCoupon;
+                RetResult retResultCheckUseCoupon = this.checkUseCoupon(jsonparams);
+                if(retResultCheckUseCoupon.code!=200){
+                    return retResultCheckUseCoupon;
+                }else {
+                    Long numDiscountNumber = (Long)retResultCheckUseCoupon.getData();
+                    resultJson.put("numDiscountNumber",numDiscountNumber);
                 }
             }
             //4.验证团购
             //5.验证砍价
 
             //*验证后台优惠金额和页面传参的优惠金额是否匹配
-
+            RetResult retResult = this.checkOrderFee(jsonparams, resultJson);
+            if(retResult.code!=200){
+                return retResult;
+            }
             //6.锁定余额
-            RetResult lockUseBalance = this.lockUseBalance(jsonparams);
-            if(lockUseBalance.code==200){
-                NntUserBalanceChangeRecode nntUserBalanceChangeRecode = (NntUserBalanceChangeRecode) lockUseBalance.getData();
-                jsonparams.put("numUserMoneyLogId",nntUserBalanceChangeRecode.getNumId());
+            if(useBalance!=0){
+                RetResult lockUseBalance = this.lockUseBalance(jsonparams);
+                if(lockUseBalance.code==200){
+                    NntUserBalanceChangeRecode nntUserBalanceChangeRecode = (NntUserBalanceChangeRecode) lockUseBalance.getData();
+                    jsonparams.put("numUserMoneyLogId",nntUserBalanceChangeRecode.getNumId());
+                }else {
+                    return lockUseBalance;
+                }
             }else {
-                return lockUseBalance;
+                jsonparams.put("numUserMoneyLogId",0);
             }
+
             //7.锁定优惠券
-            RetResult lockUseCoupon = this.lockUseCoupon(jsonparams);
-            if(lockUseCoupon.code!=200){
-                return lockUseCoupon;
+            if(useCouponId!=0){
+                RetResult lockUseCoupon = this.lockUseCoupon(jsonparams);
+                if(lockUseCoupon.code!=200){
+                    return lockUseCoupon;
+                }
             }
+
             //8.订单支付记录表生产预支付单
             RetResult paymentOrderRecord = this.createPaymentOrderRecord(jsonparams);
             if(paymentOrderRecord.code!=200){
                 return paymentOrderRecord;
             }
+
             //9.正确返回，去支付
 
         }catch (Exception e){
@@ -112,8 +210,14 @@ public class PaymentService {
 
     /**
      * params
-     * 1.订单id
-     * 2.用户id
+     * 1.订单id  numOrderId
+     * 2.用户id  numUserId
+     * 3.余额抵扣金额  useBalance
+     * 4.余额日志 id
+     * 5.优惠券id      useCouponId
+     * 6.团购id       useGroupBuyId
+     * 7.砍价id       useBargainId
+     * 8.openId  openId
      *
      * 获取订单支付数据
      * 1.查询订单商品金额
@@ -123,10 +227,9 @@ public class PaymentService {
      * 5.查询是否有砍价记录(暂无)
      * @return
      */
-    public RetResult getOrderPaymentData(String params){
+    public RetResult getOrderPaymentData(JSONObject jsonparams){
         try{
-            log.info("获取订单支付数据service，param：：{}",params);
-            JSONObject jsonparams = JSON.parseObject(params);
+            log.info("获取订单支付数据service，param：：{}",jsonparams);
             //1.查询订单商品金额金额
             Map<String,Object> param = new HashMap<>();
             param.put("numId",jsonparams.getString("numId"));
@@ -160,40 +263,71 @@ public class PaymentService {
     /**
      * 更新支付结果service
      * params
-     * 1.是否使用余额  useBalance 1:使用；2，不使用；
-     * 2.使用优惠券id  useCouponId  0:不使用；或者对应优惠券id
-     * 3.团购记录id （验证团购）useGroupBuyId   0:没有；或者团购id
-     * 4.砍价记录id  （验证砍价，修改状态未结束砍价） useBargainId 0:没有；或者砍价记录id
-     *
-     * 流程
-     * 1.添加银联支付流水记录
-     * 2.添加订单支付详情记录
-     * 3.更新锁定的余额日志表记录
-     * 4.更新优惠券状态（锁定变为已使用）
-     * 5.更新订单支付状态
-     * 6.更新团购明细为已支付
-     * 7.更新砍价明细为已支付
+     *  vcOrderNo  订单编号
+     *  transaction_id  微信交易流水号
      * @return
      */
-    public RetResult updataPaymentResult(String params){
+    @Transactional(rollbackFor = {RuntimeException.class, Error.class})
+    public RetResult updataPaymentResult(JSONObject params){
         try{
-            //1.查询订单支付数据
-            log.info("微信预支付service，param：：{}",params);
-            RetResult orderPaymentData = this.getOrderPaymentData(params);
-            //2.验证余额
-            //3.验证优惠券
-            //4.验证团购
-            //5.验证砍价
-            //6.锁定余额
-            //7.锁定优惠券
-            //8.正确返回，去支付
+            PaymentOrderRecordExample example = new PaymentOrderRecordExample();
+            PaymentOrderRecordExample.Criteria criteria2 = example.createCriteria();
+            criteria2.andVcOrderNoEqualTo(params.getString("vcOrderNo"));
+            List<PaymentOrderRecord> paymentOrderRecords = paymentOrderRecordMapper.selectByExample(example);
+            if(paymentOrderRecords.size()==1){
+                PaymentOrderRecord paymentOrderRecord = paymentOrderRecords.get(0);
+                Byte numPayState = paymentOrderRecord.getNumPayState();
+                if(numPayState==1){
+                    //1.更新微信支付流水
+                    PaymentFlow record = new PaymentFlow();
+                    record.setNumId(paymentOrderRecord.getNumPayFlowId());
+                    record.setVcTransactionId(params.getString("transaction_id"));
+                    record.setNumPayState(Byte.parseByte("2"));
+                    int i = paymentFlowMapper.updateByPrimaryKeySelective(record);
+                    if(i!=1){
+                        return RetResponse.makeErrRsp("支付回调，更新支付流水异常！");
+                    }
+                    //2.更新余额变动日志表
+                    Long numUserMoneyLogId = paymentOrderRecord.getNumUserMoneyLogId();
+                    if(numUserMoneyLogId>0){
+                        NntUserBalanceChangeRecode record1 = new NntUserBalanceChangeRecode();
+                        record1.setNumId(paymentOrderRecord.getNumUserMoneyLogId());
+                        record1.setNumMoneyState(Byte.parseByte("2"));
+                        nntUserBalanceChangeRecodeMapper.updateByPrimaryKeySelective(record1);
+                    }
+                    //3.更新优惠券状态
+                    Long numUserCouponId = paymentOrderRecord.getNumUserCouponId();
+                    if(numUserCouponId!=0){
+                        NntUserCoupons recordNntUserCoupons = new NntUserCoupons();
+                        recordNntUserCoupons.setNumId(numUserCouponId);
+                        recordNntUserCoupons.setNumState(Byte.parseByte("3"));
+                        nntUserCouponsMapper.updateByPrimaryKeySelective(recordNntUserCoupons);
+                    }
+                    //4.根据vcoderno,更新支付状态
+                    //修改订单状态
+                    ClProduct recordClProduct = new ClProduct();
+                    recordClProduct.setNumPayType(Byte.parseByte("3"));
+                    ClProductExample exampleClProductExample = new ClProductExample();
+                    ClProductExample.Criteria criteriaClProductExample = exampleClProductExample.createCriteria();
+                    criteriaClProductExample.andVcOrderNoEqualTo(params.getString("vcOrderNo"));
+                    int i1 = clProductMapper.updateByExampleSelective(recordClProduct, exampleClProductExample);
+                    //5.更新订单支付记录表
+                    PaymentOrderRecord recordupdateByPrimaryKeySelective = new PaymentOrderRecord();
+                    recordupdateByPrimaryKeySelective.setNumId(paymentOrderRecord.getNumId());
+                    recordupdateByPrimaryKeySelective.setNumPayState(Byte.parseByte("2"));
+                    paymentOrderRecordMapper.updateByPrimaryKeySelective(recordupdateByPrimaryKeySelective);
+                    return RetResponse.makeOKRsp("支付结果入库成功！");
+                }else {
+                    return RetResponse.makeErrRsp("微信支付结果更新服务，该订单数据已经更新过！");
+                }
+            }else {
+                return RetResponse.makeErrRsp("微信支付结果更新服务，数据异常！");
+            }
 
         }catch (Exception e){
             e.printStackTrace();
+            return RetResponse.makeOKRsp("支付结果入库异常！");
         }
-
-
-        return null;
     }
 
     /**
@@ -238,11 +372,21 @@ public class PaymentService {
             List<NntUserCoupons> nntUserCoupons = nntUserCouponsMapper.selectByExample(nntUserCouponsExample);
             if(nntUserCoupons.size()==1){
                 NntUserCoupons nntUserCoupons1 = nntUserCoupons.get(0);
+                //时间不需要验证
                 Date datEndDate = nntUserCoupons1.getDatEndDate();
                 Byte numState = nntUserCoupons1.getNumState();
                 Long numPlatformCouponId = nntUserCoupons1.getNumPlatformCouponId();
                 if(numState==1){
-                    return RetResponse.makeOKRsp();
+                    NntPlatformCoupon nntPlatformCoupon = nntPlatformCouponMapper.selectByPrimaryKey(numPlatformCouponId);
+                    Integer numDiscountNumber = nntPlatformCoupon.getNumDiscountNumber();
+                    Integer numLimitPrice = nntPlatformCoupon.getNumLimitPrice();
+                    Integer numTotalFee = params.getInteger("numTotalFee");
+                    if(numTotalFee>=numLimitPrice){
+                        return RetResponse.makeOKRsp(numDiscountNumber);
+                    }else {
+                        return RetResponse.makeErrRsp("优惠券不可用！");
+                    }
+
                 }else if(numState==2){
                     return RetResponse.makeErrRsp("优惠券验证失败！");
                 }else if(numState==3){
@@ -261,7 +405,41 @@ public class PaymentService {
         }
     }
 
+    /**
+     * 检验支付价格是否正确
+     * @return
+     */
+    public RetResult checkOrderFee(JSONObject params,JSONObject selfSerPar){
+        try{
+            //1.查询订单支付数据
+            log.info("检验支付价格是否正确service，param：：{};selfSerPar::{}",params,selfSerPar);
+            //余额
+            Long useBalance = selfSerPar.getLong("useBalance");
+            //优惠券减免
+            Long numDiscountNumber = selfSerPar.getLong("numDiscountNumber");
+            //商品总价
+            Long numTotalFee = params.getLong("numTotalFee");
+            //支付价格
+            Long numCashFee = params.getLong("numCashFee");
+            //减免金额
+            Long numDiscountFee =  params.getLong("numDiscountFee");
+            //优惠金额=优惠券减免
+            if(numDiscountFee==numDiscountNumber){
+                //商品总价-余额-优惠券减免=支付金额
+                if(numTotalFee-useBalance-numDiscountNumber==numCashFee){
+                    return RetResponse.makeOKRsp();
+                }else{
+                    return RetResponse.makeErrRsp("实际支付金额有误！");
+                }
+            }else {
+                return RetResponse.makeErrRsp("优惠券减免金额有误！");
+            }
 
+        }catch (Exception e){
+            e.printStackTrace();
+            return RetResponse.makeErrRsp("余额验证异常！");
+        }
+    }
 
     /**
      * 用户余额锁定
@@ -283,9 +461,10 @@ public class PaymentService {
             NntUserBalanceChangeRecode nntUserBalanceChangeRecode = new NntUserBalanceChangeRecode();
             nntUserBalanceChangeRecode.setDatCreateTime(new Date());
             nntUserBalanceChangeRecode.setNumAmount(params.getLong("useBalance"));
-            nntUserBalanceChangeRecode.setNumOrderNo(params.getLong("numOrderId"));
+            nntUserBalanceChangeRecode.setNumOrderNo(params.getString("vcOrderNo"));
             nntUserBalanceChangeRecode.setNumUserBalanceId(params.getString("numUserId"));
-            nntUserBalanceChangeRecode.setNumSourceType(Byte.valueOf("1"));//下单支付
+            nntUserBalanceChangeRecode.setNumSourceType(Byte.valueOf("1"));//下单支付;2:退货
+            nntUserBalanceChangeRecode.setNumMoneyState(Byte.valueOf("1"));
             int insert = nntUserBalanceChangeRecodeMapper.insertSelective(nntUserBalanceChangeRecode);
             return RetResponse.makeOKRsp(nntUserBalanceChangeRecode);
         }catch (Exception e){
@@ -342,6 +521,33 @@ public class PaymentService {
     }
 
     /**
+     * 获取预支付数据
+     * @param params
+     * @return
+     */
+    public RetResult getPerPaymentData(JSONObject params){
+        try{
+            log.info("微信获取预支付数据service，param：：{}",params);
+            //商品总价
+            Long numTotalFee = params.getLong("numTotalFee");
+            //支付价格
+            Long numCashFee = params.getLong("numCashFee");
+            //减免金额
+            Long numDiscountFee =  params.getLong("numDiscountFee");
+            Long useBalance =  params.getLong("useBalance");
+            if (numCashFee+numDiscountFee+useBalance == numTotalFee){
+                return RetResponse.makeOKRsp();
+            }else {
+                return RetResponse.makeErrRsp("订单支付金额异常！");
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
+            return RetResponse.makeErrRsp("后台生成微信支付流水异常！");
+        }
+    }
+
+    /**
      * 后台生成微信支付流水
      * @param params
      * @return
@@ -353,19 +559,123 @@ public class PaymentService {
             paymentFlow.setDatCreatTime(new Date());
             paymentFlow.setNumCashFee(params.getLong("numCashFee"));
             paymentFlow.setNumPayState(Byte.parseByte("1"));
-            paymentFlow.setNumTotalFee(params.getLong("numTotalFee"));
+            paymentFlow.setNumTotalFee(params.getLong("numCashFee"));
             paymentFlow.setVcBankType("WEIXIN");
-            paymentFlow.setVcMchId(params.getString("vcMchId"));
+            paymentFlow.setVcMchId(params.getString("mchId"));
             paymentFlow.setVcOpenid(params.getString("openId"));
             //预支付交易会话标识   微信统一下单返回
             paymentFlow.setVcTransactionId(params.getString("prepay_id"));
             paymentFlow.setVcOrderNo(params.getString("vcOrderNo"));
             //过期时间
+            paymentFlow.setVcExpireTime(params.getString("time_expire"));
             int i = paymentFlowMapper.insertSelective(paymentFlow);
-            return RetResponse.makeOKRsp();
+            Long numPaymentFlowId = paymentFlow.getNumId();
+            params.put("numPaymentFlowId",numPaymentFlowId);
+            return RetResponse.makeOKRsp(paymentFlow);
         }catch (Exception e){
             e.printStackTrace();
             return RetResponse.makeErrRsp("后台生成微信支付流水异常！");
+        }
+    }
+
+    /**
+     * 微信统一下单
+     * @param params
+     * @return
+     */
+    public RetResult weiChatUnifiedOrder(JSONObject params){
+        try{
+            Map<String, String> resultMap = new HashMap<String, String>();
+            log.info("微信统一下单service，param：：{}",params);
+
+            MyConfig config = new MyConfig();
+            WXPay wxpay = new WXPay(config);
+
+
+
+
+            /**
+             * 微信支付需要参数
+             * 1.订单编号  vcOrderNo
+             * 2.实际支付金额  numCashFee
+             * 3.微信支付（页面传过来）  openId
+             * 4.微信支付订单失效时间  timeExpire
+             */
+            String vcOrderNo = params.getString("vcOrderNo");
+            String numCashFee = params.getString("numCashFee");
+            String openId = params.getString("openId");
+            Byte numPayState = params.getByte("numPayState");
+            Map<String, String> data = new HashMap<String, String>();
+            data.put("body", weixinConfig.body);
+            data.put("out_trade_no", vcOrderNo);
+            data.put("fee_type", weixinConfig.feeType);
+            data.put("total_fee", numCashFee);
+            //data.put("total_fee", "1");
+            data.put("spbill_create_ip", weixinConfig.spbillCreateIp);
+            data.put("notify_url", weixinConfig.notifyrl);
+            data.put("trade_type", weixinConfig.tradeType);  // 此处指定为公众号支付
+            data.put("openid", openId);
+
+
+            if(numPayState==1){
+                params.put("mchId",config.getMchID());
+                RetResult paymentFlow = this.createPaymentFlow(params);
+                if(paymentFlow.code!=200){
+                    return paymentFlow;
+                }
+
+                String expireTime = DateUtils.getExpireTime();
+                data.put("time_expire", expireTime);
+                params.put("time_expire", expireTime);
+            }
+            //附加数据
+            JSONObject attach = new JSONObject();
+            attach.put("numUserId",params.getString("numUserId"));
+            attach.put("useBalance",params.getString("useBalance"));
+            attach.put("useCouponId",params.getString("useCouponId"));
+            attach.put("useGroupBuyId",params.getString("useGroupBuyId"));
+            attach.put("useBargainId",params.getString("useBargainId"));
+            attach.put("numPaymentFlowId",params.getString("numPaymentFlowId"));
+            data.put("attach",attach.toJSONString());
+            Map<String, String> unifiedOrder = wxpay.unifiedOrder(data);
+            log.info("微信支付模拟resultMap:：{}",JSONObject.toJSON(unifiedOrder) );
+            if(unifiedOrder.containsKey("return_code")){
+                String return_code = String.valueOf(unifiedOrder.get("return_code"));
+                if ("SUCCESS".equals(return_code)){
+                    String result_code = String.valueOf(unifiedOrder.get("result_code"));
+                    if ("SUCCESS".equals(result_code)){
+                        //生成微信支付流水
+                        if(numPayState==1){
+                            //修改订单状态
+                            JSONObject updOrderParam = new JSONObject();
+                            updOrderParam.put("NUM_ID",params.getString("numOrderId"));
+                            updOrderParam.put("NUM_PAY_STATE",2);
+                            RetResult retResult = clothingNewService.updateProduct(params);
+                            if(retResult.code==200){
+                            }else {
+                                return retResult;
+                            }
+                        }
+                        resultMap.put("appId",config.getAppID());
+                        resultMap.put("nonceStr", WXPayUtil.generateNonceStr());
+                        resultMap.put("timeStamp",System.currentTimeMillis()/1000+"");
+                        resultMap.put("package", "prepay_id="+unifiedOrder.get("prepay_id"));
+                        resultMap.put("signType", "HMAC-SHA256");
+                        resultMap.put("paySign",  WXPayUtil.generateSignature(resultMap, config.getKey(), WXPayConstants.SignType.HMACSHA256));
+                        return RetResponse.makeOKRsp(resultMap);
+
+                    }else {
+                        return RetResponse.makeErrRsp(String.valueOf(unifiedOrder.get("err_code_des")));
+                    }
+                }else {
+                    return RetResponse.makeErrRsp(String.valueOf(unifiedOrder.get("return_msg")));
+                }
+            }else {
+                return RetResponse.makeErrRsp("微信支付统一下单接口异常！");
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            return RetResponse.makeErrRsp("微信统一下单异常！");
         }
     }
 }

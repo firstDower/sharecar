@@ -43,16 +43,15 @@ public class ClothingNewService {
     /**
      * {"NUM_HIGHT":"175","NUM_WIGHT":"65","VC_NAME":"张三","VC_PHONE":"15555551649","NUM_TYPE":"1"}
      * 创建定制衣服订单
-     * @param params
+     * 
      * @return
      */
-    public RetResult creatProduct(String params){
+    public RetResult creatProduct(JSONObject jsonparams){
         try{
-            log.info("创建定制衣服订单param：{}",params);
+            log.info("创建定制衣服订单param：{}",jsonparams);
             Long l = clothingExtDao.selectLastNumid();
             if(null==l)
                 l=0l;
-            JSONObject jsonparams = JSON.parseObject(params);
             ClProduct clProduct = new ClProduct();
             if (jsonparams.containsKey("VC_HIGHT")){
                 clProduct.setVcHight(jsonparams.getString("VC_HIGHT"));
@@ -127,14 +126,13 @@ public class ClothingNewService {
 
     /**
      * 分页查询定制衣服列表
-     * @param params
+     * @param jsonparams
      * @return
      */
-    public RetResult queryProductPage2(String params){
+    public RetResult queryProductPage2(JSONObject jsonparams){
         try{
-            log.info("分页查询定制衣服列表param：{}",params);
-            JSONObject jsonparams = JSON.parseObject(params);
-            Map map = (Map) JSONObject.parseObject(params);
+            log.info("分页查询定制衣服列表param：{}",jsonparams);
+            Map map = (Map) JSONObject.parseObject(jsonparams.toJSONString());
 
             if (jsonparams.containsKey("VC_USER_ID")&&StringUtils.isNotBlank(jsonparams.getString("VC_USER_ID"))){
                 String vc_user_id = jsonparams.getString("VC_USER_ID");
@@ -165,13 +163,12 @@ public class ClothingNewService {
 
     /**
      * 修改服装定制
-     * @param params
+     * 
      * @return
      */
-    public RetResult updateProduct(String params){
+    public RetResult updateProduct(JSONObject jsonparams){
         try{
-            log.info("修改服装定制param：{}",params);
-            JSONObject jsonparams = JSON.parseObject(params);
+            log.info("修改服装定制param：{}",jsonparams);
             ClProduct clProduct = new ClProduct();
             if(!jsonparams.containsKey("NUM_ID")){
                 return RetResponse.makeErrRsp("修改服装定制 ‘NUM_ID’为必传参数！");
@@ -213,6 +210,10 @@ public class ClothingNewService {
             clProduct.setDatUpdateTime(new Date());
             if (jsonparams.containsKey("NUM_IS_DEL")&&StringUtils.isNotBlank(jsonparams.getString("NUM_IS_DEL")))
                 clProduct.setNumIsDel(jsonparams.getByte("NUM_IS_DEL"));
+            if (jsonparams.containsKey("NUM_PAY_STATE")&&StringUtils.isNotBlank(jsonparams.getString("NUM_PAY_STATE")))
+                clProduct.setNumPayState(jsonparams.getByte("NUM_PAY_STATE"));
+            if (jsonparams.containsKey("NUM_PAY_TYPE")&&StringUtils.isNotBlank(jsonparams.getString("NUM_PAY_TYPE")))
+                clProduct.setNumPayType(jsonparams.getByte("NUM_PAY_TYPE"));
             int i = clProductMapper.updateByPrimaryKeySelective(clProduct);
             log.info("查询定制衣服列表成功：{}",i);
             return RetResponse.makeOKRsp(i);
@@ -225,13 +226,12 @@ public class ClothingNewService {
 
     /**
      * 根据userid查询用户信息
-     * @param params
+     * 
      * @return
      */
-    public RetResult getUserInfo(String params) {
+    public RetResult getUserInfo(JSONObject jsonparams) {
         try{
-            log.info("根据userid获取用户信息param：{}",params);
-            JSONObject jsonparams = JSON.parseObject(params);
+            log.info("根据userid获取用户信息param：{}",jsonparams);
             Map<String,Object> param = new HashMap<>();
             param.put("userId",jsonparams.getString("userId"));
             HashMap<String, Object> stringObjectHashMap = usersDao.queryUser(param);
@@ -245,17 +245,13 @@ public class ClothingNewService {
 
     /**
      * 查询订单详情
-     * @param params
+     * @param jsonparams
      * @return
      */
-    public RetResult getClothing(String params) {
+    public RetResult getClothing(JSONObject jsonparams) {
         try{
-            log.info("查询订单详情param：{}",params);
-            JSONObject jsonparams = JSON.parseObject(params);
-            Map<String,Object> param = new HashMap<>();
-            param.put("numId",jsonparams.getString("numId"));
-            //HashMap<String, Object> stringObjectHashMap = usersDao.queryUser(param);
-            ClProduct clProduct = clProductMapper.selectByPrimaryKey(jsonparams.getLong("numId"));
+            log.info("查询订单详情param：{}",jsonparams);
+            ClProduct clProduct = clProductMapper.selectByPrimaryKey(jsonparams.getLong("numOrderId"));
             log.info("查询订单详情成功！：：{}",clProduct);
             return RetResponse.makeOKRsp(clProduct);
         }catch (Exception e){

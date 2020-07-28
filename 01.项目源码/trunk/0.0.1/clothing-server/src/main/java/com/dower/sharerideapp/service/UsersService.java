@@ -12,6 +12,8 @@ import com.dower.sharerideapp.core.serverdb.dao.NntUsersMapper;
 import com.dower.sharerideapp.core.serverdb.model.*;
 import com.dower.sharerideapp.domain.config.weixin.sdk.WXPayUtil;
 import com.dower.sharerideapp.utils.Result;
+import com.dower.sharerideapp.utils.ret.RetResponse;
+import com.dower.sharerideapp.utils.ret.RetResult;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
@@ -45,6 +47,8 @@ public class UsersService {
     @Autowired
     private NntCarOwnerInfoMapper nntCarOwnerInfoMapper;
 
+
+
     /**
      * 获取用户唯一标识
      * @param openjson
@@ -69,6 +73,11 @@ public class UsersService {
                 nntUsers.setVcOpenid(openjson.getString("openid"));
                 int i = nntUsersMapper.insertSelective(nntUsers);
                 Users = nntUsersMapper.selectByExample(example);
+
+                NntUserinfo record = new NntUserinfo();
+                record.setNumUserId(nntUsers.getNumUserId());
+                nntUserinfoMapper.insertSelective(record);
+
             }else{
                 NntUsers nntUsers = Users.get(0);
                 String vcHeadImgUrl = nntUsers.getVcHeadImgUrl();

@@ -4,7 +4,7 @@ $(function () {
 var personalCenter = {
     init:function () {
         util.checkToken();
-        $("#orderList").click(function () {
+        $(".orderIcon").click(function () {
             location.href= ctxPath + 'jump/weichat/orderList';
         })
         personalCenter.getUserInfo();
@@ -28,6 +28,10 @@ var personalCenter = {
                 console.log("==========="+JSON.stringify(data));
                 if(data.code==200){
                     var userInfo = data.data;
+                    var VC_HEAD_IMG_URL = userInfo.VC_HEAD_IMG_URL;
+                    $("#VC_HEAD_IMG_URL").attr("src",VC_HEAD_IMG_URL);
+                    var VC_NICKNAME = userInfo.VC_NICKNAME;
+                    $("#VC_NICKNAME").html(VC_NICKNAME);
                     sessionStorage["userInfo"] = JSON.stringify(userInfo);
                 }else {
                     mui.toast(data.msg);

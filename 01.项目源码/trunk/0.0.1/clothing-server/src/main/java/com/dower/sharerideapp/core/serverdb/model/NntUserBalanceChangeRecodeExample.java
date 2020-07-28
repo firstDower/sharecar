@@ -305,52 +305,62 @@ public class NntUserBalanceChangeRecodeExample {
             return (Criteria) this;
         }
 
-        public Criteria andNumOrderNoEqualTo(Long value) {
+        public Criteria andNumOrderNoEqualTo(String value) {
             addCriterion("NUM_ORDER_NO =", value, "numOrderNo");
             return (Criteria) this;
         }
 
-        public Criteria andNumOrderNoNotEqualTo(Long value) {
+        public Criteria andNumOrderNoNotEqualTo(String value) {
             addCriterion("NUM_ORDER_NO <>", value, "numOrderNo");
             return (Criteria) this;
         }
 
-        public Criteria andNumOrderNoGreaterThan(Long value) {
+        public Criteria andNumOrderNoGreaterThan(String value) {
             addCriterion("NUM_ORDER_NO >", value, "numOrderNo");
             return (Criteria) this;
         }
 
-        public Criteria andNumOrderNoGreaterThanOrEqualTo(Long value) {
+        public Criteria andNumOrderNoGreaterThanOrEqualTo(String value) {
             addCriterion("NUM_ORDER_NO >=", value, "numOrderNo");
             return (Criteria) this;
         }
 
-        public Criteria andNumOrderNoLessThan(Long value) {
+        public Criteria andNumOrderNoLessThan(String value) {
             addCriterion("NUM_ORDER_NO <", value, "numOrderNo");
             return (Criteria) this;
         }
 
-        public Criteria andNumOrderNoLessThanOrEqualTo(Long value) {
+        public Criteria andNumOrderNoLessThanOrEqualTo(String value) {
             addCriterion("NUM_ORDER_NO <=", value, "numOrderNo");
             return (Criteria) this;
         }
 
-        public Criteria andNumOrderNoIn(List<Long> values) {
+        public Criteria andNumOrderNoLike(String value) {
+            addCriterion("NUM_ORDER_NO like", value, "numOrderNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumOrderNoNotLike(String value) {
+            addCriterion("NUM_ORDER_NO not like", value, "numOrderNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumOrderNoIn(List<String> values) {
             addCriterion("NUM_ORDER_NO in", values, "numOrderNo");
             return (Criteria) this;
         }
 
-        public Criteria andNumOrderNoNotIn(List<Long> values) {
+        public Criteria andNumOrderNoNotIn(List<String> values) {
             addCriterion("NUM_ORDER_NO not in", values, "numOrderNo");
             return (Criteria) this;
         }
 
-        public Criteria andNumOrderNoBetween(Long value1, Long value2) {
+        public Criteria andNumOrderNoBetween(String value1, String value2) {
             addCriterion("NUM_ORDER_NO between", value1, value2, "numOrderNo");
             return (Criteria) this;
         }
 
-        public Criteria andNumOrderNoNotBetween(Long value1, Long value2) {
+        public Criteria andNumOrderNoNotBetween(String value1, String value2) {
             addCriterion("NUM_ORDER_NO not between", value1, value2, "numOrderNo");
             return (Criteria) this;
         }
@@ -532,6 +542,66 @@ public class NntUserBalanceChangeRecodeExample {
 
         public Criteria andNumIsDelNotBetween(Byte value1, Byte value2) {
             addCriterion("NUM_IS_DEL not between", value1, value2, "numIsDel");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumMoneyStateIsNull() {
+            addCriterion("NUM_MONEY_STATE is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumMoneyStateIsNotNull() {
+            addCriterion("NUM_MONEY_STATE is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumMoneyStateEqualTo(Byte value) {
+            addCriterion("NUM_MONEY_STATE =", value, "numMoneyState");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumMoneyStateNotEqualTo(Byte value) {
+            addCriterion("NUM_MONEY_STATE <>", value, "numMoneyState");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumMoneyStateGreaterThan(Byte value) {
+            addCriterion("NUM_MONEY_STATE >", value, "numMoneyState");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumMoneyStateGreaterThanOrEqualTo(Byte value) {
+            addCriterion("NUM_MONEY_STATE >=", value, "numMoneyState");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumMoneyStateLessThan(Byte value) {
+            addCriterion("NUM_MONEY_STATE <", value, "numMoneyState");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumMoneyStateLessThanOrEqualTo(Byte value) {
+            addCriterion("NUM_MONEY_STATE <=", value, "numMoneyState");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumMoneyStateIn(List<Byte> values) {
+            addCriterion("NUM_MONEY_STATE in", values, "numMoneyState");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumMoneyStateNotIn(List<Byte> values) {
+            addCriterion("NUM_MONEY_STATE not in", values, "numMoneyState");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumMoneyStateBetween(Byte value1, Byte value2) {
+            addCriterion("NUM_MONEY_STATE between", value1, value2, "numMoneyState");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumMoneyStateNotBetween(Byte value1, Byte value2) {
+            addCriterion("NUM_MONEY_STATE not between", value1, value2, "numMoneyState");
             return (Criteria) this;
         }
     }

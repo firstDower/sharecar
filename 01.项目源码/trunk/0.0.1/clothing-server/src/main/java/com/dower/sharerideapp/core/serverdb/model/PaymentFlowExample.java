@@ -115,52 +115,52 @@ public class PaymentFlowExample {
             return (Criteria) this;
         }
 
-        public Criteria andNumIdEqualTo(Integer value) {
+        public Criteria andNumIdEqualTo(Long value) {
             addCriterion("NUM_ID =", value, "numId");
             return (Criteria) this;
         }
 
-        public Criteria andNumIdNotEqualTo(Integer value) {
+        public Criteria andNumIdNotEqualTo(Long value) {
             addCriterion("NUM_ID <>", value, "numId");
             return (Criteria) this;
         }
 
-        public Criteria andNumIdGreaterThan(Integer value) {
+        public Criteria andNumIdGreaterThan(Long value) {
             addCriterion("NUM_ID >", value, "numId");
             return (Criteria) this;
         }
 
-        public Criteria andNumIdGreaterThanOrEqualTo(Integer value) {
+        public Criteria andNumIdGreaterThanOrEqualTo(Long value) {
             addCriterion("NUM_ID >=", value, "numId");
             return (Criteria) this;
         }
 
-        public Criteria andNumIdLessThan(Integer value) {
+        public Criteria andNumIdLessThan(Long value) {
             addCriterion("NUM_ID <", value, "numId");
             return (Criteria) this;
         }
 
-        public Criteria andNumIdLessThanOrEqualTo(Integer value) {
+        public Criteria andNumIdLessThanOrEqualTo(Long value) {
             addCriterion("NUM_ID <=", value, "numId");
             return (Criteria) this;
         }
 
-        public Criteria andNumIdIn(List<Integer> values) {
+        public Criteria andNumIdIn(List<Long> values) {
             addCriterion("NUM_ID in", values, "numId");
             return (Criteria) this;
         }
 
-        public Criteria andNumIdNotIn(List<Integer> values) {
+        public Criteria andNumIdNotIn(List<Long> values) {
             addCriterion("NUM_ID not in", values, "numId");
             return (Criteria) this;
         }
 
-        public Criteria andNumIdBetween(Integer value1, Integer value2) {
+        public Criteria andNumIdBetween(Long value1, Long value2) {
             addCriterion("NUM_ID between", value1, value2, "numId");
             return (Criteria) this;
         }
 
-        public Criteria andNumIdNotBetween(Integer value1, Integer value2) {
+        public Criteria andNumIdNotBetween(Long value1, Long value2) {
             addCriterion("NUM_ID not between", value1, value2, "numId");
             return (Criteria) this;
         }
@@ -752,6 +752,76 @@ public class PaymentFlowExample {
 
         public Criteria andDatCreatTimeNotBetween(Date value1, Date value2) {
             addCriterion("DAT_CREAT_TIME not between", value1, value2, "datCreatTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcExpireTimeIsNull() {
+            addCriterion("VC_EXPIRE_TIME is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcExpireTimeIsNotNull() {
+            addCriterion("VC_EXPIRE_TIME is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcExpireTimeEqualTo(String value) {
+            addCriterion("VC_EXPIRE_TIME =", value, "vcExpireTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcExpireTimeNotEqualTo(String value) {
+            addCriterion("VC_EXPIRE_TIME <>", value, "vcExpireTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcExpireTimeGreaterThan(String value) {
+            addCriterion("VC_EXPIRE_TIME >", value, "vcExpireTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcExpireTimeGreaterThanOrEqualTo(String value) {
+            addCriterion("VC_EXPIRE_TIME >=", value, "vcExpireTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcExpireTimeLessThan(String value) {
+            addCriterion("VC_EXPIRE_TIME <", value, "vcExpireTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcExpireTimeLessThanOrEqualTo(String value) {
+            addCriterion("VC_EXPIRE_TIME <=", value, "vcExpireTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcExpireTimeLike(String value) {
+            addCriterion("VC_EXPIRE_TIME like", value, "vcExpireTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcExpireTimeNotLike(String value) {
+            addCriterion("VC_EXPIRE_TIME not like", value, "vcExpireTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcExpireTimeIn(List<String> values) {
+            addCriterion("VC_EXPIRE_TIME in", values, "vcExpireTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcExpireTimeNotIn(List<String> values) {
+            addCriterion("VC_EXPIRE_TIME not in", values, "vcExpireTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcExpireTimeBetween(String value1, String value2) {
+            addCriterion("VC_EXPIRE_TIME between", value1, value2, "vcExpireTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andVcExpireTimeNotBetween(String value1, String value2) {
+            addCriterion("VC_EXPIRE_TIME not between", value1, value2, "vcExpireTime");
             return (Criteria) this;
         }
     }

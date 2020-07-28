@@ -9,13 +9,15 @@ public class NntUserBalanceChangeRecode {
 
     private Byte numSourceType;
 
-    private Long numOrderNo;
+    private String numOrderNo;
 
     private Date datCreateTime;
 
     private Long numAmount;
 
     private Byte numIsDel;
+
+    private Byte numMoneyState;
 
     public Long getNumId() {
         return numId;
@@ -41,12 +43,12 @@ public class NntUserBalanceChangeRecode {
         this.numSourceType = numSourceType;
     }
 
-    public Long getNumOrderNo() {
+    public String getNumOrderNo() {
         return numOrderNo;
     }
 
-    public void setNumOrderNo(Long numOrderNo) {
-        this.numOrderNo = numOrderNo;
+    public void setNumOrderNo(String numOrderNo) {
+        this.numOrderNo = numOrderNo == null ? null : numOrderNo.trim();
     }
 
     public Date getDatCreateTime() {
@@ -71,5 +73,13 @@ public class NntUserBalanceChangeRecode {
 
     public void setNumIsDel(Byte numIsDel) {
         this.numIsDel = numIsDel;
+    }
+
+    public Byte getNumMoneyState() {
+        return numMoneyState;
+    }
+
+    public void setNumMoneyState(Byte numMoneyState) {
+        this.numMoneyState = numMoneyState;
     }
 }

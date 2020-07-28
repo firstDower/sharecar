@@ -3,7 +3,7 @@ package com.dower.sharerideapp.core.serverdb.model;
 import java.util.Date;
 
 public class PaymentFlow {
-    private Integer numId;
+    private Long numId;
 
     private String vcBankType;
 
@@ -23,11 +23,13 @@ public class PaymentFlow {
 
     private Date datCreatTime;
 
-    public Integer getNumId() {
+    private String vcExpireTime;
+
+    public Long getNumId() {
         return numId;
     }
 
-    public void setNumId(Integer numId) {
+    public void setNumId(Long numId) {
         this.numId = numId;
     }
 
@@ -101,5 +103,13 @@ public class PaymentFlow {
 
     public void setDatCreatTime(Date datCreatTime) {
         this.datCreatTime = datCreatTime;
+    }
+
+    public String getVcExpireTime() {
+        return vcExpireTime;
+    }
+
+    public void setVcExpireTime(String vcExpireTime) {
+        this.vcExpireTime = vcExpireTime == null ? null : vcExpireTime.trim();
     }
 }

@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dower.sharerideapp.core.serverdb.dao.PaymentFlowMapper">
   <resultMap id="BaseResultMap" type="com.dower.sharerideapp.core.serverdb.model.PaymentFlow">
-    <id column="NUM_ID" jdbcType="INTEGER" property="numId" />
+    <id column="NUM_ID" jdbcType="BIGINT" property="numId" />
     <result column="VC_BANK_TYPE" jdbcType="VARCHAR" property="vcBankType" />
     <result column="VC_MCH_ID" jdbcType="VARCHAR" property="vcMchId" />
     <result column="VC_OPENID" jdbcType="VARCHAR" property="vcOpenid" />
@@ -12,6 +12,7 @@
     <result column="NUM_CASH_FEE" jdbcType="BIGINT" property="numCashFee" />
     <result column="VC_TRANSACTION_ID" jdbcType="VARCHAR" property="vcTransactionId" />
     <result column="DAT_CREAT_TIME" jdbcType="TIMESTAMP" property="datCreatTime" />
+    <result column="VC_EXPIRE_TIME" jdbcType="VARCHAR" property="vcExpireTime" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -73,7 +74,7 @@
   </sql>
   <sql id="Base_Column_List">
     NUM_ID, VC_BANK_TYPE, VC_MCH_ID, VC_OPENID, VC_ORDER_NO, NUM_PAY_STATE, NUM_TOTAL_FEE, 
-    NUM_CASH_FEE, VC_TRANSACTION_ID, DAT_CREAT_TIME
+    NUM_CASH_FEE, VC_TRANSACTION_ID, DAT_CREAT_TIME, VC_EXPIRE_TIME
   </sql>
   <select id="selectByExample" parameterType="com.dower.sharerideapp.core.serverdb.model.PaymentFlowExample" resultMap="BaseResultMap">
     select
@@ -89,15 +90,15 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from payment_flow
-    where NUM_ID = #{numId,jdbcType=INTEGER}
+    where NUM_ID = #{numId,jdbcType=BIGINT}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from payment_flow
-    where NUM_ID = #{numId,jdbcType=INTEGER}
+    where NUM_ID = #{numId,jdbcType=BIGINT}
   </delete>
   <delete id="deleteByExample" parameterType="com.dower.sharerideapp.core.serverdb.model.PaymentFlowExample">
     delete from payment_flow
@@ -106,20 +107,20 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.dower.sharerideapp.core.serverdb.model.PaymentFlow">
-    <selectKey keyProperty="numId" order="AFTER" resultType="java.lang.Integer">
+    <selectKey keyProperty="numId" order="AFTER" resultType="java.lang.Long">
       SELECT LAST_INSERT_ID()
     </selectKey>
     insert into payment_flow (VC_BANK_TYPE, VC_MCH_ID, VC_OPENID, 
       VC_ORDER_NO, NUM_PAY_STATE, NUM_TOTAL_FEE, 
-      NUM_CASH_FEE, VC_TRANSACTION_ID, DAT_CREAT_TIME
-      )
+      NUM_CASH_FEE, VC_TRANSACTION_ID, DAT_CREAT_TIME, 
+      VC_EXPIRE_TIME)
     values (#{vcBankType,jdbcType=VARCHAR}, #{vcMchId,jdbcType=VARCHAR}, #{vcOpenid,jdbcType=VARCHAR}, 
       #{vcOrderNo,jdbcType=VARCHAR}, #{numPayState,jdbcType=TINYINT}, #{numTotalFee,jdbcType=BIGINT}, 
-      #{numCashFee,jdbcType=BIGINT}, #{vcTransactionId,jdbcType=VARCHAR}, #{datCreatTime,jdbcType=TIMESTAMP}
-      )
+      #{numCashFee,jdbcType=BIGINT}, #{vcTransactionId,jdbcType=VARCHAR}, #{datCreatTime,jdbcType=TIMESTAMP}, 
+      #{vcExpireTime,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.dower.sharerideapp.core.serverdb.model.PaymentFlow">
-    <selectKey keyProperty="numId" order="AFTER" resultType="java.lang.Integer">
+    <selectKey keyProperty="numId" order="AFTER" resultType="java.lang.Long">
       SELECT LAST_INSERT_ID()
     </selectKey>
     insert into payment_flow
@@ -151,6 +152,9 @@
       <if test="datCreatTime != null">
         DAT_CREAT_TIME,
       </if>
+      <if test="vcExpireTime != null">
+        VC_EXPIRE_TIME,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="vcBankType != null">
@@ -180,6 +184,9 @@
       <if test="datCreatTime != null">
         #{datCreatTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="vcExpireTime != null">
+        #{vcExpireTime,jdbcType=VARCHAR},
+      </if>
     </trim>
   </insert>
   <select id="countByExample" parameterType="com.dower.sharerideapp.core.serverdb.model.PaymentFlowExample" resultType="java.lang.Long">
@@ -192,7 +199,7 @@
     update payment_flow
     <set>
       <if test="record.numId != null">
-        NUM_ID = #{record.numId,jdbcType=INTEGER},
+        NUM_ID = #{record.numId,jdbcType=BIGINT},
       </if>
       <if test="record.vcBankType != null">
         VC_BANK_TYPE = #{record.vcBankType,jdbcType=VARCHAR},
@@ -221,6 +228,9 @@
       <if test="record.datCreatTime != null">
         DAT_CREAT_TIME = #{record.datCreatTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="record.vcExpireTime != null">
+        VC_EXPIRE_TIME = #{record.vcExpireTime,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -228,7 +238,7 @@
   </update>
   <update id="updateByExample" parameterType="map">
     update payment_flow
-    set NUM_ID = #{record.numId,jdbcType=INTEGER},
+    set NUM_ID = #{record.numId,jdbcType=BIGINT},
       VC_BANK_TYPE = #{record.vcBankType,jdbcType=VARCHAR},
       VC_MCH_ID = #{record.vcMchId,jdbcType=VARCHAR},
       VC_OPENID = #{record.vcOpenid,jdbcType=VARCHAR},
@@ -237,7 +247,8 @@
       NUM_TOTAL_FEE = #{record.numTotalFee,jdbcType=BIGINT},
       NUM_CASH_FEE = #{record.numCashFee,jdbcType=BIGINT},
       VC_TRANSACTION_ID = #{record.vcTransactionId,jdbcType=VARCHAR},
-      DAT_CREAT_TIME = #{record.datCreatTime,jdbcType=TIMESTAMP}
+      DAT_CREAT_TIME = #{record.datCreatTime,jdbcType=TIMESTAMP},
+      VC_EXPIRE_TIME = #{record.vcExpireTime,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -272,8 +283,11 @@
       <if test="datCreatTime != null">
         DAT_CREAT_TIME = #{datCreatTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="vcExpireTime != null">
+        VC_EXPIRE_TIME = #{vcExpireTime,jdbcType=VARCHAR},
+      </if>
     </set>
-    where NUM_ID = #{numId,jdbcType=INTEGER}
+    where NUM_ID = #{numId,jdbcType=BIGINT}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.dower.sharerideapp.core.serverdb.model.PaymentFlow">
     update payment_flow
@@ -285,7 +299,8 @@
       NUM_TOTAL_FEE = #{numTotalFee,jdbcType=BIGINT},
       NUM_CASH_FEE = #{numCashFee,jdbcType=BIGINT},
       VC_TRANSACTION_ID = #{vcTransactionId,jdbcType=VARCHAR},
-      DAT_CREAT_TIME = #{datCreatTime,jdbcType=TIMESTAMP}
-    where NUM_ID = #{numId,jdbcType=INTEGER}
+      DAT_CREAT_TIME = #{datCreatTime,jdbcType=TIMESTAMP},
+      VC_EXPIRE_TIME = #{vcExpireTime,jdbcType=VARCHAR}
+    where NUM_ID = #{numId,jdbcType=BIGINT}
   </update>
 </mapper>

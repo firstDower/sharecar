@@ -10,9 +10,12 @@ import com.dower.sharerideapp.domain.config.weixin.sdk.WXPayConstants;
 import com.dower.sharerideapp.domain.config.weixin.sdk.WXPayUtil;
 import com.dower.sharerideapp.service.SeatExtService;
 import com.dower.sharerideapp.service.clothing.ClothingService;
+import com.dower.sharerideapp.service.payment.PaymentService;
 import com.dower.sharerideapp.utils.CommUtil;
 import com.dower.sharerideapp.utils.DateUtils;
 import com.dower.sharerideapp.utils.Result;
+import com.dower.sharerideapp.utils.ret.RetResult;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,16 +37,18 @@ import java.util.TreeMap;
  * @Description:
  * @Date: Created in 16:52   2018/7/17
  */
+@Slf4j
 @RequestMapping("/weichat")
 @RestController
 public class WXPayController {
-    private static final Logger LOGGER = LogManager.getLogger(WXPayController.class);
     @Autowired
     SeatExtService seatService;
     @Autowired
     WeixinConfig weixinConfig;
     @Autowired
     ClothingService clothingService;
+    @Autowired
+    PaymentService paymentService;
     @RequestMapping("/notify")
     public String notify(HttpServletRequest request, HttpServletResponse response) throws Exception {
         String result;//返回给微信的处理结果
@@ -71,29 +76,33 @@ public class WXPayController {
         MyConfig config = new MyConfig();
         WXPay wxpay = new WXPay(config);
         //WXPay wxpay = new WXPay(config,WXPayConstants.SignType.MD5, true);
-        LOGGER.info("微信支付异步回调 reqXml="+notityXml);
+        log.info("微信支付异步回调 reqXml="+notityXml);
         Map<String, String> notifyMap = WXPayUtil.xmlToMap(notityXml);  // 转换成map
         String out_trade_no = notifyMap.get("out_trade_no");
         //微信支付订单号：transaction_id
         String transaction_id = notifyMap.get("transaction_id");
-        LOGGER.info("微信支付异步回调:1、微信订单号："+transaction_id+"；2、商户订单号："+out_trade_no+";notifyMap="+notifyMap);
+        log.info("微信支付异步回调:1、微信订单号："+transaction_id+"；2、商户订单号："+out_trade_no+";notifyMap="+notifyMap);
         if (wxpay.isPayResultNotifySignatureValid(notifyMap)) {
-            LOGGER.info("微信支付异步回调签名验证成功！");
-            //1、更新订单支付状态
-            Result result1 = seatService.updatePayStatusByOrderId(out_trade_no);
-            //2、生成支付流水
-
-            Result payment = seatService.createPayment(notifyMap);
-
-            result = setXml("SUCCESS", "OK");
+            log.info("微信支付异步回调签名验证成功！");
+            JSONObject params = new JSONObject();
+            params.put("vcOrderNo",out_trade_no);
+            params.put("transaction_id",transaction_id);
+            RetResult retResult = paymentService.updataPaymentResult(params);
+            if(retResult.code==200){
+                result = setXml("SUCCESS", "OK");
+                log.info("***微信支付异步回调结果：：SUCCESS");
+            }else {
+                result = setXml("fail", retResult.getMsg());
+                log.info("***微信支付异步回调结果：：{}",retResult.getMsg());
+            }
         } else {
-            LOGGER.info("微信支付异步回调签名验证失败！");
+            log.info("微信支付异步回调签名验证失败！");
             result = setXml("fail", "签名不一致！");
         }
 
 
 
-        LOGGER.info("----返回给微信的xml：" + result);
+        log.info("----返回给微信的xml：" + result);
 
         return result;
     }
@@ -161,10 +170,10 @@ public class WXPayController {
                     paramJson.put("NUM_ID",numId);
                     paramJson.put("VC_EXPIRE_TIME",expireTime);
                     Result result = clothingService.updateProduct(paramJson.toString());
-                    LOGGER.info("微信支付更新time_expire结果:：{}",JSONObject.toJSON(result) );
+                    log.info("微信支付更新time_expire结果:：{}",JSONObject.toJSON(result) );
                 }
                 resp = wxpay.unifiedOrder(data);
-                LOGGER.info("微信支付模拟resultMap:：{}",JSONObject.toJSON(resp) );
+                log.info("微信支付模拟resultMap:：{}",JSONObject.toJSON(resp) );
 
                 if(resp.containsKey("return_code")){
                     String return_code = String.valueOf(resp.get("return_code"));
@@ -191,7 +200,7 @@ public class WXPayController {
         }
 
 
-        LOGGER.info("微信支付模拟测试结束。");
+        log.info("微信支付模拟测试结束。");
         return resultMap;
     }
 

@@ -10,7 +10,7 @@ public interface PaymentFlowMapper {
 
     int deleteByExample(PaymentFlowExample example);
 
-    int deleteByPrimaryKey(Integer numId);
+    int deleteByPrimaryKey(Long numId);
 
     int insert(PaymentFlow record);
 
@@ -18,7 +18,7 @@ public interface PaymentFlowMapper {
 
     List<PaymentFlow> selectByExample(PaymentFlowExample example);
 
-    PaymentFlow selectByPrimaryKey(Integer numId);
+    PaymentFlow selectByPrimaryKey(Long numId);
 
     int updateByExampleSelective(@Param("record") PaymentFlow record, @Param("example") PaymentFlowExample example);
 

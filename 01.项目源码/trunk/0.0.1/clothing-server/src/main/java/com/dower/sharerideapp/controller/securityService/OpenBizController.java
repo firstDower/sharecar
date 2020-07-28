@@ -44,24 +44,24 @@ public class OpenBizController {
     @PostMapping("/getUserInfo")
     public RetResult getUserInfo(HttpServletRequest request){
         JSONObject param = CommUtil.getParamData(request);
-        return clothingNewService.getUserInfo(param.toString());
+        return clothingNewService.getUserInfo(param);
     }
 
     @PostMapping("/creatProduct")
     public RetResult creatProduct(HttpServletRequest request){
         JSONObject param = CommUtil.getParamData(request);
-        return clothingNewService.creatProduct(param.toString());
+        return clothingNewService.creatProduct(param);
     }
 
     @PostMapping("/queryProductPage")
     public RetResult queryProductPage(HttpServletRequest request){
         JSONObject param = CommUtil.getParamData(request);
-        return clothingNewService.queryProductPage2(param.toString());
+        return clothingNewService.queryProductPage2(param);
     }
     
     @PostMapping("/updateProduct")
     public RetResult updateProduct(HttpServletRequest request){
         JSONObject param = CommUtil.getParamData(request);
-        return clothingNewService.updateProduct(param.toString());
+        return clothingNewService.updateProduct(param);
     }
 }

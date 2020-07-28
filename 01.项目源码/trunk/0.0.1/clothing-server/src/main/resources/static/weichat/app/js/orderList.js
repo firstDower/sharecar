@@ -40,14 +40,15 @@ var orderList = {
             var numId = $(this).attr('numId');
             var orderData = $(this).attr('orderData');
             sessionStorage["orderData"] = orderData;
-            mui.openWindow({
+            location.href= ctxPath + 'jump/weichat/orderDetail';
+            /*mui.openWindow({
                 url: 'orderDetail',
                 id: "orderDetail",//详情页webview的id
                 show: {
                     aniShow: 'none', //页面不显示动画
                     duration: '0' //
                 }
-            });
+            });*/
         });
         mui("#pullrefresh").on('tap', '.mui-btn', function (e) {
             e.stopPropagation();
@@ -56,7 +57,6 @@ var orderList = {
             param.NUM_ID = numId;
             param.NUM_STATE = 3;//取消订单：3
             orderList.updataOrder(param);
-
         });
     },
     pulldownRefresh:function () {

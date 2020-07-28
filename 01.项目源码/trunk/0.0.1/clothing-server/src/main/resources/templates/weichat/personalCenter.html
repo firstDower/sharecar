@@ -12,10 +12,10 @@
   <ul class="mui-table-view aboutMySelf">
     <li class="mui-table-view-cell mui-media">
       <a href="javascript:;" class="">
-        <img class="mui-media-object mui-pull-left" src="../images/commor.jpeg">
+        <img id="VC_HEAD_IMG_URL" class="mui-media-object mui-pull-left" th:src="@{/weichat/app/img/commor.jpeg}">
         <div class="mui-media-body">
-          <span class="my">图</span>
-          <p class="mui-ellipsis">18888861129</p>
+          <span class="my" id="VC_NICKNAME"></span>
+          <!--<p class="mui-ellipsis">18888861129</p>-->
         </div>
       </a>
     </li>
@@ -24,23 +24,23 @@
     <h3 class="orderTitle">我的订单</h3>
     <div class="myOrderList">
       <a href="#">
-        <img class="orderIcon" src="../images/daizhifu.png" alt="">
+        <img class="orderIcon" th:src="@{/weichat/app/img/daizhifu.png}" alt="">
         <p class="orderFont">待支付</p>
       </a>
       <a href="#">
-        <img class="orderIcon" src="../images/daishouhuo.png" alt="">
+        <img class="orderIcon" th:src="@{/weichat/app/img/daishouhuo.png}" alt="">
         <p class="orderFont">待收货</p>
       </a>
       <a href="#">
-        <img class="orderIcon" src="../images/daipingjia.png" alt="">
+        <img class="orderIcon" th:src="@{/weichat/app/img/daipingjia.png}" alt="">
         <p class="orderFont">待评价</p>
       </a>
       <a href="#">
-        <img class="orderIcon" src="../images/tuihuodan.png" alt="">
+        <img class="orderIcon" th:src="@{/weichat/app/img/tuihuodan.png}" alt="">
         <p class="orderFont">退款/售后</p>
       </a>
       <a href="#">
-        <img class="orderIcon" src="../images/quanbudingdan.png" alt="">
+        <img class="orderIcon" th:src="@{/weichat/app/img/quanbudingdan.png}" alt="">
         <p class="orderFont">全部订单</p>
       </a>
     </div>

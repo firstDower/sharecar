@@ -5,10 +5,11 @@
     <id column="NUM_ID" jdbcType="BIGINT" property="numId" />
     <result column="NUM_USER_BALANCE_ID" jdbcType="VARCHAR" property="numUserBalanceId" />
     <result column="NUM_SOURCE_TYPE" jdbcType="TINYINT" property="numSourceType" />
-    <result column="NUM_ORDER_NO" jdbcType="BIGINT" property="numOrderNo" />
+    <result column="NUM_ORDER_NO" jdbcType="VARCHAR" property="numOrderNo" />
     <result column="DAT_CREATE_TIME" jdbcType="TIMESTAMP" property="datCreateTime" />
     <result column="NUM_AMOUNT" jdbcType="BIGINT" property="numAmount" />
     <result column="NUM_IS_DEL" jdbcType="TINYINT" property="numIsDel" />
+    <result column="NUM_MONEY_STATE" jdbcType="TINYINT" property="numMoneyState" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -70,7 +71,7 @@
   </sql>
   <sql id="Base_Column_List">
     NUM_ID, NUM_USER_BALANCE_ID, NUM_SOURCE_TYPE, NUM_ORDER_NO, DAT_CREATE_TIME, NUM_AMOUNT, 
-    NUM_IS_DEL
+    NUM_IS_DEL, NUM_MONEY_STATE
   </sql>
   <select id="selectByExample" parameterType="com.dower.sharerideapp.core.serverdb.model.NntUserBalanceChangeRecodeExample" resultMap="BaseResultMap">
     select
@@ -108,10 +109,10 @@
     </selectKey>
     insert into nnt_user_balance_change_recode (NUM_USER_BALANCE_ID, NUM_SOURCE_TYPE, 
       NUM_ORDER_NO, DAT_CREATE_TIME, NUM_AMOUNT, 
-      NUM_IS_DEL)
+      NUM_IS_DEL, NUM_MONEY_STATE)
     values (#{numUserBalanceId,jdbcType=VARCHAR}, #{numSourceType,jdbcType=TINYINT}, 
-      #{numOrderNo,jdbcType=BIGINT}, #{datCreateTime,jdbcType=TIMESTAMP}, #{numAmount,jdbcType=BIGINT}, 
-      #{numIsDel,jdbcType=TINYINT})
+      #{numOrderNo,jdbcType=VARCHAR}, #{datCreateTime,jdbcType=TIMESTAMP}, #{numAmount,jdbcType=BIGINT}, 
+      #{numIsDel,jdbcType=TINYINT}, #{numMoneyState,jdbcType=TINYINT})
   </insert>
   <insert id="insertSelective" parameterType="com.dower.sharerideapp.core.serverdb.model.NntUserBalanceChangeRecode">
     <selectKey keyProperty="numId" order="AFTER" resultType="java.lang.Long">
@@ -137,6 +138,9 @@
       <if test="numIsDel != null">
         NUM_IS_DEL,
       </if>
+      <if test="numMoneyState != null">
+        NUM_MONEY_STATE,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="numUserBalanceId != null">
@@ -146,7 +150,7 @@
         #{numSourceType,jdbcType=TINYINT},
       </if>
       <if test="numOrderNo != null">
-        #{numOrderNo,jdbcType=BIGINT},
+        #{numOrderNo,jdbcType=VARCHAR},
       </if>
       <if test="datCreateTime != null">
         #{datCreateTime,jdbcType=TIMESTAMP},
@@ -156,6 +160,9 @@
       </if>
       <if test="numIsDel != null">
         #{numIsDel,jdbcType=TINYINT},
+      </if>
+      <if test="numMoneyState != null">
+        #{numMoneyState,jdbcType=TINYINT},
       </if>
     </trim>
   </insert>
@@ -178,7 +185,7 @@
         NUM_SOURCE_TYPE = #{record.numSourceType,jdbcType=TINYINT},
       </if>
       <if test="record.numOrderNo != null">
-        NUM_ORDER_NO = #{record.numOrderNo,jdbcType=BIGINT},
+        NUM_ORDER_NO = #{record.numOrderNo,jdbcType=VARCHAR},
       </if>
       <if test="record.datCreateTime != null">
         DAT_CREATE_TIME = #{record.datCreateTime,jdbcType=TIMESTAMP},
@@ -188,6 +195,9 @@
       </if>
       <if test="record.numIsDel != null">
         NUM_IS_DEL = #{record.numIsDel,jdbcType=TINYINT},
+      </if>
+      <if test="record.numMoneyState != null">
+        NUM_MONEY_STATE = #{record.numMoneyState,jdbcType=TINYINT},
       </if>
     </set>
     <if test="_parameter != null">
@@ -199,10 +209,11 @@
     set NUM_ID = #{record.numId,jdbcType=BIGINT},
       NUM_USER_BALANCE_ID = #{record.numUserBalanceId,jdbcType=VARCHAR},
       NUM_SOURCE_TYPE = #{record.numSourceType,jdbcType=TINYINT},
-      NUM_ORDER_NO = #{record.numOrderNo,jdbcType=BIGINT},
+      NUM_ORDER_NO = #{record.numOrderNo,jdbcType=VARCHAR},
       DAT_CREATE_TIME = #{record.datCreateTime,jdbcType=TIMESTAMP},
       NUM_AMOUNT = #{record.numAmount,jdbcType=BIGINT},
-      NUM_IS_DEL = #{record.numIsDel,jdbcType=TINYINT}
+      NUM_IS_DEL = #{record.numIsDel,jdbcType=TINYINT},
+      NUM_MONEY_STATE = #{record.numMoneyState,jdbcType=TINYINT}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -217,7 +228,7 @@
         NUM_SOURCE_TYPE = #{numSourceType,jdbcType=TINYINT},
       </if>
       <if test="numOrderNo != null">
-        NUM_ORDER_NO = #{numOrderNo,jdbcType=BIGINT},
+        NUM_ORDER_NO = #{numOrderNo,jdbcType=VARCHAR},
       </if>
       <if test="datCreateTime != null">
         DAT_CREATE_TIME = #{datCreateTime,jdbcType=TIMESTAMP},
@@ -228,6 +239,9 @@
       <if test="numIsDel != null">
         NUM_IS_DEL = #{numIsDel,jdbcType=TINYINT},
       </if>
+      <if test="numMoneyState != null">
+        NUM_MONEY_STATE = #{numMoneyState,jdbcType=TINYINT},
+      </if>
     </set>
     where NUM_ID = #{numId,jdbcType=BIGINT}
   </update>
@@ -235,10 +249,11 @@
     update nnt_user_balance_change_recode
     set NUM_USER_BALANCE_ID = #{numUserBalanceId,jdbcType=VARCHAR},
       NUM_SOURCE_TYPE = #{numSourceType,jdbcType=TINYINT},
-      NUM_ORDER_NO = #{numOrderNo,jdbcType=BIGINT},
+      NUM_ORDER_NO = #{numOrderNo,jdbcType=VARCHAR},
       DAT_CREATE_TIME = #{datCreateTime,jdbcType=TIMESTAMP},
       NUM_AMOUNT = #{numAmount,jdbcType=BIGINT},
-      NUM_IS_DEL = #{numIsDel,jdbcType=TINYINT}
+      NUM_IS_DEL = #{numIsDel,jdbcType=TINYINT},
+      NUM_MONEY_STATE = #{numMoneyState,jdbcType=TINYINT}
     where NUM_ID = #{numId,jdbcType=BIGINT}
   </update>
 </mapper>

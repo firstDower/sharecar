@@ -8,12 +8,12 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class ShiroSampleService {
-    @RequiresPermissions("read")
+    //@RequiresPermissions("read")
     public String read() {
         return "reading...";
     }
 
-    @RequiresPermissions("write")
+    //@RequiresPermissions("write")
     public String write() {
         return "writting...";
     }
