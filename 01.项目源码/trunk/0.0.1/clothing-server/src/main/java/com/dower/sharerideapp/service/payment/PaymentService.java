@@ -282,10 +282,15 @@ public class PaymentService {
                 if(numPayState==1){
                     //1.更新微信支付流水
                     PaymentFlow record = new PaymentFlow();
-                    record.setNumId(paymentOrderRecord.getNumPayFlowId());
                     record.setVcTransactionId(params.getString("transaction_id"));
                     record.setNumPayState(Byte.parseByte("2"));
-                    int i = paymentFlowMapper.updateByPrimaryKeySelective(record);
+                    //int i = paymentFlowMapper.updateByPrimaryKeySelective(record);
+                    //** 流水的id没有放到 订单支付记录id
+                    //改为根据订单号更新
+                    PaymentFlowExample examplePaymentFlowExample = new PaymentFlowExample();
+                    PaymentFlowExample.Criteria criteriaPaymentFlowExample = examplePaymentFlowExample.createCriteria();
+                    criteriaPaymentFlowExample.andVcOrderNoEqualTo(params.getString("vcOrderNo"));
+                    int i = paymentFlowMapper.updateByExampleSelective(record,examplePaymentFlowExample);
                     if(i!=1){
                         throw new MyException("支付回调，更新支付流水异常！");
                     }
@@ -328,7 +333,7 @@ public class PaymentService {
 
         }catch (Exception e){
             e.printStackTrace();
-            return RetResponse.makeOKRsp("支付结果入库异常！");
+            throw new MyException("支付结果入库异常！");
         }
     }
 
@@ -567,7 +572,7 @@ public class PaymentService {
             paymentFlow.setVcMchId(params.getString("mchId"));
             paymentFlow.setVcOpenid(params.getString("openId"));
             //预支付交易会话标识   微信统一下单返回
-            paymentFlow.setVcTransactionId(params.getString("prepay_id"));
+            //paymentFlow.setVcTransactionId(params.getString("prepay_id"));
             paymentFlow.setVcOrderNo(params.getString("vcOrderNo"));
             //过期时间
             paymentFlow.setVcExpireTime(params.getString("time_expire"));
@@ -587,6 +592,7 @@ public class PaymentService {
      * @return
      */
     public RetResult weiChatUnifiedOrder(JSONObject params){
+
         try{
             Map<String, String> resultMap = new HashMap<String, String>();
             log.info("微信统一下单service，param：：{}",params);
@@ -621,15 +627,16 @@ public class PaymentService {
 
 
             if(numPayState==1){
+                //待支付插入支付过期时间
+                String expireTime = DateUtils.getExpireTime();
+                data.put("time_expire", expireTime);
+
+                params.put("time_expire", expireTime);
                 params.put("mchId",config.getMchID());
                 RetResult paymentFlow = this.createPaymentFlow(params);
                 if(paymentFlow.code!=200){
                     return paymentFlow;
                 }
-
-                String expireTime = DateUtils.getExpireTime();
-                data.put("time_expire", expireTime);
-                params.put("time_expire", expireTime);
             }
             //附加数据
             JSONObject attach = new JSONObject();
@@ -642,6 +649,7 @@ public class PaymentService {
             //data.put("attach",attach.toJSONString());
             Map<String, String> unifiedOrder = wxpay.unifiedOrder(data);
             log.info("微信支付模拟resultMap:：{}",JSONObject.toJSON(unifiedOrder) );
+            //return RetResponse.makeOKRsp();
             if(unifiedOrder.containsKey("return_code")){
                 String return_code = String.valueOf(unifiedOrder.get("return_code"));
                 if ("SUCCESS".equals(return_code)){

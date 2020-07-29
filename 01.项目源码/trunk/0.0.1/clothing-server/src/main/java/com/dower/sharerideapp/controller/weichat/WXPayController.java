@@ -76,6 +76,7 @@ public class WXPayController {
         MyConfig config = new MyConfig();
         WXPay wxpay = new WXPay(config);
         //WXPay wxpay = new WXPay(config,WXPayConstants.SignType.MD5, true);
+        //notityXml = "<xml><appid><![CDATA[wx9e9b0787da65bc0f]]></appid><bank_type><![CDATA[OTHERS]]></bank_type><cash_fee><![CDATA[100]]></cash_fee><fee_type><![CDATA[CNY]]></fee_type><is_subscribe><![CDATA[Y]]></is_subscribe><mch_id><![CDATA[1601077297]]></mch_id><nonce_str><![CDATA[uld1fryE3i25VGNlKn0JnEvs5PQQVRLd]]></nonce_str><openid><![CDATA[oQy89v0fihIxc5cjkNVTkwVlUWds]]></openid><out_trade_no><![CDATA[CU0729211649089]]></out_trade_no><result_code><![CDATA[SUCCESS]]></result_code><return_code><![CDATA[SUCCESS]]></return_code><sign><![CDATA[6DDBFD240C2982D8F8B23FE827E2BCFEA7E18FA91A0A2FA9261C4C113FD7DCD0]]></sign><time_end><![CDATA[20200729212214]]></time_end><total_fee>100</total_fee><trade_type><![CDATA[JSAPI]]></trade_type><transaction_id><![CDATA[4200000715202007290651302542]]></transaction_id></xml>";
         log.info("微信支付异步回调 reqXml="+notityXml);
         Map<String, String> notifyMap = WXPayUtil.xmlToMap(notityXml);  // 转换成map
         String out_trade_no = notifyMap.get("out_trade_no");
