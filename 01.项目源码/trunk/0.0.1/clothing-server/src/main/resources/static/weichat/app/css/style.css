@@ -254,6 +254,7 @@ blockquote:before, blockquote:after, q:before, q:after { content: ''; content: n
 
 
 /*=====订单详情页面====*/
+
 .OrderDetail>ul{
     padding:10px;
     background-color: #fff;
@@ -264,9 +265,9 @@ blockquote:before, blockquote:after, q:before, q:after { content: ''; content: n
     padding:10px;
     border-bottom:1px solid #eee;
 }
-.OrderDetail .title{
-    /*font-size: 16px;*/
-    /*color:#000;*/
+.OrderDetail .headOrderstate{
+    font-size: 16px;
+    color:#000;
 
 }
 
@@ -281,7 +282,7 @@ blockquote:before, blockquote:after, q:before, q:after { content: ''; content: n
     display: inline-block;
     width:16px;
     height:16px;
-    background: url("../images/hongqi.png");
+    background: url("../img/hongqi.png");
     background-size: 100% 100%;
     margin-right: 2px;
 }
@@ -369,6 +370,14 @@ blockquote:before, blockquote:after, q:before, q:after { content: ''; content: n
 }
 .calculationList>li>span.CommorAmout{
     color:#333;
+}
+.calculationList .rightIcon{
+    width: 18px;
+    height: 20px;
+    background-image: url("../img/right.png");
+
+    background-size: 100% 100%;
+    margin-top: 14px;
 }
 .weightAmout{
     color:#000;

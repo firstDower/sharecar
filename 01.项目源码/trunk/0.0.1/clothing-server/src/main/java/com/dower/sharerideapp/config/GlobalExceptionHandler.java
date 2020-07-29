@@ -36,7 +36,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(MyException.class)
     @ResponseBody
     public RetResult handleMyException(MyException exception) {
-        return RetResponse.makeRsp(exception.getCode(),exception.getMessage());
+        return RetResponse.makeRsp(RetCode.SERVICE_FUNCTION.code,exception.getMessage());
     }
 
     @ExceptionHandler(Exception.class)

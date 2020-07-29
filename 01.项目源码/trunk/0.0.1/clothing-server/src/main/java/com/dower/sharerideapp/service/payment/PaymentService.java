@@ -1,5 +1,6 @@
 package com.dower.sharerideapp.service.payment;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.dower.sharerideapp.core.serverdb.dao.*;
 import com.dower.sharerideapp.core.serverdb.model.*;
@@ -9,6 +10,7 @@ import com.dower.sharerideapp.domain.config.weixin.sdk.WXPay;
 import com.dower.sharerideapp.domain.config.weixin.sdk.WXPayConstants;
 import com.dower.sharerideapp.domain.config.weixin.sdk.WXPayUtil;
 import com.dower.sharerideapp.service.clothing.ClothingNewService;
+import com.dower.sharerideapp.service.exception.MyException;
 import com.dower.sharerideapp.utils.DateUtils;
 import com.dower.sharerideapp.utils.ret.RetResponse;
 import com.dower.sharerideapp.utils.ret.RetResult;
@@ -62,7 +64,7 @@ public class PaymentService {
      * @param jsonparams
      * @return
      */
-    @Transactional(rollbackFor = {RuntimeException.class, Error.class})
+    @Transactional(rollbackFor = {Exception.class, Error.class})
     public RetResult weichatPayment(JSONObject jsonparams){
         try {
             //获取订单详情
@@ -98,14 +100,14 @@ public class PaymentService {
                         return perPaymentData;
                     }
                 } else {
-                    return RetResponse.makeErrRsp("订单状态异常，支付失败！");
+                    throw new MyException("订单状态异常，支付失败！");
                 }
             }else {
                 return clothing;
             }
         }catch (Exception e){
             e.printStackTrace();
-            return RetResponse.makeErrRsp("后台生成微信支付流水异常！");
+            throw e;
         }
     }
 
@@ -143,7 +145,7 @@ public class PaymentService {
             log.info("微信预支付service，param：：{}",jsonparams);
             //RetResult orderPaymentData = this.getOrderPaymentData(jsonparams);
             //2.验证余额
-            Long useBalance = jsonparams.getLong("useBalance");
+            long useBalance = jsonparams.getLong("useBalance");
             if(useBalance!=0){
                 RetResult retResultcheckUseBalance = this.checkUseBalance(jsonparams);
                 if(retResultcheckUseBalance.code!=200){
@@ -153,15 +155,17 @@ public class PaymentService {
                 }
             }
             //3.验证优惠券
-            Long useCouponId = jsonparams.getLong("useCouponId");
+            long useCouponId = jsonparams.getLong("useCouponId");
             if(useCouponId!=0){
                 RetResult retResultCheckUseCoupon = this.checkUseCoupon(jsonparams);
                 if(retResultCheckUseCoupon.code!=200){
                     return retResultCheckUseCoupon;
                 }else {
-                    Long numDiscountNumber = (Long)retResultCheckUseCoupon.getData();
+                    long numDiscountNumber = Long.parseLong(retResultCheckUseCoupon.getData().toString());
                     resultJson.put("numDiscountNumber",numDiscountNumber);
                 }
+            }else {
+                resultJson.put("numDiscountNumber",0);
             }
             //4.验证团购
             //5.验证砍价
@@ -199,13 +203,11 @@ public class PaymentService {
             }
 
             //9.正确返回，去支付
-
+            return RetResponse.makeOKRsp();
         }catch (Exception e){
             e.printStackTrace();
+            throw e;
         }
-
-
-        return null;
     }
 
     /**
@@ -234,14 +236,14 @@ public class PaymentService {
             Map<String,Object> param = new HashMap<>();
             param.put("numId",jsonparams.getString("numId"));
             ClProduct clProduct = clProductMapper.selectByPrimaryKey(jsonparams.getLong("numId"));
-            Long numPrice = clProduct.getNumPrice();
+            long numPrice = clProduct.getNumPrice();
             //2.查询用户余额
             NntUserinfoExample nntUserinfoExample = new NntUserinfoExample();
             NntUserinfoExample.Criteria criteria = nntUserinfoExample.createCriteria();
             criteria.andNumUserIdEqualTo(jsonparams.getString("numUserId"));
             List<NntUserinfo> nntUserinfos = nntUserinfoMapper.selectByExample(nntUserinfoExample);
             NntUserinfo nntUserinfo = nntUserinfos.get(0);
-            Long numUserMoney = nntUserinfo.getNumUserMoney();
+            long numUserMoney = nntUserinfo.getNumUserMoney();
             //3.查询用户可用优惠券
             NntUserCouponsExample nntUserCouponsExample = new NntUserCouponsExample();
             NntUserCouponsExample.Criteria criteria1 = nntUserCouponsExample.createCriteria();
@@ -256,7 +258,7 @@ public class PaymentService {
             return RetResponse.makeOKRsp(result);
         }catch (Exception e){
             e.printStackTrace();
-            return RetResponse.makeErrRsp("获取订单支付数据异常！");
+            throw new MyException("获取订单支付数据异常！");
         }
     }
 
@@ -267,7 +269,7 @@ public class PaymentService {
      *  transaction_id  微信交易流水号
      * @return
      */
-    @Transactional(rollbackFor = {RuntimeException.class, Error.class})
+    @Transactional(rollbackFor = {Exception.class, Error.class})
     public RetResult updataPaymentResult(JSONObject params){
         try{
             PaymentOrderRecordExample example = new PaymentOrderRecordExample();
@@ -285,10 +287,10 @@ public class PaymentService {
                     record.setNumPayState(Byte.parseByte("2"));
                     int i = paymentFlowMapper.updateByPrimaryKeySelective(record);
                     if(i!=1){
-                        return RetResponse.makeErrRsp("支付回调，更新支付流水异常！");
+                        throw new MyException("支付回调，更新支付流水异常！");
                     }
                     //2.更新余额变动日志表
-                    Long numUserMoneyLogId = paymentOrderRecord.getNumUserMoneyLogId();
+                    long numUserMoneyLogId = paymentOrderRecord.getNumUserMoneyLogId();
                     if(numUserMoneyLogId>0){
                         NntUserBalanceChangeRecode record1 = new NntUserBalanceChangeRecode();
                         record1.setNumId(paymentOrderRecord.getNumUserMoneyLogId());
@@ -296,7 +298,7 @@ public class PaymentService {
                         nntUserBalanceChangeRecodeMapper.updateByPrimaryKeySelective(record1);
                     }
                     //3.更新优惠券状态
-                    Long numUserCouponId = paymentOrderRecord.getNumUserCouponId();
+                    long numUserCouponId = paymentOrderRecord.getNumUserCouponId();
                     if(numUserCouponId!=0){
                         NntUserCoupons recordNntUserCoupons = new NntUserCoupons();
                         recordNntUserCoupons.setNumId(numUserCouponId);
@@ -318,10 +320,10 @@ public class PaymentService {
                     paymentOrderRecordMapper.updateByPrimaryKeySelective(recordupdateByPrimaryKeySelective);
                     return RetResponse.makeOKRsp("支付结果入库成功！");
                 }else {
-                    return RetResponse.makeErrRsp("微信支付结果更新服务，该订单数据已经更新过！");
+                    throw new MyException("微信支付结果更新服务，该订单数据已经更新过！");
                 }
             }else {
-                return RetResponse.makeErrRsp("微信支付结果更新服务，数据异常！");
+                throw new MyException("微信支付结果更新服务，数据异常！");
             }
 
         }catch (Exception e){
@@ -343,17 +345,17 @@ public class PaymentService {
             criteria.andNumUserIdEqualTo(params.getString("numUserId"));
             List<NntUserinfo> nntUserinfos = nntUserinfoMapper.selectByExample(nntUserinfoExample);
             NntUserinfo nntUserinfo = nntUserinfos.get(0);
-            Long numUserMoney = nntUserinfo.getNumUserMoney();
-            Long useBalance = params.getLong("useBalance");
+            long numUserMoney = nntUserinfo.getNumUserMoney();
+            long useBalance = params.getLong("useBalance");
             if(useBalance<=numUserMoney){
                 return RetResponse.makeOKRsp();
             }else {
-                return RetResponse.makeErrRsp("余额验证失败！");
+                throw new MyException("余额验证失败！");
             }
 
         }catch (Exception e){
             e.printStackTrace();
-            return RetResponse.makeErrRsp("余额验证异常！");
+            throw new MyException("余额验证异常！");
         }
     }
 
@@ -375,7 +377,7 @@ public class PaymentService {
                 //时间不需要验证
                 Date datEndDate = nntUserCoupons1.getDatEndDate();
                 Byte numState = nntUserCoupons1.getNumState();
-                Long numPlatformCouponId = nntUserCoupons1.getNumPlatformCouponId();
+                long numPlatformCouponId = nntUserCoupons1.getNumPlatformCouponId();
                 if(numState==1){
                     NntPlatformCoupon nntPlatformCoupon = nntPlatformCouponMapper.selectByPrimaryKey(numPlatformCouponId);
                     Integer numDiscountNumber = nntPlatformCoupon.getNumDiscountNumber();
@@ -384,24 +386,24 @@ public class PaymentService {
                     if(numTotalFee>=numLimitPrice){
                         return RetResponse.makeOKRsp(numDiscountNumber);
                     }else {
-                        return RetResponse.makeErrRsp("优惠券不可用！");
+                        throw new MyException("优惠券不可用！");
                     }
 
                 }else if(numState==2){
-                    return RetResponse.makeErrRsp("优惠券验证失败！");
+                    throw new MyException("优惠券验证失败！");
                 }else if(numState==3){
-                    return RetResponse.makeErrRsp("优惠券已使用！");
+                    throw new MyException("优惠券已使用！");
                 }else {
-                    return RetResponse.makeErrRsp("优惠券已过期！");
+                    throw new MyException("优惠券已过期！");
                 }
                 //之后可能有优惠券相关商品验证
             }else {
-                return RetResponse.makeErrRsp("优惠券验证失败！");
+                throw new MyException("优惠券验证失败！");
             }
 
         }catch (Exception e){
             e.printStackTrace();
-            return RetResponse.makeErrRsp("优惠券验证失败！");
+            throw new MyException("优惠券验证失败！");
         }
     }
 
@@ -414,30 +416,31 @@ public class PaymentService {
             //1.查询订单支付数据
             log.info("检验支付价格是否正确service，param：：{};selfSerPar::{}",params,selfSerPar);
             //余额
-            Long useBalance = selfSerPar.getLong("useBalance");
+            //long useBalance = selfSerPar.getLong("useBalance");
+            long useBalance = params.getLong("useBalance");
             //优惠券减免
-            Long numDiscountNumber = selfSerPar.getLong("numDiscountNumber");
+            long numDiscountNumber = selfSerPar.getLong("numDiscountNumber");
             //商品总价
-            Long numTotalFee = params.getLong("numTotalFee");
+            long numTotalFee = params.getLong("numTotalFee");
             //支付价格
-            Long numCashFee = params.getLong("numCashFee");
+            long numCashFee = params.getLong("numCashFee");
             //减免金额
-            Long numDiscountFee =  params.getLong("numDiscountFee");
+            long numDiscountFee =  params.getLong("numDiscountFee");
             //优惠金额=优惠券减免
             if(numDiscountFee==numDiscountNumber){
                 //商品总价-余额-优惠券减免=支付金额
                 if(numTotalFee-useBalance-numDiscountNumber==numCashFee){
                     return RetResponse.makeOKRsp();
                 }else{
-                    return RetResponse.makeErrRsp("实际支付金额有误！");
+                    throw new MyException("实际支付金额有误！");
                 }
             }else {
-                return RetResponse.makeErrRsp("优惠券减免金额有误！");
+                throw new MyException("优惠券减免金额有误！");
             }
 
         }catch (Exception e){
             e.printStackTrace();
-            return RetResponse.makeErrRsp("余额验证异常！");
+            throw new MyException("检验支付价格是否正确异常！");
         }
     }
 
@@ -469,7 +472,7 @@ public class PaymentService {
             return RetResponse.makeOKRsp(nntUserBalanceChangeRecode);
         }catch (Exception e){
             e.printStackTrace();
-            return RetResponse.makeErrRsp("余额锁定异常！");
+            throw new MyException("余额锁定异常！");
         }
     }
 
@@ -487,11 +490,11 @@ public class PaymentService {
             if(i==1){
                 return RetResponse.makeOKRsp();
             }else {
-                return RetResponse.makeErrRsp("用户优惠券锁定异常！");
+                throw new MyException("用户优惠券锁定异常！");
             }
         }catch (Exception e){
             e.printStackTrace();
-            return RetResponse.makeErrRsp("用户优惠券锁定异常！");
+            throw new MyException("用户优惠券锁定异常！");
         }
     }
 
@@ -516,7 +519,7 @@ public class PaymentService {
             return RetResponse.makeOKRsp(record);
         }catch (Exception e){
             e.printStackTrace();
-            return RetResponse.makeErrRsp("订单支付记录表生成预支付单异常！");
+            throw new MyException("订单支付记录表生成预支付单异常！");
         }
     }
 
@@ -529,21 +532,21 @@ public class PaymentService {
         try{
             log.info("微信获取预支付数据service，param：：{}",params);
             //商品总价
-            Long numTotalFee = params.getLong("numTotalFee");
+            long numTotalFee = params.getLong("numTotalFee");
             //支付价格
-            Long numCashFee = params.getLong("numCashFee");
+            long numCashFee = params.getLong("numCashFee");
             //减免金额
-            Long numDiscountFee =  params.getLong("numDiscountFee");
-            Long useBalance =  params.getLong("useBalance");
+            long numDiscountFee =  params.getLong("numDiscountFee");
+            long useBalance =  params.getLong("useBalance");
             if (numCashFee+numDiscountFee+useBalance == numTotalFee){
                 return RetResponse.makeOKRsp();
             }else {
-                return RetResponse.makeErrRsp("订单支付金额异常！");
+                throw new MyException("订单支付金额异常！");
             }
 
         }catch (Exception e){
             e.printStackTrace();
-            return RetResponse.makeErrRsp("后台生成微信支付流水异常！");
+            throw new MyException("后台生成微信支付流水异常！");
         }
     }
 
@@ -569,12 +572,12 @@ public class PaymentService {
             //过期时间
             paymentFlow.setVcExpireTime(params.getString("time_expire"));
             int i = paymentFlowMapper.insertSelective(paymentFlow);
-            Long numPaymentFlowId = paymentFlow.getNumId();
+            long numPaymentFlowId = paymentFlow.getNumId();
             params.put("numPaymentFlowId",numPaymentFlowId);
             return RetResponse.makeOKRsp(paymentFlow);
         }catch (Exception e){
             e.printStackTrace();
-            return RetResponse.makeErrRsp("后台生成微信支付流水异常！");
+            throw new MyException("后台生成微信支付流水异常！");
         }
     }
 
@@ -636,7 +639,7 @@ public class PaymentService {
             attach.put("useGroupBuyId",params.getString("useGroupBuyId"));
             attach.put("useBargainId",params.getString("useBargainId"));
             attach.put("numPaymentFlowId",params.getString("numPaymentFlowId"));
-            data.put("attach",attach.toJSONString());
+            //data.put("attach",attach.toJSONString());
             Map<String, String> unifiedOrder = wxpay.unifiedOrder(data);
             log.info("微信支付模拟resultMap:：{}",JSONObject.toJSON(unifiedOrder) );
             if(unifiedOrder.containsKey("return_code")){
@@ -650,7 +653,7 @@ public class PaymentService {
                             JSONObject updOrderParam = new JSONObject();
                             updOrderParam.put("NUM_ID",params.getString("numOrderId"));
                             updOrderParam.put("NUM_PAY_STATE",2);
-                            RetResult retResult = clothingNewService.updateProduct(params);
+                            RetResult retResult = clothingNewService.updateProduct(updOrderParam);
                             if(retResult.code==200){
                             }else {
                                 return retResult;
@@ -662,20 +665,21 @@ public class PaymentService {
                         resultMap.put("package", "prepay_id="+unifiedOrder.get("prepay_id"));
                         resultMap.put("signType", "HMAC-SHA256");
                         resultMap.put("paySign",  WXPayUtil.generateSignature(resultMap, config.getKey(), WXPayConstants.SignType.HMACSHA256));
+                        log.info("微信支付统一下单返回结果：：{}", JSON.toJSONString(resultMap));
                         return RetResponse.makeOKRsp(resultMap);
 
                     }else {
-                        return RetResponse.makeErrRsp(String.valueOf(unifiedOrder.get("err_code_des")));
+                        throw new MyException(String.valueOf(unifiedOrder.get("err_code_des")));
                     }
                 }else {
-                    return RetResponse.makeErrRsp(String.valueOf(unifiedOrder.get("return_msg")));
+                    throw new MyException(String.valueOf(unifiedOrder.get("return_msg")));
                 }
             }else {
-                return RetResponse.makeErrRsp("微信支付统一下单接口异常！");
+                throw new MyException("微信支付统一下单接口异常！");
             }
         }catch (Exception e){
             e.printStackTrace();
-            return RetResponse.makeErrRsp("微信统一下单异常！");
+            throw new MyException("微信统一下单异常！");
         }
     }
 }

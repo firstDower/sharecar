@@ -39,7 +39,7 @@ var orderList = {
         mui("#pullrefresh").on('tap', '.mui-table-view-cell', function () {
             var numId = $(this).attr('numId');
             var orderData = $(this).attr('orderData');
-            sessionStorage["orderData"] = orderData;
+            sessionStorage["vcOrderNo"] = JSON.parse(orderData).vcOrderNo;
             location.href= ctxPath + 'jump/weichat/orderDetail';
             /*mui.openWindow({
                 url: 'orderDetail',
@@ -101,7 +101,7 @@ var orderList = {
         var userInfo = JSON.parse(sessionStorage["userInfo"]);
         var userId = userInfo.NUM_USER_ID;
         var param = {};
-        param.VC_USER_ID = "administrator";
+        param.VC_USER_ID = userId;
         param.pageNum = pageNo;
         param.pageSize = pageSize;
         $.extend(param, pageData);

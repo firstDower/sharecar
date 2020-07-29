@@ -5,6 +5,7 @@
 </head>
 <body>
 <div th:insert="common/weichat/htmlJS::common_js(~{::script})">
+	<script src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
 	<script type="text/javascript" th:src="@{/weichat/app/js/orderDetail.js}"></script>
 </div>
 <header class="mui-bar mui-bar-nav">
@@ -12,101 +13,92 @@
 	<h1 class="mui-title">订单详情</h1>
 </header>
 <div class="mui-content OrderDetail">
-	<h3 class="commorTitle">羚猩制衣</h3>
+	<h3 class="commorTitle">羚猩制衣<span id="numStateStr" class="headOrderstate fr"></span></h3>
 	<ul>
 		<li>
-			<span class="redFont orderType"> <i class="icon-order"></i>定做</span> <span>订单编号:CU070811049028</span>
-			<!--<span class="fr grayFont">已取消</span>-->
-			<a class="fr grayFont stateBtn">取消</a>
+			<span class="redFont orderType"> <i class="icon-order"></i> <span id="numParTypeStr"></span> </span> <span>订单编号: <span id="vcOrderNo"></span></span>
+			<!--<span id="numStateStr" class="fr grayFont"></span>-->
+			<a style="display: none;" class="fr grayFont stateBtn">取消</a>
 		</li>
 		<li class="clearfix">
-			<span class="title fl">校服裤:</span>
+			<span class="title fl"><span id="numType"></span>:</span>
 			<div class="fl detailcontent">
-				<span>襄垣县第一中学高中部</span><br>
-				<span>高三</span><br>
-				<span>冬款</span>
+				<span id="vcSchoolName"></span><br>
+				<span id="vcGradeName"></span><br>
+				<span id="vcModelName"></span>
 			</div>
 		</li>
 		<li class="clearfix">
 			<span class="title fl">修改说明:</span>
-			<div class="fl">
-				紧急件快速取
+			<div class="fl" id="vcNotes">
 			</div>
 		</li>
 
 		<li class="clearfix">
 			<span class="fl title">联系人:</span>
-			<span class="fr grayFont">向琼</span>
+			<span class="fr grayFont" id="vcName"></span>
 		</li>
 		<li class="clearfix">
 					<span class="fl title">
 						联系电话:
 					</span>
-			<span class="fr grayFont">
-						17811680689
+			<span id="vcPhone" class="fr grayFont">
 					</span>
 		</li>
 		<li class="clearfix">
-			<span class="fl title">身高:</span>
-			<span class="fr redFont">125cm</span>
+			<span class="fl title" >身高:</span>
+			<span class="fr redFont"><span id="vcHight"></span>cm</span>
 		</li>
 		<li class="clearfix">
 					<span class="fl title">
 						体重:
 					</span>
 			<span class="fr redFont">
-						65kg
+						<span id="vcWight"></span>kg
 					</span>
 		</li>
 		<li class="clearfix">
 					<span class="fl grayFont orderTime">
-						创建时间:2020-08-08 00:37:20
+						创建时间: <span id="datCreatTime"></span>
 					</span>
 		</li>
 	</ul>
 </div>
 <ul class="calculationList my-content">
-	<li class="clearfix">
+	<!--<li class="clearfix">
 		<span class="fl">包装费</span>
 		<span class="fr weightAmout">¥1</span>
-	</li>
+	</li>-->
 	<li class="clearfix">
 		<span class="fl">商品金额</span>
-		<span class="fr weightAmout">¥70*1</span>
+		<span class="fr weightAmout">¥<span id="numPrice"></span>*<span id="numNum"></span></span>
 	</li>
 
 </ul>
 <!--优惠券/满减优惠券list-->
-<ul class="calculationList my-content">
+<ul class="calculationList my-content weichatPayment" style="display: none">
 	<li class="clearfix">
-		<span class="fl">红包</span>
-		<span class="fr weightAmout redFont">-¥1</span>
-	</li>
-	<li class="clearfix">
-		<span class="fl">红包</span>
-		<span class="fr weightAmout redFont">-¥1</span>
+		<span class="fl">积分抵扣</span>
+		<span class="fr weightAmout redFont">-¥ <apan id="numUserMoney"></apan></span>
 	</li>
 	<li class="clearfix">
 		<span class="fl">优惠券</span>
-		<span class="fr weightAmout redFont">-¥20</span>
-	</li>
-	<li class="clearfix">
-		<span class="fl">商品金额</span>
-		<span class="fr weightAmout">¥70</span>
+		<span class="fr rightIcon"></span>
+		<span class="fr weightAmout redFont">-¥ <span id="NUM_DISCOUNT_NUMBER"></span></span>
 	</li>
 	<li class="clearfix totalAmout">
 		<p class="fr">
-			已优惠 <span class="redFont">¥30.90</span> <span>实付金额</span><b class="actualPayment">¥39.00</b>
+			已优惠 <span class="redFont">¥ <span id="yiyouhuijine"></span></span> <span>实付金额</span><b class="actualPayment">¥ <span id="shifujine"></span></b>
 		</p>
 	</li>
 </ul>
 
 </div>
-<div class="footOrder clearfix">
+<div class="footOrder clearfix payment" style="display: none">
 	<div class="fl payAmount">
-		¥70.00
+		¥ <span id="shifujine1"></span>
 	</div>
-	<a href="#" class="toPayBtn fr">去支付</a>
+	<a id="payButton" class="toPayBtn fr">去支付</a>
 </div>
 
 

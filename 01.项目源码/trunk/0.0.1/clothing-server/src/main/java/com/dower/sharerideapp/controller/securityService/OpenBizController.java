@@ -26,8 +26,6 @@ import javax.servlet.http.HttpServletResponse;
 @RequestMapping("/securityService")
 public class OpenBizController {
 
-    @Value("${rsa.priKey}")
-    String priKey;
 
     @PostMapping(value = "/testToken")
     //@PublicUrl(tokenValidate = true)
@@ -63,5 +61,11 @@ public class OpenBizController {
     public RetResult updateProduct(HttpServletRequest request){
         JSONObject param = CommUtil.getParamData(request);
         return clothingNewService.updateProduct(param);
+    }
+
+    @PostMapping("/getOrderDetail")
+    public RetResult getOrderDetail(HttpServletRequest request){
+        JSONObject param = CommUtil.getParamData(request);
+        return clothingNewService.getOrderDetail(param);
     }
 }

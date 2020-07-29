@@ -15,7 +15,8 @@ var util = {
         var newArgs = {}
         keys.forEach(function (key) {
             //如果参数的值为空 、undefined不参与签名；
-            if (args[key] != "" && args[key] != 'undefined'&&typeof(args[key]) != "undefined") {
+            console.log("==========args[key]======"+key+"=========="+args[key])
+            if (args[key] !== "" && args[key] != 'undefined'&&typeof(args[key]) != "undefined") {
                 newArgs[key] = args[key]  //参数名区分大小写；
             }
 

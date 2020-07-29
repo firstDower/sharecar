@@ -5,8 +5,10 @@ import com.alibaba.fastjson.JSONObject;
 import com.dower.sharerideapp.core.repository.UsersDao;
 import com.dower.sharerideapp.core.repository.clothing.ClothingExtDao;
 import com.dower.sharerideapp.core.serverdb.dao.ClProductMapper;
-import com.dower.sharerideapp.core.serverdb.model.ClProduct;
-import com.dower.sharerideapp.core.serverdb.model.ClProductExample;
+import com.dower.sharerideapp.core.serverdb.dao.NntUserCouponsMapper;
+import com.dower.sharerideapp.core.serverdb.dao.NntUserinfoMapper;
+import com.dower.sharerideapp.core.serverdb.model.*;
+import com.dower.sharerideapp.service.exception.MyException;
 import com.dower.sharerideapp.utils.CommUtil;
 import com.dower.sharerideapp.utils.Result;
 import com.dower.sharerideapp.utils.ret.RetResponse;
@@ -14,6 +16,7 @@ import com.dower.sharerideapp.utils.ret.RetResult;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
+import net.bytebuddy.implementation.bytecode.Throw;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -37,7 +40,10 @@ public class ClothingNewService {
     private ClothingExtDao clothingExtDao;
     @Autowired
     private UsersDao usersDao;
-
+    @Autowired
+    private NntUserinfoMapper nntUserinfoMapper;
+    @Autowired
+    private NntUserCouponsMapper nntUserCouponsMapper;
 
 
     /**
@@ -73,6 +79,8 @@ public class ClothingNewService {
             }
             if (jsonparams.containsKey("NUM_PRICE")&&StringUtils.isNotBlank(jsonparams.getString("NUM_PRICE"))){
                 clProduct.setNumPrice(jsonparams.getLong("NUM_PRICE"));
+            }else {
+                clProduct.setNumPrice(Long.valueOf("7000"));
             }
             if (jsonparams.containsKey("VC_USER_ID")){
                 clProduct.setVcUserId(jsonparams.getString("VC_USER_ID"));
@@ -244,16 +252,51 @@ public class ClothingNewService {
     }
 
     /**
-     * 查询订单详情
+     * 查询定制详情
      * @param jsonparams
      * @return
      */
     public RetResult getClothing(JSONObject jsonparams) {
         try{
-            log.info("查询订单详情param：{}",jsonparams);
+            log.info("查询定制详情param：{}",jsonparams);
             ClProduct clProduct = clProductMapper.selectByPrimaryKey(jsonparams.getLong("numOrderId"));
-            log.info("查询订单详情成功！：：{}",clProduct);
+            log.info("查询定制详情成功！：：{}",clProduct);
             return RetResponse.makeOKRsp(clProduct);
+        }catch (Exception e){
+            e.printStackTrace();
+            log.error("查询定制详情异常！");
+            return RetResponse.makeErrRsp("查询定制详情异常！");
+        }
+    }
+
+    /**
+     * 查询订单详情
+     * @param jsonparams
+     * @return
+     */
+    public RetResult getOrderDetail(JSONObject jsonparams) {
+        try{
+            log.info("查询订单详情param：{}",jsonparams);
+            Map paramMap = new HashMap();
+            paramMap.put("vcOrderNo",jsonparams.getString("vcOrderNo"));
+            paramMap.put("vcUserId",jsonparams.getString("vcUserId"));
+            Map orderDetail = clothingExtDao.selectOrderDetail(paramMap);
+            NntUserinfoExample nntUserinfoExample = new NntUserinfoExample();
+            NntUserinfoExample.Criteria criteriaNntUserinfoExample = nntUserinfoExample.createCriteria();
+            criteriaNntUserinfoExample.andNumUserIdEqualTo(jsonparams.getString("vcUserId"));
+            List<NntUserinfo> nntUserinfos = nntUserinfoMapper.selectByExample(nntUserinfoExample);
+            if(nntUserinfos.size()!=1){
+                throw new MyException("用户信息异常");
+            }
+
+            List<Map> userCouponList = clothingExtDao.selectUserCouponList(paramMap);
+
+            Map result = new HashMap();
+            result.put("orderDetail",orderDetail);
+            result.put("userinfo",nntUserinfos.get(0));
+            result.put("userCoupons",userCouponList);
+            log.info("查询订单详情成功！：：{}",JSON.toJSONString(result));
+            return RetResponse.makeOKRsp(result);
         }catch (Exception e){
             e.printStackTrace();
             log.error("查询订单详情异常！");

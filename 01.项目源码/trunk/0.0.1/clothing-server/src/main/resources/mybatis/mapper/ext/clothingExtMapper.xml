@@ -88,5 +88,65 @@
     <select id="selectLastNumid" parameterType="map" resultType="long">
 		select num_id from CL_PRODUCT order by NUM_ID desc limit 1 ;
 	</select>
+    <select id="selectUserCouponList" parameterType="map" resultType="map">
+				select
+			t1.*,
+			t2.NUM_DISCOUNT_NUMBER
+
+		 from nnt_user_coupons t1
+		LEFT JOIN nnt_platform_coupon t2 on t1.NUM_PLATFORM_COUPON_ID = t2.NUM_ID
+		where t1.NUM_STATE = 1 and t1.NUM_USER_ID = #{vcUserId}
+	</select>
+    <select id="selectOrderDetail" parameterType="map" resultType="map">
+		select
+			t1.NUM_ID numId,
+			t1.VC_HIGHT vcHight,
+			t1.VC_WIGHT vcWight,
+			t1.VC_NAME vcName,
+			t1.VC_PHONE vcPhone,
+			t1.NUM_TYPE numType,
+			t1.NUM_NUM numNum,
+			t1.NUM_STATE numState,
+			t1.DAT_CREAT_TIME datCreatTime,
+			t1.DAT_UPDATE_TIME datUpdateTime,
+			t1.NUM_PRICE numPrice,
+			t1.VC_USER_ID vcUserId,
+			t1.VC_OPEN_ID vcOpenId,
+			t1.DAT_CONFIRM_TIME datConfirmTime,
+			t1.VC_NOTES vcNotes,
+			t1.NUM_SCHOOL_ID numSchoolId,
+			t1.NUM_GRADE_ID numGradeId,
+			t1.NUM_MODEL_ID numModelId,
+			t1.VC_ORDER_NO vcOrderNo,
+			t1.VC_UNION_ID vcUnionId,
+			t1.VC_SIGN_DESC vcSignDesc,
+			t1.NUM_PAR_TYPE numParType,
+			t1.NUM_PAY_STATE numPayState,
+			t1.NUM_PAY_TYPE numPayType,
+			t3.VC_EXPIRE_TIME ,
+			t5.NUM_DISCOUNT_NUMBER,
+			t6.NUM_AMOUNT ,
+			t7.VC_SCHOOL_NAME ,
+			t8.VC_GRADE_NAME,
+			t9.VC_MODEL_NAME
+from
+	(SELECT * from CL_PRODUCT where vc_order_no = #{vcOrderNo}) t1
+	LEFT JOIN
+	payment_order_record t2 on t1.vc_order_no = t2.VC_ORDER_NO
+	left JOIN
+	payment_flow t3 on t2.NUM_PAY_FLOW_ID = t3.num_id
+	left JOIN
+	nnt_user_coupons t4 on t2.NUM_USER_COUPON_ID = t4.NUM_ID
+	left JOIN
+	nnt_platform_coupon t5 on t4.NUM_PLATFORM_COUPON_ID = t5.NUM_ID
+	LEFT JOIN
+	nnt_user_balance_change_recode t6 on t2.NUM_USER_MONEY_LOG_ID = t6.NUM_ID
+	LEFT JOIN
+	CL_FN_SCHOOL t7 on t1.NUM_SCHOOL_ID = t7.NUM_ID
+	LEFT JOIN
+	CL_FN_GRADE t8 on t1.NUM_GRADE_ID = t8.NUM_ID
+	LEFT JOIN
+	CL_FN_MODEL t9 on t1.NUM_MODEL_ID =t9.NUM_ID
+	</select>
 
 </mapper>

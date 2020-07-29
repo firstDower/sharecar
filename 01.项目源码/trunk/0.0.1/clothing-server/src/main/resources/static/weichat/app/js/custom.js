@@ -8,6 +8,8 @@ $(function () {
         },
         addOrder:function () {
             var param = {}
+            var userInfo = JSON.parse(sessionStorage["userInfo"]);
+            param.VC_USER_ID = userInfo.NUM_USER_ID;
             //1：定制；2 ：修改
             param.NUM_PAR_TYPE = 1;
             var NUM_TYPE = $("input[name='NUM_TYPE']:checked").val();

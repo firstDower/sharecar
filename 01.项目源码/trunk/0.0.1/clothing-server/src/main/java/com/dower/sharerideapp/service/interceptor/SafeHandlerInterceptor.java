@@ -139,10 +139,10 @@ public class SafeHandlerInterceptor implements HandlerInterceptor {
             timeStampValidate = CommUtil.checkTimeStamp(Long.parseLong(timeStamp));
             log.info("验证timeStamp结果：：{}",timeStampValidate);
             if(!timeStampValidate){
-                return new ValidateResponse(timeStampValidate, new MyException(RetCode.TIMESTAMP_ERROR.code,"非法请求！"));
+                return new ValidateResponse(timeStampValidate, new MyException("非法请求！"));
             }
         }catch (Exception e){
-            return new ValidateResponse(timeStampValidate, new MyException(RetCode.TIMESTAMP_ERROR.code,"非法请求！"));
+            return new ValidateResponse(timeStampValidate, new MyException("非法请求！"));
         }
         return new ValidateResponse(timeStampValidate, null);
     }

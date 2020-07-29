@@ -17,5 +17,7 @@ import java.util.Map;
  */
 public interface ClothingExtDao {
     List<Map> selectPageByExample(Map param);
+    List<Map> selectUserCouponList(Map param);
+    Map selectOrderDetail(Map param);
     Long selectLastNumid();
 }

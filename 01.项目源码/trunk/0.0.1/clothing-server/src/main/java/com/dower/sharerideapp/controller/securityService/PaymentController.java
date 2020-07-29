@@ -25,10 +25,6 @@ import javax.servlet.http.HttpServletResponse;
 @RequestMapping("/securityService")
 public class PaymentController {
 
-    @Value("${rsa.priKey}")
-    String priKey;
-
-
     @Autowired
     private PaymentService paymentService;
 
