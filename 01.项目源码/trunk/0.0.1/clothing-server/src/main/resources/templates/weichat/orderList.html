@@ -1,57 +1,164 @@
 <!doctype html>
 <html class="x-admin-sm">
 <head th:replace="common/weichat/htmlHead :: common_header(~{::title})">
-  <title>列表</title>
+    <title>列表</title>
 </head>
-<style>
-  .mui-content>.mui-table-view:first-child {
-    margin-top: -1px;
-  }
+<style type="text/css">
+    .mui-media {
+        font-size: 14px;
+    }
+
+    .mui-table-view .mui-media-object {
+        max-width: initial;
+        width: 90px;
+        height: 70px;
+    }
+
+    .meta-info-up {
+        position: absolute;
+        left: 115px;
+        right: 90px;
+        bottom: 40px;
+        color: #8f8f94;
+    }
+    .meta-info {
+        position: absolute;
+        left: 115px;
+        right: 15px;
+        bottom: 8px;
+        color: #8f8f94;
+    }
+
+    .meta-info .author,
+    .meta-info .time {
+        display: inline-block;
+    }
+
+    .meta-info .time {
+        float: right;
+    }
+    .meta-info-right {
+        float: right;
+    }
+
+    .mui-table-view:before,
+    .mui-table-view:after {
+        height: 0;
+    }
+
+    .mui-content > .mui-table-view:first-child {
+        margin-top: 1px;
+    }
+
+    .banner {
+        height: 180px;
+        overflow: hidden;
+        position: relative;
+        background-position: center;
+        background-color: #ccc;
+    }
+
+    .banner img {
+        width: 100%;
+        height: auto;
+    }
+
+    .banner .title {
+        position: absolute;
+        left: 15px;
+        bottom: 15px;
+        width: 90%;
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 21px;
+        color: white;
+        z-index: 11;
+    }
+
+    .mui-fullscreen {
+
+        position: absolute;
+
+        top: 0;
+
+        right: 0;
+
+        bottom: 0;
+
+        left: 0;
+
+    }
 </style>
 <body>
 <div th:insert="common/weichat/htmlJS::common_js(~{::script})">
-  <script th:src="@{/weichat/assets/js/mui.pullToRefresh.js}"></script>
-  <script th:src="@{/weichat/assets/js/mui.pullToRefresh.material.js}"></script>
-  <script type="text/javascript" th:src="@{/weichat/app/js/orderList.js}"></script>
+    <script th:src="@{/weichat/assets/js/mui.pullToRefresh.js}"></script>
+    <script th:src="@{/weichat/assets/js/mui.pullToRefresh.material.js}"></script>
+    <script type="text/javascript" th:src="@{/weichat/app/js/orderList.js}"></script>
 </div>
 <header class="mui-bar mui-bar-nav">
-  <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
-  <h1 class="mui-title">我的订单</h1>
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+    <h1 class="mui-title">我的订单</h1>
 </header>
 <div class="mui-content">
-  <div id="slider" class="mui-slider mui-fullscreen">
-    <div id="sliderSegmentedControl" class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
-      <div class="mui-scroll">
-        <a NUM_STATE="" class="mui-control-item mui-active" >
-          全部
-        </a>
-        <a NUM_STATE="1" class="mui-control-item" >
-          已预约
-        </a>
-        <a NUM_STATE="2" class="mui-control-item" >
-          制作中
-        </a>
-        <a  NUM_STATE="3" class="mui-control-item" >
-          已取消
-        </a>
-        <a  NUM_STATE="5" class="mui-control-item" >
-          待取货
-        </a>
-        <a  NUM_STATE="7" class="mui-control-item" >
-          完成
-        </a>
-      </div>
-    </div>
-    <div class="mui-slider-group">
-      <!--全部-->
-      <div id="pullrefresh" class="mui-scroll-wrapper">
-        <div class="mui-scroll">
-          <ul id="dataUl" class="mui-table-view">
-
-          </ul>
+    <div id="slider" class="mui-slider mui-fullscreen">
+        <div id="sliderSegmentedControl"
+             class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+            <div class="mui-scroll">
+                <a NUM_STATE="" class="mui-control-item mui-active">
+                    全部
+                </a>
+                <a NUM_STATE="1" class="mui-control-item">
+                    已预约
+                </a>
+                <a NUM_STATE="2" class="mui-control-item">
+                    制作中
+                </a>
+                <a NUM_STATE="3" class="mui-control-item">
+                    已取消
+                </a>
+                <a NUM_STATE="5" class="mui-control-item">
+                    待取货
+                </a>
+                <a NUM_STATE="7" class="mui-control-item">
+                    完成
+                </a>
+            </div>
         </div>
-      </div>
-    </div>
+        <div class="mui-slider-group">
+            <!--全部-->
+            <div id="pullrefresh" class="mui-scroll-wrapper">
+                <div class="mui-scroll">
+                    <ul id="dataUl" class="mui-table-view">
+                        <!--<li class="mui-table-view-cell mui-media">
+                            <a href="javascript:;" data-guid="5310906" class="">
+                                <img src="https://img.36krcdn.com/20200411/v2_16417a06088947debe0450950f8fc813_img_png" class="mui-media-object mui-pull-left">
+                                <div class="meta-info-up">
+                                    <div class="author">王伟 定制校服裤</div>
+                                    <div class="time">已支付 ， 正在制作</div>
+                                </div>
+                                <div class="meta-info-right">
+                                    <div class="button"><button type="button" class="mui-btn" style="float: right;">取消</butten></div>
+                                </div>
+                                <div class="meta-info">
+                                    <div class="author">2020-07-29 13:32:55</div>
+                                    <div class="time"></div>
+                                </div>
+                            </a>
+                        </li>-->
+                        <!--<li class="mui-table-view-cell" numid="48">
+                            <div><img class="mui-media-object mui-pull-left"
+                                      src="/clothing-server/weichat/app/img/4.jpg">
+                                <div class="mui-media-body"><p class="mui-ellipsis"><span>王伟 定制校服裤</span></p>
+                                    <p class="mui-ellipsis"><span>正在制作，已支付</span></p>
+                                    <p class="mui-ellipsis"><span>2020-07-29 13:32:55</span>
+                                        <button type="button" class="mui-btn" style="float: right;">去支付
+                                    <p></p></button></p></div>
+                            </div>
+                        </li>-->
+                    </ul>
+                </div>
+            </div>
+        </div>
 </body>
 
 </html>

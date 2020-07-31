@@ -67,7 +67,8 @@ $(function () {
                         var btnArray = ['否', '是'];
                         mui.confirm('确认去订单详情支付？', '添加定制成功!', btnArray, function(e) {
                             if (e.index == 1) {
-                                mui.toast("去订单详情！");
+                                //mui.toast("去订单详情！");
+                                location.href= ctxPath + 'jump/weichat/orderList';
                             } else {
                                 mui.toast("继续添加订单！");
                             }

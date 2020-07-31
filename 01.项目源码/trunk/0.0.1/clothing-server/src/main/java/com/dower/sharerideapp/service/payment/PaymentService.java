@@ -87,7 +87,12 @@ public class PaymentService {
                 if (numPayState == 1) {//待支付
                     RetResult retResult = this.AdvancePayment(jsonparams);
                     if (retResult.code==200){
-                        return this.weiChatUnifiedOrder(jsonparams);
+                        long numCashFee = jsonparams.getLongValue("numCashFee");
+                        if(numCashFee==0){
+                            return this.updataPaymentResult(jsonparams);
+                        }else{
+                            return this.weiChatUnifiedOrder(jsonparams);
+                        }
                     }else {
                         return retResult;
                     }
@@ -291,9 +296,7 @@ public class PaymentService {
                     PaymentFlowExample.Criteria criteriaPaymentFlowExample = examplePaymentFlowExample.createCriteria();
                     criteriaPaymentFlowExample.andVcOrderNoEqualTo(params.getString("vcOrderNo"));
                     int i = paymentFlowMapper.updateByExampleSelective(record,examplePaymentFlowExample);
-                    if(i!=1){
-                        throw new MyException("支付回调，更新支付流水异常！");
-                    }
+                    log.info("支付回调，更新支付流水结果：：{}",i);
                     //2.更新余额变动日志表
                     long numUserMoneyLogId = paymentOrderRecord.getNumUserMoneyLogId();
                     if(numUserMoneyLogId>0){
@@ -313,7 +316,7 @@ public class PaymentService {
                     //4.根据vcoderno,更新支付状态
                     //修改订单状态
                     ClProduct recordClProduct = new ClProduct();
-                    recordClProduct.setNumPayType(Byte.parseByte("3"));
+                    recordClProduct.setNumPayState(Byte.parseByte("3"));
                     ClProductExample exampleClProductExample = new ClProductExample();
                     ClProductExample.Criteria criteriaClProductExample = exampleClProductExample.createCriteria();
                     criteriaClProductExample.andVcOrderNoEqualTo(params.getString("vcOrderNo"));

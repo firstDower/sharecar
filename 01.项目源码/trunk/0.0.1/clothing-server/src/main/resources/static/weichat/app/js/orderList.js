@@ -40,15 +40,15 @@ var orderList = {
             var numId = $(this).attr('numId');
             var orderData = $(this).attr('orderData');
             sessionStorage["vcOrderNo"] = JSON.parse(orderData).vcOrderNo;
-            location.href= ctxPath + 'jump/weichat/orderDetail';
-            /*mui.openWindow({
-                url: 'orderDetail',
+            //location.href= ctxPath + 'jump/weichat/orderDetail';
+            mui.openWindow({
+                url:ctxPath + 'jump/weichat/orderDetail',
                 id: "orderDetail",//详情页webview的id
                 show: {
                     aniShow: 'none', //页面不显示动画
                     duration: '0' //
                 }
-            });*/
+            });
         });
         mui("#pullrefresh").on('tap', '.mui-btn', function (e) {
             e.stopPropagation();
@@ -167,19 +167,52 @@ var orderList = {
                 numStateStr = "已完成"
             }
 
-            htmlStr +=
+            var numPayState = item.numPayState;
+            var numPayStateStr = "待支付";
+            if(numPayState==1){
+                numPayStateStr = "待支付";
+            }else if(numPayState==2){
+                numPayStateStr = "待付款";
+            }else if(numPayState==3){
+                numPayStateStr = "已支付";
+            }
+
+            /*htmlStr +=
                 '<li class="mui-table-view-cell" orderData=\''+JSON.stringify(item)+'\' numId="'+item.numId+'"><div>'+
                 '<img class="mui-media-object mui-pull-left" src="'+ctxPath+'weichat/app/img/4.jpg">'+
                 '<div class="mui-media-body">'+
                 '<p class="mui-ellipsis"><span>'+numParTypeStr+numTypeStr+'</span><span class="mui-text-right">&nbsp&nbsp&nbsp&nbsp&nbsp'+numStateStr+'</span>';
-            if(item.numState == 1){
-                htmlStr +='<button type="button" class="mui-btn mui-btn-danger mui-btn-outlined">取消</button>' ;
-            }
+                    if(item.numState == 1){
+                        htmlStr +='<button type="button" class="mui-btn" style="float: right;">取消</button>' ;
+                    }
             htmlStr +='</p>'+
                 '<p class="mui-ellipsis"><span>'+item.vcName+'</span></p>'+
-                '<p class="mui-ellipsis"><span>'+item.datCreatTime+'</span><butten>&nbsp&nbsp&nbsp&nbsp&nbsp详情</butten></p>'+
+                '<p class="mui-ellipsis"><span>'+item.datCreatTime+'</span><button type="button" class="mui-btn" style="float: right;">去支付</butten></p>'+
                 '</div>'+
-                '</div></li>';
+                '</div></li>';*/
+
+
+            htmlStr += '<li class="mui-table-view-cell mui-media"  orderData=\''+JSON.stringify(item)+'\' numId="'+item.numId+'">'+
+            '<a href="javascript:;" data-guid="5310906" class="">'+
+            '<img src="'+ctxPath+'weichat/app/img/4.jpg" class="mui-media-object mui-pull-left">'+
+            '<div class="meta-info-up">'+
+            '<div class="author"><span>'+item.vcName+'</span> <span>'+numParTypeStr+numTypeStr+'</span></div>'+
+            '<div class="time">'+numPayStateStr+' ， '+numStateStr+'</div>'+
+            '</div>'+
+            '<div class="meta-info-right">'+
+            '<div class="button">';
+            if(item.numState == 1&&numPayState!=3){
+                htmlStr += '<button type="button" class="mui-btn" style="float: right;">取消</butten>' ;
+            }
+            htmlStr +=  '</div>'+
+            '</div>'+
+            '<div class="meta-info">'+
+            '<div class="author">2020-07-29 13:32:55</div>'+
+            '<div class="time"></div>'+
+            '</div>'+
+            '</a>'+
+            '</li>';
+
         })
         $("#dataUl").append(htmlStr);
     }

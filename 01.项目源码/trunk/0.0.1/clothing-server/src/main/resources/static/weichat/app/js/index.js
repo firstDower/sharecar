@@ -15,6 +15,8 @@ var index = {
     getUserInfo:function () {
 
         var userId = getQueryString("userId");
+        var openId = getQueryString("openId");
+        sessionStorage['openId'] = openId;
         var param = {
             'userId':userId
         }

@@ -124,6 +124,7 @@
 			t1.NUM_PAY_STATE numPayState,
 			t1.NUM_PAY_TYPE numPayType,
 			t3.VC_EXPIRE_TIME ,
+			t3.NUM_CASH_FEE,
 			t5.NUM_DISCOUNT_NUMBER,
 			t6.NUM_AMOUNT ,
 			t7.VC_SCHOOL_NAME ,
@@ -134,7 +135,7 @@ from
 	LEFT JOIN
 	payment_order_record t2 on t1.vc_order_no = t2.VC_ORDER_NO
 	left JOIN
-	payment_flow t3 on t2.NUM_PAY_FLOW_ID = t3.num_id
+	payment_flow t3 ON t2.VC_ORDER_NO = t3.VC_ORDER_NO
 	left JOIN
 	nnt_user_coupons t4 on t2.NUM_USER_COUPON_ID = t4.NUM_ID
 	left JOIN

@@ -58,8 +58,11 @@ public class WeichatMainController {
         String url = "index";
         try {
             log.info("code:"+code+";state:"+state);
-            String userId = getUserId(code);
-            log.info("userId=========="+userId);
+            JSONObject userInfo = getUserId(code);
+            String userId = userInfo.getString("userId");
+            String openid = userInfo.getString("openid");
+            log.info("userId=========={}",userId);
+            log.info("openid=========={}",openid);
             JSONObject jsonObjectState = JSONObject.parseObject(state);
             String redictNo = jsonObjectState.getString("redictNo");
             if("1".equals(redictNo)){
@@ -70,6 +73,7 @@ public class WeichatMainController {
                 url = "redirect:goMyInfo";
             }
             redirectAttributes.addAttribute("userId",userId);
+            redirectAttributes.addAttribute("openId",openid);
             log.info("url:"+url);
         } catch (Exception e) {
             e.printStackTrace();
@@ -82,8 +86,8 @@ public class WeichatMainController {
      * @param code
      * @return
      */
-    public String getUserId(String code){
-        String resultStr = "";
+    public JSONObject getUserId(String code){
+        JSONObject resultJson = new JSONObject();
         try{
             Map<String, String> params = new HashMap();
             params.put("secret", secret);
@@ -94,6 +98,7 @@ public class WeichatMainController {
             JSONObject jsonObject = JSONObject.parseObject(result);
             log.info("获取openid，jsonObject="+jsonObject);
             String openid = jsonObject.get("openid").toString();
+            resultJson.put("openid",openid);
             String access_token = jsonObject.getString("access_token");
             JSONObject param = new JSONObject();
             param.put("openid",openid);
@@ -109,11 +114,11 @@ public class WeichatMainController {
             //昵称
             param.put("nickName", object.getString("nickname"));
             NntUsers nntUsers = usersService.selectUsersByUnionid(param);
-            resultStr = nntUsers.getNumUserId().toString();
+            resultJson.put("userId",nntUsers.getNumUserId().toString());
         }catch (Exception e){
             log.error("获取openid异常！{}",e);
         }
-        return resultStr;
+        return resultJson;
     }
 
     @ResponseBody

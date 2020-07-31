@@ -124,6 +124,9 @@ var util = {
             'pro_name':this.pro_name
         }
         return headers;
+    },
+    getNumber:function (data) {
+        return Number(data).toFixed();
     }
 }
 

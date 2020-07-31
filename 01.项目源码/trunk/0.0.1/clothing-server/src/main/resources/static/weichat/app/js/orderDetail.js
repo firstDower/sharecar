@@ -44,22 +44,23 @@ var orderDetail = {
         $("#payButton").click(function () {
             var userInfo = JSON.parse(sessionStorage['userInfo']);
             var orderData = JSON.parse(sessionStorage['orderDetail']);
+            var pageData = JSON.parse(sessionStorage["pageData"]);
             var orderDetail = orderData.orderDetail;
             var param = {};
             param.numOrderId = orderDetail.numId;
             param.vcOrderNo = orderDetail.vcOrderNo;
             param.numUserId = userInfo.NUM_USER_ID;
             //商品金额
-            param.numTotalFee = Number(orderDetail.numPrice)*Number(orderDetail.numNum);  //商品金额
+            param.numTotalFee = util.getNumber(Number(orderDetail.numPrice)*Number(orderDetail.numNum));  //商品金额
             //实付金额
-            param.numCashFee = Number($("#shifujine").html())*100;
+            param.numCashFee = util.getNumber(Number($("#shifujine").html())*100);
             //优惠金额
-            param.numDiscountFee =  Number($('#NUM_DISCOUNT_NUMBER').html())*100;
+            param.numDiscountFee =  util.getNumber(Number($('#NUM_DISCOUNT_NUMBER').html())*100);
             param.useBalance =  Number($('#numUserMoney').html())*100;
-            param.useCouponId = 1;
-            param.useGroupBuyId = 0;
-            param.useBargainId = 0;
-            param.openId = userInfo.VC_OPENID;
+            param.useCouponId = pageData.useCouponId;
+            param.useGroupBuyId = pageData.useGroupBuyId;
+            param.useBargainId = pageData.useBargainId;
+            param.openId = sessionStorage['openId'];
             param.timeStamp = util.createTimeStamp();
             $.ajax({
                 type : "POST",
@@ -71,8 +72,14 @@ var orderDetail = {
                     //alert(JSON.stringify(data));
                     console.log("支付返回结果"+JSON.stringify(data))
                     if(data.code==200){
-                        mui.toast(data.msg);
-                        pay(data.data);
+                        //mui.toast(data.msg);
+
+                        if(param.numCashFee==0){
+                            mui.toast("支付成功！");
+                            location.reload();
+                        }else {
+                            pay(data.data);
+                        }
                     }else {
                         mui.toast(data.msg);
                     }
@@ -82,6 +89,43 @@ var orderDetail = {
         });
     },
     initPage:function () {
+        var pageData = {};
+        pageData.useCouponId = 0;
+        pageData.useGroupBuyId = 0;
+        pageData.useBargainId = 0;
+        sessionStorage["pageData"] = JSON.stringify(pageData);
+        mui.init();
+        mui('.mui-scroll-wrapper').scroll();
+        mui('body').on('hidden', '.mui-popover', function (e) {
+            //checkbox1
+            var checkbox1 = $("input[name='checkbox1']:checked").val();
+            var dataNumber = $("input[name='checkbox1']:checked").attr("dataNumber");
+            if(!checkbox1){
+                checkbox1 = 0;dataNumber = 0;
+            }
+            console.log(checkbox1, dataNumber);//detail为当前popover元素
+            $("#NUM_DISCOUNT_NUMBER").val(Number(dataNumber)/100);
+            orderDetail.showMoneyHtml(Number(dataNumber)/100);
+            var pageData = JSON.parse(sessionStorage["pageData"]);
+            pageData.useCouponId = checkbox1;
+            sessionStorage["pageData"] = JSON.stringify(pageData);
+        });
+
+        //弹出层确定按钮！
+        mui("body").on('tap','#openPopover',function(){
+            mui('.mui-popover').popover('toggle');
+        })
+        //openPopoverFalse
+        mui("body").on('tap','#openPopoverFalse',function(){
+            $("input[name='checkbox1']").prop('checked',false);
+            //mui('.mui-popover').popover('toggle');
+        })
+       //mui只能点击一次
+       /* $("#openPopoverFalse").click(function () {
+            console.log("openPopoverFalse::click")
+            //$("input[name='checkbox1']").attr("checked",false);  //只有第一次有效
+            $("input[name='checkbox1']").prop('checked',false);
+        })*/
         var userInfo = JSON.parse(sessionStorage["userInfo"]);
         var userId = userInfo.NUM_USER_ID;
         var param = {};
@@ -113,20 +157,66 @@ var orderDetail = {
 
 
     },
+    showUserCoupons:function (userCoupons) {
+        var userCouponLiStr = "";
+        if(userCoupons.length==0){
+            $("#userCouponLiStrA");
+            mui("body").off("tap","#userCouponLiStrA");
+
+
+            return false;
+        }else {
+            mui("body").on('tap','#userCouponLiStrA',function(){
+                mui('.mui-popover').popover('toggle');
+            })
+        }
+        mui.each(userCoupons,function(index,item){
+            var NUM_ID = item.NUM_ID;
+            var DAT_CREAT_DATE = item.DAT_CREAT_DATE;
+            var DAT_END_DATE = item.DAT_END_DATE;
+            var NUM_DISCOUNT_NUMBER = item.NUM_DISCOUNT_NUMBER;
+            userCouponLiStr += '<li class="mui-table-view-cell">'+
+                '<div class="mui-inline mui-btn-primary">'+
+                '<div class="mui-content-padded">'+
+                '<div class="mui-card-content">'+
+                '<div class="mui-text-center">￥'+Number(NUM_DISCOUNT_NUMBER)/100+'元</div>'+
+                '<div class="mui-text-center">满50元可用</div>'+
+                '</div>'+
+                '</div>'+
+                '</div>'+
+                '<div class="mui-inline">'+
+                '<div class="mui-content-padded">'+
+                '<div class="mui-card-content">'+
+                '<div class="mui-text-left">羚猩制衣</div>'+
+                '<div class="mui-text-center">'+DAT_CREAT_DATE.substring(0,10)+'-'+DAT_END_DATE.substring(0,10)+'</div>'+
+                '</div>'+
+                '</div>'+
+                '</div>'+
+                '<div class="mui-inline">'+
+                '<div class="mui-content-padded">'+
+                '<div class="mui-card-content mui-radio mui-left">'+
+                '<input name="checkbox1" dataNumber="'+NUM_DISCOUNT_NUMBER+'" value="'+NUM_ID+'" type="radio">'+
+                '</div>'+
+                '</div>'+
+                '</div>'+
+                '</li>';
+        })
+        $("#userCouponLiStr").html(userCouponLiStr);
+        $("input[name='checkbox1']").eq(0).attr("checked","checked")
+    },
     showPage:function () {
         var orderDetailData = JSON.parse(sessionStorage["orderDetail"]);
         var orderData = orderDetailData.orderDetail;
         var userCoupons = orderDetailData.userCoupons;
         var userinfo = orderDetailData.userinfo;
 
-
+        orderDetail.showUserCoupons(userCoupons);
+        //***************************
         var datCreatTime = orderData.datCreatTime;
         $("#datCreatTime").html(datCreatTime);
         var datUpdateTime = orderData.datUpdateTime;
         $("#datUpdateTime").html(datUpdateTime);
-        var vcSchoolName = orderData.vcSchoolName;
 
-        $("#vcSchoolName").html(vcSchoolName);
         var vcPhone = orderData.vcPhone;
         $("#vcPhone").html(vcPhone);
         var numState = orderData.numState;
@@ -149,9 +239,11 @@ var orderDetail = {
         $("#numStateStr").html(numStateStr);
         var vcName = orderData.vcName;
         $("#vcName").html(vcName);
-        var vcModelName = orderData.vcModelName;
+        var vcSchoolName = orderData.VC_SCHOOL_NAME;
+        $("#vcSchoolName").html(vcSchoolName);
+        var vcModelName = orderData.VC_MODEL_NAME;
         $("#vcModelName").html(vcModelName);
-        var vcGradeName = orderData.vcGradeName;
+        var vcGradeName = orderData.VC_GRADE_NAME;
         $("#vcGradeName").html(vcGradeName);
         var vcHight = orderData.vcHight;
         $("#vcHight").html(vcHight);
@@ -159,6 +251,7 @@ var orderDetail = {
         $("#vcWight").html(vcWight);
         var numPrice = orderData.numPrice;
         $("#numPrice").html(Number(numPrice)/100);
+
         var numNum = orderData.numNum;
         $("#numNum").html(numNum);
         var vcNotes = orderData.vcNotes;
@@ -166,8 +259,10 @@ var orderDetail = {
         var numParType = orderData.numParType;
         var numParTypeStr = "";
         if(numParType==1){
+            $(".notMOdifyLi").show();
             numParTypeStr = "定制"
         }else if(numParType==2){
+            $(".notMOdifyLi").hide();
             numParTypeStr = "修改"
         }
         $("#numParTypeStr").html(numParTypeStr);
@@ -185,30 +280,77 @@ var orderDetail = {
 
         var numPayState = orderData.numPayState;
         var numPayType = orderData.numPayType;
+        var NUM_CASH_FEE = orderData.NUM_CASH_FEE;
+        if(numPayState==5){
+            $("#erchantsmSetPrice").html("等待商家设置价格或者选择线下支付");
+        }
+        var numPayStateStr = "待支付";
+        if(numPayState==1){
+            numPayStateStr = "待支付";
+        }else if(numPayState==2){
+            numPayStateStr = "待付款";
+        }else if(numPayState==3){
+            numPayStateStr = "已支付";
+        }
+        //支付价格=商品价格*数量
+        $("#numPayPrice").html(Number(numPrice)/100*Number(numNum));
+        $("#numPayStateStr").html(numPayStateStr);
+
+        var numPayTypeStr = "微信支付";
+        if(numPayType==1){
+            numPayTypeStr = "线下支付";
+        }else {
+            numPayTypeStr = "微信支付";
+        }
+        $("#numPayTypeStr").html(numPayTypeStr);
+
+
+
         //支付方式为，微信支付。订单未取消
-        if(numPayType==2&&numState!=3){
+        if(numPayType==2&&numState!=3&&(numPayState==1||numPayState==2||numPayState==3)){
             $(".weichatPayment").show();
             if(numPayState==1){
                 var numUserMoney = Number(userinfo.numUserMoney)/100;
-                $('#numUserMoney').html(numUserMoney);
-                var userCoupon = 5;
-                $('#NUM_DISCOUNT_NUMBER').html(userCoupon);
-                var totalManay = Number(numPrice)/100*Number(numNum);
-                $("#yiyouhuijine").html(userCoupon);
-                $("#shifujine,#shifujine1").html((totalManay-numUserMoney-userCoupon).toFixed(2));
+                $("#numUserMoneyTotal").html(numUserMoney);
+                $(".numUserMoneyTotal").show();
+                orderDetail.showMoneyHtml(0);
                 $(".payment").show();
             }
             if(numPayState==2){
-                var NUM_AMOUNT = Number(orderData.NUM_AMOUNT)/100;
-                var NUM_DISCOUNT_NUMBER = Number(orderData.NUM_DISCOUNT_NUMBER)/100;
+                var NUM_AMOUNT = 0;
+                var NUM_DISCOUNT_NUMBER = 0;
+                if(orderData.NUM_AMOUNT){
+                    NUM_AMOUNT = Number(orderData.NUM_AMOUNT)/100;
+                }
+                if(orderData.NUM_DISCOUNT_NUMBER){
+                    NUM_DISCOUNT_NUMBER = Number(orderData.NUM_DISCOUNT_NUMBER)/100;
+                }
                 $('#numUserMoney').html(NUM_AMOUNT);
                 $('#NUM_DISCOUNT_NUMBER').html(NUM_DISCOUNT_NUMBER);
 
                 var totalManay = Number(numPrice)/100*Number(numNum);
-                $("#yiyouhuijine").html(NUM_AMOUNT);
-                $("#shifujine,#shifujine1").html((totalManay-NUM_AMOUNT-NUM_DISCOUNT_NUMBER).toFixed(2));
+                $("#yiyouhuijine").html(NUM_DISCOUNT_NUMBER);
+                $("#numPayPrice,#shifujine,#shifujine1").html((totalManay-NUM_AMOUNT-NUM_DISCOUNT_NUMBER).toFixed(2));
 
                 $(".payment").show();
+                mui("body").off("tap","#userCouponLiStrA");
+            }
+            if(numPayState==3){
+                var NUM_AMOUNT = 0;
+                var NUM_DISCOUNT_NUMBER = 0;
+                if(orderData.NUM_AMOUNT){
+                    NUM_AMOUNT = Number(orderData.NUM_AMOUNT)/100;
+                }
+                if(orderData.NUM_DISCOUNT_NUMBER){
+                    NUM_DISCOUNT_NUMBER = Number(orderData.NUM_DISCOUNT_NUMBER)/100;
+                }
+                $('#numUserMoney').html(NUM_AMOUNT);
+                $('#NUM_DISCOUNT_NUMBER').html(NUM_DISCOUNT_NUMBER);
+                var totalManay = Number(numPrice)/100*Number(numNum);
+                $("#yiyouhuijine").html(NUM_DISCOUNT_NUMBER);
+                $("#numPayPrice,#shifujine,#shifujine1").html((totalManay-NUM_AMOUNT-NUM_DISCOUNT_NUMBER).toFixed(2));
+                //orderDetail.showMoneyHtml(0);
+                mui("body").off("tap","#userCouponLiStrA");
             }
         }
 
@@ -216,7 +358,7 @@ var orderDetail = {
             $("#payButton").show();
         }
 
-        if(numState==1){
+        if(numState==1&&numState!=3&&numPayState!=3){
             $(".stateBtn").show();
         }
 
@@ -230,6 +372,27 @@ var orderDetail = {
             param.NUM_STATE = 3;//取消订单：3
             orderDetail.updataOrder(param);
         });
+    },
+    showMoneyHtml:function (userCoupon) {
+        var orderDetailData = JSON.parse(sessionStorage["orderDetail"]);
+        var orderData = orderDetailData.orderDetail;
+        var userinfo = orderDetailData.userinfo;
+        var numPrice = orderData.numPrice;
+        var numNum = orderData.numNum;
+        var numUserMoney = Number(userinfo.numUserMoney)/100;;
+        var totalManay = Number(numPrice)/100*Number(numNum);
+        if(totalManay-userCoupon<=numUserMoney){
+            $('#numUserMoney').html(totalManay-userCoupon);
+        }else {
+            $('#numUserMoney').html(numUserMoney);
+        }
+
+        $('#NUM_DISCOUNT_NUMBER,#yiyouhuijine').html(userCoupon);
+        var shifujine = (totalManay-numUserMoney-userCoupon).toFixed(2);
+        if(shifujine<0){
+            shifujine = 0
+        }
+        $("#shifujine,#shifujine1").html(Number(shifujine).toFixed(2));
     },
     updataOrder:function (obj) {
         var userInfo = JSON.parse(sessionStorage["userInfo"]);
