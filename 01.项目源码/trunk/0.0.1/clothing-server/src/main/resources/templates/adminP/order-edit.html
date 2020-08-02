@@ -44,6 +44,27 @@
                                 </select>
                             </div>
                         </div>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">支付状态</label>
+                            <div class="layui-input-inline">
+                                <select id="NUM_PAY_STATE" name="NUM_PAY_STATE">
+                                    <option value="1">待支付</option>
+                                    <option value="2">预支付</option>
+                                    <option value="3">支付成功</option>
+                                    <option value="4">支付失败</option>
+                                    <option value="5">修改价格</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">支付方式</label>
+                            <div class="layui-input-inline">
+                                <select id="NUM_PAY_TYPE" name="NUM_PAY_TYPE">
+                                    <option value="1">线下支付</option>
+                                    <option value="2">微信支付</option>
+                                </select>
+                            </div>
+                        </div>
                     </div>
                     <div class="layui-form-item">
                         <div class="layui-inline">
@@ -110,6 +131,12 @@
                             <div class="layui-input-inline">
                                 <input type="text" id="NUM_PRICE" name="NUM_PRICE" placeholder="" autocomplete="off" class="layui-input">
                             </div>
+                        </div>
+                    </div>
+                    <div class="layui-form-item layui-form-text">
+                        <label for="VC_SIGN_DESC" class="layui-form-label">备注</label>
+                        <div class="layui-input-block">
+                            <textarea placeholder="请输入内容" id="VC_NOTES" name="VC_SIGN_DESC" class="layui-textarea" readonly></textarea>
                         </div>
                     </div>
                     <div class="layui-form-item layui-form-text">

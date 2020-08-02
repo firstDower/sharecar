@@ -26,6 +26,7 @@
         cp.VC_UNION_ID vcUnionId,
         cp.VC_SIGN_DESC vcSignDesc,
         cp.NUM_PAR_TYPE numParType,
+        cp.NUM_PAY_TYPE numPayType,
         cp.NUM_PAY_STATE numPayState,
         cp.VC_EXPIRE_TIME vcExpireTime,
         cfg.VC_GRADE_NAME vcGradeName,

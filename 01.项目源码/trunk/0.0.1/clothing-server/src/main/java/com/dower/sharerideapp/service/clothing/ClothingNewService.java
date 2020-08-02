@@ -115,7 +115,6 @@ public class ClothingNewService {
                 typeHeadStr = "CU";
             }else if(num_par_type==2){
                 typeHeadStr = "MC";
-                clProduct.setNumPayState(Byte.parseByte("5"));
             }else {
                 typeHeadStr = "OR";
             }

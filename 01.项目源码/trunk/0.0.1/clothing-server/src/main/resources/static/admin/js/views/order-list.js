@@ -90,17 +90,22 @@ layui.use('table', function(){
         ,cols: [
             [ //表头
                 //{type: 'checkbox', fixed: 'left'},
-                {field: 'numId',width:'3%' , title: 'ID',  fixed: 'left'}
+                /*{field: 'numId',width:'3%' , title: 'ID',  fixed: 'left'}
+                ,*/
+                {field: 'vcOrderNo',width:'10%' ,  title: '订单编号',  sort: true}
                 ,{field: 'vcName',width:'6%' ,  title: '姓名' }
                 ,{field: 'vcPhone',width:'10%' ,  title: '手机号' }
-                ,{field: 'vcOrderNo',width:'10%' ,  title: '订单编号',  sort: true}
                 ,{field: 'vcSchoolName',width:'13%' ,  title: '学校' }
-                ,{field: 'vcGradeName',width:'5%' ,  title: '年级'}
+               /* ,{field: 'vcGradeName',width:'5%' ,  title: '年级'}*/
                 ,{field: 'vcModelName',width:'5%' , title: '款式',  sort: true}
-                ,{field: 'vcHight',width:'5%' ,  titwidth:'10%' , title: '身高'}
+               /* ,{field: 'vcHight',width:'5%' ,  titwidth:'10%' , title: '身高'}
                 ,{field: 'vcWight',width:'5%' ,  title: '体重'}
-                ,{field: 'numNum',width:'5%' ,  title: '数量'}
-                ,{field: 'numPrice',width:'5%' ,  title: '价格'}
+                ,{field: 'numNum',width:'5%' ,  title: '数量'}*/
+                ,{field: 'numPrice',width:'5%' ,  title: '价格',templet:function (d) {
+                    var result = "";
+                    var numPrice = d.numPrice;
+                    return Number(numPrice)/100;
+                }}
                 ,{field: 'numState',width:'5%' ,  title: '状态',
                     templet: function(d){
                         var result = "";
@@ -119,6 +124,23 @@ layui.use('table', function(){
                             result = "制作修改"
                         }else if(numState==7){
                             result = "订单完成"
+                        }
+                        return result;
+                    }}
+                ,{field: 'numPayState',width:'7%' ,  title: '支付状态',
+                    templet: function(d){
+                        var result = "";
+                        var numPayState = d.numPayState;
+                        if(numPayState==1){
+                            result = "待支付"
+                        }else if(numPayState==2){
+                            result = "预支付"
+                        }else if(numPayState==3){
+                            result = "支付成功"
+                        }else if(numPayState==4){
+                            result = "支付失败"
+                        }else if(numPayState==5){
+                            result = "修改价格"
                         }
                         return result;
                     }}
@@ -150,8 +172,8 @@ layui.use('table', function(){
                         return result;
                     } }
                 ,{field: 'datCreatTime',width:'10%' ,  title: '创建时间', sort: true}
-                ,{field: 'vcNotes',width:'8%' ,  title: '用户备注'}
-                ,{field: 'vcSignDesc',width:'8%' ,  title: '商家备注'}
+                /*,{field: 'vcNotes',width:'8%' ,  title: '用户备注'}
+                ,{field: 'vcSignDesc',width:'8%' ,  title: '商家备注'}*/
                 ,{fixed: 'right', title:'操作', toolbar: '#barDemo', width:140}
             ]
         ]

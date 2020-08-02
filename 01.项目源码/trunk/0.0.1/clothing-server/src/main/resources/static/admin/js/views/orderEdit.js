@@ -17,9 +17,12 @@ layui.use(['form', 'layer'],
             $("#VC_HIGHT").val(pageData.vcHight);
             $("#VC_WIGHT").val(pageData.vcWight);
             $("#NUM_NUM").val(pageData.numNum);
-            $("#NUM_PRICE").val(pageData.numPrice);
+            $("#NUM_PRICE").val(Number(pageData.numPrice)/100);
+            $("#VC_NOTES").val(pageData.vcNotes);
             $("#VC_SIGN_DESC").val(pageData.vcSignDesc);
             $("#NUM_STATE").val(pageData.numState);
+            $("#NUM_PAY_STATE").val(pageData.numPayState);
+            $("#NUM_PAY_TYPE").val(pageData.numPayType);
 
 
 
@@ -85,19 +88,23 @@ layui.use(['form', 'layer'],
         form.on('submit(orderEdit)',
             function(data) {
                 var param = data.field;
-
+                var NUM_PRICE = param.NUM_PRICE;
+                param.NUM_PRICE = Number(NUM_PRICE)*100;
                 param.NUM_ID = pageData.numId;
+                param.timeStamp = util.createTimeStamp();
                 console.log("============"+JSON.stringify(param));
+
                 //发异步，把数据提交给php
                 $.ajax({
                     type: 'POST',
-                    url: ctxPath + "reposi/updateProduct",
+                    url: ctxPath + "securityService/updateProduct",
                     timeout:8000,
-                    data : JSON.stringify(param),
+                    data : param,
+                    headers: util.initHeaders(param),
                     contentType: 'application/json',
                     dataType: 'json',
                     success: function(data){
-                        if(data.success){
+                        if(data.code == 200){
                             layer.alert(data.msg, {
                                     icon: 6
                                 },
