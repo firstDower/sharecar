@@ -43,7 +43,16 @@ $(function () {
                         var btnArray = ['否', '是'];
                         mui.confirm('确认去订单详情支付？', '添加定制成功!', btnArray, function(e) {
                             if (e.index == 1) {
-                                location.href= ctxPath + 'jump/weichat/orderList';
+                                var vcOrderNo = data.data;
+                                sessionStorage['vcOrderNo'] = vcOrderNo
+                                mui.openWindow({
+                                    url:ctxPath + 'jump/weichat/orderDetail',
+                                    id: "orderDetail",//详情页webview的id
+                                    show: {
+                                        aniShow: 'none', //页面不显示动画
+                                        duration: '0' //
+                                    }
+                                });
                                 //mui.toast("去订单详情！");
                             } else {
                                 mui.toast("继续添加订单！");

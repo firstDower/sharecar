@@ -97,9 +97,9 @@
         <span class="fl">余额抵扣</span>
         <span style="margin-right: 18px;" class="fr weightAmout redFont">-¥ <apan id="numUserMoney"></apan></span>
     </li>
-    <li class="clearfix">
-        <span class="fl">优惠券</span>
-        <a id="userCouponLiStrA" class="fr rightIcon"></a>
+    <li id="userCouponLiStrA" class="clearfix">
+        <span class="fl">选择优惠券</span>
+        <a class="fr rightIcon"></a>
         <span class="fr weightAmout redFont">-¥ <span id="NUM_DISCOUNT_NUMBER">0</span></span>
     </li>
     <li class="clearfix totalAmout">
@@ -117,7 +117,7 @@
     <a id="payButton" class="toPayBtn fr">去支付</a>
 </div>
 
-<div id="popover" class="mui-popover mui-popover-action">
+<div id="popover" class="mui-popover mui-popover-action" style="">
     <header class="mui-bar mui-bar-nav">
         <h1 class="mui-title ">可用优惠券</h1>
     </header>
@@ -136,7 +136,7 @@
             </div>
         </div>
     </footer>
-    <div class="mui-content">
+    <div class="mui-content" >
         <ul id="userCouponLiStr" class="mui-table-view">
         </ul>
     </div>

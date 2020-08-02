@@ -693,4 +693,99 @@ public class PaymentService {
             throw new MyException("微信统一下单异常！");
         }
     }
+
+    /**
+     * 取消订单更新
+     * params
+     *  vcOrderNo  订单编号
+     *  transaction_id  微信交易流水号
+     * @return
+     */
+    @Transactional(rollbackFor = {Exception.class, Error.class})
+    public RetResult updataOrderStatusResult(JSONObject params){
+        try{
+
+            //4.根据vcoderno,更新支付状态
+            //修改订单状态   4，取消支付
+            ClProduct recordClProduct = new ClProduct();
+            recordClProduct.setNumPayState(Byte.parseByte("4"));
+            recordClProduct.setNumState(Byte.parseByte("3"));
+            ClProductExample exampleClProductExample = new ClProductExample();
+            ClProductExample.Criteria criteriaClProductExample = exampleClProductExample.createCriteria();
+            criteriaClProductExample.andVcOrderNoEqualTo(params.getString("vcOrderNo"));
+            int i1 = clProductMapper.updateByExampleSelective(recordClProduct, exampleClProductExample);
+            //获取订单用户no
+            List<ClProduct> clProducts = clProductMapper.selectByExample(exampleClProductExample);
+            ClProduct clProduct = clProducts.get(0);
+            log.info("取消订单更新订单状态");
+            PaymentOrderRecordExample example = new PaymentOrderRecordExample();
+            PaymentOrderRecordExample.Criteria criteria2 = example.createCriteria();
+            criteria2.andVcOrderNoEqualTo(params.getString("vcOrderNo"));
+            List<PaymentOrderRecord> paymentOrderRecords = paymentOrderRecordMapper.selectByExample(example);
+            if(paymentOrderRecords.size()==1){
+                PaymentOrderRecord paymentOrderRecord = paymentOrderRecords.get(0);
+                Byte numPayState = paymentOrderRecord.getNumPayState();
+                if(numPayState==1){
+
+                    //1.更新微信支付流水
+                    PaymentFlow record = new PaymentFlow();
+                    record.setVcTransactionId(params.getString("transaction_id"));
+                    record.setNumPayState(Byte.parseByte("3"));
+                    //int i = paymentFlowMapper.updateByPrimaryKeySelective(record);
+                    //** 流水的id没有放到 订单支付记录id
+                    //改为根据订单号更新
+                    PaymentFlowExample examplePaymentFlowExample = new PaymentFlowExample();
+                    PaymentFlowExample.Criteria criteriaPaymentFlowExample = examplePaymentFlowExample.createCriteria();
+                    criteriaPaymentFlowExample.andVcOrderNoEqualTo(params.getString("vcOrderNo"));
+                    int i = paymentFlowMapper.updateByExampleSelective(record,examplePaymentFlowExample);
+                    log.info("支付回调，更新支付流水结果：：{}",i);
+                    //2.更新余额变动日志表
+                    long numUserMoneyLogId = paymentOrderRecord.getNumUserMoneyLogId();
+                    if(numUserMoneyLogId>0){
+                        NntUserBalanceChangeRecode record1 = new NntUserBalanceChangeRecode();
+                        record1.setNumId(numUserMoneyLogId);
+                        record1.setNumMoneyState(Byte.parseByte("3"));
+                        nntUserBalanceChangeRecodeMapper.updateByPrimaryKeySelective(record1);
+                        String vcUserId = clProduct.getVcUserId();
+                        NntUserBalanceChangeRecode nntUserBalanceChangeRecode = nntUserBalanceChangeRecodeMapper.selectByPrimaryKey(numUserMoneyLogId);
+                        Long numAmount = nntUserBalanceChangeRecode.getNumAmount();
+                        //1.用户余额减去待使用余额
+                        NntUserinfoExample nntUserinfoExample = new NntUserinfoExample();
+                        NntUserinfoExample.Criteria criteria = nntUserinfoExample.createCriteria();
+                        criteria.andNumUserIdEqualTo(vcUserId);
+                        List<NntUserinfo> nntUserinfos = nntUserinfoMapper.selectByExample(nntUserinfoExample);
+                        NntUserinfo nntUserinfo1 = nntUserinfos.get(0);
+                        NntUserinfo nntUserinfo = new NntUserinfo();
+                        nntUserinfo.setNumUserinfoId(nntUserinfo1.getNumUserinfoId());
+                        nntUserinfo.setNumUserMoney(nntUserinfo1.getNumUserMoney()+numAmount);
+                        nntUserinfoMapper.updateByPrimaryKeySelective(nntUserinfo);
+                        log.info("取消订单，更新余额变动，变动前余额{}，变动余额{}，变动后余额{}",nntUserinfo1.getNumUserMoney(),numAmount,nntUserinfo1.getNumUserMoney()+numAmount);
+                    }
+                    //3.更新优惠券状态
+                    long numUserCouponId = paymentOrderRecord.getNumUserCouponId();
+                    if(numUserCouponId!=0){
+                        NntUserCoupons recordNntUserCoupons = new NntUserCoupons();
+                        recordNntUserCoupons.setNumId(numUserCouponId);
+                        recordNntUserCoupons.setNumState(Byte.parseByte("1"));
+                        nntUserCouponsMapper.updateByPrimaryKeySelective(recordNntUserCoupons);
+                    }
+
+                    //5.更新订单支付记录表
+                    PaymentOrderRecord recordupdateByPrimaryKeySelective = new PaymentOrderRecord();
+                    recordupdateByPrimaryKeySelective.setNumId(paymentOrderRecord.getNumId());
+                    recordupdateByPrimaryKeySelective.setNumPayState(Byte.parseByte("3"));
+                    paymentOrderRecordMapper.updateByPrimaryKeySelective(recordupdateByPrimaryKeySelective);
+                    return RetResponse.makeOKRsp("支付结果入库成功！");
+                }else {
+                    throw new MyException("微信支付结果更新服务，该订单数据已经更新过！");
+                }
+            }else {
+                throw new MyException("微信支付结果更新服务，数据异常！");
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
+            throw new MyException("支付结果入库异常！");
+        }
+    }
 }

@@ -45,6 +45,9 @@ public class OpenBizController {
         return clothingNewService.getUserInfo(param);
     }
 
+    //取消订单
+
+
     @PostMapping("/creatProduct")
     public RetResult creatProduct(HttpServletRequest request){
         JSONObject param = CommUtil.getParamData(request);

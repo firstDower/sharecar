@@ -123,9 +123,9 @@ public class ClothingNewService {
             String orderNo = typeHeadStr+dateNowStr+vc_phone.substring(7)+last3S;
             clProduct.setVcOrderNo(orderNo);
             int i = clProductMapper.insertSelective(clProduct);
-
+            String vcOrderNo = clProduct.getVcOrderNo();
             log.info("创建定制衣服订单成功：{}",i);
-            return RetResponse.makeOKRsp(i);
+            return RetResponse.makeOKRsp(vcOrderNo);
         }catch (Exception e){
             e.printStackTrace();
             log.error("创建定制衣服订单异常！");
@@ -290,7 +290,19 @@ public class ClothingNewService {
                 throw new MyException("用户信息异常");
             }
 
+            /**
+             * 商品类型  numPerType
+             * 商品总价  numTotalFee * numNum
+             * 用户id   vcUserId
+             */
+            long numNum = Long.parseLong(String.valueOf(orderDetail.get("numNum")));
+            long numPrice = Long.parseLong(String.valueOf(orderDetail.get("numPrice")));
+            String numParType = String.valueOf(orderDetail.get("numParType"));
+            paramMap.put("numParType",numParType);
+            paramMap.put("numTotalFee",numPrice*numNum);
             List<Map> userCouponList = clothingExtDao.selectUserCouponList(paramMap);
+
+
 
             Map result = new HashMap();
             result.put("orderDetail",orderDetail);

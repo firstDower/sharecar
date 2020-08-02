@@ -35,4 +35,16 @@ public class PaymentController {
         return paymentService.weichatPayment(param);
     }
 
+    /**
+     * 取消订单
+     * @param request
+     * vcOrderNo
+     * @return
+     */
+    @PostMapping("/cancelOrder")
+    public RetResult cancelOrder(HttpServletRequest request){
+        JSONObject param = CommUtil.getParamData(request);
+        return paymentService.updataOrderStatusResult(param);
+    }
+
 }

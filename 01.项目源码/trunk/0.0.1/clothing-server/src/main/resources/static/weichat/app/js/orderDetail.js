@@ -175,12 +175,13 @@ var orderDetail = {
             var DAT_CREAT_DATE = item.DAT_CREAT_DATE;
             var DAT_END_DATE = item.DAT_END_DATE;
             var NUM_DISCOUNT_NUMBER = item.NUM_DISCOUNT_NUMBER;
+            var NUM_LIMIT_PRICE = item.NUM_LIMIT_PRICE;
             userCouponLiStr += '<li class="mui-table-view-cell">'+
                 '<div class="mui-inline mui-btn-primary">'+
                 '<div class="mui-content-padded">'+
                 '<div class="mui-card-content">'+
                 '<div class="mui-text-center">￥'+Number(NUM_DISCOUNT_NUMBER)/100+'元</div>'+
-                '<div class="mui-text-center">满50元可用</div>'+
+                '<div class="mui-text-center">满'+ Number(NUM_LIMIT_PRICE)/100 +'元可用</div>'+   //NUM_LIMIT_PRICE
                 '</div>'+
                 '</div>'+
                 '</div>'+
@@ -368,9 +369,11 @@ var orderDetail = {
         mui("body").on('tap', '.stateBtn', function (e) {
             var numId = orderData.numId;
             var param = {};
-            param.NUM_ID = numId;
+            param.vcOrderNo = vcOrderNo;
+            orderDetail.cancelOrder(param);
+            /*param.NUM_ID = numId;
             param.NUM_STATE = 3;//取消订单：3
-            orderDetail.updataOrder(param);
+            orderDetail.updataOrder(param);*/
         });
     },
     showMoneyHtml:function (userCoupon) {
@@ -408,6 +411,30 @@ var orderDetail = {
         $.ajax({
             type: 'POST',
             url: ctxPath + "securityService/updateProduct",
+            timeout:8000,
+            data : param,
+            headers: util.initHeaders(param),
+            dataType: 'json',
+            success: function(data){
+                console.log("========="+JSON.stringify(data));
+                if(data.code==200){
+                    mui.toast("操作成功！");
+                    location.reload();
+                }else {
+                    mui.toast(data.msg);
+                }
+            },
+            error: function(xhr, type){
+            }
+        });
+    },
+    cancelOrder:function (obj) {
+        var param = {};
+        param.vcOrderNo = obj.vcOrderNo;
+        param.timeStamp = util.createTimeStamp();
+        $.ajax({
+            type: 'POST',
+            url: ctxPath + "securityService/cancelOrder",
             timeout:8000,
             data : param,
             headers: util.initHeaders(param),

@@ -201,9 +201,9 @@ var orderList = {
             '</div>'+
             '<div class="meta-info-right">'+
             '<div class="button">';
-            if(item.numState == 1&&numPayState!=3){
+            /*if(item.numState == 1&&numPayState!=3){
                 htmlStr += '<button type="button" class="mui-btn" style="float: right;">取消</butten>' ;
-            }
+            }*/
             htmlStr +=  '</div>'+
             '</div>'+
             '<div class="meta-info">'+

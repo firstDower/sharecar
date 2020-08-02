@@ -5,12 +5,10 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.dower.sharerideapp.core.repository.UsersDao;
 
-import com.dower.sharerideapp.core.serverdb.dao.NntCarOwnerInfoMapper;
-import com.dower.sharerideapp.core.serverdb.dao.NntCarinfoMapper;
-import com.dower.sharerideapp.core.serverdb.dao.NntUserinfoMapper;
-import com.dower.sharerideapp.core.serverdb.dao.NntUsersMapper;
+import com.dower.sharerideapp.core.serverdb.dao.*;
 import com.dower.sharerideapp.core.serverdb.model.*;
 import com.dower.sharerideapp.domain.config.weixin.sdk.WXPayUtil;
+import com.dower.sharerideapp.service.payment.CouponService;
 import com.dower.sharerideapp.utils.Result;
 import com.dower.sharerideapp.utils.ret.RetResponse;
 import com.dower.sharerideapp.utils.ret.RetResult;
@@ -46,8 +44,10 @@ public class UsersService {
     private NntCarinfoMapper nntCarinfoMapper;
     @Autowired
     private NntCarOwnerInfoMapper nntCarOwnerInfoMapper;
-
-
+    @Autowired
+    private CouponService couponService;
+    @Autowired
+    private NntUserCouponsMapper nntUserCouponsMapper;
 
     /**
      * 获取用户唯一标识
@@ -76,8 +76,10 @@ public class UsersService {
 
                 NntUserinfo record = new NntUserinfo();
                 record.setNumUserId(nntUsers.getNumUserId());
-                nntUserinfoMapper.insertSelective(record);
-
+                int i1 = nntUserinfoMapper.insertSelective(record);
+                JSONObject jsonObject = new JSONObject();
+                jsonObject.put("numUserId",nntUsers.getNumUserId());
+                couponService.provideUseCoupon(jsonObject);
             }else{
                 NntUsers nntUsers = Users.get(0);
                 String vcHeadImgUrl = nntUsers.getVcHeadImgUrl();
@@ -101,6 +103,21 @@ public class UsersService {
                     int i = nntUsersMapper.updateByPrimaryKeySelective(users);
                     log.info("微信numuserid信息更新到数据库结果：：{}",i);
                 }
+                //根据用户id查询优惠券，如果没有任何优惠券，创建新用户优惠券
+                NntUserCouponsExample nntUserCouponsExample = new NntUserCouponsExample();
+                NntUserCouponsExample.Criteria criteriaNntUserCouponsExample = nntUserCouponsExample.createCriteria();
+                criteriaNntUserCouponsExample.andNumUserIdEqualTo(nntUsers.getNumUserId());
+                List<NntUserCoupons> nntUserCoupons = nntUserCouponsMapper.selectByExample(nntUserCouponsExample);
+                if(nntUserCoupons.size()==0){
+                    log.info("就用户初始化优惠券开始！");
+                    JSONObject jsonObject = new JSONObject();
+                    jsonObject.put("numUserId",nntUsers.getNumUserId());
+                    RetResult retResult = couponService.provideUseCoupon(jsonObject);
+                    if(retResult.code==200){
+                        log.info("就用户初始化优惠券成功！");
+                    }
+                }
+
             }
             nntUser = Users.get(0);
             LOGGER.info("查询结果返回::{}",JSON.toJSONString(nntUser));

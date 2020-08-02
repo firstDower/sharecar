@@ -3,99 +3,105 @@
 <mapper namespace="com.dower.sharerideapp.core.repository.clothing.ClothingExtDao">
 
     <select id="selectPageByExample" parameterType="map" resultType="map">
-		SELECT
-			cp.NUM_ID numId,
-			cp.VC_HIGHT vcHight,
-			cp.VC_WIGHT vcWight,
-			cp.VC_NAME vcName,
-			cp.VC_PHONE vcPhone,
-			cp.NUM_TYPE numType,
-			cp.NUM_NUM numNum,
-			cp.NUM_STATE numState,
-			cp.DAT_CREAT_TIME datCreatTime,
-			cp.DAT_UPDATE_TIME datUpdateTime,
-			cp.NUM_PRICE numPrice,
-			cp.VC_USER_ID vcUserId,
-			cp.VC_OPEN_ID vcOpenId,
-			cp.DAT_CONFIRM_TIME datConfirmTime,
-			cp.VC_NOTES vcNotes,
-			cp.NUM_SCHOOL_ID numSchoolId,
-			cp.NUM_GRADE_ID numGradeId,
-			cp.NUM_MODEL_ID numModelId,
-			cp.VC_ORDER_NO vcOrderNo,
-			cp.VC_UNION_ID vcUnionId,
-			cp.VC_SIGN_DESC vcSignDesc,
-			cp.NUM_PAR_TYPE numParType,
-			cp.NUM_PAY_STATE numPayState,
-			cp.VC_EXPIRE_TIME vcExpireTime,
-			cfg.VC_GRADE_NAME vcGradeName,
-			cfs.VC_SCHOOL_NAME vcSchoolName,
-			cfm.VC_MODEL_NAME vcModelName
-		FROM
-			CL_PRODUCT cp
-		LEFT JOIN CL_FN_GRADE cfg ON cp.NUM_GRADE_ID = cfg.NUM_ID
-		LEFT JOIN CL_FN_SCHOOL cfs ON cp.NUM_SCHOOL_ID = cfs.NUM_ID
-		LEFT JOIN CL_FN_MODEL cfm ON cp.NUM_MODEL_ID = cfm.NUM_ID
-		WHERE
-			(
-				cp.NUM_IS_DEL = 1
-			<if test="VC_USER_ID != null and VC_USER_ID !=''">
-				AND cp.VC_USER_ID = #{VC_USER_ID}
-			</if>
-			<if test="VC_NAME != null and VC_NAME !=''">
-				AND cp.VC_NAME LIKE CONCAT('%',#{VC_NAME},'%')
-			</if>
-			<if test="VC_PHONE != null and VC_PHONE != ''">
-				AND cp.VC_PHONE LIKE CONCAT('%',#{VC_PHONE},'%')
-			</if>
-			<if test="NUM_TYPE != null and NUM_TYPE != ''">
-				AND cp.NUM_TYPE = #{NUM_TYPE}
-			</if>
-			<if test="NUM_STATE != null and NUM_STATE != ''">
-				AND cp.NUM_STATE = #{NUM_STATE}
-			</if>
-			<if test="NUM_PAY_STATE != null and NUM_PAY_STATE != ''">
-				AND cp.NUM_PAY_STATE = #{NUM_PAY_STATE}
-			</if>
-			<if test="NUM_PAR_TYPE != null and NUM_PAR_TYPE != ''">
-				AND cp.NUM_PAR_TYPE = #{NUM_PAR_TYPE}
-			</if>
-			<if test="NUM_ID != null and NUM_ID != ''">
-				AND cp.NUM_ID =  #{NUM_ID}
-			</if>
-			<if test="NUM_SCHOOL_ID != null and NUM_SCHOOL_ID != ''">
-				AND cp.NUM_SCHOOL_ID = #{NUM_SCHOOL_ID}
-			</if>
-			<if test="NUM_GRADE_ID != null and NUM_GRADE_ID != ''">
-				AND cp.NUM_GRADE_ID = #{NUM_GRADE_ID}
-			</if>
-			<if test="NUM_MODEL_ID != null and NUM_MODEL_ID != ''">
-				AND cp.NUM_MODEL_ID = #{NUM_MODEL_ID}
-			</if>
-			<if test="VC_ORDER_NO != null and VC_ORDER_NO != ''">
-				AND cp.VC_ORDER_NO  LIKE CONCAT('%',#{VC_ORDER_NO},'%')
-			</if>
-			<if test="DAT_CREAT_TIME_START != null and DAT_CREAT_TIME_START != ''">
-				and DATE_FORMAT(cp.DAT_CREAT_TIME,'%Y-%m-%d') <![CDATA[ >= ]]> DATE_FORMAT(#{DAT_CREAT_TIME_START},'%Y-%m-%d')
-			</if>
-			<if test="DAT_CREAT_TIME_END != null and DAT_CREAT_TIME_END != ''">
-				and DATE_FORMAT(cp.DAT_CREAT_TIME,'%Y-%m-%d') <![CDATA[ <= ]]> DATE_FORMAT(#{DAT_CREAT_TIME_END},'%Y-%m-%d')
-			</if>
-			)
-		ORDER BY
-	cp.DAT_CREAT_TIME DESC
-	</select>
+        SELECT
+        cp.NUM_ID numId,
+        cp.VC_HIGHT vcHight,
+        cp.VC_WIGHT vcWight,
+        cp.VC_NAME vcName,
+        cp.VC_PHONE vcPhone,
+        cp.NUM_TYPE numType,
+        cp.NUM_NUM numNum,
+        cp.NUM_STATE numState,
+        cp.DAT_CREAT_TIME datCreatTime,
+        cp.DAT_UPDATE_TIME datUpdateTime,
+        cp.NUM_PRICE numPrice,
+        cp.VC_USER_ID vcUserId,
+        cp.VC_OPEN_ID vcOpenId,
+        cp.DAT_CONFIRM_TIME datConfirmTime,
+        cp.VC_NOTES vcNotes,
+        cp.NUM_SCHOOL_ID numSchoolId,
+        cp.NUM_GRADE_ID numGradeId,
+        cp.NUM_MODEL_ID numModelId,
+        cp.VC_ORDER_NO vcOrderNo,
+        cp.VC_UNION_ID vcUnionId,
+        cp.VC_SIGN_DESC vcSignDesc,
+        cp.NUM_PAR_TYPE numParType,
+        cp.NUM_PAY_STATE numPayState,
+        cp.VC_EXPIRE_TIME vcExpireTime,
+        cfg.VC_GRADE_NAME vcGradeName,
+        cfs.VC_SCHOOL_NAME vcSchoolName,
+        cfm.VC_MODEL_NAME vcModelName
+        FROM
+        CL_PRODUCT cp
+        LEFT JOIN CL_FN_GRADE cfg ON cp.NUM_GRADE_ID = cfg.NUM_ID
+        LEFT JOIN CL_FN_SCHOOL cfs ON cp.NUM_SCHOOL_ID = cfs.NUM_ID
+        LEFT JOIN CL_FN_MODEL cfm ON cp.NUM_MODEL_ID = cfm.NUM_ID
+        WHERE
+        (
+        cp.NUM_IS_DEL = 1
+        <if test="VC_USER_ID != null and VC_USER_ID !=''">
+            AND cp.VC_USER_ID = #{VC_USER_ID}
+        </if>
+        <if test="VC_NAME != null and VC_NAME !=''">
+            AND cp.VC_NAME LIKE CONCAT('%',#{VC_NAME},'%')
+        </if>
+        <if test="VC_PHONE != null and VC_PHONE != ''">
+            AND cp.VC_PHONE LIKE CONCAT('%',#{VC_PHONE},'%')
+        </if>
+        <if test="NUM_TYPE != null and NUM_TYPE != ''">
+            AND cp.NUM_TYPE = #{NUM_TYPE}
+        </if>
+        <if test="NUM_STATE != null and NUM_STATE != ''">
+            AND cp.NUM_STATE = #{NUM_STATE}
+        </if>
+        <if test="NUM_PAY_STATE != null and NUM_PAY_STATE != ''">
+            AND cp.NUM_PAY_STATE = #{NUM_PAY_STATE}
+        </if>
+        <if test="NUM_PAR_TYPE != null and NUM_PAR_TYPE != ''">
+            AND cp.NUM_PAR_TYPE = #{NUM_PAR_TYPE}
+        </if>
+        <if test="NUM_ID != null and NUM_ID != ''">
+            AND cp.NUM_ID = #{NUM_ID}
+        </if>
+        <if test="NUM_SCHOOL_ID != null and NUM_SCHOOL_ID != ''">
+            AND cp.NUM_SCHOOL_ID = #{NUM_SCHOOL_ID}
+        </if>
+        <if test="NUM_GRADE_ID != null and NUM_GRADE_ID != ''">
+            AND cp.NUM_GRADE_ID = #{NUM_GRADE_ID}
+        </if>
+        <if test="NUM_MODEL_ID != null and NUM_MODEL_ID != ''">
+            AND cp.NUM_MODEL_ID = #{NUM_MODEL_ID}
+        </if>
+        <if test="VC_ORDER_NO != null and VC_ORDER_NO != ''">
+            AND cp.VC_ORDER_NO LIKE CONCAT('%',#{VC_ORDER_NO},'%')
+        </if>
+        <if test="DAT_CREAT_TIME_START != null and DAT_CREAT_TIME_START != ''">
+            and DATE_FORMAT(cp.DAT_CREAT_TIME,'%Y-%m-%d') <![CDATA[ >= ]]>
+            DATE_FORMAT(#{DAT_CREAT_TIME_START},'%Y-%m-%d')
+        </if>
+        <if test="DAT_CREAT_TIME_END != null and DAT_CREAT_TIME_END != ''">
+            and DATE_FORMAT(cp.DAT_CREAT_TIME,'%Y-%m-%d') <![CDATA[ <= ]]> DATE_FORMAT(#{DAT_CREAT_TIME_END},'%Y-%m-%d')
+        </if>
+        )
+        ORDER BY
+        cp.DAT_CREAT_TIME DESC
+    </select>
     <select id="selectLastNumid" parameterType="map" resultType="long">
 		select num_id from CL_PRODUCT order by NUM_ID desc limit 1 ;
 	</select>
     <select id="selectUserCouponList" parameterType="map" resultType="map">
-				select
+			select
 			t1.*,
-			t2.NUM_DISCOUNT_NUMBER
-
+			t2.NUM_DISCOUNT_NUMBER,
+            t2.NUM_LIMIT_PRICE
 		 from nnt_user_coupons t1
 		LEFT JOIN nnt_platform_coupon t2 on t1.NUM_PLATFORM_COUPON_ID = t2.NUM_ID
-		where t1.NUM_STATE = 1 and t1.NUM_USER_ID = #{vcUserId}
+		where
+            t1.NUM_STATE = 1 and
+            t2.NUM_AVAILABLE_GOODS = #{numParType} and
+            t2.NUM_LIMIT_PRICE <![CDATA[ <= ]]> #{numTotalFee} and
+            t1.NUM_USER_ID =  #{vcUserId}
+            ORDER BY t2.NUM_DISCOUNT_NUMBER desc
 	</select>
     <select id="selectOrderDetail" parameterType="map" resultType="map">
 		select
