@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dower.sharerideapp.core.serverdb.dao.ProductCategoryMapper">
+  <resultMap id="BaseResultMap" type="com.dower.sharerideapp.core.serverdb.model.ProductCategory">
+    <id column="category_id" jdbcType="INTEGER" property="categoryId" />
+    <result column="category_name" jdbcType="VARCHAR" property="categoryName" />
+    <result column="category_code" jdbcType="VARCHAR" property="categoryCode" />
+    <result column="parent_id" jdbcType="INTEGER" property="parentId" />
+    <result column="category_level" jdbcType="INTEGER" property="categoryLevel" />
+    <result column="category_status" jdbcType="INTEGER" property="categoryStatus" />
+    <result column="modified_time" jdbcType="TIMESTAMP" property="modifiedTime" />
+    <result column="NUM_STATE" jdbcType="TINYINT" property="numState" />
+    <result column="NUM_IS_DEL" jdbcType="TINYINT" property="numIsDel" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    category_id, category_name, category_code, parent_id, category_level, category_status, 
+    modified_time, NUM_STATE, NUM_IS_DEL
+  </sql>
+  <select id="selectByExample" parameterType="com.dower.sharerideapp.core.serverdb.model.ProductCategoryExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from product_category
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from product_category
+    where category_id = #{categoryId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from product_category
+    where category_id = #{categoryId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.dower.sharerideapp.core.serverdb.model.ProductCategoryExample">
+    delete from product_category
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.dower.sharerideapp.core.serverdb.model.ProductCategory">
+    <selectKey keyProperty="categoryId" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into product_category (category_name, category_code, parent_id, 
+      category_level, category_status, modified_time, 
+      NUM_STATE, NUM_IS_DEL)
+    values (#{categoryName,jdbcType=VARCHAR}, #{categoryCode,jdbcType=VARCHAR}, #{parentId,jdbcType=INTEGER}, 
+      #{categoryLevel,jdbcType=INTEGER}, #{categoryStatus,jdbcType=INTEGER}, #{modifiedTime,jdbcType=TIMESTAMP}, 
+      #{numState,jdbcType=TINYINT}, #{numIsDel,jdbcType=TINYINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dower.sharerideapp.core.serverdb.model.ProductCategory">
+    <selectKey keyProperty="categoryId" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into product_category
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="categoryName != null">
+        category_name,
+      </if>
+      <if test="categoryCode != null">
+        category_code,
+      </if>
+      <if test="parentId != null">
+        parent_id,
+      </if>
+      <if test="categoryLevel != null">
+        category_level,
+      </if>
+      <if test="categoryStatus != null">
+        category_status,
+      </if>
+      <if test="modifiedTime != null">
+        modified_time,
+      </if>
+      <if test="numState != null">
+        NUM_STATE,
+      </if>
+      <if test="numIsDel != null">
+        NUM_IS_DEL,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="categoryName != null">
+        #{categoryName,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryCode != null">
+        #{categoryCode,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null">
+        #{parentId,jdbcType=INTEGER},
+      </if>
+      <if test="categoryLevel != null">
+        #{categoryLevel,jdbcType=INTEGER},
+      </if>
+      <if test="categoryStatus != null">
+        #{categoryStatus,jdbcType=INTEGER},
+      </if>
+      <if test="modifiedTime != null">
+        #{modifiedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="numState != null">
+        #{numState,jdbcType=TINYINT},
+      </if>
+      <if test="numIsDel != null">
+        #{numIsDel,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.dower.sharerideapp.core.serverdb.model.ProductCategoryExample" resultType="java.lang.Long">
+    select count(*) from product_category
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update product_category
+    <set>
+      <if test="record.categoryId != null">
+        category_id = #{record.categoryId,jdbcType=INTEGER},
+      </if>
+      <if test="record.categoryName != null">
+        category_name = #{record.categoryName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.categoryCode != null">
+        category_code = #{record.categoryCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.parentId != null">
+        parent_id = #{record.parentId,jdbcType=INTEGER},
+      </if>
+      <if test="record.categoryLevel != null">
+        category_level = #{record.categoryLevel,jdbcType=INTEGER},
+      </if>
+      <if test="record.categoryStatus != null">
+        category_status = #{record.categoryStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.modifiedTime != null">
+        modified_time = #{record.modifiedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.numState != null">
+        NUM_STATE = #{record.numState,jdbcType=TINYINT},
+      </if>
+      <if test="record.numIsDel != null">
+        NUM_IS_DEL = #{record.numIsDel,jdbcType=TINYINT},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update product_category
+    set category_id = #{record.categoryId,jdbcType=INTEGER},
+      category_name = #{record.categoryName,jdbcType=VARCHAR},
+      category_code = #{record.categoryCode,jdbcType=VARCHAR},
+      parent_id = #{record.parentId,jdbcType=INTEGER},
+      category_level = #{record.categoryLevel,jdbcType=INTEGER},
+      category_status = #{record.categoryStatus,jdbcType=INTEGER},
+      modified_time = #{record.modifiedTime,jdbcType=TIMESTAMP},
+      NUM_STATE = #{record.numState,jdbcType=TINYINT},
+      NUM_IS_DEL = #{record.numIsDel,jdbcType=TINYINT}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dower.sharerideapp.core.serverdb.model.ProductCategory">
+    update product_category
+    <set>
+      <if test="categoryName != null">
+        category_name = #{categoryName,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryCode != null">
+        category_code = #{categoryCode,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null">
+        parent_id = #{parentId,jdbcType=INTEGER},
+      </if>
+      <if test="categoryLevel != null">
+        category_level = #{categoryLevel,jdbcType=INTEGER},
+      </if>
+      <if test="categoryStatus != null">
+        category_status = #{categoryStatus,jdbcType=INTEGER},
+      </if>
+      <if test="modifiedTime != null">
+        modified_time = #{modifiedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="numState != null">
+        NUM_STATE = #{numState,jdbcType=TINYINT},
+      </if>
+      <if test="numIsDel != null">
+        NUM_IS_DEL = #{numIsDel,jdbcType=TINYINT},
+      </if>
+    </set>
+    where category_id = #{categoryId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dower.sharerideapp.core.serverdb.model.ProductCategory">
+    update product_category
+    set category_name = #{categoryName,jdbcType=VARCHAR},
+      category_code = #{categoryCode,jdbcType=VARCHAR},
+      parent_id = #{parentId,jdbcType=INTEGER},
+      category_level = #{categoryLevel,jdbcType=INTEGER},
+      category_status = #{categoryStatus,jdbcType=INTEGER},
+      modified_time = #{modifiedTime,jdbcType=TIMESTAMP},
+      NUM_STATE = #{numState,jdbcType=TINYINT},
+      NUM_IS_DEL = #{numIsDel,jdbcType=TINYINT}
+    where category_id = #{categoryId,jdbcType=INTEGER}
+  </update>
+</mapper>

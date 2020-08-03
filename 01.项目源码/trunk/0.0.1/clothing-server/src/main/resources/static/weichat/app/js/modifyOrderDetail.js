@@ -41,7 +41,42 @@ var orderDetail = {
 
 
     initWeixin:function () {
+        document.getElementById("promptBtn").addEventListener('tap', function(e) {
+            e.detail.gesture.preventDefault(); //修复iOS 8.x平台存在的bug，使用plus.nativeUI.prompt会造成输入法闪一下又没了
+            var btnArray = ['取消', '确定'];
+            mui.prompt('请输入订单价格：', '修改价格', '价格', btnArray, function(e) {
+                if (e.index == 1) {
+                    console.log(e.value);
+                    $("#goodsPrice").html(e.value);
+                    var NUM_PRICE = e.value;
+                    NUM_PRICE = NUM_PRICE.trim();
+                    if(!checkMoney(NUM_PRICE)){
+                        mui.toast("输入金额有误！")
+                        return false;
+                    }
+                    var orderDetailData = JSON.parse(sessionStorage['orderDetail']);
+
+                    var param = {};
+                    param.NUM_ID = orderDetailData.orderDetail.numId;
+                    param.NUM_PRICE = util.getNumber(Number(NUM_PRICE)*100);//取消订单：3
+                    orderDetail.updataOrder(param);
+
+
+
+
+
+
+                    location.reload();
+                } else {
+
+                }
+            })
+        });
+
         $("#payButton").click(function () {
+
+
+
             var userInfo = JSON.parse(sessionStorage['userInfo']);
             var orderData = JSON.parse(sessionStorage['orderDetail']);
             var pageData = JSON.parse(sessionStorage["pageData"]);
@@ -52,40 +87,52 @@ var orderDetail = {
             param.numUserId = userInfo.NUM_USER_ID;
             //商品金额
             param.numTotalFee = util.getNumber(Number(orderDetail.numPrice)*Number(orderDetail.numNum));  //商品金额
-            //实付金额
-            param.numCashFee = util.getNumber(Number($("#shifujine").html())*100);
-            //优惠金额
-            param.numDiscountFee =  util.getNumber(Number($('#NUM_DISCOUNT_NUMBER').html())*100);
-            param.useBalance =  Number($('#numUserMoney').html())*100;
-            param.useCouponId = pageData.useCouponId;
-            param.useGroupBuyId = pageData.useGroupBuyId;
-            param.useBargainId = pageData.useBargainId;
-            param.openId = sessionStorage['openId'];
-            param.timeStamp = util.createTimeStamp();
-            $.ajax({
-                type : "POST",
-                url : ctxPath + "securityService/weichatPayment",
-                dataType : "json",
-                data : param,
-                headers: util.initHeaders(param),
-                success : function(data) {
-                    //alert(JSON.stringify(data));
-                    console.log("支付返回结果"+JSON.stringify(data))
-                    if(data.code==200){
-                        //mui.toast(data.msg);
 
-                        if(param.numCashFee==0){
-                            mui.toast("支付成功！");
-                            location.reload();
-                        }else {
-                            pay(data.data);
+
+            var btnArray = ['否', '是'];
+            mui.confirm('确认该订单的商品金额是：'+util.getNumber(Number(param.numTotalFee)/100) , '确认', btnArray, function(e) {
+                if (e.index == 1) {
+                    //实付金额
+                    param.numCashFee = util.getNumber(Number($("#shifujine").html())*100);
+                    //优惠金额
+                    param.numDiscountFee =  util.getNumber(Number($('#NUM_DISCOUNT_NUMBER').html())*100);
+                    param.useBalance =  Number($('#numUserMoney').html())*100;
+                    param.useCouponId = pageData.useCouponId;
+                    param.useGroupBuyId = pageData.useGroupBuyId;
+                    param.useBargainId = pageData.useBargainId;
+                    param.openId = sessionStorage['openId'];
+                    param.timeStamp = util.createTimeStamp();
+                    $.ajax({
+                        type : "POST",
+                        url : ctxPath + "securityService/weichatPayment",
+                        dataType : "json",
+                        data : param,
+                        headers: util.initHeaders(param),
+                        success : function(data) {
+                            //alert(JSON.stringify(data));
+                            console.log("支付返回结果"+JSON.stringify(data))
+                            if(data.code==200){
+                                //mui.toast(data.msg);
+
+                                if(param.numCashFee==0){
+                                    mui.toast("支付成功！");
+                                    location.reload();
+                                }else {
+                                    pay(data.data);
+                                }
+                            }else {
+                                mui.toast(data.msg);
+                            }
+
                         }
-                    }else {
-                        mui.toast(data.msg);
-                    }
-
+                    });
+                } else {
+                    mui.toast('修改价格后支付！');
                 }
-            });
+            })
+
+
+
         });
     },
     initPage:function () {
@@ -315,7 +362,7 @@ var orderDetail = {
                 $("#numUserMoneyTotal").html(numUserMoney);
                 $(".numUserMoneyTotal").show();
                 orderDetail.showMoneyHtml(0);
-                $(".payment").show();
+                $(".payment,.promptBtnLi").show();
             }
             if(numPayState==2){
                 var NUM_AMOUNT = 0;
@@ -397,17 +444,9 @@ var orderDetail = {
         }
         $("#shifujine,#shifujine1").html(Number(shifujine).toFixed(2));
     },
-    updataOrder:function (obj) {
-        var userInfo = JSON.parse(sessionStorage["userInfo"]);
-        var userId = userInfo.NUM_USER_ID;
-        var param = {};
-        param.VC_USER_ID = userId;
-        param.NUM_ID = obj.NUM_ID;
-        var NUM_STATE = obj.NUM_STATE;
-        if(NUM_STATE){
-            param.NUM_STATE = NUM_STATE;
-        }
+    updataOrder:function (param) {
         param.timeStamp = util.createTimeStamp();
+        console.log(JSON.stringify(param));
         $.ajax({
             type: 'POST',
             url: ctxPath + "securityService/updateProduct",

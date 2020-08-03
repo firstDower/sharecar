@@ -20,6 +20,8 @@
     <result column="DAT_START_DATE" jdbcType="TIMESTAMP" property="datStartDate" />
     <result column="DAT_END_DATE" jdbcType="TIMESTAMP" property="datEndDate" />
     <result column="NUM_CREAT_ADMIN_USER_ID" jdbcType="BIGINT" property="numCreatAdminUserId" />
+    <result column="NUM_STATE" jdbcType="TINYINT" property="numState" />
+    <result column="NUM_IS_DEL" jdbcType="TINYINT" property="numIsDel" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -83,7 +85,7 @@
     NUM_ID, VC_COUPON_NAME, NUM_ISSUE_TOTAL, NUM_DISCOUNT_TYPE, NUM_DISCOUNT_NUMBER, 
     VC_DISCOUNT_STR, NUM_HAS_DISCOUNT_LIMIT, NUM_LIMIT_PRICE, NUM_MEMBER, NUM_USER_LIMIT_NUM, 
     NUM_LIMIT_DATE_TYPE, NUM_AVAILABLE_DAYS, NUM_AVAILABLE_GOODS, VC_INSTRUCTIONS, DAT_CREAT_DATE, 
-    DAT_START_DATE, DAT_END_DATE, NUM_CREAT_ADMIN_USER_ID
+    DAT_START_DATE, DAT_END_DATE, NUM_CREAT_ADMIN_USER_ID, NUM_STATE, NUM_IS_DEL
   </sql>
   <select id="selectByExample" parameterType="com.dower.sharerideapp.core.serverdb.model.NntPlatformCouponExample" resultMap="BaseResultMap">
     select
@@ -124,13 +126,15 @@
       NUM_LIMIT_PRICE, NUM_MEMBER, NUM_USER_LIMIT_NUM, 
       NUM_LIMIT_DATE_TYPE, NUM_AVAILABLE_DAYS, NUM_AVAILABLE_GOODS, 
       VC_INSTRUCTIONS, DAT_CREAT_DATE, DAT_START_DATE, 
-      DAT_END_DATE, NUM_CREAT_ADMIN_USER_ID)
+      DAT_END_DATE, NUM_CREAT_ADMIN_USER_ID, NUM_STATE, 
+      NUM_IS_DEL)
     values (#{vcCouponName,jdbcType=VARCHAR}, #{numIssueTotal,jdbcType=INTEGER}, #{numDiscountType,jdbcType=TINYINT}, 
       #{numDiscountNumber,jdbcType=INTEGER}, #{vcDiscountStr,jdbcType=VARCHAR}, #{numHasDiscountLimit,jdbcType=TINYINT}, 
       #{numLimitPrice,jdbcType=INTEGER}, #{numMember,jdbcType=TINYINT}, #{numUserLimitNum,jdbcType=TINYINT}, 
       #{numLimitDateType,jdbcType=TINYINT}, #{numAvailableDays,jdbcType=INTEGER}, #{numAvailableGoods,jdbcType=BIGINT}, 
       #{vcInstructions,jdbcType=VARCHAR}, #{datCreatDate,jdbcType=TIMESTAMP}, #{datStartDate,jdbcType=TIMESTAMP}, 
-      #{datEndDate,jdbcType=TIMESTAMP}, #{numCreatAdminUserId,jdbcType=BIGINT})
+      #{datEndDate,jdbcType=TIMESTAMP}, #{numCreatAdminUserId,jdbcType=BIGINT}, #{numState,jdbcType=TINYINT}, 
+      #{numIsDel,jdbcType=TINYINT})
   </insert>
   <insert id="insertSelective" parameterType="com.dower.sharerideapp.core.serverdb.model.NntPlatformCoupon">
     <selectKey keyProperty="numId" order="AFTER" resultType="java.lang.Long">
@@ -189,6 +193,12 @@
       <if test="numCreatAdminUserId != null">
         NUM_CREAT_ADMIN_USER_ID,
       </if>
+      <if test="numState != null">
+        NUM_STATE,
+      </if>
+      <if test="numIsDel != null">
+        NUM_IS_DEL,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="vcCouponName != null">
@@ -241,6 +251,12 @@
       </if>
       <if test="numCreatAdminUserId != null">
         #{numCreatAdminUserId,jdbcType=BIGINT},
+      </if>
+      <if test="numState != null">
+        #{numState,jdbcType=TINYINT},
+      </if>
+      <if test="numIsDel != null">
+        #{numIsDel,jdbcType=TINYINT},
       </if>
     </trim>
   </insert>
@@ -307,6 +323,12 @@
       <if test="record.numCreatAdminUserId != null">
         NUM_CREAT_ADMIN_USER_ID = #{record.numCreatAdminUserId,jdbcType=BIGINT},
       </if>
+      <if test="record.numState != null">
+        NUM_STATE = #{record.numState,jdbcType=TINYINT},
+      </if>
+      <if test="record.numIsDel != null">
+        NUM_IS_DEL = #{record.numIsDel,jdbcType=TINYINT},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -331,7 +353,9 @@
       DAT_CREAT_DATE = #{record.datCreatDate,jdbcType=TIMESTAMP},
       DAT_START_DATE = #{record.datStartDate,jdbcType=TIMESTAMP},
       DAT_END_DATE = #{record.datEndDate,jdbcType=TIMESTAMP},
-      NUM_CREAT_ADMIN_USER_ID = #{record.numCreatAdminUserId,jdbcType=BIGINT}
+      NUM_CREAT_ADMIN_USER_ID = #{record.numCreatAdminUserId,jdbcType=BIGINT},
+      NUM_STATE = #{record.numState,jdbcType=TINYINT},
+      NUM_IS_DEL = #{record.numIsDel,jdbcType=TINYINT}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -390,6 +414,12 @@
       <if test="numCreatAdminUserId != null">
         NUM_CREAT_ADMIN_USER_ID = #{numCreatAdminUserId,jdbcType=BIGINT},
       </if>
+      <if test="numState != null">
+        NUM_STATE = #{numState,jdbcType=TINYINT},
+      </if>
+      <if test="numIsDel != null">
+        NUM_IS_DEL = #{numIsDel,jdbcType=TINYINT},
+      </if>
     </set>
     where NUM_ID = #{numId,jdbcType=BIGINT}
   </update>
@@ -411,7 +441,9 @@
       DAT_CREAT_DATE = #{datCreatDate,jdbcType=TIMESTAMP},
       DAT_START_DATE = #{datStartDate,jdbcType=TIMESTAMP},
       DAT_END_DATE = #{datEndDate,jdbcType=TIMESTAMP},
-      NUM_CREAT_ADMIN_USER_ID = #{numCreatAdminUserId,jdbcType=BIGINT}
+      NUM_CREAT_ADMIN_USER_ID = #{numCreatAdminUserId,jdbcType=BIGINT},
+      NUM_STATE = #{numState,jdbcType=TINYINT},
+      NUM_IS_DEL = #{numIsDel,jdbcType=TINYINT}
     where NUM_ID = #{numId,jdbcType=BIGINT}
   </update>
 </mapper>

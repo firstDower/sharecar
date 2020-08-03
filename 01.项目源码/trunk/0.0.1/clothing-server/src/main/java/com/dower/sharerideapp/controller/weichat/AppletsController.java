@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.dower.sharerideapp.core.serverdb.model.NntUsers;
 import com.dower.sharerideapp.service.UsersService;
 import com.dower.sharerideapp.service.weichat.WeichatCommService;
+import com.dower.sharerideapp.utils.CommUtil;
 import com.dower.sharerideapp.utils.HttpRequestUtil;
 import com.dower.sharerideapp.utils.Result;
 import com.dower.sharerideapp.utils.weichat.Message;
@@ -159,11 +160,11 @@ public class AppletsController {
      */
     @ResponseBody
     @RequestMapping("/login")
-    public Result loginPhone(@RequestBody String param) {
+    public Result loginPhone(HttpServletRequest request) {
         Result result = new Result(false, "小程序登录异常！");
-        log.info("小程序登录参数param:：{}",param);
+        JSONObject dataObj = CommUtil.getParamData(request);
+        log.info("小程序登录参数param:：{}",dataObj);
         try {
-            JSONObject dataObj = JSONObject.parseObject(param);
             JSONObject openjson  = weichatCommService.getSessionKey(dataObj);
 
             dataObj.put("openid", openjson.get("openid"));

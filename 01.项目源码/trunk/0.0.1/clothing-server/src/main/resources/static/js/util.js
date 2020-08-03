@@ -189,6 +189,14 @@ function checkEmail(str){
     }
 }
 
+//验证金额
+function checkMoney(num) {
+    var isNum=/^(([1-9][0-9]*)|(([0]\.\d{1,2}|[1-9][0-9]*\.\d{1,2})))$/;
+    if(isNum.test(num)) {
+        return true;
+    }
+    return false;
+}
 
 
 //Create Time:  07/28/2011

@@ -67,9 +67,9 @@
         </table>-->
        <!-- <table schema="nnt_db" tableName="nnt_userinfo">
         </table>-->
-        <table schema="nnt_db_test" tableName="payment_flow">
+        <!--<table schema="nnt_db_test" tableName="payment_flow">
             <generatedKey column="NUM_ID" sqlStatement="MySql" identity="true"/>
-        </table>
+        </table>-->
        <!--<table schema="nnt_db_test" tableName="nnt_userinfo">
             <generatedKey column="NUM_USERINFO_ID" sqlStatement="MySql" identity="true"/>
         </table>
@@ -84,8 +84,18 @@
             <generatedKey column="NUM_ID" sqlStatement="MySql" identity="true"/>
         </table>
 
-       <table schema="nnt_db_test" tableName="nnt_platform_coupon">
+       -->
+        <table schema="nnt_db_test" tableName="product_info">
+            <generatedKey column="product_id" sqlStatement="MySql" identity="true"/>
+        </table>
+        <!--<table schema="nnt_db_test" tableName="nnt_platform_coupon">
             <generatedKey column="NUM_ID" sqlStatement="MySql" identity="true"/>
+        </table>
+        <table schema="nnt_db_test" tableName="product_info">
+            <generatedKey column="product_id" sqlStatement="MySql" identity="true"/>
+        </table>
+        <table schema="nnt_db_test" tableName="product_category">
+            <generatedKey column="category_id" sqlStatement="MySql" identity="true"/>
         </table>-->
         <!-- <table schema="nnt_db" tableName="CL_FN_GRADE">
             <generatedKey column="NUM_ID" sqlStatement="MySql" identity="true"/>

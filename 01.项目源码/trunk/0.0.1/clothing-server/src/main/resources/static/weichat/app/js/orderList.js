@@ -40,9 +40,14 @@ var orderList = {
             var numId = $(this).attr('numId');
             var orderData = $(this).attr('orderData');
             sessionStorage["vcOrderNo"] = JSON.parse(orderData).vcOrderNo;
+            var numParType = JSON.parse(orderData).numParType;
+            var url = ctxPath + 'jump/weichat/orderDetail';
+            if(numParType==2){
+                url = ctxPath + 'jump/weichat/modifyOrderDetail';
+            }
             //location.href= ctxPath + 'jump/weichat/orderDetail';
             mui.openWindow({
-                url:ctxPath + 'jump/weichat/orderDetail',
+                url:url,
                 id: "orderDetail",//详情页webview的id
                 show: {
                     aniShow: 'none', //页面不显示动画

@@ -12,7 +12,7 @@ $(function () {
             //1：定制；2 ：修改
             param.NUM_PAR_TYPE = 2;
             //param.NUM_TYPE = "3";
-
+            param.NUM_PRICE = 0;
 
             var VC_NAME = $("#VC_NAME").val();
 
@@ -46,7 +46,7 @@ $(function () {
                                 var vcOrderNo = data.data;
                                 sessionStorage['vcOrderNo'] = vcOrderNo
                                 mui.openWindow({
-                                    url:ctxPath + 'jump/weichat/orderDetail',
+                                    url:ctxPath + 'jump/weichat/modifyOrderDetail',
                                     id: "orderDetail",//详情页webview的id
                                     show: {
                                         aniShow: 'none', //页面不显示动画

@@ -5,6 +5,7 @@ import com.dower.sharerideapp.core.serverdb.model.NntUsers;
 import com.dower.sharerideapp.service.UsersService;
 import com.dower.sharerideapp.service.annotation.PublicUrl;
 import com.dower.sharerideapp.service.weichat.WeichatCommService;
+import com.dower.sharerideapp.utils.CommUtil;
 import com.dower.sharerideapp.utils.Result;
 import com.dower.sharerideapp.utils.ret.RetResponse;
 import com.dower.sharerideapp.utils.ret.RetResult;
@@ -51,10 +52,10 @@ public class AppletsNewController {
      */
     @ResponseBody
     @RequestMapping("/loginApplets")
-    public RetResult loginPhone(@RequestBody String param) {
-        log.info("小程序登录参数param:：{}",param);
+    public RetResult loginPhone(HttpServletRequest request) {
+        JSONObject dataObj = CommUtil.getParamData(request);
+        log.info("小程序登录参数param:：{}",dataObj);
         try {
-            JSONObject dataObj = JSONObject.parseObject(param);
             JSONObject openjson  = weichatCommService.getSessionKey(dataObj);
 
             dataObj.put("openid", openjson.get("openid"));

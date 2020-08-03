@@ -3,16 +3,21 @@ package com.dower.sharerideapp.service.payment;
 import com.alibaba.fastjson.JSONObject;
 import com.dower.sharerideapp.core.serverdb.dao.NntPlatformCouponMapper;
 import com.dower.sharerideapp.core.serverdb.dao.NntUserCouponsMapper;
+import com.dower.sharerideapp.core.serverdb.model.NntPlatformCoupon;
+import com.dower.sharerideapp.core.serverdb.model.NntPlatformCouponExample;
 import com.dower.sharerideapp.core.serverdb.model.NntUserCoupons;
 import com.dower.sharerideapp.service.exception.MyException;
 import com.dower.sharerideapp.utils.ret.RetResponse;
 import com.dower.sharerideapp.utils.ret.RetResult;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by 13060 on 2020/8/1.
@@ -24,6 +29,31 @@ public class CouponService {
     private NntUserCouponsMapper nntUserCouponsMapper;
     @Autowired
     private NntPlatformCouponMapper nntPlatformCouponMapper;
+
+
+
+    /**
+     * 分页查询优惠券列表
+     * @param jsonparams
+     * @return
+     */
+    public RetResult platformCouponList(JSONObject jsonparams){
+        log.info("分页查询优惠券列表param：{}",jsonparams);
+        Integer pageNum = 1;
+        Integer pageSize = 10;
+        if(jsonparams.containsKey("pageNum"))
+            pageNum = jsonparams.getInteger("pageNum");
+        if(jsonparams.containsKey("pageSize"))
+            pageSize = jsonparams.getInteger("pageSize");
+        PageHelper.startPage(pageNum, pageSize);
+        NntPlatformCouponExample exampleNntPlatformCouponExample = new NntPlatformCouponExample();
+        NntPlatformCouponExample.Criteria criteria = exampleNntPlatformCouponExample.createCriteria();
+        List<NntPlatformCoupon> nntPlatformCoupons = nntPlatformCouponMapper.selectByExample(exampleNntPlatformCouponExample);
+        PageInfo pageInfo = new PageInfo(nntPlatformCoupons);
+        log.info("分页查询优惠券列表成功：{}",pageInfo);
+        return RetResponse.makeOKRsp(pageInfo);
+    }
+
     /**
      * 用户优惠券锁定
      * @return

@@ -39,6 +39,10 @@ public class NntPlatformCoupon {
 
     private Long numCreatAdminUserId;
 
+    private Byte numState;
+
+    private Byte numIsDel;
+
     public Long getNumId() {
         return numId;
     }
@@ -181,5 +185,21 @@ public class NntPlatformCoupon {
 
     public void setNumCreatAdminUserId(Long numCreatAdminUserId) {
         this.numCreatAdminUserId = numCreatAdminUserId;
+    }
+
+    public Byte getNumState() {
+        return numState;
+    }
+
+    public void setNumState(Byte numState) {
+        this.numState = numState;
+    }
+
+    public Byte getNumIsDel() {
+        return numIsDel;
+    }
+
+    public void setNumIsDel(Byte numIsDel) {
+        this.numIsDel = numIsDel;
     }
 }

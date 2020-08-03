@@ -88,6 +88,19 @@ var orderDetail = {
             });
         });
     },
+    selectUserCoupon:function () {
+        var checkbox1 = $("input[name='checkbox1']:checked").val();
+        var dataNumber = $("input[name='checkbox1']:checked").attr("dataNumber");
+        if(!checkbox1){
+            checkbox1 = 0;dataNumber = 0;
+        }
+        console.log(checkbox1, dataNumber);//detail为当前popover元素
+        $("#NUM_DISCOUNT_NUMBER").val(Number(dataNumber)/100);
+        orderDetail.showMoneyHtml(Number(dataNumber)/100);
+        var pageData = JSON.parse(sessionStorage["pageData"]);
+        pageData.useCouponId = checkbox1;
+        sessionStorage["pageData"] = JSON.stringify(pageData);
+    },
     initPage:function () {
         var pageData = {};
         pageData.useCouponId = 0;
@@ -98,17 +111,7 @@ var orderDetail = {
         mui('.mui-scroll-wrapper').scroll();
         mui('body').on('hidden', '.mui-popover', function (e) {
             //checkbox1
-            var checkbox1 = $("input[name='checkbox1']:checked").val();
-            var dataNumber = $("input[name='checkbox1']:checked").attr("dataNumber");
-            if(!checkbox1){
-                checkbox1 = 0;dataNumber = 0;
-            }
-            console.log(checkbox1, dataNumber);//detail为当前popover元素
-            $("#NUM_DISCOUNT_NUMBER").val(Number(dataNumber)/100);
-            orderDetail.showMoneyHtml(Number(dataNumber)/100);
-            var pageData = JSON.parse(sessionStorage["pageData"]);
-            pageData.useCouponId = checkbox1;
-            sessionStorage["pageData"] = JSON.stringify(pageData);
+            orderDetail.selectUserCoupon();
         });
 
         //弹出层确定按钮！
@@ -316,6 +319,7 @@ var orderDetail = {
                 $(".numUserMoneyTotal").show();
                 orderDetail.showMoneyHtml(0);
                 $(".payment").show();
+                orderDetail.selectUserCoupon();
             }
             if(numPayState==2){
                 var NUM_AMOUNT = 0;
