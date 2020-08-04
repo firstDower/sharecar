@@ -36,7 +36,9 @@ var util = {
     pro_name : "telrgJVOZuiOUCV"
     ,
     checkToken:function () {
-        var token = localStorage["token"];
+        localStorage["token"] = "";
+        util.getToken();
+        /*var token = localStorage["token"];
         if(!token){
             util.getToken();
         }else{
@@ -70,7 +72,7 @@ var util = {
                 error: function(xhr, type){
                 }
             });
-        }
+        }*/
     },
     getToken:function () {
         var token = localStorage["token"];

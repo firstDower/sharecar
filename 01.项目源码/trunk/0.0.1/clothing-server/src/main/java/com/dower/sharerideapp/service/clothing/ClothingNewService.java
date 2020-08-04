@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.dower.sharerideapp.core.repository.UsersDao;
 import com.dower.sharerideapp.core.repository.clothing.ClothingExtDao;
 import com.dower.sharerideapp.core.serverdb.dao.ClProductMapper;
+import com.dower.sharerideapp.core.serverdb.dao.NntShareStatisticsMapper;
 import com.dower.sharerideapp.core.serverdb.dao.NntUserCouponsMapper;
 import com.dower.sharerideapp.core.serverdb.dao.NntUserinfoMapper;
 import com.dower.sharerideapp.core.serverdb.model.*;
@@ -44,7 +45,8 @@ public class ClothingNewService {
     private NntUserinfoMapper nntUserinfoMapper;
     @Autowired
     private NntUserCouponsMapper nntUserCouponsMapper;
-
+    @Autowired
+    private NntShareStatisticsMapper nntShareStatisticsMapper;
 
     /**
      * {"NUM_HIGHT":"175","NUM_WIGHT":"65","VC_NAME":"张三","VC_PHONE":"15555551649","NUM_TYPE":"1"}
@@ -123,6 +125,24 @@ public class ClothingNewService {
             clProduct.setVcOrderNo(orderNo);
             int i = clProductMapper.insertSelective(clProduct);
             String vcOrderNo = clProduct.getVcOrderNo();
+            //添加到分享数据表
+            if (jsonparams.containsKey("shareUserId")&&StringUtils.isNotBlank(jsonparams.getString("shareUserId"))){
+                String shareUserId = jsonparams.getString("shareUserId");
+                String vc_user_id = jsonparams.getString("VC_USER_ID");
+                if(!shareUserId.equals(vc_user_id)){
+                    NntShareStatistics recordNntShareStatistics = new NntShareStatistics();
+                    recordNntShareStatistics.setDatCreatTime(new Date());
+                    recordNntShareStatistics.setVcOrderNo(vcOrderNo);
+                    recordNntShareStatistics.setVcShareUserId(jsonparams.getString("shareUserId"));
+                    nntShareStatisticsMapper.insertSelective(recordNntShareStatistics);
+                    log.info("用户分享，插入分享数据成功");
+                }else {
+                    log.info("用户自己给自己分享，订单不做分享记录！");
+                }
+
+
+            }
+
             log.info("创建定制衣服订单成功：{}",i);
             return RetResponse.makeOKRsp(vcOrderNo);
         }catch (Exception e){

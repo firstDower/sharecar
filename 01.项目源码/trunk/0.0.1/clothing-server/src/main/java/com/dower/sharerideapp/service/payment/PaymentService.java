@@ -601,6 +601,9 @@ public class PaymentService {
             log.info("微信统一下单service，param：：{}",params);
 
             MyConfig config = new MyConfig();
+
+
+
             WXPay wxpay = new WXPay(config);
 
 

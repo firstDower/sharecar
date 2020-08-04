@@ -1,8 +1,8 @@
 #Redisson配置
 singleServerConfig:
-#  address: "redis://r-uf6308vil8k8lqciwnpd.redis.rds.aliyuncs.com:16379"
-  address: "redis://59.110.234.138:6379"
-  password: 111
+  address: "redis://r-uf6308vil8k8lqciwnpd.redis.rds.aliyuncs.com:16379"
+#  address: "redis://59.110.234.138:6379"
+  password: tcbx#2020
   clientName: null
   database: 7 #选择使用哪个数据库0~15
   idleConnectionTimeout: 10000

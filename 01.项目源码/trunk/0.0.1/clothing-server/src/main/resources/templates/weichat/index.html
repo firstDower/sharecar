@@ -1,51 +1,144 @@
 <!doctype html>
 <html>
 <head th:replace="common/weichat/htmlHead :: common_header(~{::title})">
-	<title>首页</title>
+    <title>首页</title>
 </head>
+<style>
+    .mui-media {
+        font-size: 14px;
+    }
+
+    .mui-table-view .mui-media-object {
+        max-width: initial;
+        width: 100px;
+        height: 100px;
+    }
+
+
+    /*自己添加*/
+    .mui-media{
+        position: relative;
+    }
+    .mui-media-body{
+        margin-right:50px;
+    }
+    .mui-media-body .title{
+        font-weight: bold;
+        font-size: 18px;
+        line-height: 1.8;
+
+    }
+    .mui-media-body .describe{
+        font-size: 14px;
+        line-height: 1.5;
+    }
+
+    .meta-info{
+        width:30px;
+        height:30px;
+        position: absolute;
+        right: 10px;
+        top: 42px;
+    }
+    .meta-info .share{
+        width:100%;
+        height:100%;
+    }
+
+    .mui-table-view-cell > a:not(.mui-btn) {
+
+        margin: -3px -15px;
+
+    }
+    .mui-scroll-wrapper {
+        position: absolute;
+        z-index: 2;
+        top: 160px;
+        bottom: 0;
+        left: 0;
+        overflow: hidden;
+        width: 100%;
+    }
+</style>
 <body>
 <div th:insert="common/weichat/htmlJS::common_js(~{::script})">
-	<script type="text/javascript" th:src="@{/weichat/app/js/index.js}"></script>
+    <script type="text/javascript" th:src="@{/weichat/app/js/index.js}"></script>
+    <script src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 </div>
-		<div class="mui-content">
-			<div class="mui-slider">
-			  <div class="mui-slider-group">
-				<div class="mui-slider-item mui-slider-item-duplicate"><a href="#"><img th:src="@{/weichat/app/img/1.jpg}" /></a></div>
-				<div class="mui-slider-item"><a href="#"><img th:src="@{/weichat/app/img/1.jpg}" /></a></div>
-				<div class="mui-slider-item"><a href="#"><img th:src="@{/weichat/app/img/1.jpg}" /></a></div>
-				<div class="mui-slider-item"><a href="#"><img th:src="@{/weichat/app/img/1.jpg}" /></a></div>
-			  </div>
-			</div>
-		</div>
-		<div class="mui-content">
-			<div class="mui-content-padded">
-				<h3>服务</h3>
-			</div>
-		</div>
-		<div class="mui-content" style="background-color:#fff">
-				<ul class="mui-table-view mui-grid-view">
-					<li id="customLi" class="mui-table-view-cell mui-media mui-col-xs-6">
-						<a href="#">
-							<img class=" mui-media-object-img" th:src="@{/weichat/app/img/2.jpg}">
-							<div class="mui-media-body">校服定制</div>
-						</a>
-					</li>
-					<li id="modifyLi" class="mui-table-view-cell mui-media mui-col-xs-6">
-						<a href="#">
-							<img class=" mui-media-object-img" th:src="@{/weichat/app/img/4.jpg}">
-							<div class="mui-media-body">衣服修改</div>
-						</a>
-					</li>
-				</ul>
+<div class="mui-content">
+    <div class="mui-slider">
+        <div class="mui-slider-group">
+            <div class="mui-slider-item mui-slider-item-duplicate"><a href="#"><img th:src="@{/weichat/app/img/1.jpg}"/></a>
+            </div>
+            <div class="mui-slider-item"><a href="#"><img th:src="@{/weichat/app/img/1.jpg}"/></a></div>
+            <div class="mui-slider-item"><a href="#"><img th:src="@{/weichat/app/img/1.jpg}"/></a></div>
+            <div class="mui-slider-item"><a href="#"><img th:src="@{/weichat/app/img/1.jpg}"/></a></div>
+        </div>
+    </div>
+</div>
+<div class="mui-content">
+    <div class="mui-content-padded">
+        <h3>服务</h3>
+    </div>
+</div>
+<div class="mui-content" style="background-color:#fff">
+    <!--<ul class="mui-table-view mui-grid-view">
+        <li id="customLi" class="mui-table-view-cell mui-media mui-col-xs-6">
+            <a href="#">
+                <img class=" mui-media-object-img" th:src="@{/weichat/app/img/2.jpg}">
+                <div class="mui-media-body">校服定制</div>
+            </a>
+        </li>
+        <li id="modifyLi" class="mui-table-view-cell mui-media mui-col-xs-6">
+            <a href="#">
+                <img class=" mui-media-object-img" th:src="@{/weichat/app/img/4.jpg}">
+                <div class="mui-media-body">衣服修改</div>
+            </a>
+        </li>
 
-		</div>
-		<script type="text/javascript">
-			mui.init()
-			var gallery = mui('.mui-slider');
-			gallery.slider({
-			    interval: 2000 //自动轮播周期，若为0则不自动播放，默认为0；
-			});
-		</script>
-	</body>
+    </ul>-->
+    <!--列表信息流 开始-->
+    <div id="list" class="mui-scroll-wrapper">
+        <div class="mui-scroll">
+            <ul class="mui-table-view">
+                <li id="customLi" class="mui-table-view-cell mui-media">
+                    <a href="javascript:;"class="linkmedia" >
+                        <img class="mui-media-object mui-pull-left" th:src="@{/weichat/app/img/2.jpg}">
+                        <div class="mui-media-body">
+                            <div class="mui-ellipsis-1 title">衣服定制 </div>
+                            <div class="mui-ellipsis-2 describe">描述语言关于衣服定制的描述语言回复可见啊对方空间吧是的描述语言关于衣服定制的描述语言回复可见啊对方空间吧是的开描述语言关于衣服定制的描述语言回复可见啊对方空间吧是的开描述语言关于衣服定制的描述语言回复可见啊对方空间吧是的开描述语言关于衣服定制的描述语言回复可见啊对方空间吧是的开开发吧是的开发吧  </div>
+                        </div>
+                        <div id="shareDiv" class="meta-info">
+                            <img th:src="@{/weichat/app/img/share.png}" alt="" class="share">
+                        </div>
+                    </a>
+                </li>
+                <li id="modifyLi" class="mui-table-view-cell mui-media">
+                    <a href="javascript:;"class="linkmedia" >
+                        <img class="mui-media-object mui-pull-left" th:src="@{/weichat/app/img/4.jpg}">
+                        <div class="mui-media-body">
+                            <div class="mui-ellipsis-1 title">服装修改 </div>
+                            <div class="mui-ellipsis-2 describe">描述语言关于衣服定制的描述语言回复可见啊对方空间吧是的描述语言关于衣服定制的描述语言回复可见啊对方空间吧是的开描述语言关于衣服定制的描述语言回复可见啊对方空间吧是的开描述语言关于衣服定制的描述语言回复可见啊对方空间吧是的开描述语言关于衣服定制的描述语言回复可见啊对方空间吧是的开开发吧是的开发吧  </div>
+                        </div>
+                        <!--<div class="meta-info">
+                            <img th:src="@{/weichat/app/img/share.png}" alt="" class="share">
+                        </div>-->
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!--列表信息流 结束-->
+
+</div>
+
+<script type="text/javascript">
+    mui.init()
+    var gallery = mui('.mui-slider');
+    gallery.slider({
+        interval: 2000 //自动轮播周期，若为0则不自动播放，默认为0；
+    });
+</script>
+</body>
 
 </html>

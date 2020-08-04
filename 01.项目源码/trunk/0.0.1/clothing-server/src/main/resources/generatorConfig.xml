@@ -85,8 +85,8 @@
         </table>
 
        -->
-        <table schema="nnt_db_test" tableName="product_info">
-            <generatedKey column="product_id" sqlStatement="MySql" identity="true"/>
+        <table schema="nnt_db_test" tableName="nnt_share_statistics">
+            <generatedKey column="NUM_ID" sqlStatement="MySql" identity="true"/>
         </table>
         <!--<table schema="nnt_db_test" tableName="nnt_platform_coupon">
             <generatedKey column="NUM_ID" sqlStatement="MySql" identity="true"/>

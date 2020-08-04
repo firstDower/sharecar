@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dower.sharerideapp.core.serverdb.dao.NntShareStatisticsMapper">
+  <resultMap id="BaseResultMap" type="com.dower.sharerideapp.core.serverdb.model.NntShareStatistics">
+    <id column="NUM_ID" jdbcType="BIGINT" property="numId" />
+    <result column="VC_SHARE_USER_ID" jdbcType="VARCHAR" property="vcShareUserId" />
+    <result column="VC_ORDER_NO" jdbcType="VARCHAR" property="vcOrderNo" />
+    <result column="VC_USER_ID" jdbcType="VARCHAR" property="vcUserId" />
+    <result column="DAT_CREAT_TIME" jdbcType="TIMESTAMP" property="datCreatTime" />
+    <result column="NUM_IS_DEL" jdbcType="TINYINT" property="numIsDel" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    NUM_ID, VC_SHARE_USER_ID, VC_ORDER_NO, VC_USER_ID, DAT_CREAT_TIME, NUM_IS_DEL
+  </sql>
+  <select id="selectByExample" parameterType="com.dower.sharerideapp.core.serverdb.model.NntShareStatisticsExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from nnt_share_statistics
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from nnt_share_statistics
+    where NUM_ID = #{numId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from nnt_share_statistics
+    where NUM_ID = #{numId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.dower.sharerideapp.core.serverdb.model.NntShareStatisticsExample">
+    delete from nnt_share_statistics
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.dower.sharerideapp.core.serverdb.model.NntShareStatistics">
+    <selectKey keyProperty="numId" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into nnt_share_statistics (VC_SHARE_USER_ID, VC_ORDER_NO, VC_USER_ID, 
+      DAT_CREAT_TIME, NUM_IS_DEL)
+    values (#{vcShareUserId,jdbcType=VARCHAR}, #{vcOrderNo,jdbcType=VARCHAR}, #{vcUserId,jdbcType=VARCHAR}, 
+      #{datCreatTime,jdbcType=TIMESTAMP}, #{numIsDel,jdbcType=TINYINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dower.sharerideapp.core.serverdb.model.NntShareStatistics">
+    <selectKey keyProperty="numId" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into nnt_share_statistics
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="vcShareUserId != null">
+        VC_SHARE_USER_ID,
+      </if>
+      <if test="vcOrderNo != null">
+        VC_ORDER_NO,
+      </if>
+      <if test="vcUserId != null">
+        VC_USER_ID,
+      </if>
+      <if test="datCreatTime != null">
+        DAT_CREAT_TIME,
+      </if>
+      <if test="numIsDel != null">
+        NUM_IS_DEL,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="vcShareUserId != null">
+        #{vcShareUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="vcOrderNo != null">
+        #{vcOrderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="vcUserId != null">
+        #{vcUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="datCreatTime != null">
+        #{datCreatTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="numIsDel != null">
+        #{numIsDel,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.dower.sharerideapp.core.serverdb.model.NntShareStatisticsExample" resultType="java.lang.Long">
+    select count(*) from nnt_share_statistics
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update nnt_share_statistics
+    <set>
+      <if test="record.numId != null">
+        NUM_ID = #{record.numId,jdbcType=BIGINT},
+      </if>
+      <if test="record.vcShareUserId != null">
+        VC_SHARE_USER_ID = #{record.vcShareUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.vcOrderNo != null">
+        VC_ORDER_NO = #{record.vcOrderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.vcUserId != null">
+        VC_USER_ID = #{record.vcUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.datCreatTime != null">
+        DAT_CREAT_TIME = #{record.datCreatTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.numIsDel != null">
+        NUM_IS_DEL = #{record.numIsDel,jdbcType=TINYINT},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update nnt_share_statistics
+    set NUM_ID = #{record.numId,jdbcType=BIGINT},
+      VC_SHARE_USER_ID = #{record.vcShareUserId,jdbcType=VARCHAR},
+      VC_ORDER_NO = #{record.vcOrderNo,jdbcType=VARCHAR},
+      VC_USER_ID = #{record.vcUserId,jdbcType=VARCHAR},
+      DAT_CREAT_TIME = #{record.datCreatTime,jdbcType=TIMESTAMP},
+      NUM_IS_DEL = #{record.numIsDel,jdbcType=TINYINT}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dower.sharerideapp.core.serverdb.model.NntShareStatistics">
+    update nnt_share_statistics
+    <set>
+      <if test="vcShareUserId != null">
+        VC_SHARE_USER_ID = #{vcShareUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="vcOrderNo != null">
+        VC_ORDER_NO = #{vcOrderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="vcUserId != null">
+        VC_USER_ID = #{vcUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="datCreatTime != null">
+        DAT_CREAT_TIME = #{datCreatTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="numIsDel != null">
+        NUM_IS_DEL = #{numIsDel,jdbcType=TINYINT},
+      </if>
+    </set>
+    where NUM_ID = #{numId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dower.sharerideapp.core.serverdb.model.NntShareStatistics">
+    update nnt_share_statistics
+    set VC_SHARE_USER_ID = #{vcShareUserId,jdbcType=VARCHAR},
+      VC_ORDER_NO = #{vcOrderNo,jdbcType=VARCHAR},
+      VC_USER_ID = #{vcUserId,jdbcType=VARCHAR},
+      DAT_CREAT_TIME = #{datCreatTime,jdbcType=TIMESTAMP},
+      NUM_IS_DEL = #{numIsDel,jdbcType=TINYINT}
+    where NUM_ID = #{numId,jdbcType=BIGINT}
+  </update>
+</mapper>
