@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dower.sharerideapp.core.repository.share.ShareExtDao">
+
+    <select id="selectUserShareOrderList" parameterType="map" resultType="map">
+        SELECT
+            nss.NUM_ID,
+            nss.VC_SHARE_USER_ID,
+            nss.DAT_CREAT_TIME,
+            cp.NUM_ID orderId,
+            cp.NUM_NUM,
+            cp.NUM_STATE
+
+         FROM nnt_share_statistics nss
+            LEFT JOIN CL_PRODUCT cp ON nss.VC_ORDER_NO = cp.VC_ORDER_NO
+            WHERE nss.VC_SHARE_USER_ID = #{VC_USER_ID}
+    </select>
+
+
+</mapper>
