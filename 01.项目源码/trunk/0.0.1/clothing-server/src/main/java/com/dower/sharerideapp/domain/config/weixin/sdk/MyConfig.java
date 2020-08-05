@@ -8,7 +8,11 @@ import java.io.*;
 
 public class MyConfig extends WXPayConfig {
 
+    private String appId = "wx9e9b0787da65bc0f";
 
+    public void setAppId(String appId) {
+        this.appId = appId;
+    }
 
     /**
      * 获取 App ID
@@ -16,7 +20,7 @@ public class MyConfig extends WXPayConfig {
      * @return App ID
      */
     public String getAppID() {
-        return "wx9e9b0787da65bc0f";
+        return appId;
     }
     /**
      * 获取 Mch ID

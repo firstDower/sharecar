@@ -1,0 +1,45 @@
+<!doctype html>
+<html class="x-admin-sm">
+<head th:replace="common/weichat/htmlHead :: common_header(~{::title})">
+	<title>分享列表</title>
+</head>
+<style>
+	table{
+		width:100%;
+		border:1px solid #eee;
+		background-color: #fff;
+	}
+
+	table tr th,table tr td{
+		width:33%;
+		text-align: center;
+		line-height: 2;
+		font-size: 16px;
+		color:#333;
+
+	}
+
+	table tr th{
+		font-size: 20px;
+		background-color: cornflowerblue;
+
+	}
+</style>
+<body>
+<div th:insert="common/weichat/htmlJS::common_js(~{::script})">
+	<script type="text/javascript" th:src="@{/weichat/app/js/myShareList.js}"></script>
+</div>
+<table border="1" cellspacing="0" cellpadding="0">
+	<tr>
+		<th>时间</th>
+		<th>状态</th>
+		<th>数量</th>
+	</tr>
+	<tbody id="dataUl">
+
+	</tbody>
+</table>
+
+</body>
+
+</html>

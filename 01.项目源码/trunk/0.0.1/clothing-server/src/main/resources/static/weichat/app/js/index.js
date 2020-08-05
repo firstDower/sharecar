@@ -12,10 +12,50 @@ var index = {
             location.href= ctxPath + 'jump/weichat/modify';
         })
 
-        mui("body").on('tap', '#shareDiv', function (e) {
-            console.log("============");
-        });
         wxSignature();
+        //shareDiv
+        mui("body").on('tap', '#shareDiv', function (e) {
+            e.stopPropagation();
+            console.log("============");
+            $(".showPopove,.my-popove").show();
+        });
+
+
+
+        //返回公众号首页
+        pushHistory();
+        //监听触发物理返回按钮
+        window.addEventListener("popstate", function(e) {
+            f_close();//执行关闭浏览器窗口，返回公众号首页
+            return;
+        }, false);
+        function pushHistory() {
+            var state = {
+                title: "title",
+                url: "#"
+            };
+            window.history.pushState(state, "title", "#");
+        }
+        function f_close(){
+            if(typeof(WeixinJSBridge)!="undefined"){
+                WeixinJSBridge.call('closeWindow');
+            }else{
+                if (navigator.userAgent.indexOf("MSIE") > 0) {
+                    if (navigator.userAgent.indexOf("MSIE 6.0") > 0) {
+                        window.opener = null; window.close();
+                    } else {
+                        window.open('', '_top'); window.top.close();
+                    }
+                } else if (navigator.userAgent.indexOf("Firefox") > 0) {
+                    window.location.href = 'about:blank ';
+                } else {
+                    window.opener = null;
+                    window.open('', '_self', '');
+                    window.close();
+                }
+            }
+        }
+
     },
     getUserInfo:function () {
 
@@ -114,6 +154,7 @@ function setShare() {
             imgUrl: imgUrl, // 分享图标
             success: function () {
                 //mui.toast('分享到朋友圈success');
+                $(".showPopove,.my-popove").hide();
             }
         })
     });
@@ -127,7 +168,7 @@ function setShare() {
             link: url, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
             imgUrl: imgUrl, // 分享图标
             success: function () {
-                //mui.toast('分享给朋友success');
+                $(".showPopove,.my-popove").hide();
             }
         })
     });

@@ -26,14 +26,9 @@ public class ShareService {
      * @return
      */
     public RetResult selectUserShareOrderList(JSONObject jsonObject){
-        try{
-            Map param = new HashMap();
-            List<Map> maps = shareExtDao.selectUserShareOrderList(param);
-            return RetResponse.makeOKRsp(maps);
-        }catch (Exception e){
-            e.printStackTrace();
-            return RetResponse.makeErrRsp("查询班级信息异常！");
-        }
-
+        Map param = new HashMap();
+        param.put("VC_USER_ID",jsonObject.getString("VC_USER_ID"));
+        List<Map> maps = shareExtDao.selectUserShareOrderList(param);
+        return RetResponse.makeOKRsp(maps);
     }
 }

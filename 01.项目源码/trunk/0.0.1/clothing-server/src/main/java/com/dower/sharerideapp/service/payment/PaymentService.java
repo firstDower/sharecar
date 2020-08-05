@@ -15,6 +15,7 @@ import com.dower.sharerideapp.utils.DateUtils;
 import com.dower.sharerideapp.utils.ret.RetResponse;
 import com.dower.sharerideapp.utils.ret.RetResult;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -601,9 +602,9 @@ public class PaymentService {
             log.info("微信统一下单service，param：：{}",params);
 
             MyConfig config = new MyConfig();
-
-
-
+            if(params.containsKey("appId")&& StringUtils.isNotBlank(params.getString("appId"))){
+                config.setAppId(params.getString("appId"));
+            }
             WXPay wxpay = new WXPay(config);
 
 
@@ -783,7 +784,8 @@ public class PaymentService {
                     throw new MyException("微信支付结果更新服务，该订单数据已经更新过！");
                 }
             }else {
-                throw new MyException("微信支付结果更新服务，数据异常！");
+                log.info("取消订单：：没有支付记录！");
+                return RetResponse.makeOKRsp("取消订单成功！");
             }
 
         }catch (Exception e){

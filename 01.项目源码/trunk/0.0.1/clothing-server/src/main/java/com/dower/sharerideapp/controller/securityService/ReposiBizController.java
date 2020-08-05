@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.dower.sharerideapp.service.CommNewService;
 import com.dower.sharerideapp.service.CommService;
 import com.dower.sharerideapp.service.annotation.PublicUrl;
+import com.dower.sharerideapp.service.share.ShareService;
 import com.dower.sharerideapp.utils.CommUtil;
 import com.dower.sharerideapp.utils.Result;
 import com.dower.sharerideapp.utils.ret.RetResponse;
@@ -26,6 +27,8 @@ import javax.servlet.http.HttpServletResponse;
 public class ReposiBizController {
     @Autowired
     CommNewService commNewService;
+    @Autowired
+    ShareService shareService;
 
     public RetResult testToken (HttpServletRequest request, HttpServletResponse response)  throws Exception{
         JSONObject param = CommUtil.getParamData(request);
@@ -57,5 +60,16 @@ public class ReposiBizController {
     @RequestMapping("/getModelList")
     public RetResult getModelList(){
         return commNewService.getModelList();
+    }
+
+
+    /**
+     * 用户获取自己的分享数据
+     * @return
+     */
+    @RequestMapping("/selectUserShareOrderList")
+    public RetResult selectUserShareOrderList(HttpServletRequest request){
+        JSONObject param = CommUtil.getParamData(request);
+        return shareService.selectUserShareOrderList(param);
     }
 }

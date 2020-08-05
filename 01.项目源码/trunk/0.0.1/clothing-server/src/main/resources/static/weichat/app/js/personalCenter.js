@@ -7,6 +7,9 @@ var personalCenter = {
         $(".orderIcon").click(function () {
             location.href= ctxPath + 'jump/weichat/orderList';
         })
+        mui("body").on('tap', '#shareList', function (e) {
+            location.href= ctxPath + 'jump/weichat/myShareList';
+        });
         personalCenter.getUserInfo();
     },
     getUserInfo:function () {
