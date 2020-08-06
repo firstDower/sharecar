@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.dower.sharerideapp.core.serverdb.dao.ClFnGradeMapper">
-  <resultMap id="BaseResultMap" type="com.dower.sharerideapp.core.serverdb.model.ClFnGrade">
-    <id column="NUM_ID" jdbcType="BIGINT" property="numId" />
-    <result column="VC_GRADE_NAME" jdbcType="VARCHAR" property="vcGradeName" />
+<mapper namespace="com.dower.sharerideapp.core.serverdb.dao.NntShareStatisticsSettlementMapper">
+  <resultMap id="BaseResultMap" type="com.dower.sharerideapp.core.serverdb.model.NntShareStatisticsSettlement">
+    <id column="num_id" jdbcType="BIGINT" property="numId" />
+    <result column="vc_user_no" jdbcType="VARCHAR" property="vcUserNo" />
+    <result column="num_settlement_state" jdbcType="TINYINT" property="numSettlementState" />
+    <result column="DAT_CREAT_TIME" jdbcType="TIMESTAMP" property="datCreatTime" />
     <result column="NUM_IS_DEL" jdbcType="TINYINT" property="numIsDel" />
-    <result column="NUM_SORT" jdbcType="INTEGER" property="numSort" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -66,15 +67,15 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    NUM_ID, VC_GRADE_NAME, NUM_IS_DEL, NUM_SORT
+    num_id, vc_user_no, num_settlement_state, DAT_CREAT_TIME, NUM_IS_DEL
   </sql>
-  <select id="selectByExample" parameterType="com.dower.sharerideapp.core.serverdb.model.ClFnGradeExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.dower.sharerideapp.core.serverdb.model.NntShareStatisticsSettlementExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from cl_fn_grade
+    from nnt_share_statistics_settlement
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -85,76 +86,85 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from cl_fn_grade
-    where NUM_ID = #{numId,jdbcType=BIGINT}
+    from nnt_share_statistics_settlement
+    where num_id = #{numId,jdbcType=BIGINT}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-    delete from cl_fn_grade
-    where NUM_ID = #{numId,jdbcType=BIGINT}
+    delete from nnt_share_statistics_settlement
+    where num_id = #{numId,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByExample" parameterType="com.dower.sharerideapp.core.serverdb.model.ClFnGradeExample">
-    delete from cl_fn_grade
+  <delete id="deleteByExample" parameterType="com.dower.sharerideapp.core.serverdb.model.NntShareStatisticsSettlementExample">
+    delete from nnt_share_statistics_settlement
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.dower.sharerideapp.core.serverdb.model.ClFnGrade">
+  <insert id="insert" parameterType="com.dower.sharerideapp.core.serverdb.model.NntShareStatisticsSettlement">
     <selectKey keyProperty="numId" order="AFTER" resultType="java.lang.Long">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into cl_fn_grade (VC_GRADE_NAME, NUM_IS_DEL, NUM_SORT
-      )
-    values (#{vcGradeName,jdbcType=VARCHAR}, #{numIsDel,jdbcType=TINYINT}, #{numSort,jdbcType=INTEGER}
-      )
+    insert into nnt_share_statistics_settlement (vc_user_no, num_settlement_state, DAT_CREAT_TIME, 
+      NUM_IS_DEL)
+    values (#{vcUserNo,jdbcType=VARCHAR}, #{numSettlementState,jdbcType=TINYINT}, #{datCreatTime,jdbcType=TIMESTAMP}, 
+      #{numIsDel,jdbcType=TINYINT})
   </insert>
-  <insert id="insertSelective" parameterType="com.dower.sharerideapp.core.serverdb.model.ClFnGrade">
+  <insert id="insertSelective" parameterType="com.dower.sharerideapp.core.serverdb.model.NntShareStatisticsSettlement">
     <selectKey keyProperty="numId" order="AFTER" resultType="java.lang.Long">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into cl_fn_grade
+    insert into nnt_share_statistics_settlement
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="vcGradeName != null">
-        VC_GRADE_NAME,
+      <if test="vcUserNo != null">
+        vc_user_no,
+      </if>
+      <if test="numSettlementState != null">
+        num_settlement_state,
+      </if>
+      <if test="datCreatTime != null">
+        DAT_CREAT_TIME,
       </if>
       <if test="numIsDel != null">
         NUM_IS_DEL,
       </if>
-      <if test="numSort != null">
-        NUM_SORT,
-      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="vcGradeName != null">
-        #{vcGradeName,jdbcType=VARCHAR},
+      <if test="vcUserNo != null">
+        #{vcUserNo,jdbcType=VARCHAR},
+      </if>
+      <if test="numSettlementState != null">
+        #{numSettlementState,jdbcType=TINYINT},
+      </if>
+      <if test="datCreatTime != null">
+        #{datCreatTime,jdbcType=TIMESTAMP},
       </if>
       <if test="numIsDel != null">
         #{numIsDel,jdbcType=TINYINT},
       </if>
-      <if test="numSort != null">
-        #{numSort,jdbcType=INTEGER},
-      </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.dower.sharerideapp.core.serverdb.model.ClFnGradeExample" resultType="java.lang.Long">
-    select count(*) from cl_fn_grade
+  <select id="countByExample" parameterType="com.dower.sharerideapp.core.serverdb.model.NntShareStatisticsSettlementExample" resultType="java.lang.Long">
+    select count(*) from nnt_share_statistics_settlement
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update cl_fn_grade
+    update nnt_share_statistics_settlement
     <set>
       <if test="record.numId != null">
-        NUM_ID = #{record.numId,jdbcType=BIGINT},
+        num_id = #{record.numId,jdbcType=BIGINT},
       </if>
-      <if test="record.vcGradeName != null">
-        VC_GRADE_NAME = #{record.vcGradeName,jdbcType=VARCHAR},
+      <if test="record.vcUserNo != null">
+        vc_user_no = #{record.vcUserNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.numSettlementState != null">
+        num_settlement_state = #{record.numSettlementState,jdbcType=TINYINT},
+      </if>
+      <if test="record.datCreatTime != null">
+        DAT_CREAT_TIME = #{record.datCreatTime,jdbcType=TIMESTAMP},
       </if>
       <if test="record.numIsDel != null">
         NUM_IS_DEL = #{record.numIsDel,jdbcType=TINYINT},
-      </if>
-      <if test="record.numSort != null">
-        NUM_SORT = #{record.numSort,jdbcType=INTEGER},
       </if>
     </set>
     <if test="_parameter != null">
@@ -162,35 +172,40 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update cl_fn_grade
-    set NUM_ID = #{record.numId,jdbcType=BIGINT},
-      VC_GRADE_NAME = #{record.vcGradeName,jdbcType=VARCHAR},
-      NUM_IS_DEL = #{record.numIsDel,jdbcType=TINYINT},
-      NUM_SORT = #{record.numSort,jdbcType=INTEGER}
+    update nnt_share_statistics_settlement
+    set num_id = #{record.numId,jdbcType=BIGINT},
+      vc_user_no = #{record.vcUserNo,jdbcType=VARCHAR},
+      num_settlement_state = #{record.numSettlementState,jdbcType=TINYINT},
+      DAT_CREAT_TIME = #{record.datCreatTime,jdbcType=TIMESTAMP},
+      NUM_IS_DEL = #{record.numIsDel,jdbcType=TINYINT}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.dower.sharerideapp.core.serverdb.model.ClFnGrade">
-    update cl_fn_grade
+  <update id="updateByPrimaryKeySelective" parameterType="com.dower.sharerideapp.core.serverdb.model.NntShareStatisticsSettlement">
+    update nnt_share_statistics_settlement
     <set>
-      <if test="vcGradeName != null">
-        VC_GRADE_NAME = #{vcGradeName,jdbcType=VARCHAR},
+      <if test="vcUserNo != null">
+        vc_user_no = #{vcUserNo,jdbcType=VARCHAR},
+      </if>
+      <if test="numSettlementState != null">
+        num_settlement_state = #{numSettlementState,jdbcType=TINYINT},
+      </if>
+      <if test="datCreatTime != null">
+        DAT_CREAT_TIME = #{datCreatTime,jdbcType=TIMESTAMP},
       </if>
       <if test="numIsDel != null">
         NUM_IS_DEL = #{numIsDel,jdbcType=TINYINT},
       </if>
-      <if test="numSort != null">
-        NUM_SORT = #{numSort,jdbcType=INTEGER},
-      </if>
     </set>
-    where NUM_ID = #{numId,jdbcType=BIGINT}
+    where num_id = #{numId,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.dower.sharerideapp.core.serverdb.model.ClFnGrade">
-    update cl_fn_grade
-    set VC_GRADE_NAME = #{vcGradeName,jdbcType=VARCHAR},
-      NUM_IS_DEL = #{numIsDel,jdbcType=TINYINT},
-      NUM_SORT = #{numSort,jdbcType=INTEGER}
-    where NUM_ID = #{numId,jdbcType=BIGINT}
+  <update id="updateByPrimaryKey" parameterType="com.dower.sharerideapp.core.serverdb.model.NntShareStatisticsSettlement">
+    update nnt_share_statistics_settlement
+    set vc_user_no = #{vcUserNo,jdbcType=VARCHAR},
+      num_settlement_state = #{numSettlementState,jdbcType=TINYINT},
+      DAT_CREAT_TIME = #{datCreatTime,jdbcType=TIMESTAMP},
+      NUM_IS_DEL = #{numIsDel,jdbcType=TINYINT}
+    where num_id = #{numId,jdbcType=BIGINT}
   </update>
 </mapper>

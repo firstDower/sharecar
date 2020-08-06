@@ -85,9 +85,9 @@
         </table>
 
        -->
-        <table schema="nnt_db_test" tableName="nnt_share_statistics">
+        <!--<table schema="nnt_db_test" tableName="nnt_share_statistics">
             <generatedKey column="NUM_ID" sqlStatement="MySql" identity="true"/>
-        </table>
+        </table>-->
         <!--<table schema="nnt_db_test" tableName="nnt_platform_coupon">
             <generatedKey column="NUM_ID" sqlStatement="MySql" identity="true"/>
         </table>
@@ -97,12 +97,18 @@
         <table schema="nnt_db_test" tableName="product_category">
             <generatedKey column="category_id" sqlStatement="MySql" identity="true"/>
         </table>-->
-        <!-- <table schema="nnt_db" tableName="CL_FN_GRADE">
+        <!--<table schema="nnt_db" tableName="cl_fn_grade">
             <generatedKey column="NUM_ID" sqlStatement="MySql" identity="true"/>
         </table>
-        <table schema="nnt_db" tableName="CL_FN_SCHOOL">
+        <table schema="nnt_db" tableName="cl_fn_school">
+            <generatedKey column="NUM_ID" sqlStatement="MySql" identity="true"/>
+        </table>
+        <table schema="nnt_db" tableName="cl_fn_model">
             <generatedKey column="NUM_ID" sqlStatement="MySql" identity="true"/>
         </table>-->
+        <table schema="nnt_db" tableName="nnt_share_statistics_settlement">
+            <generatedKey column="NUM_ID" sqlStatement="MySql" identity="true"/>
+        </table>
 
         <!--<table schema="nnt_db_test" tableName="nna_users">
             <generatedKey column="NUM_USER_ID" sqlStatement="MySql" identity="true"/>

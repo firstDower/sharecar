@@ -87,8 +87,8 @@ cp.VC_ORDER_NO,
 cp.VC_UNION_ID,
 cp.VC_SIGN_DESC
 FROM
-CL_PRODUCT cp
-LEFT JOIN CL_FN_GRADE cfg
+cl_product cp
+LEFT JOIN cl_fn_grade cfg
 on cp.NUM_GRADE_ID = cfg.NUM_ID
 LEFT JOIN CL_FN_SCHOOL cfs
 on cp.NUM_SCHOOL_ID = cfs.NUM_ID

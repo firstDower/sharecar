@@ -2,6 +2,7 @@ package com.dower.sharerideapp.controller.admin;
 
 import com.alibaba.fastjson.JSONObject;
 import com.dower.sharerideapp.service.payment.CouponService;
+import com.dower.sharerideapp.service.share.ShareService;
 import com.dower.sharerideapp.utils.CommUtil;
 import com.dower.sharerideapp.utils.Result;
 import com.dower.sharerideapp.utils.ret.RetResponse;
@@ -28,6 +29,8 @@ public class CouponServerController {
 
     @Autowired
     CouponService couponService;
+    @Autowired
+    ShareService shareService;
     /**
      * 查询平台优惠券列表
      * @param request
@@ -37,5 +40,27 @@ public class CouponServerController {
     public RetResult queryPlatformCouponPage(HttpServletRequest request) {
         JSONObject dataObj = CommUtil.getParamData(request);
         return couponService.platformCouponList(dataObj);
+    }
+
+    /**
+     * 管理后台统计分享列表
+     * @return
+     */
+    @RequestMapping("/selectSharePage")
+    public RetResult selectSharePage(HttpServletRequest request){
+        JSONObject param = CommUtil.getParamData(request);
+        return shareService.selectSharePage(param);
+    }
+
+    //editUserShareOrderState
+    /**
+     * 管理后台统计分享列表
+     * 修改结算状态
+     * @return
+     */
+    @RequestMapping("/editUserShareOrderState")
+    public RetResult editUserShareOrderState(HttpServletRequest request){
+        JSONObject param = CommUtil.getParamData(request);
+        return shareService.editUserShareOrderState(param);
     }
 }

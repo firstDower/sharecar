@@ -99,7 +99,7 @@
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from CL_PRODUCT
+    from cl_product
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -110,15 +110,15 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from CL_PRODUCT
+    from cl_product
     where NUM_ID = #{numId,jdbcType=BIGINT}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-    delete from CL_PRODUCT
+    delete from cl_product
     where NUM_ID = #{numId,jdbcType=BIGINT}
   </delete>
   <delete id="deleteByExample" parameterType="com.dower.sharerideapp.core.serverdb.model.ClProductExample">
-    delete from CL_PRODUCT
+    delete from cl_product
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -127,7 +127,7 @@
     <selectKey keyProperty="numId" order="AFTER" resultType="java.lang.Long">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into CL_PRODUCT (VC_HIGHT, VC_WIGHT, VC_NAME, 
+    insert into cl_product (VC_HIGHT, VC_WIGHT, VC_NAME, 
       VC_PHONE, NUM_TYPE, NUM_NUM, 
       NUM_STATE, DAT_CREAT_TIME, DAT_UPDATE_TIME, 
       NUM_PRICE, VC_USER_ID, VC_OPEN_ID, 
@@ -150,7 +150,7 @@
     <selectKey keyProperty="numId" order="AFTER" resultType="java.lang.Long">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into CL_PRODUCT
+    insert into cl_product
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="vcHight != null">
         VC_HIGHT,
@@ -307,13 +307,13 @@
     </trim>
   </insert>
   <select id="countByExample" parameterType="com.dower.sharerideapp.core.serverdb.model.ClProductExample" resultType="java.lang.Long">
-    select count(*) from CL_PRODUCT
+    select count(*) from cl_product
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update CL_PRODUCT
+    update cl_product
     <set>
       <if test="record.numId != null">
         NUM_ID = #{record.numId,jdbcType=BIGINT},
@@ -399,7 +399,7 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update CL_PRODUCT
+    update cl_product
     set NUM_ID = #{record.numId,jdbcType=BIGINT},
       VC_HIGHT = #{record.vcHight,jdbcType=VARCHAR},
       VC_WIGHT = #{record.vcWight,jdbcType=VARCHAR},
@@ -431,7 +431,7 @@
     </if>
   </update>
   <update id="updateByPrimaryKeySelective" parameterType="com.dower.sharerideapp.core.serverdb.model.ClProduct">
-    update CL_PRODUCT
+    update cl_product
     <set>
       <if test="vcHight != null">
         VC_HIGHT = #{vcHight,jdbcType=VARCHAR},
@@ -512,7 +512,7 @@
     where NUM_ID = #{numId,jdbcType=BIGINT}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.dower.sharerideapp.core.serverdb.model.ClProduct">
-    update CL_PRODUCT
+    update cl_product
     set VC_HIGHT = #{vcHight,jdbcType=VARCHAR},
       VC_WIGHT = #{vcWight,jdbcType=VARCHAR},
       VC_NAME = #{vcName,jdbcType=VARCHAR},

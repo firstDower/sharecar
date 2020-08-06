@@ -11,4 +11,5 @@ import java.util.Map;
  */
 public interface ShareExtDao {
     List<Map> selectUserShareOrderList(Map param);
+    List<Map> selectSharePage(Map param);
 }

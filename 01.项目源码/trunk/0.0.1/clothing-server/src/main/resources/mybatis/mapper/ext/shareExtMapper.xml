@@ -12,9 +12,42 @@
             cp.NUM_STATE
 
          FROM nnt_share_statistics nss
-            LEFT JOIN CL_PRODUCT cp ON nss.VC_ORDER_NO = cp.VC_ORDER_NO
+            LEFT JOIN cl_product cp ON nss.VC_ORDER_NO = cp.VC_ORDER_NO
             WHERE nss.VC_SHARE_USER_ID = #{VC_USER_ID}
     </select>
-
+    <select id="selectSharePage" parameterType="map" resultType="map">
+        SELECT
+            nu.VC_NICKNAME,
+            nu.VC_PHONE,
+            t1.VC_SHARE_USER_ID,
+            t2.orderTotalNum finishOrderTotalNum,
+            t1.orderTotalNum,
+        nsss.num_settlement_state
+        FROM
+            (
+                SELECT
+                    nss.VC_SHARE_USER_ID,
+                    SUM(cp.num_num) orderTotalNum
+                FROM
+                    nnt_share_statistics nss
+                LEFT JOIN cl_product cp ON nss.VC_ORDER_NO = cp.vc_order_no
+                GROUP BY
+                    nss.VC_SHARE_USER_ID
+            ) t1
+        LEFT JOIN nnt_users nu ON t1.VC_SHARE_USER_ID = nu.NUM_USER_ID
+        LEFT JOIN (
+            SELECT
+                nss.VC_SHARE_USER_ID,
+                SUM(cp.num_num) orderTotalNum
+            FROM
+                nnt_share_statistics nss
+            LEFT JOIN cl_product cp ON nss.VC_ORDER_NO = cp.vc_order_no
+            WHERE
+                cp.num_state = 7
+            GROUP BY
+                nss.VC_SHARE_USER_ID
+        ) t2 ON t1.VC_SHARE_USER_ID = t2.VC_SHARE_USER_ID
+        LEFT JOIN nnt_share_statistics_settlement nsss ON t1.VC_SHARE_USER_ID = nsss.vc_user_no
+    </select>
 
 </mapper>

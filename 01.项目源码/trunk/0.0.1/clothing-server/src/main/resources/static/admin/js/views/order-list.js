@@ -104,7 +104,18 @@ layui.use('table', function(){
                 ,{field: 'numPrice',width:'5%' ,  title: '价格',templet:function (d) {
                     var result = "";
                     var numPrice = d.numPrice;
-                    return Number(numPrice)/100;
+                    var numNum = d.numNum;
+                    return Number(numPrice)/100*Number(numNum);
+                }}
+                ,{field: 'numTotalFee',width:'8%' ,  title: '实付款',templet:function (d) {
+                    var result = "";
+                    var numTotalFee = d.numTotalFee;
+                    if(numTotalFee=='undefined'||typeof(numTotalFee) == "undefined"){
+                        return 0;
+                    }else {
+                        return Number(numTotalFee)/100;
+                    }
+
                 }}
                 ,{field: 'numState',width:'5%' ,  title: '状态',
                     templet: function(d){

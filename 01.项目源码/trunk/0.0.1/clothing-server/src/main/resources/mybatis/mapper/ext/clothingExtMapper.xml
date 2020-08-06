@@ -31,12 +31,14 @@
         cp.VC_EXPIRE_TIME vcExpireTime,
         cfg.VC_GRADE_NAME vcGradeName,
         cfs.VC_SCHOOL_NAME vcSchoolName,
-        cfm.VC_MODEL_NAME vcModelName
+        cfm.VC_MODEL_NAME vcModelName,
+        pf.NUM_TOTAL_FEE numTotalFee
         FROM
-        CL_PRODUCT cp
-        LEFT JOIN CL_FN_GRADE cfg ON cp.NUM_GRADE_ID = cfg.NUM_ID
-        LEFT JOIN CL_FN_SCHOOL cfs ON cp.NUM_SCHOOL_ID = cfs.NUM_ID
-        LEFT JOIN CL_FN_MODEL cfm ON cp.NUM_MODEL_ID = cfm.NUM_ID
+        cl_product cp
+        LEFT JOIN cl_fn_grade cfg ON cp.NUM_GRADE_ID = cfg.NUM_ID
+        LEFT JOIN cl_fn_school cfs ON cp.NUM_SCHOOL_ID = cfs.NUM_ID
+        LEFT JOIN cl_fn_model cfm ON cp.NUM_MODEL_ID = cfm.NUM_ID
+        LEFT JOIN payment_flow pf on cp.VC_ORDER_NO = pf.VC_ORDER_NO
         WHERE
         (
         cp.NUM_IS_DEL = 1
@@ -88,8 +90,9 @@
         cp.DAT_CREAT_TIME DESC
     </select>
     <select id="selectLastNumid" parameterType="map" resultType="long">
-		select num_id from CL_PRODUCT order by NUM_ID desc limit 1 ;
+		select num_id from cl_product order by NUM_ID desc limit 1 ;
 	</select>
+
     <select id="selectUserCouponList" parameterType="map" resultType="map">
 			select
 			t1.*,
@@ -138,7 +141,7 @@
 			t8.VC_GRADE_NAME,
 			t9.VC_MODEL_NAME
 from
-	(SELECT * from CL_PRODUCT where vc_order_no = #{vcOrderNo}) t1
+	(SELECT * from cl_product where vc_order_no = #{vcOrderNo}) t1
 	LEFT JOIN
 	payment_order_record t2 on t1.vc_order_no = t2.VC_ORDER_NO
 	left JOIN
@@ -150,11 +153,11 @@ from
 	LEFT JOIN
 	nnt_user_balance_change_recode t6 on t2.NUM_USER_MONEY_LOG_ID = t6.NUM_ID
 	LEFT JOIN
-	CL_FN_SCHOOL t7 on t1.NUM_SCHOOL_ID = t7.NUM_ID
+	cl_fn_school t7 on t1.NUM_SCHOOL_ID = t7.NUM_ID
 	LEFT JOIN
-	CL_FN_GRADE t8 on t1.NUM_GRADE_ID = t8.NUM_ID
+	cl_fn_grade t8 on t1.NUM_GRADE_ID = t8.NUM_ID
 	LEFT JOIN
-	CL_FN_MODEL t9 on t1.NUM_MODEL_ID =t9.NUM_ID
+	cl_fn_model t9 on t1.NUM_MODEL_ID =t9.NUM_ID
 	</select>
 
 </mapper>

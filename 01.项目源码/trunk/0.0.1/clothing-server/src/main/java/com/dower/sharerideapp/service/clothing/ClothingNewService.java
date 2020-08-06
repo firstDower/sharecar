@@ -4,10 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.dower.sharerideapp.core.repository.UsersDao;
 import com.dower.sharerideapp.core.repository.clothing.ClothingExtDao;
-import com.dower.sharerideapp.core.serverdb.dao.ClProductMapper;
-import com.dower.sharerideapp.core.serverdb.dao.NntShareStatisticsMapper;
-import com.dower.sharerideapp.core.serverdb.dao.NntUserCouponsMapper;
-import com.dower.sharerideapp.core.serverdb.dao.NntUserinfoMapper;
+import com.dower.sharerideapp.core.serverdb.dao.*;
 import com.dower.sharerideapp.core.serverdb.model.*;
 import com.dower.sharerideapp.service.exception.MyException;
 import com.dower.sharerideapp.utils.CommUtil;
@@ -47,6 +44,8 @@ public class ClothingNewService {
     private NntUserCouponsMapper nntUserCouponsMapper;
     @Autowired
     private NntShareStatisticsMapper nntShareStatisticsMapper;
+    @Autowired
+    private NntUsersMapper nntUsersMapper;
 
     /**
      * {"NUM_HIGHT":"175","NUM_WIGHT":"65","VC_NAME":"张三","VC_PHONE":"15555551649","NUM_TYPE":"1"}
@@ -139,10 +138,18 @@ public class ClothingNewService {
                 }else {
                     log.info("用户自己给自己分享，订单不做分享记录！");
                 }
-
-
             }
-
+            //如果用户手机号为空，更新手机号到用户信息表
+            NntUsersExample nntUsersExample = new NntUsersExample();
+            NntUsersExample.Criteria criteria = nntUsersExample.createCriteria();
+            criteria.andNumUserIdEqualTo(jsonparams.getString("VC_USER_ID"));
+            List<NntUsers> nntUsers = nntUsersMapper.selectByExample(nntUsersExample);
+            NntUsers nntUsers1 = nntUsers.get(0);
+            String vcPhone = nntUsers1.getVcPhone();
+            if(StringUtils.isBlank(vcPhone)){
+                nntUsers1.setVcPhone(vc_phone);
+                int i1 = nntUsersMapper.updateByPrimaryKey(nntUsers1);
+            }
             log.info("创建定制衣服订单成功：{}",i);
             return RetResponse.makeOKRsp(vcOrderNo);
         }catch (Exception e){
