@@ -7,155 +7,115 @@
 <div th:insert="common/htmlJS::common_js(~{::script})">
     <script type="text/javascript" th:src="@{/admin/js/views/goodsEdit.js}"></script>
 </div>
-        <div class="layui-fluid">
-            <div class="layui-row">
-                <form class="layui-form">
-                    <div class="layui-form-item">
-                        <div class="layui-inline">
-                            <label class="layui-form-label"><span class="x-red">*</span>类型</label>
-                            <div class="layui-input-inline">
-                                <select id="NUM_PAR_TYPE" name="NUM_PAR_TYPE">
-                                    <option value="1">定制</option>
-                                    <option selected value="2">修改</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="layui-inline">
-                            <label class="layui-form-label"><span class="x-red">*</span>产品分类</label>
-                            <div class="layui-input-inline">
-                                <select id="NUM_TYPE" name="NUM_TYPE">
-                                    <option value="1">校服裤</option>
-                                    <option value="2">半袖</option>
-                                    <option value="4">其他</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="layui-inline">
-                            <label class="layui-form-label">状态</label>
-                            <div class="layui-input-inline">
-                                <select id="NUM_STATE" name="NUM_STATE">
-                                    <option value="1">预约</option>
-                                    <option value="2">确认制作</option>
-                                    <option value="3">取消制作</option>
-                                    <option value="4">制作完成</option>
-                                    <option value="5">通知取货</option>
-                                    <option value="6">制作修改</option>
-                                    <option value="7">已经取货,完成订单</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="layui-inline">
-                            <label class="layui-form-label">支付状态</label>
-                            <div class="layui-input-inline">
-                                <select id="NUM_PAY_STATE" name="NUM_PAY_STATE">
-                                    <option value="1">待支付</option>
-                                    <option value="2">预支付</option>
-                                    <option value="3">支付成功</option>
-                                    <option value="4">支付失败</option>
-                                    <option value="5">修改价格</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="layui-inline">
-                            <label class="layui-form-label">支付方式</label>
-                            <div class="layui-input-inline">
-                                <select id="NUM_PAY_TYPE" name="NUM_PAY_TYPE">
-                                    <option value="1">线下支付</option>
-                                    <option value="2">微信支付</option>
-                                </select>
-                            </div>
-                        </div>
+<div class="layui-fluid">
+    <div class="layui-row">
+        <form class="layui-form">
+            <div class="layui-form-item">
+                <div class="layui-inline">
+                    <label class="layui-form-label"><span class="x-red">*</span>商品分类</label>
+                    <div class="layui-input-inline">
+                        <select id="category_id" name="category_id">
+                        </select>
                     </div>
-                    <div class="layui-form-item">
-                        <div class="layui-inline">
-                            <label class="layui-form-label">学校</label>
-                            <div class="layui-input-inline">
-                                <select  lay-verify="NUM_SCHOOL_ID" name="NUM_SCHOOL_ID" lay-filter="NUM_SCHOOL_ID" id="NUM_SCHOOL_ID">
-                                </select>
-                            </div>
-                        </div>
-                        <div class="layui-inline">
-                            <label class="layui-form-label">年级</label>
-                            <div class="layui-input-inline">
-                                <select name="NUM_GRADE_ID" id="NUM_GRADE_ID">
-                                </select>
-                            </div>
-                        </div>
-                        <div class="layui-inline">
-                            <label class="layui-form-label">款式</label>
-                            <div class="layui-input-inline">
-                                <select id="NUM_MODEL_ID" name="NUM_MODEL_ID">
-                                </select>
-                            </div>
-                        </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label"><span class="x-red">*</span>服装类型</label>
+                    <div class="layui-input-inline">
+                        <select id="num_clouth_type_id" name="num_clouth_type_id">
+                        </select>
                     </div>
-                    <div class="layui-form-item">
-                        <div class="layui-inline">
-                            <label class="layui-form-label">姓名</label>
-                            <div class="layui-input-inline">
-                                <input type="text" id="VC_NAME" name="VC_NAME" placeholder="" autocomplete="off" class="layui-input">
-                            </div>
-                        </div>
-                        <div class="layui-inline">
-                            <label class="layui-form-label"><span class="x-red">*</span>手机号</label>
-                            <div class="layui-input-inline">
-                                <input type="text" id="VC_PHONE" name="VC_PHONE" placeholder="" lay-verify="phone" autocomplete="off" class="layui-input">
-                            </div>
-                        </div>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-inline">
+                    <label class="layui-form-label">学校</label>
+                    <div class="layui-input-inline">
+                        <select lay-verify="NUM_SCHOOL_ID" name="NUM_SCHOOL_ID" lay-filter="NUM_SCHOOL_ID"
+                                id="NUM_SCHOOL_ID">
+                        </select>
                     </div>
-                    <div class="layui-form-item">
-                        <div class="layui-inline">
-                            <label class="layui-form-label">身高</label>
-                            <div class="layui-input-inline">
-                                <input type="text" id="VC_HIGHT" name="VC_HIGHT" placeholder="" autocomplete="off" class="layui-input">
-                            </div>
-                        </div>
-                        <div class="layui-inline">
-                            <label class="layui-form-label">体重</label>
-                            <div class="layui-input-inline">
-                                <input type="text" id="VC_WIGHT" name="VC_WIGHT" placeholder="" autocomplete="off" class="layui-input">
-                            </div>
-                        </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label">款式</label>
+                    <div class="layui-input-inline">
+                        <select id="NUM_MODEL_ID" name="NUM_MODEL_ID">
+                        </select>
                     </div>
-                    <div class="layui-form-item">
-                        <div class="layui-inline">
-                            <label class="layui-form-label">数量</label>
-                            <div class="layui-input-inline">
-                                <input type="text" id="NUM_NUM" name="NUM_NUM" value="1" placeholder="" autocomplete="off" class="layui-input">
-                            </div>
-                        </div>
+                </div>
+
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-inline">
+                    <label class="layui-form-label">商品名称</label>
+                    <div class="layui-input-inline">
+                        <input type="text" id="product_name" name="product_name" placeholder="" autocomplete="off"
+                               class="layui-input">
                     </div>
-                    <div class="layui-form-item">
-                        <div class="layui-inline">
-                            <label class="layui-form-label">价格</label>
-                            <div class="layui-input-inline">
-                                <input type="text" id="NUM_PRICE" name="NUM_PRICE" placeholder="" autocomplete="off" class="layui-input">
-                            </div>
-                        </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label"><span class="x-red">*</span>商品价格</label>
+                    <div class="layui-input-inline">
+                        <input type="text" id="num_product_price" name="num_product_price" placeholder=""
+                               lay-verify="number" autocomplete="off" class="layui-input">
                     </div>
-                    <div class="layui-form-item layui-form-text">
-                        <label for="VC_SIGN_DESC" class="layui-form-label">备注</label>
-                        <div class="layui-input-block">
-                            <textarea placeholder="请输入内容" id="VC_NOTES" name="VC_SIGN_DESC" class="layui-textarea" readonly></textarea>
-                        </div>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-inline">
+                    <label class="layui-form-label">发布状态</label>
+                    <div class="layui-input-inline">
+                        <select id="publish_status" name="publish_status">
+                            <option value="1">上架</option>
+                            <option value="2">下架</option>
+                        </select>
                     </div>
-                    <div class="layui-form-item layui-form-text">
-                        <label for="VC_SIGN_DESC" class="layui-form-label">描述</label>
-                        <div class="layui-input-block">
-                            <textarea placeholder="请输入内容" id="VC_SIGN_DESC" name="VC_SIGN_DESC" class="layui-textarea"></textarea>
-                        </div>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-inline">
+                    <label class="layui-form-label">描述</label>
+                    <div class="layui-input-block">
+                        <textarea style="width: 500px;" id="descript" name="descript" placeholder="请输入内容"
+                                  class="layui-textarea"></textarea>
                     </div>
-                    <div class="layui-form-item">
-                        <div class="layui-inline">
-                            <label class="layui-form-label"></label>
-                            <button class="layui-btn" lay-filter="orderEdit" lay-submit="">提交</button>
-                        </div>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-inline">
+                    <label class="layui-form-label">介绍</label>
+                    <div class="layui-input-block">
+                        <textarea style="width: 500px;" id="introduction" name="introduction" placeholder="请输入内容"
+                                  class="layui-textarea"></textarea>
                     </div>
+                </div>
+            </div>
+            <div class="layui-form-item layui-form-text">
+                <label class="layui-form-label">商品展示图片</label>
+                <div class="layui-input-inline">
+                    <input type="hidden" name="pic_url" lay-verify="required" id="pic_url" placeholder="图片地址"
+                           class="layui-input">
+                </div>
+                <div class="layui-input-inline layui-btn-container" style="width: auto;">
+                    <button type="button" class="layui-btn" id="imgUploadId">
+                        <i class="layui-icon">&#xe67c;</i>上传图片
+                    </button>
+                </div>
+                <div class="layui-input-inline">
+                    <div class="layui-upload-list" style="margin:0">
+                        <img style="height: 150px;" src="" id="srcimgurl" class="layui-upload-img">
+                    </div>
+                </div>
+
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-inline">
+                    <label class="layui-form-label"></label>
+                    <button class="layui-btn"  lay-filter="goodsEdit" lay-submit="">提交</button>
+                </div>
+            </div>
         </form>
-        </div>
-        </div>
-        <script>
-        </script>
-    </body>
+    </div>
+</div>
+</body>
 
 </html>

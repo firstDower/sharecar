@@ -47,6 +47,7 @@ public class GoodsService {
         PageInfo pageInfo = new PageInfo(maps);
         return RetResponse.makeOKRsp(pageInfo);
     }
+
     /**
      * 添加商品信息
      * @param jsonparams
@@ -91,27 +92,48 @@ public class GoodsService {
     }
 
     /**
-     * 添加商品信息
-     * @param jsonparams
-     * @return
-     */
-    public RetResult addGoodsInfo(JSONObject jsonparams){
-        ProductInfo recordProductInfo = new ProductInfo();
-        recordProductInfo.setProductName(jsonparams.getString("productName"));
-        int i = productInfoMapper.insertSelective(recordProductInfo);
-        return RetResponse.makeOKRsp();
-    }
-
-    /**
      * 编辑商品信息
      * @param jsonparams
      * @return
      */
     public RetResult editGoodsInfo(JSONObject jsonparams){
-        ProductInfo recordProductInfo = new ProductInfo();
-        recordProductInfo.setProductId(jsonparams.getInteger("productId"));
-        recordProductInfo.setProductName(jsonparams.getString("productName"));
-        int i = productInfoMapper.updateByPrimaryKeySelective(recordProductInfo);
+        ProductInfo productInfo = new ProductInfo();
+        productInfo.setProductId(jsonparams.getInteger("product_id"));
+        if (jsonparams.containsKey("category_id")&& StringUtils.isNotBlank(jsonparams.getString("category_id"))){
+            productInfo.setCategoryId(jsonparams.getShort("category_id"));
+        }
+        if (jsonparams.containsKey("num_clouth_type_id")&& StringUtils.isNotBlank(jsonparams.getString("num_clouth_type_id"))){
+            productInfo.setNumClouthTypeId(jsonparams.getLong("num_clouth_type_id"));
+        }
+        if (jsonparams.containsKey("NUM_SCHOOL_ID")&& StringUtils.isNotBlank(jsonparams.getString("NUM_SCHOOL_ID"))){
+            productInfo.setNumSchoolId(jsonparams.getInteger("NUM_SCHOOL_ID"));
+        }
+        if (jsonparams.containsKey("NUM_MODEL_ID")&& StringUtils.isNotBlank(jsonparams.getString("NUM_MODEL_ID"))){
+            productInfo.setNumModelId(jsonparams.getLong("NUM_MODEL_ID"));
+        }
+        if (jsonparams.containsKey("product_name")&& StringUtils.isNotBlank(jsonparams.getString("product_name"))){
+            productInfo.setProductName(jsonparams.getString("product_name"));
+        }
+        if (jsonparams.containsKey("num_product_price")&& StringUtils.isNotBlank(jsonparams.getString("num_product_price"))){
+            productInfo.setNumProductPrice(jsonparams.getInteger("num_product_price")*100);
+        }
+        if (jsonparams.containsKey("publish_status")&& StringUtils.isNotBlank(jsonparams.getString("publish_status"))){
+            productInfo.setPublishStatus(jsonparams.getByte("publish_status"));
+        }
+        if (jsonparams.containsKey("descript")&& StringUtils.isNotBlank(jsonparams.getString("descript"))){
+            productInfo.setDescript(jsonparams.getString("descript"));
+        }
+        if (jsonparams.containsKey("introduction")&& StringUtils.isNotBlank(jsonparams.getString("introduction"))){
+            productInfo.setIntroduction(jsonparams.getString("introduction"));
+        }
+        if (jsonparams.containsKey("pic_url")&& StringUtils.isNotBlank(jsonparams.getString("pic_url"))){
+            productInfo.setPicUrl(jsonparams.getString("pic_url"));
+        }
+        //NUM_IS_DEL
+        if (jsonparams.containsKey("NUM_IS_DEL")&& StringUtils.isNotBlank(jsonparams.getString("NUM_IS_DEL"))){
+            productInfo.setNumIsDel(jsonparams.getByte("NUM_IS_DEL"));
+        }
+        int i = productInfoMapper.updateByPrimaryKeySelective(productInfo);
         return RetResponse.makeOKRsp();
     }
 

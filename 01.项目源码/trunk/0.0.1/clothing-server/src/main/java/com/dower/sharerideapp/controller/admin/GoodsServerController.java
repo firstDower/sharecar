@@ -37,7 +37,7 @@ public class GoodsServerController {
     }
 
     /**
-     * 商品列表查询
+     * 商品添加
      * @return
      */
     @RequestMapping("/goodsAdd")
@@ -45,6 +45,17 @@ public class GoodsServerController {
         JSONObject dataObj = CommUtil.getParamData(request);
         return goodsService.goodsAdd(dataObj);
     }
+
+    /**
+     * 商品修改
+     * @return
+     */
+    @RequestMapping("/goodsEdit")
+    public RetResult goodsEdit(HttpServletRequest request) {
+        JSONObject dataObj = CommUtil.getParamData(request);
+        return goodsService.editGoodsInfo(dataObj);
+    }
+
 
     /**
      * 商品分类列表查询
