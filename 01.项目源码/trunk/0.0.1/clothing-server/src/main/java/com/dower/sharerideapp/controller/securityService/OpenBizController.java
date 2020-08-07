@@ -31,7 +31,6 @@ public class OpenBizController {
     //@PublicUrl(tokenValidate = true)
     public RetResult testToken (HttpServletRequest request, HttpServletResponse response)  throws Exception{
         JSONObject param = CommUtil.getParamData(request);
-        log.info("Controller获取参数dataStr：：{}",param);
         return RetResponse.makeOKRsp(param);
     }
 

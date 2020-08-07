@@ -5,7 +5,7 @@ layui.use('table', function(){
     var tableIns = table.render({
         elem: '#orderList'
         //,height: 312
-        ,url: ctxPath + 'adminServer/queryPlatformCouponPage'
+        ,url: ctxPath + 'adminServer/goodsCategoryPage'
         ,page: true //开启分页
         ,where: {VC_USER_ID: 'administrator'}
         ,method: 'post'
@@ -22,20 +22,11 @@ layui.use('table', function(){
                 //{type: 'checkbox', fixed: 'left'},
                 /*{field: 'numId',width:'3%' , title: 'ID',  fixed: 'left'}
                 ,*/
-                {field: 'numId',width:'5%' ,  title: '优惠券id'}
-                ,{field: 'vcCouponName',width:'8%' ,  title: '优惠券名称' }
-                ,{field: 'numIssueTotal',width:'5%' ,  title: '发放总量' }
-                ,{field: 'numDiscountType',width:'5%' ,  title: '优惠类型' }
-                ,{field: 'numDiscountNumber',width:'8%' , title: '优惠金额'}
-                ,{field: 'numHasDiscountLimit',width:'5%' ,  titwidth:'10%' , title: '是否有优惠限制'}
-                ,{field: 'numLimitPrice',width:'5%' ,  title: '限制金额'}
-                ,{field: 'numUserLimitNum',width:'8%' ,  title: '每人限制领取数量'}
-                ,{field: 'numLimitDateType',width:'5%' ,  title: '限制日期类型'}
-                ,{field: 'numAvailableDays',width:'5%' ,  title: '限制天数' }
-                ,{field: 'numAvailableGoods',width:'5%' ,  title: '适用商品类型' }
-                ,{field: 'vcInstructions',width:'13%' ,  title: '优惠说明' }
-                ,{field: 'datCreatDate',width:'5%' , title: '创建时间'}
-                ,{field: 'numCreatAdminUserId',width:'5%' ,  titwidth:'10%' , title: '创建人id'}
+                {field: 'categoryId',  title: '分类id'}
+                ,{field: 'categoryName' ,  title: '分类名称' }
+                ,{field: 'categoryCode',  title: '分类编码' }
+                ,{field: 'categoryStatus' ,  title: '分类状态' }
+                ,{field: 'modifiedTime', title: '修改时间'}
                 ,{fixed: 'right', title:'操作', toolbar: '#barDemo', width:140}
             ]
         ]

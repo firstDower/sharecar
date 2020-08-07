@@ -91,9 +91,7 @@
         <!--<table schema="nnt_db_test" tableName="nnt_platform_coupon">
             <generatedKey column="NUM_ID" sqlStatement="MySql" identity="true"/>
         </table>
-        <table schema="nnt_db_test" tableName="product_info">
-            <generatedKey column="product_id" sqlStatement="MySql" identity="true"/>
-        </table>
+
         <table schema="nnt_db_test" tableName="product_category">
             <generatedKey column="category_id" sqlStatement="MySql" identity="true"/>
         </table>-->
@@ -106,8 +104,8 @@
         <table schema="nnt_db" tableName="cl_fn_model">
             <generatedKey column="NUM_ID" sqlStatement="MySql" identity="true"/>
         </table>-->
-        <table schema="nnt_db" tableName="nnt_share_statistics_settlement">
-            <generatedKey column="NUM_ID" sqlStatement="MySql" identity="true"/>
+        <table schema="nnt_db_test" tableName="product_info">
+            <generatedKey column="product_id" sqlStatement="MySql" identity="true"/>
         </table>
 
         <!--<table schema="nnt_db_test" tableName="nna_users">

@@ -1,9 +1,6 @@
 package com.dower.sharerideapp.service;
 
-import com.dower.sharerideapp.core.serverdb.dao.ClFnGradeMapper;
-import com.dower.sharerideapp.core.serverdb.dao.ClFnModelMapper;
-import com.dower.sharerideapp.core.serverdb.dao.ClFnSchoolMapper;
-import com.dower.sharerideapp.core.serverdb.dao.NntTravelCityMapper;
+import com.dower.sharerideapp.core.serverdb.dao.*;
 import com.dower.sharerideapp.core.serverdb.model.*;
 import com.dower.sharerideapp.utils.Result;
 import com.dower.sharerideapp.utils.ret.RetResponse;
@@ -30,8 +27,8 @@ public class CommNewService {
     ClFnSchoolMapper clFnSchoolMapper;
     @Autowired
     ClFnModelMapper clFnModelMapper;
-
-
+    @Autowired
+    ClothingTypeMapper clothingTypeMapper;
 
     /**
      * 查询班级信息
@@ -85,5 +82,15 @@ public class CommNewService {
             e.printStackTrace();
             return RetResponse.makeErrRsp("查询款式信息异常！");
         }
+    }
+
+    /**
+     * 查询服装类型信息信息
+     * @return
+     */
+    public RetResult getClouthTypeList(){
+        ClothingTypeExample clothingTypeExample = new ClothingTypeExample();
+        List<ClothingType> clothingTypes = clothingTypeMapper.selectByExample(clothingTypeExample);
+        return RetResponse.makeOKRsp(clothingTypes);
     }
 }

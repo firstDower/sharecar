@@ -1,4 +1,4 @@
-package com.dower.sharerideapp.service.payment;
+package com.dower.sharerideapp.service.admin;
 
 import com.alibaba.fastjson.JSONObject;
 import com.dower.sharerideapp.core.serverdb.dao.NntPlatformCouponMapper;
@@ -32,7 +32,6 @@ public class GoodsCategoryService {
      * @return
      */
     public RetResult goodsCategoryPage(JSONObject jsonparams){
-        log.info("分页查询商品分类列表param：{}",jsonparams);
         Integer pageNum = 1;
         Integer pageSize = 10;
         if(jsonparams.containsKey("pageNum"))
@@ -44,8 +43,14 @@ public class GoodsCategoryService {
         ProductCategoryExample.Criteria criteria = exampleProductCategoryExample.createCriteria();
         List<ProductCategory> productCategories = productCategoryMapper.selectByExample(exampleProductCategoryExample);
         PageInfo pageInfo = new PageInfo(productCategories);
-        log.info("分页查询商品分类列表成功：{}",pageInfo);
         return RetResponse.makeOKRsp(pageInfo);
+    }
+
+    public RetResult goodsCategoryList(JSONObject jsonparams){
+        ProductCategoryExample exampleProductCategoryExample = new ProductCategoryExample();
+        ProductCategoryExample.Criteria criteria = exampleProductCategoryExample.createCriteria();
+        List<ProductCategory> productCategories = productCategoryMapper.selectByExample(exampleProductCategoryExample);
+        return RetResponse.makeOKRsp(productCategories);
     }
 
     /**

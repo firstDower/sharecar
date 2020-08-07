@@ -53,8 +53,6 @@ public class SafeHandlerInterceptor implements HandlerInterceptor {
         String token = request.getHeader("token");
 
         JSONObject jsonObject = CommUtil.getParamData(request);
-        log.info("拦截器请求地址url：：{}",request.getRequestURI());
-        log.info("拦截器请求参数jsonParam：：{}",jsonObject);
         jsonObject.put("sign",sign);
 
         //时间戳验证
@@ -103,11 +101,11 @@ public class SafeHandlerInterceptor implements HandlerInterceptor {
     }
 
     @Override
-    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) {    }
+    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) {
+    }
 
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
-       // response.get
     }
 
     

@@ -41,8 +41,6 @@ public class ApiBizController {
     @PostMapping(value = "/getToken")
     public RetResult getToken ( HttpServletRequest request, HttpServletResponse response)  throws Exception{
         JSONObject jsonObject = CommUtil.getParamData(request);
-        log.info("api 获取token获取参数param：：{}",jsonObject);
-
         String token = TokenProccessor.createJwtToken(jsonObject.getString("pro_name"));
         JSONObject result = new JSONObject();
         result.put("token",token);

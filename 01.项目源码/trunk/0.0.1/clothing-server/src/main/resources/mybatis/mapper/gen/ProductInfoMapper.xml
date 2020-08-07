@@ -5,22 +5,12 @@
     <id column="product_id" jdbcType="INTEGER" property="productId" />
     <result column="product_core" jdbcType="CHAR" property="productCore" />
     <result column="product_name" jdbcType="VARCHAR" property="productName" />
-    <result column="brand_id" jdbcType="INTEGER" property="brandId" />
-    <result column="one_category_id" jdbcType="SMALLINT" property="oneCategoryId" />
-    <result column="two_category_id" jdbcType="SMALLINT" property="twoCategoryId" />
-    <result column="three_category_id" jdbcType="SMALLINT" property="threeCategoryId" />
-    <result column="supplier_id" jdbcType="INTEGER" property="supplierId" />
-    <result column="price" jdbcType="BIGINT" property="price" />
-    <result column="average_cost" jdbcType="BIGINT" property="averageCost" />
+    <result column="category_id" jdbcType="SMALLINT" property="categoryId" />
+    <result column="num_school_id" jdbcType="INTEGER" property="numSchoolId" />
+    <result column="num_model_id" jdbcType="BIGINT" property="numModelId" />
+    <result column="num_clouth_type_id" jdbcType="BIGINT" property="numClouthTypeId" />
     <result column="publish_status" jdbcType="TINYINT" property="publishStatus" />
     <result column="audit_status" jdbcType="TINYINT" property="auditStatus" />
-    <result column="weight" jdbcType="REAL" property="weight" />
-    <result column="length" jdbcType="REAL" property="length" />
-    <result column="height" jdbcType="REAL" property="height" />
-    <result column="width" jdbcType="REAL" property="width" />
-    <result column="color_type" jdbcType="VARCHAR" property="colorType" />
-    <result column="production_date" jdbcType="TIMESTAMP" property="productionDate" />
-    <result column="shelf_life" jdbcType="INTEGER" property="shelfLife" />
     <result column="descript" jdbcType="VARCHAR" property="descript" />
     <result column="introduction" jdbcType="VARCHAR" property="introduction" />
     <result column="share_introduction" jdbcType="VARCHAR" property="shareIntroduction" />
@@ -34,6 +24,7 @@
     <result column="pic_url3" jdbcType="VARCHAR" property="picUrl3" />
     <result column="NUM_STATE" jdbcType="TINYINT" property="numState" />
     <result column="NUM_IS_DEL" jdbcType="TINYINT" property="numIsDel" />
+    <result column="num_product_price" jdbcType="INTEGER" property="numProductPrice" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -94,11 +85,10 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    product_id, product_core, product_name, brand_id, one_category_id, two_category_id, 
-    three_category_id, supplier_id, price, average_cost, publish_status, audit_status, 
-    weight, length, height, width, color_type, production_date, shelf_life, descript, 
-    introduction, share_introduction, product_url, product_share_url, is_share, indate, 
-    modified_time, pic_url, pic_url2, pic_url3, NUM_STATE, NUM_IS_DEL
+    product_id, product_core, product_name, category_id, num_school_id, num_model_id, 
+    num_clouth_type_id, publish_status, audit_status, descript, introduction, share_introduction, 
+    product_url, product_share_url, is_share, indate, modified_time, pic_url, pic_url2, 
+    pic_url3, NUM_STATE, NUM_IS_DEL, num_product_price
   </sql>
   <select id="selectByExample" parameterType="com.dower.sharerideapp.core.serverdb.model.ProductInfoExample" resultMap="BaseResultMap">
     select
@@ -134,28 +124,22 @@
     <selectKey keyProperty="productId" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into product_info (product_core, product_name, brand_id, 
-      one_category_id, two_category_id, three_category_id, 
-      supplier_id, price, average_cost, 
-      publish_status, audit_status, weight, 
-      length, height, width, color_type, 
-      production_date, shelf_life, descript, 
+    insert into product_info (product_core, product_name, category_id, 
+      num_school_id, num_model_id, num_clouth_type_id, 
+      publish_status, audit_status, descript, 
       introduction, share_introduction, product_url, 
       product_share_url, is_share, indate, 
       modified_time, pic_url, pic_url2, 
-      pic_url3, NUM_STATE, NUM_IS_DEL
-      )
-    values (#{productCore,jdbcType=CHAR}, #{productName,jdbcType=VARCHAR}, #{brandId,jdbcType=INTEGER}, 
-      #{oneCategoryId,jdbcType=SMALLINT}, #{twoCategoryId,jdbcType=SMALLINT}, #{threeCategoryId,jdbcType=SMALLINT}, 
-      #{supplierId,jdbcType=INTEGER}, #{price,jdbcType=BIGINT}, #{averageCost,jdbcType=BIGINT}, 
-      #{publishStatus,jdbcType=TINYINT}, #{auditStatus,jdbcType=TINYINT}, #{weight,jdbcType=REAL}, 
-      #{length,jdbcType=REAL}, #{height,jdbcType=REAL}, #{width,jdbcType=REAL}, #{colorType,jdbcType=VARCHAR}, 
-      #{productionDate,jdbcType=TIMESTAMP}, #{shelfLife,jdbcType=INTEGER}, #{descript,jdbcType=VARCHAR}, 
+      pic_url3, NUM_STATE, NUM_IS_DEL, 
+      num_product_price)
+    values (#{productCore,jdbcType=CHAR}, #{productName,jdbcType=VARCHAR}, #{categoryId,jdbcType=SMALLINT}, 
+      #{numSchoolId,jdbcType=INTEGER}, #{numModelId,jdbcType=BIGINT}, #{numClouthTypeId,jdbcType=BIGINT}, 
+      #{publishStatus,jdbcType=TINYINT}, #{auditStatus,jdbcType=TINYINT}, #{descript,jdbcType=VARCHAR}, 
       #{introduction,jdbcType=VARCHAR}, #{shareIntroduction,jdbcType=VARCHAR}, #{productUrl,jdbcType=VARCHAR}, 
       #{productShareUrl,jdbcType=VARCHAR}, #{isShare,jdbcType=TINYINT}, #{indate,jdbcType=TIMESTAMP}, 
       #{modifiedTime,jdbcType=TIMESTAMP}, #{picUrl,jdbcType=VARCHAR}, #{picUrl2,jdbcType=VARCHAR}, 
-      #{picUrl3,jdbcType=VARCHAR}, #{numState,jdbcType=TINYINT}, #{numIsDel,jdbcType=TINYINT}
-      )
+      #{picUrl3,jdbcType=VARCHAR}, #{numState,jdbcType=TINYINT}, #{numIsDel,jdbcType=TINYINT}, 
+      #{numProductPrice,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.dower.sharerideapp.core.serverdb.model.ProductInfo">
     <selectKey keyProperty="productId" order="AFTER" resultType="java.lang.Integer">
@@ -169,53 +153,23 @@
       <if test="productName != null">
         product_name,
       </if>
-      <if test="brandId != null">
-        brand_id,
+      <if test="categoryId != null">
+        category_id,
       </if>
-      <if test="oneCategoryId != null">
-        one_category_id,
+      <if test="numSchoolId != null">
+        num_school_id,
       </if>
-      <if test="twoCategoryId != null">
-        two_category_id,
+      <if test="numModelId != null">
+        num_model_id,
       </if>
-      <if test="threeCategoryId != null">
-        three_category_id,
-      </if>
-      <if test="supplierId != null">
-        supplier_id,
-      </if>
-      <if test="price != null">
-        price,
-      </if>
-      <if test="averageCost != null">
-        average_cost,
+      <if test="numClouthTypeId != null">
+        num_clouth_type_id,
       </if>
       <if test="publishStatus != null">
         publish_status,
       </if>
       <if test="auditStatus != null">
         audit_status,
-      </if>
-      <if test="weight != null">
-        weight,
-      </if>
-      <if test="length != null">
-        length,
-      </if>
-      <if test="height != null">
-        height,
-      </if>
-      <if test="width != null">
-        width,
-      </if>
-      <if test="colorType != null">
-        color_type,
-      </if>
-      <if test="productionDate != null">
-        production_date,
-      </if>
-      <if test="shelfLife != null">
-        shelf_life,
       </if>
       <if test="descript != null">
         descript,
@@ -256,6 +210,9 @@
       <if test="numIsDel != null">
         NUM_IS_DEL,
       </if>
+      <if test="numProductPrice != null">
+        num_product_price,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="productCore != null">
@@ -264,53 +221,23 @@
       <if test="productName != null">
         #{productName,jdbcType=VARCHAR},
       </if>
-      <if test="brandId != null">
-        #{brandId,jdbcType=INTEGER},
+      <if test="categoryId != null">
+        #{categoryId,jdbcType=SMALLINT},
       </if>
-      <if test="oneCategoryId != null">
-        #{oneCategoryId,jdbcType=SMALLINT},
+      <if test="numSchoolId != null">
+        #{numSchoolId,jdbcType=INTEGER},
       </if>
-      <if test="twoCategoryId != null">
-        #{twoCategoryId,jdbcType=SMALLINT},
+      <if test="numModelId != null">
+        #{numModelId,jdbcType=BIGINT},
       </if>
-      <if test="threeCategoryId != null">
-        #{threeCategoryId,jdbcType=SMALLINT},
-      </if>
-      <if test="supplierId != null">
-        #{supplierId,jdbcType=INTEGER},
-      </if>
-      <if test="price != null">
-        #{price,jdbcType=BIGINT},
-      </if>
-      <if test="averageCost != null">
-        #{averageCost,jdbcType=BIGINT},
+      <if test="numClouthTypeId != null">
+        #{numClouthTypeId,jdbcType=BIGINT},
       </if>
       <if test="publishStatus != null">
         #{publishStatus,jdbcType=TINYINT},
       </if>
       <if test="auditStatus != null">
         #{auditStatus,jdbcType=TINYINT},
-      </if>
-      <if test="weight != null">
-        #{weight,jdbcType=REAL},
-      </if>
-      <if test="length != null">
-        #{length,jdbcType=REAL},
-      </if>
-      <if test="height != null">
-        #{height,jdbcType=REAL},
-      </if>
-      <if test="width != null">
-        #{width,jdbcType=REAL},
-      </if>
-      <if test="colorType != null">
-        #{colorType,jdbcType=VARCHAR},
-      </if>
-      <if test="productionDate != null">
-        #{productionDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="shelfLife != null">
-        #{shelfLife,jdbcType=INTEGER},
       </if>
       <if test="descript != null">
         #{descript,jdbcType=VARCHAR},
@@ -351,6 +278,9 @@
       <if test="numIsDel != null">
         #{numIsDel,jdbcType=TINYINT},
       </if>
+      <if test="numProductPrice != null">
+        #{numProductPrice,jdbcType=INTEGER},
+      </if>
     </trim>
   </insert>
   <select id="countByExample" parameterType="com.dower.sharerideapp.core.serverdb.model.ProductInfoExample" resultType="java.lang.Long">
@@ -371,53 +301,23 @@
       <if test="record.productName != null">
         product_name = #{record.productName,jdbcType=VARCHAR},
       </if>
-      <if test="record.brandId != null">
-        brand_id = #{record.brandId,jdbcType=INTEGER},
+      <if test="record.categoryId != null">
+        category_id = #{record.categoryId,jdbcType=SMALLINT},
       </if>
-      <if test="record.oneCategoryId != null">
-        one_category_id = #{record.oneCategoryId,jdbcType=SMALLINT},
+      <if test="record.numSchoolId != null">
+        num_school_id = #{record.numSchoolId,jdbcType=INTEGER},
       </if>
-      <if test="record.twoCategoryId != null">
-        two_category_id = #{record.twoCategoryId,jdbcType=SMALLINT},
+      <if test="record.numModelId != null">
+        num_model_id = #{record.numModelId,jdbcType=BIGINT},
       </if>
-      <if test="record.threeCategoryId != null">
-        three_category_id = #{record.threeCategoryId,jdbcType=SMALLINT},
-      </if>
-      <if test="record.supplierId != null">
-        supplier_id = #{record.supplierId,jdbcType=INTEGER},
-      </if>
-      <if test="record.price != null">
-        price = #{record.price,jdbcType=BIGINT},
-      </if>
-      <if test="record.averageCost != null">
-        average_cost = #{record.averageCost,jdbcType=BIGINT},
+      <if test="record.numClouthTypeId != null">
+        num_clouth_type_id = #{record.numClouthTypeId,jdbcType=BIGINT},
       </if>
       <if test="record.publishStatus != null">
         publish_status = #{record.publishStatus,jdbcType=TINYINT},
       </if>
       <if test="record.auditStatus != null">
         audit_status = #{record.auditStatus,jdbcType=TINYINT},
-      </if>
-      <if test="record.weight != null">
-        weight = #{record.weight,jdbcType=REAL},
-      </if>
-      <if test="record.length != null">
-        length = #{record.length,jdbcType=REAL},
-      </if>
-      <if test="record.height != null">
-        height = #{record.height,jdbcType=REAL},
-      </if>
-      <if test="record.width != null">
-        width = #{record.width,jdbcType=REAL},
-      </if>
-      <if test="record.colorType != null">
-        color_type = #{record.colorType,jdbcType=VARCHAR},
-      </if>
-      <if test="record.productionDate != null">
-        production_date = #{record.productionDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="record.shelfLife != null">
-        shelf_life = #{record.shelfLife,jdbcType=INTEGER},
       </if>
       <if test="record.descript != null">
         descript = #{record.descript,jdbcType=VARCHAR},
@@ -458,6 +358,9 @@
       <if test="record.numIsDel != null">
         NUM_IS_DEL = #{record.numIsDel,jdbcType=TINYINT},
       </if>
+      <if test="record.numProductPrice != null">
+        num_product_price = #{record.numProductPrice,jdbcType=INTEGER},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -468,22 +371,12 @@
     set product_id = #{record.productId,jdbcType=INTEGER},
       product_core = #{record.productCore,jdbcType=CHAR},
       product_name = #{record.productName,jdbcType=VARCHAR},
-      brand_id = #{record.brandId,jdbcType=INTEGER},
-      one_category_id = #{record.oneCategoryId,jdbcType=SMALLINT},
-      two_category_id = #{record.twoCategoryId,jdbcType=SMALLINT},
-      three_category_id = #{record.threeCategoryId,jdbcType=SMALLINT},
-      supplier_id = #{record.supplierId,jdbcType=INTEGER},
-      price = #{record.price,jdbcType=BIGINT},
-      average_cost = #{record.averageCost,jdbcType=BIGINT},
+      category_id = #{record.categoryId,jdbcType=SMALLINT},
+      num_school_id = #{record.numSchoolId,jdbcType=INTEGER},
+      num_model_id = #{record.numModelId,jdbcType=BIGINT},
+      num_clouth_type_id = #{record.numClouthTypeId,jdbcType=BIGINT},
       publish_status = #{record.publishStatus,jdbcType=TINYINT},
       audit_status = #{record.auditStatus,jdbcType=TINYINT},
-      weight = #{record.weight,jdbcType=REAL},
-      length = #{record.length,jdbcType=REAL},
-      height = #{record.height,jdbcType=REAL},
-      width = #{record.width,jdbcType=REAL},
-      color_type = #{record.colorType,jdbcType=VARCHAR},
-      production_date = #{record.productionDate,jdbcType=TIMESTAMP},
-      shelf_life = #{record.shelfLife,jdbcType=INTEGER},
       descript = #{record.descript,jdbcType=VARCHAR},
       introduction = #{record.introduction,jdbcType=VARCHAR},
       share_introduction = #{record.shareIntroduction,jdbcType=VARCHAR},
@@ -496,7 +389,8 @@
       pic_url2 = #{record.picUrl2,jdbcType=VARCHAR},
       pic_url3 = #{record.picUrl3,jdbcType=VARCHAR},
       NUM_STATE = #{record.numState,jdbcType=TINYINT},
-      NUM_IS_DEL = #{record.numIsDel,jdbcType=TINYINT}
+      NUM_IS_DEL = #{record.numIsDel,jdbcType=TINYINT},
+      num_product_price = #{record.numProductPrice,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -510,53 +404,23 @@
       <if test="productName != null">
         product_name = #{productName,jdbcType=VARCHAR},
       </if>
-      <if test="brandId != null">
-        brand_id = #{brandId,jdbcType=INTEGER},
+      <if test="categoryId != null">
+        category_id = #{categoryId,jdbcType=SMALLINT},
       </if>
-      <if test="oneCategoryId != null">
-        one_category_id = #{oneCategoryId,jdbcType=SMALLINT},
+      <if test="numSchoolId != null">
+        num_school_id = #{numSchoolId,jdbcType=INTEGER},
       </if>
-      <if test="twoCategoryId != null">
-        two_category_id = #{twoCategoryId,jdbcType=SMALLINT},
+      <if test="numModelId != null">
+        num_model_id = #{numModelId,jdbcType=BIGINT},
       </if>
-      <if test="threeCategoryId != null">
-        three_category_id = #{threeCategoryId,jdbcType=SMALLINT},
-      </if>
-      <if test="supplierId != null">
-        supplier_id = #{supplierId,jdbcType=INTEGER},
-      </if>
-      <if test="price != null">
-        price = #{price,jdbcType=BIGINT},
-      </if>
-      <if test="averageCost != null">
-        average_cost = #{averageCost,jdbcType=BIGINT},
+      <if test="numClouthTypeId != null">
+        num_clouth_type_id = #{numClouthTypeId,jdbcType=BIGINT},
       </if>
       <if test="publishStatus != null">
         publish_status = #{publishStatus,jdbcType=TINYINT},
       </if>
       <if test="auditStatus != null">
         audit_status = #{auditStatus,jdbcType=TINYINT},
-      </if>
-      <if test="weight != null">
-        weight = #{weight,jdbcType=REAL},
-      </if>
-      <if test="length != null">
-        length = #{length,jdbcType=REAL},
-      </if>
-      <if test="height != null">
-        height = #{height,jdbcType=REAL},
-      </if>
-      <if test="width != null">
-        width = #{width,jdbcType=REAL},
-      </if>
-      <if test="colorType != null">
-        color_type = #{colorType,jdbcType=VARCHAR},
-      </if>
-      <if test="productionDate != null">
-        production_date = #{productionDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="shelfLife != null">
-        shelf_life = #{shelfLife,jdbcType=INTEGER},
       </if>
       <if test="descript != null">
         descript = #{descript,jdbcType=VARCHAR},
@@ -597,6 +461,9 @@
       <if test="numIsDel != null">
         NUM_IS_DEL = #{numIsDel,jdbcType=TINYINT},
       </if>
+      <if test="numProductPrice != null">
+        num_product_price = #{numProductPrice,jdbcType=INTEGER},
+      </if>
     </set>
     where product_id = #{productId,jdbcType=INTEGER}
   </update>
@@ -604,22 +471,12 @@
     update product_info
     set product_core = #{productCore,jdbcType=CHAR},
       product_name = #{productName,jdbcType=VARCHAR},
-      brand_id = #{brandId,jdbcType=INTEGER},
-      one_category_id = #{oneCategoryId,jdbcType=SMALLINT},
-      two_category_id = #{twoCategoryId,jdbcType=SMALLINT},
-      three_category_id = #{threeCategoryId,jdbcType=SMALLINT},
-      supplier_id = #{supplierId,jdbcType=INTEGER},
-      price = #{price,jdbcType=BIGINT},
-      average_cost = #{averageCost,jdbcType=BIGINT},
+      category_id = #{categoryId,jdbcType=SMALLINT},
+      num_school_id = #{numSchoolId,jdbcType=INTEGER},
+      num_model_id = #{numModelId,jdbcType=BIGINT},
+      num_clouth_type_id = #{numClouthTypeId,jdbcType=BIGINT},
       publish_status = #{publishStatus,jdbcType=TINYINT},
       audit_status = #{auditStatus,jdbcType=TINYINT},
-      weight = #{weight,jdbcType=REAL},
-      length = #{length,jdbcType=REAL},
-      height = #{height,jdbcType=REAL},
-      width = #{width,jdbcType=REAL},
-      color_type = #{colorType,jdbcType=VARCHAR},
-      production_date = #{productionDate,jdbcType=TIMESTAMP},
-      shelf_life = #{shelfLife,jdbcType=INTEGER},
       descript = #{descript,jdbcType=VARCHAR},
       introduction = #{introduction,jdbcType=VARCHAR},
       share_introduction = #{shareIntroduction,jdbcType=VARCHAR},
@@ -632,7 +489,8 @@
       pic_url2 = #{picUrl2,jdbcType=VARCHAR},
       pic_url3 = #{picUrl3,jdbcType=VARCHAR},
       NUM_STATE = #{numState,jdbcType=TINYINT},
-      NUM_IS_DEL = #{numIsDel,jdbcType=TINYINT}
+      NUM_IS_DEL = #{numIsDel,jdbcType=TINYINT},
+      num_product_price = #{numProductPrice,jdbcType=INTEGER}
     where product_id = #{productId,jdbcType=INTEGER}
   </update>
 </mapper>

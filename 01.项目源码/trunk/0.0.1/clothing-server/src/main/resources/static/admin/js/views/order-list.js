@@ -16,19 +16,20 @@ layui.use(['laydate', 'form'],
 
         $.ajax({
             type:"post",
-            url:ctxPath + "reposi/getGradeList",
+            url:ctxPath + "securityService/getGradeList",
+            data : param,
+            headers: util.initHeaders(param),
             dataType:"json",
             success:function(data){
-                console.log("================"+data)
-                var cityStr = '';
-                $.each(data.resultInfo,function(index,value){
-                    cityStr += '<option value="'+value.numId+'">'+value.vcGradeName+'</option>'
-                });
-                $('#NUM_GRADE_ID').append(cityStr);
-                layui.form.render('select');
+                if(data.code==200){
+                    var cityStr = '';
+                    $.each(data.data,function(index,value){
+                        cityStr += '<option value="'+value.numId+'">'+value.vcGradeName+'</option>'
+                    });
+                    $('#NUM_GRADE_ID').append(cityStr);
+                }
             },
             error:function(){
-                closeMsg();
             }
         });
 

@@ -5,7 +5,7 @@ layui.use('table', function(){
     var tableIns = table.render({
         elem: '#orderList'
         //,height: 312
-        ,url: ctxPath + 'adminServer/queryPlatformCouponPage'
+        ,url: ctxPath + 'adminServer/goodsInfoPage'
         ,page: true //开启分页
         ,where: {VC_USER_ID: 'administrator'}
         ,method: 'post'
@@ -22,20 +22,16 @@ layui.use('table', function(){
                 //{type: 'checkbox', fixed: 'left'},
                 /*{field: 'numId',width:'3%' , title: 'ID',  fixed: 'left'}
                 ,*/
-                {field: 'numId',width:'5%' ,  title: '优惠券id'}
-                ,{field: 'vcCouponName',width:'8%' ,  title: '优惠券名称' }
-                ,{field: 'numIssueTotal',width:'5%' ,  title: '发放总量' }
-                ,{field: 'numDiscountType',width:'5%' ,  title: '优惠类型' }
-                ,{field: 'numDiscountNumber',width:'8%' , title: '优惠金额'}
-                ,{field: 'numHasDiscountLimit',width:'5%' ,  titwidth:'10%' , title: '是否有优惠限制'}
-                ,{field: 'numLimitPrice',width:'5%' ,  title: '限制金额'}
-                ,{field: 'numUserLimitNum',width:'8%' ,  title: '每人限制领取数量'}
-                ,{field: 'numLimitDateType',width:'5%' ,  title: '限制日期类型'}
-                ,{field: 'numAvailableDays',width:'5%' ,  title: '限制天数' }
-                ,{field: 'numAvailableGoods',width:'5%' ,  title: '适用商品类型' }
-                ,{field: 'vcInstructions',width:'13%' ,  title: '优惠说明' }
-                ,{field: 'datCreatDate',width:'5%' , title: '创建时间'}
-                ,{field: 'numCreatAdminUserId',width:'5%' ,  titwidth:'10%' , title: '创建人id'}
+                {field: 'product_id',width:'5%' ,  title: '商品id'}
+                ,{field: 'product_name',width:'8%' ,  title: '商品名称' }
+                ,{field: 'category_name',width:'5%' ,  title: '分类名称' }
+                ,{field: 'VC_CTYPE_NAME',width:'5%' ,  title: '服装类型' }
+                ,{field: 'VC_SCHOOL_NAME',width:'8%' , title: '学校名称'}
+                ,{field: 'VC_MODEL_NAME',width:'5%' ,  titwidth:'10%' , title: '款式名称'}
+                ,{field: 'product_url',width:'5%' ,  title: '商品请求地址'}
+                ,{field: 'num_product_price',width:'8%' ,  title: '商品价格'}
+                ,{field: 'publish_status',width:'5%' ,  title: '发布状态'}
+                ,{field: 'descript',width:'5%' ,  title: '描述' }
                 ,{fixed: 'right', title:'操作', toolbar: '#barDemo', width:140}
             ]
         ]
@@ -91,7 +87,7 @@ layui.use('table', function(){
             });
         } else if(obj.event === 'edit'){
             sessionStorage["pageData"] = JSON.stringify(data);
-            xadmin.open('修改订单','./order-edit.html');
+            xadmin.open('修改订单','./goods-edit.html');
         }
     });
 
@@ -135,4 +131,85 @@ layui.use('table', function(){
         active.reload();
     });
 
+    $.ajax({
+        type:"post",
+        url:ctxPath + "securityService/getSchoolList",
+        data : param,
+        headers: util.initHeaders(param),
+        dataType:"json",
+        success:function(data){
+            if(data.code==200){
+                var cityStr = '';
+                $.each(data.data,function(index,value){
+                    cityStr += '<option value="'+value.numId+'">'+value.vcSchoolName+'</option>'
+                });
+                $('#NUM_SCHOOL_ID').append(cityStr);
+            }
+        },
+        error:function(){
+            closeMsg();
+        }
+    });
+
+    $.ajax({
+        type:"post",
+        url:ctxPath + "adminServer/goodsCategoryList",
+        data : param,
+        headers: util.initHeaders(param),
+        dataType:"json",
+        success:function(data){
+            if(data.code==200){
+                var cityStr = '';
+                $.each(data.data,function(index,value){
+                    cityStr += '<option value="'+value.numId+'">'+value.vcSchoolName+'</option>'
+                });
+                $('#NUM_SCHOOL_ID').append(cityStr);
+            }
+        },
+        error:function(){
+            closeMsg();
+        }
+    });
+
+    $.ajax({
+        type:"post",
+        url:ctxPath + "securityService/getModelList",
+        data : param,
+        headers: util.initHeaders(param),
+        dataType:"json",
+        success:function(data){
+            if(data.code==200){
+                var cityStr = '';
+                $.each(data.data,function(index,value){
+                    cityStr += '<option value="'+value.numId+'">'+value.vcModelName+'</option>'
+                });
+                $('#NUM_MODEL_ID').append(cityStr);
+            }
+
+        },
+        error:function(){
+            closeMsg();
+        }
+    });
+
+    $.ajax({
+        type:"post",
+        url:ctxPath + "securityService/getClouthTypeList",
+        data : param,
+        headers: util.initHeaders(param),
+        dataType:"json",
+        success:function(data){
+            if(data.code==200){
+                var cityStr = '';
+                $.each(data.data,function(index,value){
+                    cityStr += '<option value="'+value.numId+'">'+value.vcModelName+'</option>'
+                });
+                $('#NUM_MODEL_ID').append(cityStr);
+            }
+
+        },
+        error:function(){
+            closeMsg();
+        }
+    });
 });

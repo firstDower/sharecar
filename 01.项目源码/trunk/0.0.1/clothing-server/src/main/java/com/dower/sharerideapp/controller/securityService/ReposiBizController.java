@@ -32,7 +32,6 @@ public class ReposiBizController {
 
     public RetResult testToken (HttpServletRequest request, HttpServletResponse response)  throws Exception{
         JSONObject param = CommUtil.getParamData(request);
-        log.info("Controller获取参数dataStr：：{}",param);
         return RetResponse.makeOKRsp(param);
     }
     /**
@@ -60,6 +59,16 @@ public class ReposiBizController {
     @RequestMapping("/getModelList")
     public RetResult getModelList(){
         return commNewService.getModelList();
+    }
+
+
+    /**
+     * 查询学生分类信息
+     * @return
+     */
+    @RequestMapping("/getClouthTypeList")
+    public RetResult getClouthTypeList(){
+        return commNewService.getClouthTypeList();
     }
 
 

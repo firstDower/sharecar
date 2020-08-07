@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dower.sharerideapp.core.repository.admin.GoodsExtDao">
+    <select id="selectGoodsList" parameterType="java.util.Map" resultType="java.util.Map">
+				SELECT
+		cfm.NUM_ID num_model_id
+		,cfm.VC_MODEL_NAME
+		,cfs.NUM_ID num_school_id
+		,cfs.VC_SCHOOL_NAME
+		,ct.NUM_ID num_clouth_type_id
+		,ct.VC_CTYPE_NAME
+		,pc.category_id
+		,pc.category_name
+		,pi.product_id
+		,pi.product_name
+		,pi.product_url
+		,pi.num_product_price
+		,pi.publish_status
+		,pi.descript
+		,pi.introduction
+		,pi.pic_url
+		 from
+		product_info pi
+			LEFT JOIN cl_fn_model cfm ON pi.num_model_id = cfm.NUM_ID
+			LEFT JOIN cl_fn_school cfs ON pi.num_school_id = cfs.NUM_ID
+			left JOIN clothing_type ct on pi.num_clouth_type_id = ct.NUM_ID
+			LEFT JOIN product_category pc ON pi.category_id = pc.category_id
+		WHERE pi.NUM_IS_DEL = 1
+	</select>
+
+</mapper>

@@ -29,7 +29,6 @@ public class AdminBizController {
     @PublicUrl(tokenValidate = true)
     public Result testToken (HttpServletRequest request, HttpServletResponse response)  throws Exception{
         String dataStr = request.getParameter("dataStr");
-        log.info("Controller获取参数dataStr：：{}",dataStr);
         //String decryptData = RSAUtil.decrypt(dataStr, RSAUtil.getPrivateKey(priKey));
         //log.info("解密后内容:" + decryptData);
         Map paramsMap = JSON.parseObject(dataStr,Map.class);

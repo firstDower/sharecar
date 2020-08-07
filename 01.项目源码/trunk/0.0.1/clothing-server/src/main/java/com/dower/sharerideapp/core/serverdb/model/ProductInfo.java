@@ -9,37 +9,17 @@ public class ProductInfo {
 
     private String productName;
 
-    private Integer brandId;
+    private Short categoryId;
 
-    private Short oneCategoryId;
+    private Integer numSchoolId;
 
-    private Short twoCategoryId;
+    private Long numModelId;
 
-    private Short threeCategoryId;
-
-    private Integer supplierId;
-
-    private Long price;
-
-    private Long averageCost;
+    private Long numClouthTypeId;
 
     private Byte publishStatus;
 
     private Byte auditStatus;
-
-    private Float weight;
-
-    private Float length;
-
-    private Float height;
-
-    private Float width;
-
-    private String colorType;
-
-    private Date productionDate;
-
-    private Integer shelfLife;
 
     private String descript;
 
@@ -67,6 +47,8 @@ public class ProductInfo {
 
     private Byte numIsDel;
 
+    private Integer numProductPrice;
+
     public Integer getProductId() {
         return productId;
     }
@@ -91,60 +73,36 @@ public class ProductInfo {
         this.productName = productName == null ? null : productName.trim();
     }
 
-    public Integer getBrandId() {
-        return brandId;
+    public Short getCategoryId() {
+        return categoryId;
     }
 
-    public void setBrandId(Integer brandId) {
-        this.brandId = brandId;
+    public void setCategoryId(Short categoryId) {
+        this.categoryId = categoryId;
     }
 
-    public Short getOneCategoryId() {
-        return oneCategoryId;
+    public Integer getNumSchoolId() {
+        return numSchoolId;
     }
 
-    public void setOneCategoryId(Short oneCategoryId) {
-        this.oneCategoryId = oneCategoryId;
+    public void setNumSchoolId(Integer numSchoolId) {
+        this.numSchoolId = numSchoolId;
     }
 
-    public Short getTwoCategoryId() {
-        return twoCategoryId;
+    public Long getNumModelId() {
+        return numModelId;
     }
 
-    public void setTwoCategoryId(Short twoCategoryId) {
-        this.twoCategoryId = twoCategoryId;
+    public void setNumModelId(Long numModelId) {
+        this.numModelId = numModelId;
     }
 
-    public Short getThreeCategoryId() {
-        return threeCategoryId;
+    public Long getNumClouthTypeId() {
+        return numClouthTypeId;
     }
 
-    public void setThreeCategoryId(Short threeCategoryId) {
-        this.threeCategoryId = threeCategoryId;
-    }
-
-    public Integer getSupplierId() {
-        return supplierId;
-    }
-
-    public void setSupplierId(Integer supplierId) {
-        this.supplierId = supplierId;
-    }
-
-    public Long getPrice() {
-        return price;
-    }
-
-    public void setPrice(Long price) {
-        this.price = price;
-    }
-
-    public Long getAverageCost() {
-        return averageCost;
-    }
-
-    public void setAverageCost(Long averageCost) {
-        this.averageCost = averageCost;
+    public void setNumClouthTypeId(Long numClouthTypeId) {
+        this.numClouthTypeId = numClouthTypeId;
     }
 
     public Byte getPublishStatus() {
@@ -161,62 +119,6 @@ public class ProductInfo {
 
     public void setAuditStatus(Byte auditStatus) {
         this.auditStatus = auditStatus;
-    }
-
-    public Float getWeight() {
-        return weight;
-    }
-
-    public void setWeight(Float weight) {
-        this.weight = weight;
-    }
-
-    public Float getLength() {
-        return length;
-    }
-
-    public void setLength(Float length) {
-        this.length = length;
-    }
-
-    public Float getHeight() {
-        return height;
-    }
-
-    public void setHeight(Float height) {
-        this.height = height;
-    }
-
-    public Float getWidth() {
-        return width;
-    }
-
-    public void setWidth(Float width) {
-        this.width = width;
-    }
-
-    public String getColorType() {
-        return colorType;
-    }
-
-    public void setColorType(String colorType) {
-        this.colorType = colorType == null ? null : colorType.trim();
-    }
-
-    public Date getProductionDate() {
-        return productionDate;
-    }
-
-    public void setProductionDate(Date productionDate) {
-        this.productionDate = productionDate;
-    }
-
-    public Integer getShelfLife() {
-        return shelfLife;
-    }
-
-    public void setShelfLife(Integer shelfLife) {
-        this.shelfLife = shelfLife;
     }
 
     public String getDescript() {
@@ -321,5 +223,13 @@ public class ProductInfo {
 
     public void setNumIsDel(Byte numIsDel) {
         this.numIsDel = numIsDel;
+    }
+
+    public Integer getNumProductPrice() {
+        return numProductPrice;
+    }
+
+    public void setNumProductPrice(Integer numProductPrice) {
+        this.numProductPrice = numProductPrice;
     }
 }

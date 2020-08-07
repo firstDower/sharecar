@@ -36,7 +36,7 @@ public class PageJumpController {
 	@RequestMapping(value="/jump/{layer}/{page}")
 	public String greeting(@PathVariable("layer") String layer, @PathVariable("page") String page,Model model) {
 
-		System.out.println("===============================");
+		//System.out.println("===============================");
 		log.info("----跳转页面::layer="+layer+"   ::page="+page);
 		String rePage = page;
 		if(!"-".equals(layer)){

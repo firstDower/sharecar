@@ -38,7 +38,6 @@ public class CouponService {
      * @return
      */
     public RetResult platformCouponList(JSONObject jsonparams){
-        log.info("分页查询优惠券列表param：{}",jsonparams);
         Integer pageNum = 1;
         Integer pageSize = 10;
         if(jsonparams.containsKey("pageNum"))
@@ -50,7 +49,6 @@ public class CouponService {
         NntPlatformCouponExample.Criteria criteria = exampleNntPlatformCouponExample.createCriteria();
         List<NntPlatformCoupon> nntPlatformCoupons = nntPlatformCouponMapper.selectByExample(exampleNntPlatformCouponExample);
         PageInfo pageInfo = new PageInfo(nntPlatformCoupons);
-        log.info("分页查询优惠券列表成功：{}",pageInfo);
         return RetResponse.makeOKRsp(pageInfo);
     }
 
