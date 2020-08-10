@@ -221,8 +221,7 @@ var orderDetail = {
         var datUpdateTime = orderData.datUpdateTime;
         $("#datUpdateTime").html(datUpdateTime);
 
-        var vcPhone = orderData.vcPhone;
-        $("#vcPhone").html(vcPhone);
+
         var numState = orderData.numState;
         var numStateStr = "";
         if(numState==1){
@@ -241,18 +240,54 @@ var orderDetail = {
             numStateStr = "完成"
         }
         $("#numStateStr").html(numStateStr);
+
+
         var vcName = orderData.vcName;
+        var vc_custom_name = orderData.vc_custom_name;
+        if(vc_custom_name){
+            vcName = vc_custom_name
+        }
         $("#vcName").html(vcName);
-        var vcSchoolName = orderData.VC_SCHOOL_NAME;
-        $("#vcSchoolName").html(vcSchoolName);
-        var vcModelName = orderData.VC_MODEL_NAME;
-        $("#vcModelName").html(vcModelName);
-        var vcGradeName = orderData.VC_GRADE_NAME;
-        $("#vcGradeName").html(vcGradeName);
+        var vcPhone = orderData.vcPhone;
+        var vc_custom_phone = orderData.vc_custom_phone;
+        if(vc_custom_phone){
+            vcPhone = vc_custom_phone
+        }
+        $("#vcPhone").html(vcPhone);
         var vcHight = orderData.vcHight;
+        var vc_custom_hight = orderData.vc_custom_hight;
+        if(vc_custom_hight){
+            vcHight = vc_custom_hight;
+        }
         $("#vcHight").html(vcHight);
         var vcWight = orderData.vcWight;
+        var vc_custom_wight = orderData.vc_custom_wight;
+        if(vc_custom_wight){
+            vcWight = vc_custom_wight;
+        }
         $("#vcWight").html(vcWight);
+
+        var vcSchoolName = orderData.VC_SCHOOL_NAME;
+        var VC_SCHOOL_NAME2 = orderData.VC_SCHOOL_NAME2;
+        if(VC_SCHOOL_NAME2){
+            vcSchoolName = VC_SCHOOL_NAME2;
+        }
+        $("#vcSchoolName").html(vcSchoolName);
+        var vcModelName = orderData.VC_MODEL_NAME;
+        var VC_MODEL_NAME2 = orderData.VC_MODEL_NAME2;
+        if(VC_MODEL_NAME2){
+            vcModelName = VC_MODEL_NAME2;
+        }
+        $("#vcModelName").html(vcModelName);
+
+
+        var vcGradeName = orderData.VC_GRADE_NAME;
+        $("#vcGradeName").html(vcGradeName);
+
+
+
+
+
         var numPrice = orderData.numPrice;
         $("#numPrice").html(Number(numPrice)/100);
 

@@ -5,16 +5,20 @@ var index = {
     init:function () {
         util.checkToken();
         index.getUserInfo();
-        $("#customLi").click(function () {
-            location.href= ctxPath + 'jump/weichat/custom';
-        })
+        index.selectGoodsListWap();
+
         $("#modifyLi").click(function () {
             location.href= ctxPath + 'jump/weichat/modify';
         })
 
+        mui("body").on('tap', '.mui-table-view-cell', function (e) {
+            var goodsData = $(this).attr('goodsData');
+            sessionStorage["goodsData"] = goodsData;
+            location.href= ctxPath + 'jump/weichat/customNew';
+        });
         wxSignature();
         //shareDiv
-        mui("body").on('tap', '#shareDiv', function (e) {
+        mui("body").on('tap', '.shareDiv', function (e) {
             e.stopPropagation();
             console.log("============");
             $(".showPopove,.my-popove").show();
@@ -56,6 +60,40 @@ var index = {
             }
         }
 
+    },
+    selectGoodsListWap:function () {
+        var param = {}
+        param.timeStamp = util.createTimeStamp();
+        $.ajax({
+            type: 'POST',
+            url: ctxPath + "securityService/selectGoodsListWap",
+            timeout:8000,
+            data : param,
+            headers: util.initHeaders(param),
+            dataType: 'json',
+            success: function(data){
+                if(data.code==200){
+                    var htmlStr = ""
+                    $.each(data.data,function (index,item) {
+                        htmlStr += '<li id="modifyLi"   goodsData=\''+JSON.stringify(item)+'\' class="mui-table-view-cell mui-media">'+
+                            '<a href="javascript:;"class="linkmedia" >'+
+                            '<img class="mui-media-object mui-pull-left" src="'+ctxPath+'/imgServer/'+item.pic_url+'">'+
+                            '<div class="mui-media-body">'+
+                            '<div class="mui-ellipsis-1 title">服装修改 </div>'+
+                            '<div class="mui-ellipsis-2 describe">描述语言关于衣服定制的描述语</div>'+
+                            '</div>'+
+                            '<div class="meta-info shareDiv">'+
+                            '<img src="'+ctxPath+'/weichat/app/img/share.png" alt="" class="share">'+
+                            '</div>'+
+                            '</a>'+
+                            '</li>'
+                    })
+                    $("#dynamicData").html(htmlStr);
+                }
+            },
+            error: function(xhr, type){
+            }
+        });
     },
     getUserInfo:function () {
 

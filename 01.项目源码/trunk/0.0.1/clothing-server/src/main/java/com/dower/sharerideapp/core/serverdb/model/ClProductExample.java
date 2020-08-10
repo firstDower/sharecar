@@ -1774,6 +1774,126 @@ public class ClProductExample {
             addCriterion("NUM_PAY_TYPE not between", value1, value2, "numPayType");
             return (Criteria) this;
         }
+
+        public Criteria andNumProductIdIsNull() {
+            addCriterion("NUM_PRODUCT_ID is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumProductIdIsNotNull() {
+            addCriterion("NUM_PRODUCT_ID is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumProductIdEqualTo(Long value) {
+            addCriterion("NUM_PRODUCT_ID =", value, "numProductId");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumProductIdNotEqualTo(Long value) {
+            addCriterion("NUM_PRODUCT_ID <>", value, "numProductId");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumProductIdGreaterThan(Long value) {
+            addCriterion("NUM_PRODUCT_ID >", value, "numProductId");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumProductIdGreaterThanOrEqualTo(Long value) {
+            addCriterion("NUM_PRODUCT_ID >=", value, "numProductId");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumProductIdLessThan(Long value) {
+            addCriterion("NUM_PRODUCT_ID <", value, "numProductId");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumProductIdLessThanOrEqualTo(Long value) {
+            addCriterion("NUM_PRODUCT_ID <=", value, "numProductId");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumProductIdIn(List<Long> values) {
+            addCriterion("NUM_PRODUCT_ID in", values, "numProductId");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumProductIdNotIn(List<Long> values) {
+            addCriterion("NUM_PRODUCT_ID not in", values, "numProductId");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumProductIdBetween(Long value1, Long value2) {
+            addCriterion("NUM_PRODUCT_ID between", value1, value2, "numProductId");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumProductIdNotBetween(Long value1, Long value2) {
+            addCriterion("NUM_PRODUCT_ID not between", value1, value2, "numProductId");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumCustomUserIdIsNull() {
+            addCriterion("NUM_CUSTOM_USER_ID is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumCustomUserIdIsNotNull() {
+            addCriterion("NUM_CUSTOM_USER_ID is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumCustomUserIdEqualTo(Long value) {
+            addCriterion("NUM_CUSTOM_USER_ID =", value, "numCustomUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumCustomUserIdNotEqualTo(Long value) {
+            addCriterion("NUM_CUSTOM_USER_ID <>", value, "numCustomUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumCustomUserIdGreaterThan(Long value) {
+            addCriterion("NUM_CUSTOM_USER_ID >", value, "numCustomUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumCustomUserIdGreaterThanOrEqualTo(Long value) {
+            addCriterion("NUM_CUSTOM_USER_ID >=", value, "numCustomUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumCustomUserIdLessThan(Long value) {
+            addCriterion("NUM_CUSTOM_USER_ID <", value, "numCustomUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumCustomUserIdLessThanOrEqualTo(Long value) {
+            addCriterion("NUM_CUSTOM_USER_ID <=", value, "numCustomUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumCustomUserIdIn(List<Long> values) {
+            addCriterion("NUM_CUSTOM_USER_ID in", values, "numCustomUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumCustomUserIdNotIn(List<Long> values) {
+            addCriterion("NUM_CUSTOM_USER_ID not in", values, "numCustomUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumCustomUserIdBetween(Long value1, Long value2) {
+            addCriterion("NUM_CUSTOM_USER_ID between", value1, value2, "numCustomUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumCustomUserIdNotBetween(Long value1, Long value2) {
+            addCriterion("NUM_CUSTOM_USER_ID not between", value1, value2, "numCustomUserId");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

@@ -28,6 +28,8 @@
     <result column="NUM_PAY_STATE" jdbcType="TINYINT" property="numPayState" />
     <result column="VC_EXPIRE_TIME" jdbcType="VARCHAR" property="vcExpireTime" />
     <result column="NUM_PAY_TYPE" jdbcType="TINYINT" property="numPayType" />
+    <result column="NUM_PRODUCT_ID" jdbcType="BIGINT" property="numProductId" />
+    <result column="NUM_CUSTOM_USER_ID" jdbcType="BIGINT" property="numCustomUserId" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -91,7 +93,7 @@
     NUM_ID, VC_HIGHT, VC_WIGHT, VC_NAME, VC_PHONE, NUM_TYPE, NUM_NUM, NUM_STATE, DAT_CREAT_TIME, 
     DAT_UPDATE_TIME, NUM_PRICE, VC_USER_ID, VC_OPEN_ID, DAT_CONFIRM_TIME, VC_NOTES, NUM_SCHOOL_ID, 
     NUM_GRADE_ID, NUM_MODEL_ID, VC_ORDER_NO, VC_UNION_ID, VC_SIGN_DESC, NUM_PAR_TYPE, 
-    NUM_IS_DEL, NUM_PAY_STATE, VC_EXPIRE_TIME, NUM_PAY_TYPE
+    NUM_IS_DEL, NUM_PAY_STATE, VC_EXPIRE_TIME, NUM_PAY_TYPE, NUM_PRODUCT_ID, NUM_CUSTOM_USER_ID
   </sql>
   <select id="selectByExample" parameterType="com.dower.sharerideapp.core.serverdb.model.ClProductExample" resultMap="BaseResultMap">
     select
@@ -135,7 +137,8 @@
       NUM_GRADE_ID, NUM_MODEL_ID, VC_ORDER_NO, 
       VC_UNION_ID, VC_SIGN_DESC, NUM_PAR_TYPE, 
       NUM_IS_DEL, NUM_PAY_STATE, VC_EXPIRE_TIME, 
-      NUM_PAY_TYPE)
+      NUM_PAY_TYPE, NUM_PRODUCT_ID, NUM_CUSTOM_USER_ID
+      )
     values (#{vcHight,jdbcType=VARCHAR}, #{vcWight,jdbcType=VARCHAR}, #{vcName,jdbcType=VARCHAR}, 
       #{vcPhone,jdbcType=VARCHAR}, #{numType,jdbcType=TINYINT}, #{numNum,jdbcType=TINYINT}, 
       #{numState,jdbcType=TINYINT}, #{datCreatTime,jdbcType=TIMESTAMP}, #{datUpdateTime,jdbcType=TIMESTAMP}, 
@@ -144,7 +147,8 @@
       #{numGradeId,jdbcType=BIGINT}, #{numModelId,jdbcType=BIGINT}, #{vcOrderNo,jdbcType=VARCHAR}, 
       #{vcUnionId,jdbcType=VARCHAR}, #{vcSignDesc,jdbcType=VARCHAR}, #{numParType,jdbcType=TINYINT}, 
       #{numIsDel,jdbcType=TINYINT}, #{numPayState,jdbcType=TINYINT}, #{vcExpireTime,jdbcType=VARCHAR}, 
-      #{numPayType,jdbcType=TINYINT})
+      #{numPayType,jdbcType=TINYINT}, #{numProductId,jdbcType=BIGINT}, #{numCustomUserId,jdbcType=BIGINT}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.dower.sharerideapp.core.serverdb.model.ClProduct">
     <selectKey keyProperty="numId" order="AFTER" resultType="java.lang.Long">
@@ -227,6 +231,12 @@
       <if test="numPayType != null">
         NUM_PAY_TYPE,
       </if>
+      <if test="numProductId != null">
+        NUM_PRODUCT_ID,
+      </if>
+      <if test="numCustomUserId != null">
+        NUM_CUSTOM_USER_ID,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="vcHight != null">
@@ -303,6 +313,12 @@
       </if>
       <if test="numPayType != null">
         #{numPayType,jdbcType=TINYINT},
+      </if>
+      <if test="numProductId != null">
+        #{numProductId,jdbcType=BIGINT},
+      </if>
+      <if test="numCustomUserId != null">
+        #{numCustomUserId,jdbcType=BIGINT},
       </if>
     </trim>
   </insert>
@@ -393,6 +409,12 @@
       <if test="record.numPayType != null">
         NUM_PAY_TYPE = #{record.numPayType,jdbcType=TINYINT},
       </if>
+      <if test="record.numProductId != null">
+        NUM_PRODUCT_ID = #{record.numProductId,jdbcType=BIGINT},
+      </if>
+      <if test="record.numCustomUserId != null">
+        NUM_CUSTOM_USER_ID = #{record.numCustomUserId,jdbcType=BIGINT},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -425,7 +447,9 @@
       NUM_IS_DEL = #{record.numIsDel,jdbcType=TINYINT},
       NUM_PAY_STATE = #{record.numPayState,jdbcType=TINYINT},
       VC_EXPIRE_TIME = #{record.vcExpireTime,jdbcType=VARCHAR},
-      NUM_PAY_TYPE = #{record.numPayType,jdbcType=TINYINT}
+      NUM_PAY_TYPE = #{record.numPayType,jdbcType=TINYINT},
+      NUM_PRODUCT_ID = #{record.numProductId,jdbcType=BIGINT},
+      NUM_CUSTOM_USER_ID = #{record.numCustomUserId,jdbcType=BIGINT}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -508,6 +532,12 @@
       <if test="numPayType != null">
         NUM_PAY_TYPE = #{numPayType,jdbcType=TINYINT},
       </if>
+      <if test="numProductId != null">
+        NUM_PRODUCT_ID = #{numProductId,jdbcType=BIGINT},
+      </if>
+      <if test="numCustomUserId != null">
+        NUM_CUSTOM_USER_ID = #{numCustomUserId,jdbcType=BIGINT},
+      </if>
     </set>
     where NUM_ID = #{numId,jdbcType=BIGINT}
   </update>
@@ -537,7 +567,9 @@
       NUM_IS_DEL = #{numIsDel,jdbcType=TINYINT},
       NUM_PAY_STATE = #{numPayState,jdbcType=TINYINT},
       VC_EXPIRE_TIME = #{vcExpireTime,jdbcType=VARCHAR},
-      NUM_PAY_TYPE = #{numPayType,jdbcType=TINYINT}
+      NUM_PAY_TYPE = #{numPayType,jdbcType=TINYINT},
+      NUM_PRODUCT_ID = #{numProductId,jdbcType=BIGINT},
+      NUM_CUSTOM_USER_ID = #{numCustomUserId,jdbcType=BIGINT}
     where NUM_ID = #{numId,jdbcType=BIGINT}
   </update>
 </mapper>

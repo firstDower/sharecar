@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.dower.sharerideapp.service.CommNewService;
 import com.dower.sharerideapp.service.CommService;
 import com.dower.sharerideapp.service.annotation.PublicUrl;
+import com.dower.sharerideapp.service.clothing.GoogsWapService;
 import com.dower.sharerideapp.service.share.ShareService;
 import com.dower.sharerideapp.utils.CommUtil;
 import com.dower.sharerideapp.utils.Result;
@@ -29,6 +30,8 @@ public class ReposiBizController {
     CommNewService commNewService;
     @Autowired
     ShareService shareService;
+    @Autowired
+    GoogsWapService googsWapService;
 
     public RetResult testToken (HttpServletRequest request, HttpServletResponse response)  throws Exception{
         JSONObject param = CommUtil.getParamData(request);
@@ -82,6 +85,14 @@ public class ReposiBizController {
         return shareService.selectUserShareOrderList(param);
     }
 
-
+    /**
+     * wap查询商品信息列表
+     * @return
+     */
+    @RequestMapping("/selectGoodsListWap")
+    public RetResult selectGoodsListWap(HttpServletRequest request){
+        JSONObject param = CommUtil.getParamData(request);
+        return googsWapService.selectGoodsListWap(param);
+    }
 
 }

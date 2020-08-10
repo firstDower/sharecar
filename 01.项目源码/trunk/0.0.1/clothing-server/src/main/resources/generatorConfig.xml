@@ -104,8 +104,11 @@
         <table schema="nnt_db" tableName="cl_fn_model">
             <generatedKey column="NUM_ID" sqlStatement="MySql" identity="true"/>
         </table>-->
-        <table schema="nnt_db_test" tableName="product_info">
-            <generatedKey column="product_id" sqlStatement="MySql" identity="true"/>
+        <table schema="nnt_db_test" tableName="cl_product">
+            <generatedKey column="NUM_ID" sqlStatement="MySql" identity="true"/>
+        </table>
+        <table schema="nnt_db_test" tableName="nnt_custom_clouth_users">
+            <generatedKey column="num_custom_clouth_user_id" sqlStatement="MySql" identity="true"/>
         </table>
 
         <!--<table schema="nnt_db_test" tableName="nna_users">

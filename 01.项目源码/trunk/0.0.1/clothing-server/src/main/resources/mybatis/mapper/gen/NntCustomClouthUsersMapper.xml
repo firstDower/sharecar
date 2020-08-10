@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dower.sharerideapp.core.serverdb.dao.NntCustomClouthUsersMapper">
+  <resultMap id="BaseResultMap" type="com.dower.sharerideapp.core.serverdb.model.NntCustomClouthUsers">
+    <id column="num_custom_clouth_user_id" jdbcType="BIGINT" property="numCustomClouthUserId" />
+    <result column="vc_user_no" jdbcType="VARCHAR" property="vcUserNo" />
+    <result column="vc_custom_name" jdbcType="VARCHAR" property="vcCustomName" />
+    <result column="vc_custom_phone" jdbcType="VARCHAR" property="vcCustomPhone" />
+    <result column="vc_custom_hight" jdbcType="VARCHAR" property="vcCustomHight" />
+    <result column="vc_custom_wight" jdbcType="VARCHAR" property="vcCustomWight" />
+    <result column="num_is_state" jdbcType="TINYINT" property="numIsState" />
+    <result column="num_is_del" jdbcType="TINYINT" property="numIsDel" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    num_custom_clouth_user_id, vc_user_no, vc_custom_name, vc_custom_phone, vc_custom_hight, 
+    vc_custom_wight, num_is_state, num_is_del
+  </sql>
+  <select id="selectByExample" parameterType="com.dower.sharerideapp.core.serverdb.model.NntCustomClouthUsersExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from nnt_custom_clouth_users
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from nnt_custom_clouth_users
+    where num_custom_clouth_user_id = #{numCustomClouthUserId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from nnt_custom_clouth_users
+    where num_custom_clouth_user_id = #{numCustomClouthUserId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.dower.sharerideapp.core.serverdb.model.NntCustomClouthUsersExample">
+    delete from nnt_custom_clouth_users
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.dower.sharerideapp.core.serverdb.model.NntCustomClouthUsers">
+    <selectKey keyProperty="numCustomClouthUserId" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into nnt_custom_clouth_users (vc_user_no, vc_custom_name, vc_custom_phone, 
+      vc_custom_hight, vc_custom_wight, num_is_state, 
+      num_is_del)
+    values (#{vcUserNo,jdbcType=VARCHAR}, #{vcCustomName,jdbcType=VARCHAR}, #{vcCustomPhone,jdbcType=VARCHAR}, 
+      #{vcCustomHight,jdbcType=VARCHAR}, #{vcCustomWight,jdbcType=VARCHAR}, #{numIsState,jdbcType=TINYINT}, 
+      #{numIsDel,jdbcType=TINYINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dower.sharerideapp.core.serverdb.model.NntCustomClouthUsers">
+    <selectKey keyProperty="numCustomClouthUserId" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into nnt_custom_clouth_users
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="vcUserNo != null">
+        vc_user_no,
+      </if>
+      <if test="vcCustomName != null">
+        vc_custom_name,
+      </if>
+      <if test="vcCustomPhone != null">
+        vc_custom_phone,
+      </if>
+      <if test="vcCustomHight != null">
+        vc_custom_hight,
+      </if>
+      <if test="vcCustomWight != null">
+        vc_custom_wight,
+      </if>
+      <if test="numIsState != null">
+        num_is_state,
+      </if>
+      <if test="numIsDel != null">
+        num_is_del,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="vcUserNo != null">
+        #{vcUserNo,jdbcType=VARCHAR},
+      </if>
+      <if test="vcCustomName != null">
+        #{vcCustomName,jdbcType=VARCHAR},
+      </if>
+      <if test="vcCustomPhone != null">
+        #{vcCustomPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="vcCustomHight != null">
+        #{vcCustomHight,jdbcType=VARCHAR},
+      </if>
+      <if test="vcCustomWight != null">
+        #{vcCustomWight,jdbcType=VARCHAR},
+      </if>
+      <if test="numIsState != null">
+        #{numIsState,jdbcType=TINYINT},
+      </if>
+      <if test="numIsDel != null">
+        #{numIsDel,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.dower.sharerideapp.core.serverdb.model.NntCustomClouthUsersExample" resultType="java.lang.Long">
+    select count(*) from nnt_custom_clouth_users
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update nnt_custom_clouth_users
+    <set>
+      <if test="record.numCustomClouthUserId != null">
+        num_custom_clouth_user_id = #{record.numCustomClouthUserId,jdbcType=BIGINT},
+      </if>
+      <if test="record.vcUserNo != null">
+        vc_user_no = #{record.vcUserNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.vcCustomName != null">
+        vc_custom_name = #{record.vcCustomName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.vcCustomPhone != null">
+        vc_custom_phone = #{record.vcCustomPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.vcCustomHight != null">
+        vc_custom_hight = #{record.vcCustomHight,jdbcType=VARCHAR},
+      </if>
+      <if test="record.vcCustomWight != null">
+        vc_custom_wight = #{record.vcCustomWight,jdbcType=VARCHAR},
+      </if>
+      <if test="record.numIsState != null">
+        num_is_state = #{record.numIsState,jdbcType=TINYINT},
+      </if>
+      <if test="record.numIsDel != null">
+        num_is_del = #{record.numIsDel,jdbcType=TINYINT},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update nnt_custom_clouth_users
+    set num_custom_clouth_user_id = #{record.numCustomClouthUserId,jdbcType=BIGINT},
+      vc_user_no = #{record.vcUserNo,jdbcType=VARCHAR},
+      vc_custom_name = #{record.vcCustomName,jdbcType=VARCHAR},
+      vc_custom_phone = #{record.vcCustomPhone,jdbcType=VARCHAR},
+      vc_custom_hight = #{record.vcCustomHight,jdbcType=VARCHAR},
+      vc_custom_wight = #{record.vcCustomWight,jdbcType=VARCHAR},
+      num_is_state = #{record.numIsState,jdbcType=TINYINT},
+      num_is_del = #{record.numIsDel,jdbcType=TINYINT}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dower.sharerideapp.core.serverdb.model.NntCustomClouthUsers">
+    update nnt_custom_clouth_users
+    <set>
+      <if test="vcUserNo != null">
+        vc_user_no = #{vcUserNo,jdbcType=VARCHAR},
+      </if>
+      <if test="vcCustomName != null">
+        vc_custom_name = #{vcCustomName,jdbcType=VARCHAR},
+      </if>
+      <if test="vcCustomPhone != null">
+        vc_custom_phone = #{vcCustomPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="vcCustomHight != null">
+        vc_custom_hight = #{vcCustomHight,jdbcType=VARCHAR},
+      </if>
+      <if test="vcCustomWight != null">
+        vc_custom_wight = #{vcCustomWight,jdbcType=VARCHAR},
+      </if>
+      <if test="numIsState != null">
+        num_is_state = #{numIsState,jdbcType=TINYINT},
+      </if>
+      <if test="numIsDel != null">
+        num_is_del = #{numIsDel,jdbcType=TINYINT},
+      </if>
+    </set>
+    where num_custom_clouth_user_id = #{numCustomClouthUserId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dower.sharerideapp.core.serverdb.model.NntCustomClouthUsers">
+    update nnt_custom_clouth_users
+    set vc_user_no = #{vcUserNo,jdbcType=VARCHAR},
+      vc_custom_name = #{vcCustomName,jdbcType=VARCHAR},
+      vc_custom_phone = #{vcCustomPhone,jdbcType=VARCHAR},
+      vc_custom_hight = #{vcCustomHight,jdbcType=VARCHAR},
+      vc_custom_wight = #{vcCustomWight,jdbcType=VARCHAR},
+      num_is_state = #{numIsState,jdbcType=TINYINT},
+      num_is_del = #{numIsDel,jdbcType=TINYINT}
+    where num_custom_clouth_user_id = #{numCustomClouthUserId,jdbcType=BIGINT}
+  </update>
+</mapper>

@@ -1,0 +1,84 @@
+<!doctype html>
+<html>
+<head th:replace="common/weichat/htmlHead :: common_header(~{::title})">
+	<title>定制</title>
+</head>
+<body>
+<div th:insert="common/weichat/htmlJS::common_js(~{::script})">
+	<script type="text/javascript" th:src="@{/weichat/app/js/customNew.js}"></script>
+</div>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">校服订制</h1>
+		</header>
+		<div class="mui-content">
+			<div class="mui-content-padded" style="margin: 5px;">
+				<form class="mui-input-group">
+					<div style="display: flex;border:1px solid #eee;">
+						<h6 class="customizeChoose">定制选择:</h6>
+						<div class="mui-input-row mui-radio mui-left orderRowRest">
+							<label>校服裤</label>
+							<input name="radio1" type="radio" checked>
+						</div>
+						<div class="mui-input-row mui-radio mui-left orderRowRest">
+							<label>半袖</label>
+							<input name="radio1" type="radio" >
+						</div>
+					</div>
+					<div class="mui-input-row myCustomizedList">
+					    <label for="NUM_SCHOOL_ID">选择学校：</label>
+					    <div name="NUM_SCHOOL_ID" id="NUM_SCHOOL_ID" class="mui-btn-block">
+						</div>
+					</div>
+					<div class="mui-input-row myCustomizedList">
+					    <label for="NUM_GRADE_ID">选择年级：</label>
+					    <select id="NUM_GRADE_ID" name="NUM_GRADE_ID" class="mui-btn-block">
+						</select>
+					</div>
+					<div class="mui-input-row myCustomizedList">
+					    <label for="NUM_MODEL_ID">选择款式：</label>
+					    <select id="NUM_MODEL_ID" name="NUM_MODEL_ID" class="mui-btn-block">
+						</select>
+					</div>
+					<div class="mui-input-row myCustomizedList">
+					    <label for="VC_HIGHT">身高*：</label>
+					     <input type="text" id="VC_HIGHT" name="VC_HIGHT" placeholder="请输入身高">
+						   <b class="unitFont">cm</b>
+					</div>
+					<div class="mui-input-row myCustomizedList">
+						<label for="VC_WIGHT">体重*：</label>
+						<input type="text" id="VC_WIGHT" name="VC_WIGHT"  placeholder="请输入体重">
+						<b class="unitFont">kg</b>
+					</div>
+					<div class="mui-input-row myCustomizedList">
+					     <label for="NUM_NUM">数量：</label>
+					     <input type="text" id="NUM_NUM" name="NUM_NUM" value="1"  placeholder="请输入数量">
+							 <b class="unitFont">件</b>
+					</div>
+					<div class="mui-input-row myCustomizedList">
+					    <label for="VC_NAME">联系人：</label>
+					     <input type="text" id="VC_NAME" name="VC_NAME" placeholder="请输入联系人姓名">
+					</div>
+					<div class="mui-input-row myCustomizedList">
+					    <label for="VC_PHONE">联系电话*：</label>
+					     <input type="text" id="VC_PHONE" name="VC_PHONE" placeholder="请输入联系电话">
+					</div>
+					<div class="mui-input-row myCustomizedList">
+					    <label for="VC_NOTES">备注：</label>
+					     <input type="text" id="VC_NOTES" name="VC_NOTES" class="mui-input-clear" placeholder="请输入备注">
+					</div>
+					
+
+				</form>
+				<button id="subBut" type="button" class="mui-btn mui-btn-blue mui-btn-block SubmitBtn">立即定制</button>
+
+				<div class="aboutLyzy">©关于羚猩制衣</div>
+
+			</div>
+
+		<script type="text/javascript">
+			mui.init()
+		</script>
+	</body>
+
+</html>

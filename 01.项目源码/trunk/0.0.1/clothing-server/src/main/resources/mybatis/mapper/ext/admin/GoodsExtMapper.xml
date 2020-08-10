@@ -27,5 +27,24 @@
 			LEFT JOIN product_category pc ON pi.category_id = pc.category_id
 		WHERE pi.NUM_IS_DEL = 1
 	</select>
+	<select id="selectGoodsListWap" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT pi.product_name
+			,pc.category_name
+			,ct.VC_CTYPE_NAME
+			,cfs.VC_SCHOOL_NAME
+			,cfm.VC_MODEL_NAME
+			,pi.product_url
+			,pi.pic_url
+			,pi.num_product_price
+			,pi.introduction
+			,pi.descript
+			,pi.product_id
+		 from product_info pi
+			LEFT JOIN product_category pc ON pi.category_id = pc.category_id
+			LEFT JOIN clothing_type ct ON pi.num_clouth_type_id = ct.NUM_ID
+			LEFT JOIN cl_fn_school cfs ON pi.num_school_id = cfs.NUM_ID
+			LEFT JOIN cl_fn_model cfm ON pi.num_model_id = cfm.NUM_ID
+		WHERE pi.publish_status = 1
+	</select>
 
 </mapper>

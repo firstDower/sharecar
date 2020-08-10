@@ -104,6 +104,10 @@ public class ClothingNewService {
                 clProduct.setNumParType(jsonparams.getByte("NUM_PAR_TYPE"));
             if (jsonparams.containsKey("VC_SIGN_DESC"))
                 clProduct.setVcSignDesc(jsonparams.getString("VC_SIGN_DESC"));
+            //product_id
+            if (jsonparams.containsKey("product_id")&&StringUtils.isNotBlank(jsonparams.getString("product_id"))){
+                clProduct.setNumProductId(jsonparams.getLong("product_id"));
+            }
             clProduct.setDatCreatTime(new Date());
             SimpleDateFormat sdf = new SimpleDateFormat("MMddHH");
             String dateNowStr = sdf.format(new Date());

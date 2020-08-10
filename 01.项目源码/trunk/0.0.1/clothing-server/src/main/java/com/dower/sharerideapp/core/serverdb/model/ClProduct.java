@@ -55,6 +55,10 @@ public class ClProduct {
 
     private Byte numPayType;
 
+    private Long numProductId;
+
+    private Long numCustomUserId;
+
     public Long getNumId() {
         return numId;
     }
@@ -261,5 +265,21 @@ public class ClProduct {
 
     public void setNumPayType(Byte numPayType) {
         this.numPayType = numPayType;
+    }
+
+    public Long getNumProductId() {
+        return numProductId;
+    }
+
+    public void setNumProductId(Long numProductId) {
+        this.numProductId = numProductId;
+    }
+
+    public Long getNumCustomUserId() {
+        return numCustomUserId;
+    }
+
+    public void setNumCustomUserId(Long numCustomUserId) {
+        this.numCustomUserId = numCustomUserId;
     }
 }

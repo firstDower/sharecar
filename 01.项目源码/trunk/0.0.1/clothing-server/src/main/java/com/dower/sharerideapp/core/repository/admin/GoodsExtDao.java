@@ -14,4 +14,5 @@ import java.util.Map;
 
 public interface GoodsExtDao {
     List<Map> selectGoodsList(Map param);
+    List<Map> selectGoodsListWap(Map param);
 }

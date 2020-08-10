@@ -140,6 +140,15 @@
 			t7.VC_SCHOOL_NAME ,
 			t8.VC_GRADE_NAME,
 			t9.VC_MODEL_NAME
+			,pi.product_name
+			,pc.category_name
+			,ct.VC_CTYPE_NAME
+			,cfs.VC_SCHOOL_NAME VC_SCHOOL_NAME2
+			,cfm.VC_MODEL_NAME VC_MODEL_NAME2
+			,nccu.vc_custom_name
+			,nccu.vc_custom_phone
+			,nccu.vc_custom_hight
+			,nccu.vc_custom_wight
 from
 	(SELECT * from cl_product where vc_order_no = #{vcOrderNo}) t1
 	LEFT JOIN
@@ -158,6 +167,12 @@ from
 	cl_fn_grade t8 on t1.NUM_GRADE_ID = t8.NUM_ID
 	LEFT JOIN
 	cl_fn_model t9 on t1.NUM_MODEL_ID =t9.NUM_ID
+	LEFT JOIN product_info pi ON t1.NUM_PRODUCT_ID = pi.product_id
+	LEFT JOIN nnt_custom_clouth_users nccu ON t1.num_custom_user_id = nccu.num_custom_clouth_user_id
+	LEFT JOIN product_category pc ON pi.category_id = pc.category_id
+	LEFT JOIN clothing_type ct ON pi.num_clouth_type_id = ct.NUM_ID
+	LEFT JOIN cl_fn_school cfs ON pi.num_school_id = cfs.NUM_ID
+	LEFT JOIN cl_fn_model cfm ON pi.num_model_id = cfm.NUM_ID
 	</select>
 
 </mapper>
