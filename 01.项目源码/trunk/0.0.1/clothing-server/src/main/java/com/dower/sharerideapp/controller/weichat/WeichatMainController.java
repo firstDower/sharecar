@@ -71,8 +71,8 @@ public class WeichatMainController {
                 url = "redirect:/weichat/goMakeCloth";
             } else if ("2".equals(redictNo)) {
                 url = "redirect:/weichat/goMyInfo";
-            } else if ("003".equals(redictNo)) {
-                url = "redirect:goMyInfo";
+            } else if ("3".equals(redictNo)) {
+                url = "redirect:/weichat/goModify";
             }
             redirectAttributes.addAttribute("userId", userId);
             redirectAttributes.addAttribute("openId", openid);

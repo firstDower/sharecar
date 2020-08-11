@@ -14,7 +14,7 @@
 		<div class="mui-content">
 			<div class="mui-content-padded" style="margin: 5px;">
 				<form class="mui-input-group">
-					<div style="display: flex;border:1px solid #eee;">
+					<!--<div style="display: flex;border:1px solid #eee;">
 						<h6 class="customizeChoose">定制选择:</h6>
 						<div class="mui-input-row mui-radio mui-left orderRowRest">
 							<label>校服裤</label>
@@ -24,21 +24,26 @@
 							<label>半袖</label>
 							<input name="radio1" type="radio" >
 						</div>
+					</div>-->
+					<div class="mui-input-row myCustomizedList">
+						<label>名称：</label>
+						<span id="product_name">
+						</span>
 					</div>
 					<div class="mui-input-row myCustomizedList">
-					    <label for="NUM_SCHOOL_ID">选择学校：</label>
-					    <div name="NUM_SCHOOL_ID" id="NUM_SCHOOL_ID" class="mui-btn-block">
-						</div>
+					    <label>学校：</label>
+					    <span id="VC_SCHOOL_NAME">
+						</span>
 					</div>
 					<div class="mui-input-row myCustomizedList">
-					    <label for="NUM_GRADE_ID">选择年级：</label>
-					    <select id="NUM_GRADE_ID" name="NUM_GRADE_ID" class="mui-btn-block">
-						</select>
+						<label>类型：</label>
+						<span id="VC_CTYPE_NAME">
+						</span>
 					</div>
 					<div class="mui-input-row myCustomizedList">
-					    <label for="NUM_MODEL_ID">选择款式：</label>
-					    <select id="NUM_MODEL_ID" name="NUM_MODEL_ID" class="mui-btn-block">
-						</select>
+					    <label for="VC_MODEL_NAME">款式：</label>
+					    <span id="VC_MODEL_NAME">
+						</span>
 					</div>
 					<div class="mui-input-row myCustomizedList">
 					    <label for="VC_HIGHT">身高*：</label>

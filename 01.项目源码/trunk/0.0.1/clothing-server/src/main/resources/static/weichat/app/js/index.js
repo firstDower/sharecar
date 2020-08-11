@@ -75,18 +75,33 @@ var index = {
                 if(data.code==200){
                     var htmlStr = ""
                     $.each(data.data,function (index,item) {
-                        htmlStr += '<li id="modifyLi"   goodsData=\''+JSON.stringify(item)+'\' class="mui-table-view-cell mui-media">'+
+                        htmlStr += '<li id="modifyLi" goodsData=\''+JSON.stringify(item)+'\' class="mui-table-view-cell mui-media">'+
+                        '<a href="javascript:;"class="linkmedia" >'+
+                        '<img class="mui-media-object mui-pull-left" src="'+ctxPath+'/imgServer/'+item.pic_url+'">'+
+                        '<div class="mui-media-body">'+
+                        '<div class="">'+item.product_name+'</div>'+
+                        '<div class="font14">'+item.VC_MODEL_NAME+'</div>'+
+                        '<div class="font14">'+item.VC_SCHOOL_NAME+'</div>'+
+                        '</div>'+
+                        '<div class="meta-info shareDiv">'+
+                        '<img src="'+ctxPath+'/weichat/app/img/share.png" alt="" class="share">'+
+                        '</div>'+
+                        '</a>'+
+                        '</li>';
+
+
+                        /*htmlStr += '<li id="modifyLi"   goodsData=\''+JSON.stringify(item)+'\' class="mui-table-view-cell mui-media">'+
                             '<a href="javascript:;"class="linkmedia" >'+
                             '<img class="mui-media-object mui-pull-left" src="'+ctxPath+'/imgServer/'+item.pic_url+'">'+
                             '<div class="mui-media-body">'+
-                            '<div class="mui-ellipsis-1 title">服装修改 </div>'+
+                            '<div class="mui-ellipsis-1 title"></div>'+
                             '<div class="mui-ellipsis-2 describe">描述语言关于衣服定制的描述语</div>'+
                             '</div>'+
                             '<div class="meta-info shareDiv">'+
                             '<img src="'+ctxPath+'/weichat/app/img/share.png" alt="" class="share">'+
                             '</div>'+
                             '</a>'+
-                            '</li>'
+                            '</li>'*/
                     })
                     $("#dynamicData").html(htmlStr);
                 }

@@ -22,6 +22,11 @@ public class WebClothingWeichatController {
         return "weichat/personalCenter";
     }
 
+    @RequestMapping("/goModify")
+    public String goModify() {
+        return "weichat/modify";
+    }
+
       /**
      * 定制衣服页面
      */

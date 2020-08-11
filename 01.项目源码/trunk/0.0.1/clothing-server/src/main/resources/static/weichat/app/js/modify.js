@@ -3,14 +3,17 @@ $(function () {
 })
     var custom = {
         init:function () {
+            util.checkToken();
+            custom.getUserInfo();
             $("#subBut").click(this.addOrder);
         },
         addOrder:function () {
             var param = {}
+            param.product_id = 1;
             var userInfo = JSON.parse(sessionStorage["userInfo"]);
             param.VC_USER_ID = userInfo.NUM_USER_ID;
             //1：定制；2 ：修改
-            param.NUM_PAR_TYPE = 2;
+            //param.NUM_PAR_TYPE = 2;
             //param.NUM_TYPE = "3";
             param.NUM_PRICE = 0;
 
@@ -61,6 +64,46 @@ $(function () {
 
                     }else {
 
+                    }
+                },
+                error: function(xhr, type){
+                }
+            });
+        },
+        getUserInfo:function () {
+
+            var userId = getQueryString("userId");
+            var openId = getQueryString("openId");
+            var shareUserId = getQueryString("shareUserId");
+            if(shareUserId){
+                sessionStorage['shareUserId'] = shareUserId;
+            }else {
+                sessionStorage.removeItem('shareUserId');
+            }
+            sessionStorage['openId'] = openId;
+            var param = {
+                'userId':userId
+            }
+            param.timeStamp = util.createTimeStamp();
+            $.ajax({
+                type: 'POST',
+                url: ctxPath + "securityService/getUserInfo",
+                timeout:8000,
+                data : param,
+                headers: util.initHeaders(param),
+                contentType: 'application/json',
+                dataType: 'json',
+                success: function(data){
+                    console.log("==========="+JSON.stringify(data));
+                    if(data.code==200){
+                        var userInfo = data.data;
+                        var VC_HEAD_IMG_URL = userInfo.VC_HEAD_IMG_URL;
+                        $("#VC_HEAD_IMG_URL").attr("src",VC_HEAD_IMG_URL);
+                        var VC_NICKNAME = userInfo.VC_NICKNAME;
+                        $("#VC_NICKNAME").html(VC_NICKNAME);
+                        sessionStorage["userInfo"] = JSON.stringify(userInfo);
+                    }else {
+                        mui.toast(data.msg);
                     }
                 },
                 error: function(xhr, type){

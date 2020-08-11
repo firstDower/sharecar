@@ -296,13 +296,18 @@ var orderDetail = {
         var vcNotes = orderData.vcNotes;
         $("#vcNotes").html(vcNotes);
         var numParType = orderData.numParType;
+        var category_name = orderData.category_name;
         var numParTypeStr = "";
+
         if(numParType==1){
             $(".notMOdifyLi").show();
             numParTypeStr = "定制"
         }else if(numParType==2){
             $(".notMOdifyLi").show();
             numParTypeStr = "修改"
+        }
+        if(category_name){
+            numParTypeStr = category_name
         }
         $("#numParTypeStr").html(numParTypeStr);
         var vcOrderNo = orderData.vcOrderNo;

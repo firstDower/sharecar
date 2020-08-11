@@ -21,7 +21,7 @@ $(function () {
             }
             param.VC_USER_ID = userInfo.NUM_USER_ID;
             //1：定制；2 ：修改
-            param.NUM_PAR_TYPE = 1;
+            /*param.NUM_PAR_TYPE = 1;
             var NUM_TYPE = $("input[name='NUM_TYPE']:checked").val();
             param.NUM_TYPE = NUM_TYPE;
             var NUM_SCHOOL_ID = $("#NUM_SCHOOL_ID").val();
@@ -29,7 +29,7 @@ $(function () {
             var NUM_GRADE_ID = $("#NUM_GRADE_ID").val();
             param.NUM_GRADE_ID = NUM_GRADE_ID;
             var NUM_MODEL_ID = $("#NUM_MODEL_ID").val();
-            param.NUM_MODEL_ID = NUM_MODEL_ID;
+            param.NUM_MODEL_ID = NUM_MODEL_ID;*/
 
             var VC_HIGHT = $("#VC_HIGHT").val().trim();
             if(!VC_HIGHT){
@@ -38,7 +38,7 @@ $(function () {
             }
             param.VC_HIGHT = VC_HIGHT;
             var VC_WIGHT = $("#VC_WIGHT").val().trim();
-            if(!VC_HIGHT){
+            if(!VC_WIGHT){
                 mui.toast("请输入体重！");
                 return false;
             }
@@ -102,69 +102,14 @@ $(function () {
             });
         },
         dataInit:function () {
-            var param = {}
-            param.timeStamp = util.createTimeStamp();
-            $.ajax({
-                type:"post",
-                url:ctxPath + "securityService/getGradeList",
-                data : param,
-                headers: util.initHeaders(param),
-                dataType:"json",
-                success:function(data){
-                    if(data.code==200){
-                        var cityStr = '';
-                        $.each(data.data,function(index,value){
-                            cityStr += '<option value="'+value.numId+'">'+value.vcGradeName+'</option>'
-                        });
-                        $('#NUM_GRADE_ID').append(cityStr);
-                    }
-                },
-                error:function(){
-                    closeMsg();
-                }
-            });
-
-
-            $.ajax({
-                type:"post",
-                url:ctxPath + "securityService/getSchoolList",
-                data : param,
-                headers: util.initHeaders(param),
-                dataType:"json",
-                success:function(data){
-                    if(data.code==200){
-                        var cityStr = '';
-                        $.each(data.data,function(index,value){
-                            cityStr += '<option value="'+value.numId+'">'+value.vcSchoolName+'</option>'
-                        });
-                        $('#NUM_SCHOOL_ID').append(cityStr);
-                    }
-                },
-                error:function(){
-                    closeMsg();
-                }
-            });
-
-
-            $.ajax({
-                type:"post",
-                url:ctxPath + "securityService/getModelList",
-                data : param,
-                headers: util.initHeaders(param),
-                dataType:"json",
-                success:function(data){
-                    if(data.code==200){
-                        var cityStr = '';
-                        $.each(data.data,function(index,value){
-                            cityStr += '<option value="'+value.numId+'">'+value.vcModelName+'</option>'
-                        });
-                        $('#NUM_MODEL_ID').append(cityStr);
-                    }
-
-                },
-                error:function(){
-                    closeMsg();
-                }
-            });
+            var goodsData = JSON.parse(sessionStorage["goodsData"]);
+            var product_name = goodsData.product_name;
+            $("#product_name").html(product_name);
+            var VC_SCHOOL_NAME = goodsData.VC_SCHOOL_NAME;
+            $("#VC_SCHOOL_NAME").html(VC_SCHOOL_NAME);
+            var VC_CTYPE_NAME = goodsData.VC_CTYPE_NAME;
+            $("#VC_CTYPE_NAME").html(VC_CTYPE_NAME);
+            var VC_MODEL_NAME = goodsData.VC_MODEL_NAME;
+            $("#VC_MODEL_NAME").html(VC_MODEL_NAME);
         }
     }

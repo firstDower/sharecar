@@ -33,12 +33,20 @@
         cfs.VC_SCHOOL_NAME vcSchoolName,
         cfm.VC_MODEL_NAME vcModelName,
         pf.NUM_TOTAL_FEE numTotalFee
+
+        ,pc.category_id
+        ,pc.category_name
+        ,ct.VC_CTYPE_NAME
         FROM
         cl_product cp
         LEFT JOIN cl_fn_grade cfg ON cp.NUM_GRADE_ID = cfg.NUM_ID
         LEFT JOIN cl_fn_school cfs ON cp.NUM_SCHOOL_ID = cfs.NUM_ID
         LEFT JOIN cl_fn_model cfm ON cp.NUM_MODEL_ID = cfm.NUM_ID
         LEFT JOIN payment_flow pf on cp.VC_ORDER_NO = pf.VC_ORDER_NO
+
+        LEFT JOIN product_info pi ON cp.NUM_PRODUCT_ID = pi.product_id
+        LEFT JOIN product_category pc ON pi.category_id = pc.category_id
+        LEFT JOIN clothing_type ct on pi.num_clouth_type_id = ct.NUM_ID
         WHERE
         (
         cp.NUM_IS_DEL = 1
@@ -142,6 +150,7 @@
 			t9.VC_MODEL_NAME
 			,pi.product_name
 			,pc.category_name
+			,pc.category_id
 			,ct.VC_CTYPE_NAME
 			,cfs.VC_SCHOOL_NAME VC_SCHOOL_NAME2
 			,cfm.VC_MODEL_NAME VC_MODEL_NAME2

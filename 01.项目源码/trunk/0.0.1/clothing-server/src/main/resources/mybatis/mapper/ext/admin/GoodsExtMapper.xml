@@ -45,6 +45,8 @@
 			LEFT JOIN cl_fn_school cfs ON pi.num_school_id = cfs.NUM_ID
 			LEFT JOIN cl_fn_model cfm ON pi.num_model_id = cfm.NUM_ID
 		WHERE pi.publish_status = 1
+			AND  pc.category_id = 1
+			ORDER BY pi.num_state DESC
 	</select>
 
 </mapper>

@@ -287,16 +287,6 @@ var orderDetail = {
         $("#numStateStr").html(numStateStr);
         var vcName = orderData.vcName;
         $("#vcName").html(vcName);
-        var vcSchoolName = orderData.VC_SCHOOL_NAME;
-        $("#vcSchoolName").html(vcSchoolName);
-        var vcModelName = orderData.VC_MODEL_NAME;
-        $("#vcModelName").html(vcModelName);
-        var vcGradeName = orderData.VC_GRADE_NAME;
-        $("#vcGradeName").html(vcGradeName);
-        var vcHight = orderData.vcHight;
-        $("#vcHight").html(vcHight);
-        var vcWight = orderData.vcWight;
-        $("#vcWight").html(vcWight);
         var numPrice = orderData.numPrice;
         $("#numPrice").html(Number(numPrice)/100);
 
@@ -306,12 +296,17 @@ var orderDetail = {
         $("#vcNotes").html(vcNotes);
         var numParType = orderData.numParType;
         var numParTypeStr = "";
+
         if(numParType==1){
             $(".notMOdifyLi").show();
             numParTypeStr = "定制"
         }else if(numParType==2){
             $(".notMOdifyLi").show();
             numParTypeStr = "修改"
+        }
+        var category_name = orderData.category_name;
+        if(category_name){
+            numParTypeStr = category_name
         }
         $("#numParTypeStr").html(numParTypeStr);
         var vcOrderNo = orderData.vcOrderNo;

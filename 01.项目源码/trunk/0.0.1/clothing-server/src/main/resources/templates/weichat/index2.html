@@ -100,27 +100,6 @@
         color:#fff;
 
     }
-    .mui-media-body{
-        position: relative;
-        padding-right:20px;
-    }
-    .share{
-        position: absolute;
-        right:0px;
-        top:12px;
-        width:40px;
-        height:40px;
-    }
-    .font14{
-        font-size: 14px;
-        line-height:1.5;
-        color:#6d6d72;
-    }
-    .mui-table-view .mui-media-object {
-        line-height: 90px;
-        max-width: 90px;
-        height: 60px;
-    }
 </style>
 <body>
 <div th:insert="common/weichat/htmlJS::common_js(~{::script})">
@@ -144,9 +123,10 @@
     </div>
 </div>
 <div class="mui-content" style="background-color:#fff">
-
-            <ul class="mui-table-view" id="dynamicData">
-                <!--<li id="customLi" class="mui-table-view-cell mui-media">
+    <div id="list" class="mui-scroll-wrapper">
+        <div class="mui-scroll">
+            <ul class="mui-table-view">
+                <li id="customLi" class="mui-table-view-cell mui-media">
                     <a href="javascript:;"class="linkmedia" >
                         <img class="mui-media-object mui-pull-left" th:src="@{/weichat/app/img/2.jpg}">
                         <div class="mui-media-body">
@@ -162,31 +142,20 @@
                     <a href="javascript:;"class="linkmedia" >
                         <img class="mui-media-object mui-pull-left" th:src="@{/weichat/app/img/4.jpg}">
                         <div class="mui-media-body">
-                            <div class="">校服定制</div>
-                            <div class="font14">冬款/春款</div>
-                            <div class="font14">襄垣第一小学</div>
+                            <div class="mui-ellipsis-1 title">服装修改 </div>
+                            <div class="mui-ellipsis-2 describe">描述语言关于衣服定制的描述语言回复可见啊对方空间吧是的描述语言关于衣服定制的描述语言回复可见啊对方空间吧是的开描述语言关于衣服定制的描述语言回复可见啊对方空间吧是的开描述语言关于衣服定制的描述语言回复可见啊对方空间吧是的开描述语言关于衣服定制的描述语言回复可见啊对方空间吧是的开开发吧是的开发吧  </div>
                         </div>
-                        <div class="meta-info shareDiv">
+                        <!--<div class="meta-info">
                             <img th:src="@{/weichat/app/img/share.png}" alt="" class="share">
-                        </div>
-                    </a>
-                </li>
-                <li id="modifyLi" class="mui-table-view-cell mui-media">
-                    <a href="javascript:;"class="linkmedia" >
-                        <img class="mui-media-object mui-pull-left" th:src="@{/weichat/app/img/4.jpg}">
-                        <div class="mui-media-body">
-                            <div class="">校服定制</div>
-                            <div class="font14">冬款/春款</div>
-                            <div class="font14">襄垣第一小学</div>
-                            <img th:src="@{/weichat/app/img/share.png}" alt="" class="share">
-                        </div>
+                        </div>-->
                     </a>
                 </li>
                 <div id="dynamicData">
 
-                </div>-->
+                </div>
             </ul>
-
+        </div>
+    </div>
     <!--列表信息流 结束-->
 
 </div>

@@ -114,14 +114,12 @@ public class ClothingNewService {
             String vc_phone = jsonparams.getString("VC_PHONE");
             String last3S = CommUtil.getLast3S(String.valueOf(l + 1));
 
-            Byte num_par_type = jsonparams.getByte("NUM_PAR_TYPE");
-            String typeHeadStr = "CU";
+            long num_par_type = jsonparams.getLong("product_id");
+            String typeHeadStr = "";
             if(num_par_type==1){
-                typeHeadStr = "CU";
-            }else if(num_par_type==2){
                 typeHeadStr = "MC";
-            }else {
-                typeHeadStr = "OR";
+            }else{
+                typeHeadStr = "CU";
             }
 
             String orderNo = typeHeadStr+dateNowStr+vc_phone.substring(7)+last3S;
