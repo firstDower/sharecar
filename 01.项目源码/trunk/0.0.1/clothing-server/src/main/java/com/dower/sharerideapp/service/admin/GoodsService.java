@@ -86,6 +86,9 @@ public class GoodsService {
         if (jsonparams.containsKey("pic_url")&& StringUtils.isNotBlank(jsonparams.getString("pic_url"))){
             productInfo.setPicUrl(jsonparams.getString("pic_url"));
         }
+        if (jsonparams.containsKey("num_state")&& StringUtils.isNotBlank(jsonparams.getString("num_state"))){
+            productInfo.setNumState(jsonparams.getByte("num_state"));
+        }
         productInfo.setIndate(new Date());
         productInfo.setNumIsDel(Byte.parseByte("1"));
         int i = productInfoMapper.insertSelective(productInfo);
@@ -133,6 +136,9 @@ public class GoodsService {
         //NUM_IS_DEL
         if (jsonparams.containsKey("NUM_IS_DEL")&& StringUtils.isNotBlank(jsonparams.getString("NUM_IS_DEL"))){
             productInfo.setNumIsDel(jsonparams.getByte("NUM_IS_DEL"));
+        }
+        if (jsonparams.containsKey("num_state")&& StringUtils.isNotBlank(jsonparams.getString("num_state"))){
+            productInfo.setNumState(jsonparams.getByte("num_state"));
         }
         int i = productInfoMapper.updateByPrimaryKeySelective(productInfo);
         return RetResponse.makeOKRsp();

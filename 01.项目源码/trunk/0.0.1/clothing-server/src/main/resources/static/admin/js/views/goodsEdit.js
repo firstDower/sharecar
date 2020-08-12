@@ -43,6 +43,7 @@ layui.use(['form', 'layer'],
             $("#srcimgurl").attr("src",ctxPath + "/imgServer/" +pageData.pic_url);
             $("#publish_status").val(pageData.publish_status);
             $("#introduction").val(pageData.introduction);
+            $("#num_state").val(pageData.num_state);
             var product_id = pageData.product_id;
 
 

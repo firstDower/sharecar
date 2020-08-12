@@ -19,6 +19,7 @@
 		,pi.descript
 		,pi.introduction
 		,pi.pic_url
+		,pi.num_state
 		 from
 		product_info pi
 			LEFT JOIN cl_fn_model cfm ON pi.num_model_id = cfm.NUM_ID

@@ -28,6 +28,7 @@ layui.use('table', function(){
                 ,{field: 'VC_CTYPE_NAME' ,  title: '服装类型' }
                 ,{field: 'VC_SCHOOL_NAME' , title: '学校名称'}
                 ,{field: 'VC_MODEL_NAME' ,  titwidth:'10%' , title: '款式名称'}
+                ,{field: 'num_state' ,  titwidth:'13%' , title: '页面优先级'}
                 /*,{field: 'product_url' ,  title: '商品请求地址'}*/
                 ,{field: 'num_product_price',  title: '商品价格',templet:function (d) {
                     var result = "";
