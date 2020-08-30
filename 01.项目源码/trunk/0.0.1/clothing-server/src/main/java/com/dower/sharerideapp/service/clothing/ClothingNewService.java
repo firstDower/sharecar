@@ -326,7 +326,9 @@ public class ClothingNewService {
             long numNum = Long.parseLong(String.valueOf(orderDetail.get("numNum")));
             long numPrice = Long.parseLong(String.valueOf(orderDetail.get("numPrice")));
             String numParType = String.valueOf(orderDetail.get("numParType"));
+            String category_id = String.valueOf(orderDetail.get("category_id"));
             paramMap.put("numParType",numParType);
+            paramMap.put("category_id",category_id);
             paramMap.put("numTotalFee",numPrice*numNum);
             List<Map> userCouponList = clothingExtDao.selectUserCouponList(paramMap);
 

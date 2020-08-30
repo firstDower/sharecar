@@ -41,15 +41,7 @@ public class WeichatCommService {
         String session_key = (String) oppidObj.get("session_key");
         oppidObj.put("openid", openid);
         oppidObj.put("session_key", session_key);
-       /* if (oppidObj.containsKey("unionid")) {
-            oppidObj.put("unionid", (String) oppidObj.get("unionid"));
-        }else{
-            String encryptedData=infodata.getString("encryptedData");
-            String iv=infodata.getString("iv");
-            JSONObject object = WeiXinUtils.getUserInfo(encryptedData,session_key,iv);
-            log.info("再次获取unionid=======>>>>{}",object);
-            oppidObj.put("unionid", object.getString("unionId"));
-        }*/
+
 
         String encryptedData=infodata.getString("encryptedData");
         String iv=infodata.getString("iv");

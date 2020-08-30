@@ -96,9 +96,27 @@ layui.use('table', function(){
                 {field: 'vcOrderNo',width:'10%' ,  title: '订单编号',  sort: true}
                 ,{field: 'vcName',width:'6%' ,  title: '姓名' }
                 ,{field: 'vcPhone',width:'10%' ,  title: '手机号' }
-                ,{field: 'vcSchoolName',width:'13%' ,  title: '学校' }
+                ,{field: 'vcSchoolName2',width:'13%' ,  title: '学校',templet:function (d) {
+                var result = "";
+                var vcSchoolName2 = d.vcSchoolName2;
+                if(vcSchoolName2=='undefined'||typeof(vcSchoolName2) == "undefined"){
+                    result = d.vcSchoolName;
+                }else {
+                    result = vcSchoolName2;
+                }
+                return result;
+            } }
                /* ,{field: 'vcGradeName',width:'5%' ,  title: '年级'}*/
-                ,{field: 'vcModelName',width:'5%' , title: '款式',  sort: true}
+                ,{field: 'vcModelName2',width:'5%' , title: '款式',  templet:function (d) {
+                var result = "";
+                var vcModelName2 = d.vcModelName2;
+                if(vcModelName2=='undefined'||typeof(vcModelName2) == "undefined"){
+                    result = d.vcModelName;
+                }else {
+                    result = vcModelName2;
+                }
+                return result;
+            } }
                /* ,{field: 'vcHight',width:'5%' ,  titwidth:'10%' , title: '身高'}
                 ,{field: 'vcWight',width:'5%' ,  title: '体重'}
                 ,{field: 'numNum',width:'5%' ,  title: '数量'}*/
@@ -172,17 +190,7 @@ layui.use('table', function(){
 
                         return result;
                 } }
-                ,{field: 'numParType',width:'6%' ,  title: '种类',
-                    templet:function(d){
-                        var result = "";
-                        var numParType = d.numParType;
-                        if(numParType==1){
-                            result = "定制"
-                        }else if(numParType==2){
-                            result = "修改"
-                        }
-                        return result;
-                    } }
+                ,{field: 'category_name',width:'6%' ,  title: '种类' }
                 ,{field: 'datCreatTime',width:'10%' ,  title: '创建时间', sort: true}
                 /*,{field: 'vcNotes',width:'8%' ,  title: '用户备注'}
                 ,{field: 'vcSignDesc',width:'8%' ,  title: '商家备注'}*/

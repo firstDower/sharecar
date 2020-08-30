@@ -37,6 +37,8 @@
         ,pc.category_id
         ,pc.category_name
         ,ct.VC_CTYPE_NAME
+        ,cfs2.VC_SCHOOL_NAME vcSchoolName2
+        ,cfm2.VC_MODEL_NAME vcModelName2
         FROM
         cl_product cp
         LEFT JOIN cl_fn_grade cfg ON cp.NUM_GRADE_ID = cfg.NUM_ID
@@ -47,6 +49,9 @@
         LEFT JOIN product_info pi ON cp.NUM_PRODUCT_ID = pi.product_id
         LEFT JOIN product_category pc ON pi.category_id = pc.category_id
         LEFT JOIN clothing_type ct on pi.num_clouth_type_id = ct.NUM_ID
+
+        LEFT JOIN cl_fn_school cfs2 ON pi.num_school_id = cfs2.NUM_ID
+        LEFT JOIN cl_fn_model cfm2 ON pi.num_model_id = cfm2.NUM_ID
         WHERE
         (
         cp.NUM_IS_DEL = 1
@@ -110,7 +115,7 @@
 		LEFT JOIN nnt_platform_coupon t2 on t1.NUM_PLATFORM_COUPON_ID = t2.NUM_ID
 		where
             t1.NUM_STATE = 1 and
-            t2.NUM_AVAILABLE_GOODS = #{numParType} and
+            t2.NUM_AVAILABLE_GOODS = #{category_id} and
             t2.NUM_LIMIT_PRICE <![CDATA[ <= ]]> #{numTotalFee} and
             t1.NUM_USER_ID =  #{vcUserId}
             ORDER BY t2.NUM_DISCOUNT_NUMBER desc
