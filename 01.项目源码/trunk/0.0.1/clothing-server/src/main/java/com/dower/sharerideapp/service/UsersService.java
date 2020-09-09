@@ -58,10 +58,10 @@ public class UsersService {
     public NntUsers selectUsersByUnionid(JSONObject openjson){
         NntUsers nntUser = null;
         try{
-            String nickName = openjson.getString("nickName");
+            /*String nickName = openjson.getString("nickName");
             Base64.Encoder encode= Base64.getEncoder();  //加密
             String nickNameNew = encode.encodeToString(nickName.getBytes("UTF-8"));
-            openjson.put("nickName",nickNameNew);
+            openjson.put("nickName",nickNameNew);*/
             String unionid = openjson.getString("unionid");
             NntUsersExample example = new NntUsersExample();
             NntUsersExample.Criteria criteria = example.createCriteria();

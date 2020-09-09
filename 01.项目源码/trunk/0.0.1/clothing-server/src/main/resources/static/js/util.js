@@ -129,9 +129,27 @@ var util = {
     },
     getNumber:function (data) {
         return Number(data).toFixed();
+    },
+    f_close:function () {
+        if(typeof(WeixinJSBridge)!="undefined"){
+            WeixinJSBridge.call('closeWindow');
+        }else{
+            if (navigator.userAgent.indexOf("MSIE") > 0) {
+                if (navigator.userAgent.indexOf("MSIE 6.0") > 0) {
+                    window.opener = null; window.close();
+                } else {
+                    window.open('', '_top'); window.top.close();
+                }
+            } else if (navigator.userAgent.indexOf("Firefox") > 0) {
+                window.location.href = 'about:blank ';
+            } else {
+                window.opener = null;
+                window.open('', '_self', '');
+                window.close();
+            }
+        }
     }
 }
-
 /**
  * 获取url参数
  * @param name

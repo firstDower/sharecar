@@ -321,11 +321,22 @@ public class PaymentService {
                     ClProductExample exampleClProductExample = new ClProductExample();
                     ClProductExample.Criteria criteriaClProductExample = exampleClProductExample.createCriteria();
                     criteriaClProductExample.andVcOrderNoEqualTo(params.getString("vcOrderNo"));
+                    //查询订单数据start   支付成功，如果是预约状态，改成确认制作。
+                    List<ClProduct> clProducts = clProductMapper.selectByExample(exampleClProductExample);
+                    ClProduct clProduct = clProducts.get(0);
+                    Byte numState = clProduct.getNumState();
+                    //查询订单数据end
+                    if(numState.intValue()==1){
+                        //criteriaClProductExample.andNumStateEqualTo(Byte.parseByte("2"));
+                        recordClProduct.setNumState(Byte.parseByte("2"));
+                    }
+
                     int i1 = clProductMapper.updateByExampleSelective(recordClProduct, exampleClProductExample);
                     //5.更新订单支付记录表
                     PaymentOrderRecord recordupdateByPrimaryKeySelective = new PaymentOrderRecord();
                     recordupdateByPrimaryKeySelective.setNumId(paymentOrderRecord.getNumId());
                     recordupdateByPrimaryKeySelective.setNumPayState(Byte.parseByte("2"));
+
                     paymentOrderRecordMapper.updateByPrimaryKeySelective(recordupdateByPrimaryKeySelective);
                     return RetResponse.makeOKRsp("支付结果入库成功！");
                 }else {

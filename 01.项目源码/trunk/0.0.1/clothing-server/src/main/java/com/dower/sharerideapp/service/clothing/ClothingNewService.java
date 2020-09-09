@@ -7,6 +7,7 @@ import com.dower.sharerideapp.core.repository.clothing.ClothingExtDao;
 import com.dower.sharerideapp.core.serverdb.dao.*;
 import com.dower.sharerideapp.core.serverdb.model.*;
 import com.dower.sharerideapp.service.exception.MyException;
+import com.dower.sharerideapp.service.weichat.WeiXinTemplateService;
 import com.dower.sharerideapp.utils.CommUtil;
 import com.dower.sharerideapp.utils.Result;
 import com.dower.sharerideapp.utils.ret.RetResponse;
@@ -46,7 +47,8 @@ public class ClothingNewService {
     private NntShareStatisticsMapper nntShareStatisticsMapper;
     @Autowired
     private NntUsersMapper nntUsersMapper;
-
+    @Autowired
+    private WeiXinTemplateService weiXinTemplateService;
     /**
      * {"NUM_HIGHT":"175","NUM_WIGHT":"65","VC_NAME":"张三","VC_PHONE":"15555551649","NUM_TYPE":"1"}
      * 创建定制衣服订单
@@ -153,6 +155,10 @@ public class ClothingNewService {
                 int i1 = nntUsersMapper.updateByPrimaryKey(nntUsers1);
             }
             log.info("创建定制衣服订单成功：{}",i);
+
+            //
+            String s = weiXinTemplateService.sendTemplateMsg01(clProduct.getVcUserId(),clProduct.getVcOpenId(), vcOrderNo);
+            log.info("创建定制衣服订单成功发送模板消息返回：{}",s);
             return RetResponse.makeOKRsp(vcOrderNo);
         }catch (Exception e){
             e.printStackTrace();

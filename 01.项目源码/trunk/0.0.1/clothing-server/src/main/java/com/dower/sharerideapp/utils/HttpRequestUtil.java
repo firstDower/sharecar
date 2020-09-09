@@ -1,16 +1,22 @@
 package com.dower.sharerideapp.utils;
 
 import com.alibaba.fastjson.JSONObject;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.NameValuePair;
+import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
@@ -25,12 +31,56 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+
 /**
  * http请求工具类
  * @author NiuXueJun
  * 2015-7-31 下午3:22:08
  */
+@Slf4j
 public class HttpRequestUtil {
+
+	/**
+	 * 以jsonString形式发送HttpPost的Json请求，String形式返回响应结果
+	 *
+	 * @param url
+	 * @param jsonString
+	 * @return
+	 */
+	public static String sendPostJsonStr(String url, String jsonString){
+
+		String resp = "";
+		StringEntity entityStr = new StringEntity(jsonString,
+				ContentType.create("text/plain", "UTF-8"));
+		CloseableHttpClient httpClient = HttpClients.createDefault();
+		HttpPost httpPost = new HttpPost(url);
+		httpPost.setEntity(entityStr);
+		CloseableHttpResponse response = null;
+		try {
+			response = httpClient.execute(httpPost);
+			HttpEntity entity = response.getEntity();
+			resp = EntityUtils.toString(entity, "UTF-8");
+			EntityUtils.consume(entity);
+		} catch (ClientProtocolException e) {
+			log.error(e.getMessage());
+		} catch (IOException e) {
+			log.error(e.getMessage());
+		} finally {
+			if (response != null) {
+				try {
+					response.close();
+				} catch (IOException e) {
+					log.error(e.getMessage());
+				}
+			}
+		}
+		if (resp == null || resp.equals("")) {
+			return "";
+		}
+		return resp;
+	}
+
+
 	public static String sendPostTest(String url, JSONObject json) {
 		String result = "";// 返回的结果
 		BufferedReader in = null;// 读取响应输入流

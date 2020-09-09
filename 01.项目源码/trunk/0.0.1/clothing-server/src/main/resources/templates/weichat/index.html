@@ -124,7 +124,7 @@
 </style>
 <body>
 <div th:insert="common/weichat/htmlJS::common_js(~{::script})">
-    <script type="text/javascript" th:src="@{/weichat/app/js/index.js}"></script>
+    <script type="text/javascript" th:src="@{/weichat/app/js/index.js?data=123}"></script>
     <script src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 </div>
 <div class="mui-content">

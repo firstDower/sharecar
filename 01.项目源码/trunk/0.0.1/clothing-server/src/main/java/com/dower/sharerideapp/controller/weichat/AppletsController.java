@@ -140,7 +140,7 @@ public class AppletsController {
                     message.setMsgId(MsgId);
                     message.setMsgType("text");
                     message.setCreateTime(new Date().getTime());
-                    //str=WeiXinUtils.objectToXml(message);
+                    str=WeiXinUtils.objectToXml(message);
                 }else if(Event.equalsIgnoreCase("unsubscribe")){
                     //用户取消关注，删除用户数据
                     log.info("//建立虚拟的上下级关系result:");

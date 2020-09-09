@@ -41,6 +41,8 @@ var index = {
             window.history.pushState(state, "title", "#");
         }
         function f_close(){
+            //http://weixin.qq.com/r/lUTz6_fEaLoXraOI9xGH
+            window.location.href = "https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzIwODQ1ODA1MQ==&scene=110#wechat_redirect";
             if(typeof(WeixinJSBridge)!="undefined"){
                 WeixinJSBridge.call('closeWindow');
             }else{
@@ -77,7 +79,7 @@ var index = {
                     $.each(data.data,function (index,item) {
                         htmlStr += '<li id="modifyLi" goodsData=\''+JSON.stringify(item)+'\' class="mui-table-view-cell mui-media">'+
                         '<a href="javascript:;"class="linkmedia" >'+
-                        '<img class="mui-media-object mui-pull-left" src="'+ctxPath+'/imgServer/'+item.pic_url+'">'+
+                        '<img class="mui-media-object mui-pull-left" src="'+ctxPath+item.pic_url+'">'+
                         '<div class="mui-media-body">'+
                         '<div class="">'+item.product_name+'</div>'+
                         '<div class="font14">'+item.VC_MODEL_NAME+'</div>'+

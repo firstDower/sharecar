@@ -5,6 +5,41 @@ $(function () {
         init:function () {
             custom.dataInit();
             $("#subBut").click(this.addOrder);
+            //返回公众号首页
+            pushHistory();
+            //监听触发物理返回按钮
+            window.addEventListener("popstate", function(e) {
+                f_close();//执行关闭浏览器窗口，返回公众号首页
+                return;
+            }, false);
+            function pushHistory() {
+                var state = {
+                    title: "title",
+                    url: "#"
+                };
+                window.history.pushState(state, "title", "#");
+            }
+            function f_close(){
+                //http://weixin.qq.com/r/lUTz6_fEaLoXraOI9xGH
+                window.location.href = "https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzIwODQ1ODA1MQ==&scene=110#wechat_redirect";
+                if(typeof(WeixinJSBridge)!="undefined"){
+                    WeixinJSBridge.call('closeWindow');
+                }else{
+                    if (navigator.userAgent.indexOf("MSIE") > 0) {
+                        if (navigator.userAgent.indexOf("MSIE 6.0") > 0) {
+                            window.opener = null; window.close();
+                        } else {
+                            window.open('', '_top'); window.top.close();
+                        }
+                    } else if (navigator.userAgent.indexOf("Firefox") > 0) {
+                        window.location.href = 'about:blank ';
+                    } else {
+                        window.opener = null;
+                        window.open('', '_self', '');
+                        window.close();
+                    }
+                }
+            }
         },
         addOrder:function () {
             var goodsData = sessionStorage["goodsData"];
@@ -20,6 +55,7 @@ $(function () {
                 param.shareUserId = "";
             }
             param.VC_USER_ID = userInfo.NUM_USER_ID;
+            param.VC_OPEN_ID = sessionStorage['openId'];
             //1：定制；2 ：修改
             /*param.NUM_PAR_TYPE = 1;
             var NUM_TYPE = $("input[name='NUM_TYPE']:checked").val();

@@ -12,6 +12,7 @@ $(function () {
             param.product_id = 1;
             var userInfo = JSON.parse(sessionStorage["userInfo"]);
             param.VC_USER_ID = userInfo.NUM_USER_ID;
+            param.VC_OPEN_ID = sessionStorage['openId'];
             //1：定制；2 ：修改
             //param.NUM_PAR_TYPE = 2;
             //param.NUM_TYPE = "3";

@@ -42,7 +42,6 @@ public class WeichatCommService {
         oppidObj.put("openid", openid);
         oppidObj.put("session_key", session_key);
 
-
         String encryptedData=infodata.getString("encryptedData");
         String iv=infodata.getString("iv");
         JSONObject object = WeiXinUtils.getUserInfo(encryptedData,session_key,iv);
