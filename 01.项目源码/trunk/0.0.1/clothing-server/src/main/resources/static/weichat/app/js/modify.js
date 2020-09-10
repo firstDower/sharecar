@@ -83,7 +83,8 @@ $(function () {
             }
             sessionStorage['openId'] = openId;
             var param = {
-                'userId':userId
+                'userId':userId,
+                'openId':openId
             }
             param.timeStamp = util.createTimeStamp();
             $.ajax({
@@ -103,6 +104,8 @@ $(function () {
                         var VC_NICKNAME = userInfo.VC_NICKNAME;
                         $("#VC_NICKNAME").html(VC_NICKNAME);
                         sessionStorage["userInfo"] = JSON.stringify(userInfo);
+                        var subscribeBool = userInfo.subscribeBool;
+                        util.showSubscribe(subscribeBool);
                     }else {
                         mui.toast(data.msg);
                     }

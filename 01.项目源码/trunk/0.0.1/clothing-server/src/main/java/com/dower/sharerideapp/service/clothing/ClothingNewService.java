@@ -7,7 +7,9 @@ import com.dower.sharerideapp.core.repository.clothing.ClothingExtDao;
 import com.dower.sharerideapp.core.serverdb.dao.*;
 import com.dower.sharerideapp.core.serverdb.model.*;
 import com.dower.sharerideapp.service.exception.MyException;
+import com.dower.sharerideapp.service.redis.RedisService;
 import com.dower.sharerideapp.service.weichat.WeiXinTemplateService;
+import com.dower.sharerideapp.service.weichat.WeichatCommService;
 import com.dower.sharerideapp.utils.CommUtil;
 import com.dower.sharerideapp.utils.Result;
 import com.dower.sharerideapp.utils.ret.RetResponse;
@@ -16,6 +18,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
 import net.bytebuddy.implementation.bytecode.Throw;
+import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -49,6 +52,10 @@ public class ClothingNewService {
     private NntUsersMapper nntUsersMapper;
     @Autowired
     private WeiXinTemplateService weiXinTemplateService;
+    @Autowired
+    private WeichatCommService weichatCommService;
+    @Autowired
+    private RedisService redisService;
     /**
      * {"NUM_HIGHT":"175","NUM_WIGHT":"65","VC_NAME":"张三","VC_PHONE":"15555551649","NUM_TYPE":"1"}
      * 创建定制衣服订单
@@ -275,9 +282,33 @@ public class ClothingNewService {
     public RetResult getUserInfo(JSONObject jsonparams) {
         try{
             log.info("根据userid获取用户信息param：{}",jsonparams);
+            String openId = jsonparams.getString("openId");
             Map<String,Object> param = new HashMap<>();
             param.put("userId",jsonparams.getString("userId"));
+            param.put("openId",openId);
             HashMap<String, Object> stringObjectHashMap = usersDao.queryUser(param);
+            /** 查询用户是否关注公众号和是否需要引导用户关注公众号 **/
+            String userinfo = weichatCommService.getUserinfoByOpenid(jsonparams.getString("openId"));
+            log.info("查询用户是否关注公众号和是否需要引导用户关注公众号::{}",userinfo);
+            JSONObject userinfoJson = JSONObject.parseObject(userinfo);
+            String subscribe = userinfoJson.getString("subscribe");
+            Integer subscribeBool = 0;
+            if(!subscribe.equals("1")){
+                Object subscribeBoolChache = redisService.get(openId);
+                if(subscribeBoolChache==null){
+                    boolean set = redisService.set(openId, 0, 60 * 60 * 18);
+                    log.info("未关注用户::{}，未关注信息放入redis缓存结果::{}",openId,set);
+                    subscribeBool = 1;
+                }else{
+                    Integer empV = Integer.parseInt(String.valueOf(subscribeBoolChache));
+                    if(++empV<3){
+                        boolean set = redisService.set(openId, empV, 60 * 60 * 18);
+                        log.info("未关注用户::{}，提示次数::{}未关注信息放入redis缓存结果::{}",openId,empV,set);
+                        subscribeBool = 1;
+                    }
+                }
+            }
+            stringObjectHashMap.put("subscribeBool",subscribeBool);
             return RetResponse.makeOKRsp(stringObjectHashMap);
         }catch (Exception e){
             e.printStackTrace();

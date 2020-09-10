@@ -1,4 +1,4 @@
-package com.dower.sharerideapp.service;
+package com.dower.sharerideapp.service.redis;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

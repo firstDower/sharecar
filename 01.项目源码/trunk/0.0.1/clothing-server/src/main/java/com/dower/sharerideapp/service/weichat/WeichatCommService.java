@@ -2,6 +2,7 @@ package com.dower.sharerideapp.service.weichat;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.dower.sharerideapp.service.redis.RedisService;
 import com.dower.sharerideapp.utils.HttpRequestUtil;
 import com.dower.sharerideapp.utils.weichat.WeiXinUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -23,6 +24,8 @@ public class WeichatCommService {
     private RedisTemplate redisTemplate;
     @Autowired
     private Environment env;
+    @Autowired
+    RedisService redisService;
 
     /**
      * 小程序获取sessionkey
@@ -151,6 +154,24 @@ public class WeichatCommService {
         log.info("获取公众号用于调用微信JS接口的临时票据，result::{}",result);
         JSONObject jsonObject = JSONObject.parseObject(result);
         return jsonObject.getString("ticket");
+    }
+
+    /**
+     * 获取用户基本信息(UnionID机制)
+     * @param openid
+     * @return
+     */
+    public String getUserinfoByOpenid(String openid){
+        String accessTokenByCache = getAccessTokenByCache();
+        String url = "https://api.weixin.qq.com/cgi-bin/user/info";
+        Map<String, String> params = new HashMap();
+        params.put("access_token",accessTokenByCache);
+        params.put("openid",openid);
+        params.put("lang", "zh_CN");
+        log.info("获取用户基本信息(UnionID机制)，params::{}",params);
+        String result = HttpRequestUtil.request(url, params,false);
+        log.info("获取用户基本信息(UnionID机制)，result::{}",result);
+        return result;
     }
 
     /**

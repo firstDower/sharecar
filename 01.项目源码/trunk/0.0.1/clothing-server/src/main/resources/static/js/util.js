@@ -1,5 +1,18 @@
 
 var util = {
+    showSubscribe: function (subscribeBool) {
+        if(subscribeBool==1){
+            location.href = "https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzIwODQ1ODA1MQ==&scene=124#wechat_redirect";
+            /*var btnArray = ['否', '是'];
+             mui.confirm('为了给您提供更好服务，请关注《羚猩制衣》公众号！', '你好！', btnArray, function(e) {
+             if (e.index == 1) {
+                location.href = "https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzIwODQ1ODA1MQ==&scene=124#wechat_redirect";
+             } else {
+
+             }
+             })*/
+        }
+    },
     getSign: function (jsonobj) {
         var signstr = this.obj2str(jsonobj)
         signstr = signstr + '&key=' + this.pro_pass;
