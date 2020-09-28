@@ -205,7 +205,7 @@ function checkPostCode(v){
 
 //验证手机号码
 function checkMobile(mobile){
-    var mobileReg =/^((\(\d{3}\))|(\d{3}\-))?(1(3\d|5\d|8\d|7[0678]))\d{8}?$/;
+    var mobileReg =/^1(3|4|5|6|7|8|9)\d{9}$/;
     if(mobileReg.test(mobile)) {
         return true;
     }else{
