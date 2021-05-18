@@ -107,7 +107,7 @@
 		<dependency>
 			<groupId>com.thoughtworks.xstream</groupId>
 			<artifactId>xstream</artifactId>
-			<version>1.4.11.1</version>
+			<version>1.4.17</version>
 		</dependency>
 		<!-- 注：微信小程序加密解密包 xfire-core, bcprov-jdk1-->
 		<dependency>
